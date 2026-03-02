@@ -7,8 +7,8 @@ Formulate data-driven hypotheses from effective data visualisations.\
 Build collaborative, professional connections within the VBD community.\
 
 ### Prerequisites
-Foundational knowledge of programming in R.
-Experience of formatting data and statistics in R.
+Foundational knowledge of programming in R.\
+Experience of formatting data and statistics in R.\
 Basic understanding of VBDs.
 
 ## Workshop 2: Data wrangling with hub search and ohvbd
@@ -18,7 +18,7 @@ Effectively wrangle real-world VDB datasets ready for further analysis.\
 Build collaborative, professional connections within the VBD community.
 
 ### Prerequisites
-Foundational knowledge of programming in R.
-Experience of formatting data and statistics in R.
+Foundational knowledge of programming in R.\
+Experience of formatting data and statistics in R.\
 Basic understanding of VBDs.
 
