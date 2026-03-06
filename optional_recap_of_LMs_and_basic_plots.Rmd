@@ -1,11 +1,8 @@
----
-title: "(optional) recap LMs and basic plots"
-output: html_document
-date: "2026-03-05"
----
+# (APPENDIX) Optional Recap of LMs and Basic Plots {-}
 
-## Recap of Linear Models & Basic Plots (optional)
+# Recap of Linear Models & Basic Plots (optional) {#recap}
 
+## Linear Models
 
 ### Linear Regression Models
 Linear regression models are a commonly used type of linear model, which are particularly useful when both the response and predictor variables are continuous. We use linear regression models to quantify the relationship between these two variables so that we can identify trends and make predictions from the data.
@@ -14,25 +11,35 @@ Linear regression models are a commonly used type of linear model, which are par
 Linear regression models fit a straight line relationship between the response variable and continuous explanatory variable, which can be shown as the equation:
 (insert equation for linear regression model)
 
+$$
+y = mx + c
+$$
+
 
 To code a linear regression model, we can use the following syntax:
-(write as code) specificModelName <- lm(responseVariable ~ explanatoryVariable, data = yourDataset)
 
+``` r
+specificModelName <- lm(responseVariable ~ explanatoryVariable, data = yourDataset)
+```
 
-**Tip:**
-When naming models or other objects in R, try to use specific names so you know what your object is explicitly. Using short names like model1, model2, etc. can get confusing.
+::: {.rmdtip}
+**Tip:** When naming models or other objects in R, try to use specific names so you know what your object is explicitly. Using short names like model1, model2, etc. can get confusing.
+:::
 
-
+::: {.rmdcaution} 
 **Frequent Mistake:**
-R cannot handle spaces in object names. There are a few options for alternative syntax, we would recommend using camelCase where letters are capitalised to indicate new words (e.g. specificModelName), or using an underscore to connect words (e.g. specific_model_name).
+R cannot handle spaces in object names. There are a few options for alternative syntax, we would recommend using camelCase where letters are capitalised to indicate new words (e.g. `specificModelName`), or using an underscore to connect words (e.g. `specific_model_name`).
+:::
 
-
-If using camelCase, remember that R is case sensitive - if your object is named specificModelName, but you call specificmodelname, R will show an error:
-Error: object ‘specificmodelname’ not found.
-
+If using camelCase, remember that R is case sensitive - if your object is named `specificModelName`, but you call `specificmodelname`, R will show an error:
+```
+#> Error: object ‘specificmodelname’ not found.
+```
 
 To view the output of a linear regression model, we can use the summary() function:
-(write as code) summary(specificModelName)
+``` r
+summary(specificModelName)
+```
 This will show a lot of information (which is useful to familiarise yourself with), but for this workshop, we are primarily interested in the Coefficients table.
 
 
@@ -42,9 +49,10 @@ The Slope () estimate is proportional to the correlation coefficient between the
 
 
 The Coefficient table also shows the details for a t-test, which tells us whether or not the slope and intercept are significantly different from zero.
-	Std. Error - how far observations sit from the regression line.
-	t value - the estimate divided by the standard error.
-  Pr(>|t|) - the p-value, used to inform the probability of observing this result if the true coefficient was zero.
+
+- `Std. Error` - how far observations sit from the regression line.
+- `t value` - the estimate divided by the standard error.
+- `Pr(>|t|)` - the p-value, used to inform the probability of observing this result if the true coefficient was zero.
 
 
 **Tip:**
@@ -57,34 +65,44 @@ What happens if your explanatory variable is categorical, rather than continuous
 
 Coding an ANOVA is essentially the same as a linear regression model - we still use the lm() function to fit the relationship between a response and explanatory variable. However, now that the explanatory variable is categorical, the slope represents the difference between group (category) means.
 
+``` r
+specificModelName <- lm(continuousResponse ~ categoricalExplanatory, data = yourDataset)
+```
 
-(write as code) specificModelName <- lm(continuousResponse ~ categoricalExplanatory, data = yourDataset)
-
-
-As before, we can use the summary() function to check the model output and view the Coefficients table (which will be laid out in the same way as a linear regression model output).
-(write as code) summary(specificModelName)
+As before, we can use the `summary()` function to check the model output and view the Coefficients table (which will be laid out in the same way as a linear regression model output).
+``` r
+summary(specificModelName)
+```
 Despite looking the same, there are some differences for an ANOVA output:
 The Intercept is the mean of the first category.
 The Slope is the difference between the mean of the first category and this (named) category.
 
 
-While the summary() function can be used to assess the differences between specific categories, the anova() function can tell us whether or not the categorical explanatory variable as a whole has a significant effect on the response variable.
-(write as code) anova(specificModelName)
-The output of the anova() function also provides a table, which lists the following statistics:
-Df - refers to the number of categories and observations.
-Sum Sq & Mean Sq - measures of variance between or within categories. 
-F-value - the ratio of explained variance to unexplained variance (a higher F-value indicates the categorical variable has a significant effect). 
-Pr(>F) - the p-value, used to inform the probability of observing this F-value if there was no true difference between the categories.
+While the `summary()` function can be used to assess the differences between specific categories, the `anova()` function can tell us whether or not the categorical explanatory variable as a whole has a significant effect on the response variable.
+``` r
+anova(specificModelName)
+```
+
+The output of the `anova()` function also provides a table, which lists the following statistics:
+
+- `Df` - refers to the number of categories and observations.
+- `Sum Sq` & `Mean Sq` - measures of variance between or within categories. 
+- `F-value` - the ratio of explained variance to unexplained variance (a higher F-value indicates the categorical variable has a significant effect). 
+- `Pr(>F)` - the p-value, used to inform the probability of observing this F-value if there was no true difference between the categories.
 
 
+::: {.rmdtip}
 **Tip:**
-Use summary() if you are interested in the category means and differences of the explanatory variable.
-Use anova() if you are interested in the overall significance of the explanatory variable on the response variable.
 
+- Use `summary()` if you are interested in the category means and differences of the explanatory variable.
+- Use `anova()` if you are interested in the overall significance of the explanatory variable on the response variable.
+:::
 
 If you are interested in further linear models, you can find resources here:
-	Linear Models: Multiple explanatory variables
-	Linear Models: Multiple variables with interactions
+
+- Linear Models: Multiple explanatory variables
+- Linear Models: Multiple variables with interactions
+
 **This additional content is optional, and is not necessary to complete this workshop.**
 
 
@@ -115,11 +133,12 @@ Although the data in this workshop has been tidied for you, it is good practice 
 
 
 To plot a simple scatter plot of our data, we can use the plot() function:
-(write as code) plot(myDataframe$variable1, myDataframe$variable2)
-
+``` r
+plot(myDataframe$variable1, myDataframe$variable2)
+```
 
 **Where people typically make mistakes:**
-If you just press plot() without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use $ and specify the specific variables you want to compare.
+If you just press `plot()` without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use $ and specify the specific variables you want to compare.
 
 
 ### Histograms
@@ -133,9 +152,11 @@ Histograms do not show us the relationship between variables. However, we can pl
 
 
 **Walkthrough Task**
-Using the same dataset, we will now plot a simple histogram of our … variable using the hist() function:
-(write as code) hist()
+Using the same dataset, we will now plot a simple histogram of our … variable using the `hist()` function:
 
+``` r 
+hist()
+```
 
 We can then plot a second histogram of … variable for visual comparison:
 (write as code) hist()
@@ -162,6 +183,25 @@ https://www.datacamp.com/doc/r/parameters?dc_referrer=https%3A%2F%2Fwww.google.c
 
 Raw versions of datasets
 
+::: {.rmdtip}
+**Tip:** This is a tip.
+:::
+
+::: {.rmdnote}
+**Note:** This is a note.
+:::
+
+::: {.rmdimportant}
+**Important:** This is important.
+:::
+
+::: {.rmdcaution}
+**Caution:** This is a caution.
+:::
+
+::: {.rmdwarning}
+**Warning:** This is a warning.
+:::
 
 
 

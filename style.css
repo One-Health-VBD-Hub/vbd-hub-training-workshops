@@ -1,0 +1,52 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+/* vbdhub customisations */
+
+strong {
+  font-family: IBM Plex Sans Semibold;
+}
+
+.chapter-nav .prev, .chapter-nav .next {
+  padding: 0.5rem;
+  border: 0px solid #fff;
+  background: rgba(0, 128, 128, 0.05);;
+  border-radius: 1rem;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,0);
+}
+
+.rmdnote, .rmdcaution, .rmdimportant, .rmdtip, .rmdwarning {
+  border-radius: 1rem;
+}
+
+.rmdnote {
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+.rmdimportant {
+  background: color-mix(in srgb, var(--success) 10%, transparent);
+}
+.rmdcaution {
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+}
+.rmdwarning {
+  background: color-mix(in srgb, var(--warning) 10%, transparent);
+}
+.rmdtip {
+  background: color-mix(in srgb, var(--info) 10%, transparent);
+}
+
+#book-edit {
+  display: none;
+}

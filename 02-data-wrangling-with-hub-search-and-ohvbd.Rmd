@@ -1,0 +1,361 @@
+# (PART) Workshop 2:  Data Wrangling with Hub Search & ohvbd {-}
+
+# Introduction
+
+
+## Learning objectives
+
+**By the end of this workshop, you should be able to:**
+
+1. Use VBD Hub resources to access shared VBD datasets.
+2. Effectively wrangle real-world VDB datasets ready for further analysis.
+3. Build collaborative, professional connections within the VBD community.
+
+
+## Prerequisites
+
+**Before participating in this workshop, you should have:**
+
+- Foundational knowledge of programming in R.
+- Experience of formatting data and statistics in R.
+- A basic understanding of VBDs.
+
+
+## Training Plan
+### Pre- live session content
+This is to be completed ahead of the Live Session.
+Content will be available on the Hub under Learning Resources.
+The VBD Hub Forum is available for support and networking.
+
+
+### Live session
+10:00 - 13:00 on Thursday 26th March, via Teams.
+Content will be made available on the Hub under Learning Resources on the day of the Live Session.
+
+
+### Post- Live Session Challenge Task
+Multi-stage task to be completed independently after the Live Session. The stages will increase in difficulty and provide an opportunity to apply what you have learnt to real VBD datasets.
+Content will be posted on the Hub under Learning Resources on the day of the Live Session.
+The VBD Hub Forum will be available for support and networking).
+
+
+## Navigating Course Content
+Many of the tasks in this workshop will be in a workbook-style format and will walk you through how to code specific functions and models. We encourage you to type this code yourself to practice syntax and gain the most out of the content provided, rather than copying and pasting.
+
+
+All coding through this workshop will be done in Rstudio, a user friendly IDE (integrated development environment) for R language. Please ensure you have R and RStudio installed and updated ahead of the Live Session. If you do not already have R or RStudio installed, see here.
+
+
+## Available Materials & Support
+If you need a quick reminder of basic coding in R, additional materials and cheat sheets can be found here:
+
+- Basic R syntax & functions
+- Data wrangling (read up to Data visualization)
+- Basic hypothesis testing
+-	Basic R cheatsheet
+-	Data wrangling with dplyr and tidyr cheatsheet
+
+
+If you need additional support through this workshop:
+
+- The [**Forum**](http://forum.vbdhub.org) is a good place to discuss queries with fellow participants.
+- Demonstrators will be available to help during the **Live Session**.
+- During the **Challenge Task**, a specific discussion on the Forum will be open to ask demonstrators questions. One-to-one video support will also be available if required.
+- For technical support (e.g. trouble accessing content or joining the Teams link), please contact (email). This is **not** for coding or statistical support.
+
+
+## Installing Packages
+This workshop will use several R packages throughout, please install these ahead of the **Live Session**.
+
+
+**Packages for this workshop:**
+(to be added when coding tasks)
+
+
+::: {.rmdtip}
+**Reminder:** To install packages in R, use the `install.packages()` command.
+:::
+
+To install one package:
+``` r
+install.packages("ggplot2")
+```
+
+To install multiple packages:
+``` r
+install.packages(c("ggplot2", "dplyr", "tidyr"))
+```
+
+# Pre- Live Session Content
+
+
+## VBD Hub Overview
+What is VBD Hub?
+
+
+Goals
+
+
+Impact
+
+
+## Navigating VBD Hub
+Home - what’s there?
+
+
+Find data - what’s there?
+
+
+About - what’s there?
+
+
+Resources - what’s there?
+
+
+Community - what’s there?
+
+
+## Resources Available Through VBD Hub & How to Use Them to Access Data
+
+
+### Hub Search
+Hub Search - what is this and how to use it
+
+
+Task - access a specific dataset with Hub search
+
+
+### ohvbd package
+ohvbd package - what is this and how to use it
+
+
+ohvbd - install and functions
+
+To install the `ohvbd` package, run the following command:
+
+``` r
+install.packages("ohvbd")
+```
+
+An example of loading data: 
+
+<!--@chloe You can incorporate code to be run at render time here.
+Note: it's best to have as little work as possible for the server to do, so we'll mostly be getting people to use local data.-->
+
+```{r}
+library(ohvbd)
+find_vd_ids()
+```
+
+
+Task - access a specific dataset with ohvbd (Francis’ vignettes)
+
+
+### Forum
+Forum - what is this and how to use it
+
+
+Task - introduce yourself on the Forum
+
+
+## Data Wrangling Principles
+Wide to long, check data type
+
+
+Example task
+
+
+## Form (ahead of the live session)
+Did you access the datasets?
+
+
+What types of data?
+
+
+Data wrangling Q
+
+
+# Live Session
+
+
+## Schedule
+10:00 - Introduction
+10:10 - Recap Pre- Live Session Content
+10:20 - Data Wrangling (Broad)
+10:25 - Replicate/Merging
+10:40 - Fix Species Name
+11:00 - BREAK
+11:10 - Real-World Data is Messy
+11:25 - Collaborative Task
+12:10 - BREAK
+12:20 - Share Results from Collaborative Task
+12:35 - Collaboration (Forum)
+12:50 - Prepare for Challenge Task & Conclusion
+
+
+## Introduction (10 mins)
+Introduce myself
+
+
+Introduce demonstrators
+
+
+Recap Learning Objectives
+
+
+Reiterate where to find support:
+Forum
+Demonstrators
+Technical difficulties - (email)
+
+
+## Recap Pre- Live Session Content (10 mins)
+What went well?
+
+
+Common mistakes
+
+
+Strong anonymous examples?
+
+
+## Data Wrangling (Broad) (5 mins)
+Lots of ways to wrangle data, depends on field, data collected, etc.
+
+
+We will focus on two methods key to VBD data.
+
+
+## Replicate/Merging (15 mins)
+Similar columns across two datasets
+
+
+Merge by common column
+
+
+Useful functions
+
+
+Common mistakes
+
+
+## Fix Species Name (20 mins)
+Find and remove a misnamed species
+
+
+Remove underscore or spp. Etc. at the end of the species name
+
+
+Make a column all lowercase
+
+
+Useful functions
+
+
+Common mistakes
+
+
+Combine merging - merge by species
+
+
+RGBIF for those wanting extra
+
+
+## Real World Data is Messy (15 mins)
+Common trip-ups in “messy” data sets
+
+
+What to look out for
+
+
+## Collaborative Task (45 mins)
+Find a specified dataset through ohvbd
+
+
+Identify what makes it messy
+
+
+Wrangle data
+
+
+Try to use datasets with multiple messy elements:
+Mixed data types
+Messy columns (merge)
+Messy species names
+Wide to long
+
+
+## Share Results from Collaborative Task (15 mins)
+4 groups
+
+
+What went wrong?
+
+
+How did you fix it?
+
+
+Why?
+
+
+## What Does Collaboration Mean to You? (15 minutes)
+Why do you want to collaborate?
+
+
+What makes a good collaboration?
+
+
+What makes a bad collaboration?
+
+
+How could you use the Forum in your own research context for collaboration?
+
+
+Whiteboard
+
+
+## Prepare for Challenge Task & Conclusion (10 mins)
+Outline Challenge Task
+
+
+Where to find support
+
+
+Conclusion
+
+
+# Challenge Task
+
+
+## Level 1
+Find a dataset using Hub Search or VBD Hub (participant choice)
+
+
+## Level 2
+What data types?
+
+
+Does it need converting from wide to long?
+
+
+## Level 3
+Do any columns need merging? (second dataset? TBC?)
+
+
+## Level 4
+Check species names
+
+
+Variable/trait names?
+
+
+## Level 5
+Share your wrangling process in the Forum, feedback to each other
+
+
+You might choose to pair up with someone using similar data and give peer feedback
+
+
+
+
+
