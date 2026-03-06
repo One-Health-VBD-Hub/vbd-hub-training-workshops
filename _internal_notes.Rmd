@@ -1,0 +1,45 @@
+---
+title: "_internal_notes"
+output: html_document
+---
+
+# Internal notes
+
+This is just a set of internal notes to support the development of these materials. Feel free to add any information that you think would be helpful to keep around.
+
+## Writing notes
+
+- In order to put in paragraph breaks, two line breaks need to be used (so there's a gap between the text).
+- Lists only format correctly when there is an empty line ahead and below of the list.
+
+## Deployment notes
+
+- The [bookdown deployment action](https://github.com/r-lib/actions/tree/v2/examples#build-bookdown-site) in and of itself did not work due to system dependencies not being resolved.
+- This had to be fixed by doing the following:
+  - Add `downlit` and `xml2` to the `renv.lock` file (using e.g. `renv::record("xml2@1.4.0")`)
+  - Change `use-public-rspm` to `false` in `r-lib/actions/setup-r@v2` chunk
+  - Add the following code block to the action (underneath setup-r@v2 chunk):
+
+```
+# System dependencies are not taken care of (yet) by r-lib/actions/setup-renv
+# We rely on pak and explicitly install them for the renv.lock packages
+# We could use pak-based installation for renv, which includes system
+# requirements, but would have to handle the pak cache explicitly
+# See https://github.com/r-lib/actions/issues/785
+- name: Setup pak to install system dependencies
+  uses: r-lib/actions/setup-r-dependencies@v2
+  with:
+    packages: jsonlite, processx
+    dependencies: NA
+    cache-version: 'sysreqs-1' # ensure keys are not shared with the renv cache
+- name: Install system dependencies
+  run: |
+    (sysreqs_cmds <- pak::pkg_sysreqs(names(jsonlite::read_json("renv.lock")$Packages), dependencies = FALSE))
+    # inspired by pkgdepends:::sysreqs_install
+    lapply(unlist(sysreqs_cmds[c("pre_install", "install_scripts", "post_install")]), function(cmd) {
+      processx::run("sudo", c("sh", "-c", cmd))
+    })
+  shell: Rscript {0}
+```
+
+Once that is all set up, things seem to work (though the bookdown cache folder is not set up, that doesn't seem to hugely matter)

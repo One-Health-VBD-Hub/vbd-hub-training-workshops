@@ -12,6 +12,10 @@ description: |
 
 # Welcome {-#homepage}
 
+_Welcome to the One Health VBD Hub (vbdhub.org) 2026 training workshops!_
+
+_On this site you will find the course materials and pre-work for these sessions._
+
 <div style="text-align: center;">
 
 ![&nbsp;](cover.png "vbdhub.org logo")
