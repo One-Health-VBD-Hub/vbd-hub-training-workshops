@@ -1,0 +1,31 @@
+---
+title: "One Health VBD Hub Training 2026"
+author: "Chloë Coxshall"
+date: "2026-03-06"
+site: bookdown::bookdown_site
+output: bookdown::bs4_book
+url: https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops
+cover-image: cover.png
+description: |
+  vbdhub.org training
+---
+
+# Welcome {-#homepage}
+
+<div style="text-align: center;">
+
+![&nbsp;](cover.png "vbdhub.org logo")
+
+</div>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque diam id sem porttitor, quis condimentum enim blandit. Nulla convallis purus lacus, ut ultrices justo tincidunt sed. Aliquam ut vestibulum quam. Sed placerat placerat erat, quis commodo nisi tincidunt vel. Cras luctus vitae velit ac tempor. Maecenas et odio nunc. Morbi pharetra nec nisi eu feugiat.
+
+In sed turpis metus. Praesent condimentum velit risus, a posuere arcu elementum a. Vestibulum felis dui, rutrum vitae tortor in, malesuada feugiat metus. Fusce vitae blandit enim. Sed vehicula dui dolor, congue facilisis nibh lacinia eu. Curabitur est risus, tincidunt ac risus id, pharetra maximus sapien. Fusce elit sapien, auctor nec pretium sit amet, feugiat et eros. Pellentesque convallis rutrum erat, a consequat nunc suscipit vitae. Etiam faucibus lectus ac metus rhoncus aliquet. Sed nec nibh ut urna pellentesque dictum eget id lectus. Aenean eget dictum odio. Aenean venenatis est vitae justo rhoncus, at facilisis sapien ultricies. Mauris congue orci ex, id fermentum nibh viverra eget. Quisque purus sem, volutpat eu accumsan id, maximus in leo.
+
+Phasellus lobortis quam vitae ante condimentum iaculis. Integer finibus molestie pharetra. Vestibulum faucibus dictum ullamcorper. Sed vehicula, nulla a euismod accumsan, felis nibh auctor nunc, et cursus sapien eros non quam. Duis et lacus feugiat, viverra mi vitae, vehicula mi. Pellentesque commodo aliquet ex, ut molestie diam. Cras quis felis sit amet purus efficitur sollicitudin.
+
+Quisque commodo ut nisi quis ultricies. Integer sit amet semper massa. Suspendisse ultrices, ligula vulputate mollis suscipit, magna nisl porttitor libero, nec euismod nulla tellus quis justo. Nullam ac elit vel lectus ullamcorper tempus ut mollis odio. Sed hendrerit dolor lectus, id consequat nisl vestibulum vitae. Vivamus id posuere eros, ut eleifend magna. In vulputate neque at maximus venenatis. Vestibulum consectetur libero nec purus tincidunt pharetra. Etiam non nunc ac lacus aliquet posuere. Nunc semper eleifend maximus. Pellentesque cursus pharetra quam quis ullamcorper.
+
+Suspendisse mattis vehicula mauris, eget rhoncus lectus pharetra quis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam ac risus urna. Proin felis libero, congue vitae mattis eget, volutpat quis nibh. Fusce risus augue, viverra at sagittis vitae, fringilla at lorem. Nulla faucibus nulla vel ex aliquam fermentum. Nulla odio velit, porta at egestas quis, euismod ut neque. Quisque non placerat mauris, eget cursus sapien. Curabitur ut magna malesuada, vestibulum lectus a, sagittis felis. Etiam aliquam tempor eros at suscipit. Donec convallis enim quis sapien auctor, et aliquet diam tristique. Maecenas a nisi vel tellus viverra tincidunt vitae at tellus. In quis enim non magna rutrum porta. Pellentesque porta mi sed dolor luctus convallis.
+
+_Intro stuff goes here_
