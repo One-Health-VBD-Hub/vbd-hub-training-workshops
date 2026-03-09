@@ -16,7 +16,7 @@ pre code {
 /* vbdhub customisations */
 
 strong {
-  font-family: IBM Plex Sans Semibold;
+  font-family: IBM Plex Sans Semibold, -apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue", Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
 .chapter-nav .prev, .chapter-nav .next {
