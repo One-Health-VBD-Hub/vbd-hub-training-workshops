@@ -1,7 +1,7 @@
 ---
 title: "One Health VBD Hub Training 2026"
 author: "Chloë Coxshall"
-date: "2026-03-06"
+date: "2026-03-09"
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 url: https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops
