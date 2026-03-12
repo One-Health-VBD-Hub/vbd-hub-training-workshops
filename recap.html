@@ -94,9 +94,11 @@ y = mx + c
 <p><strong>Tip:</strong> When naming models or other objects in R, try to use specific names so you know what your object is explicitly. Using short names like model1, model2, etc. can get confusing.</p>
 </div>
 <div class="rmdcaution">
-<p><strong>Frequent Mistake:</strong>
-R cannot handle spaces in object names. There are a few options for alternative syntax, we would recommend using camelCase where letters are capitalised to indicate new words (e.g. <code>specificModelName</code>), or using an underscore to connect words (e.g. <code>specific_model_name</code>).</p>
-<p>If using camelCase, remember that R is case sensitive - if your object is named <code>specificModelName</code>, but you call <code>specificmodelname</code>, R will show an error:</p>
+<p><strong>Frequent Mistake:</strong></p>
+<ul>
+<li>R cannot handle spaces in object names. There are a few options for alternative syntax, we would recommend using camelCase where letters are capitalised to indicate new words (e.g. <code>specificModelName</code>), or using an underscore to connect words (e.g. <code>specific_model_name</code>).</li>
+<li>If using camelCase, remember that R is case sensitive - if your object is named <code>specificModelName</code>, but you call <code>specificmodelname</code>, R will show an error:</li>
+</ul>
 <pre><code>#&gt; Error: object ‘specificmodelname’ not found.</code></pre>
 </div>
 <p>To view the output of a linear regression model, we can use the summary() function:</p>
@@ -180,7 +182,7 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 <p>To plot a simple scatter plot, we can use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function:</p>
 <p><code>plot(myDataframe$variable1, myDataframe$variable2)</code></p>
 <div class="rmdcaution">
-<p><strong>Where people typically make mistakes:</strong> If you just press <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use <code>$</code> and specify the specific variables you want to compare.</p>
+<p><strong>Frequent Mistake:</strong> If you just press <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use <code>$</code> and specify the specific variables you want to compare.</p>
 </div>
 </div>
 <div id="histograms" class="section level3" number="9.2.2">

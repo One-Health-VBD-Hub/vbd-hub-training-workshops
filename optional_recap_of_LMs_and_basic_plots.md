@@ -35,13 +35,13 @@ specificModelName <- lm(responseVariable ~ explanatoryVariable, data = yourDatas
 
 ::: {.rmdcaution} 
 **Frequent Mistake:**
-R cannot handle spaces in object names. There are a few options for alternative syntax, we would recommend using camelCase where letters are capitalised to indicate new words (e.g. `specificModelName`), or using an underscore to connect words (e.g. `specific_model_name`).
 
-
-If using camelCase, remember that R is case sensitive - if your object is named `specificModelName`, but you call `specificmodelname`, R will show an error:
+- R cannot handle spaces in object names. There are a few options for alternative syntax, we would recommend using camelCase where letters are capitalised to indicate new words (e.g. `specificModelName`), or using an underscore to connect words (e.g. `specific_model_name`).
+- If using camelCase, remember that R is case sensitive - if your object is named `specificModelName`, but you call `specificmodelname`, R will show an error:
 ```
 #> Error: object ‘specificmodelname’ not found.
 ```
+
 :::
 
 
@@ -147,7 +147,7 @@ To plot a simple scatter plot, we can use the `plot()` function:
 
 
 ::: {.rmdcaution}
-**Where people typically make mistakes:** If you just press `plot()` without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use `$` and specify the specific variables you want to compare.
+**Frequent Mistake:** If you just press `plot()` without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use `$` and specify the specific variables you want to compare.
 :::
 
 
