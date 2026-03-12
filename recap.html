@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>A Recap of Linear Models &amp; Basic Plots (optional) | One Health VBD Hub Training 2026</title>
 <meta name="author" content="Chloë Coxshall">
-<meta name="description" content="A.1 Linear Models  A.1.1 Linear Regression Models Linear regression models are a commonly used type of linear model, which are particularly useful when both the response and predictor variables...">
+<meta name="description" content="Before we dive into the wonderful world of plots and visualisations, let’s turn our attention to the models we will be using to plot outputs. Here, we will recap simple linear models - linear...">
 <meta name="generator" content="bookdown 0.45 with bs4_book()">
 <meta property="og:title" content="A Recap of Linear Models &amp; Basic Plots (optional) | One Health VBD Hub Training 2026">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/recap.html">
 <meta property="og:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
-<meta property="og:description" content="A.1 Linear Models  A.1.1 Linear Regression Models Linear regression models are a commonly used type of linear model, which are particularly useful when both the response and predictor variables...">
+<meta property="og:description" content="Before we dive into the wonderful world of plots and visualisations, let’s turn our attention to the models we will be using to plot outputs. Here, we will recap simple linear models - linear...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A Recap of Linear Models &amp; Basic Plots (optional) | One Health VBD Hub Training 2026">
-<meta name="twitter:description" content="A.1 Linear Models  A.1.1 Linear Regression Models Linear regression models are a commonly used type of linear model, which are particularly useful when both the response and predictor variables...">
+<meta name="twitter:description" content="Before we dive into the wonderful world of plots and visualisations, let’s turn our attention to the models we will be using to plot outputs. Here, we will recap simple linear models - linear...">
 <meta name="twitter:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -71,6 +71,8 @@
 <h1>
 <span class="header-section-number">A</span> Recap of Linear Models &amp; Basic Plots (optional)<a class="anchor" aria-label="anchor" href="#recap"><i class="fas fa-link"></i></a>
 </h1>
+<p>Before we dive into the wonderful world of plots and visualisations, let’s turn our attention to the models we will be using to plot outputs. Here, we will recap simple linear models - linear regression models and ANOVAs. There are several ways to approach these, but using a consistent approach throughout this workshop will contribute to shared understanding to make the most of the tasks and collaborative opportunities to follow.</p>
+<p>Following this, we will cover some basic plots that are commonly used during exploratory data analysis. These can help us make decisions about which statistical models and visualisations are appropriate for our data.</p>
 <div id="linear-models" class="section level2" number="9.1">
 <h2>
 <span class="header-section-number">A.1</span> Linear Models<a class="anchor" aria-label="anchor" href="#linear-models"><i class="fas fa-link"></i></a>
@@ -94,16 +96,18 @@ y = mx + c
 <div class="rmdcaution">
 <p><strong>Frequent Mistake:</strong>
 R cannot handle spaces in object names. There are a few options for alternative syntax, we would recommend using camelCase where letters are capitalised to indicate new words (e.g. <code>specificModelName</code>), or using an underscore to connect words (e.g. <code>specific_model_name</code>).</p>
-</div>
 <p>If using camelCase, remember that R is case sensitive - if your object is named <code>specificModelName</code>, but you call <code>specificmodelname</code>, R will show an error:</p>
 <pre><code>#&gt; Error: object ‘specificmodelname’ not found.</code></pre>
+</div>
 <p>To view the output of a linear regression model, we can use the summary() function:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
 <p>This will show a lot of information (which is useful to familiarise yourself with), but for this workshop, we are primarily interested in the Coefficients table.</p>
-<p>This table will have one row for each coefficient in the model - two rows for a simple linear regression model: the Intercept and the Slope.
-The Intercept estimate represents the predicted value of the response variable when the explanatory variable is zero.
-The Slope () estimate is proportional to the correlation coefficient between the response variable and explanatory variable, scaled by the ratio of standard deviations. Put simply, this estimate represents the strength (value) and direction (positive or negative) of the relationship between the response and explanatory variables.</p>
+<p>This table will have one row for each coefficient in the model - two rows for a simple linear regression model: the Intercept and the Slope.</p>
+<ul>
+<li>The Intercept estimate represents the predicted value of the response variable when the explanatory variable is zero.</li>
+<li>The Slope estimate is proportional to the correlation coefficient between the response variable and explanatory variable, scaled by the ratio of standard deviations. Put simply, this estimate represents the strength (value) and direction (positive or negative) of the relationship between the response and explanatory variables.</li>
+</ul>
 <p>The Coefficient table also shows the details for a t-test, which tells us whether or not the slope and intercept are significantly different from zero.</p>
 <ul>
 <li>
@@ -113,8 +117,10 @@ The Slope () estimate is proportional to the correlation coefficient between the
 <li>
 <code>Pr(&gt;|t|)</code> - the p-value, used to inform the probability of observing this result if the true coefficient was zero.</li>
 </ul>
+<div class="rmdtip">
 <p><strong>Tip:</strong>
 When we plot a line of best fit, this reflects the mean, variance, and correlations in your dataset. Knowledge on these model coefficients will help you better understand the plots and visualisations we do later in this workshop.</p>
+</div>
 </div>
 <div id="anova-models" class="section level3" number="9.1.2">
 <h3>
@@ -127,9 +133,11 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 <p>As before, we can use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function to check the model output and view the Coefficients table (which will be laid out in the same way as a linear regression model output).</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
-<p>Despite looking the same, there are some differences for an ANOVA output:
-The Intercept is the mean of the first category.
-The Slope is the difference between the mean of the first category and this (named) category.</p>
+<p>Despite looking the same, there are some differences for an ANOVA output:</p>
+<ul>
+<li>The Intercept is the mean of the first category.</li>
+<li>The Slope is the difference between the mean of the first category and this (named) category.</li>
+</ul>
 <p>While the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function can be used to assess the differences between specific categories, the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function can tell us whether or not the categorical explanatory variable as a whole has a significant effect on the response variable.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
@@ -169,19 +177,11 @@ The Slope is the difference between the mean of the first category and this (nam
 </h3>
 <p>A scatter plot can be used when you want to visualise the relationship between two continuous variables.</p>
 <p>Plotting raw data with a scatter plot allows you to identify trends in the data, including direction and strength of the relationship between the variables. You can also spot outlier observations that deviate from the general pattern, and the shape of the data can help decide whether a linear or non-linear model is appropriate for your dataset.</p>
-<p>However, if you have a very large dataset, points on a scatter plot can overlap so much that the plot becomes messy and difficult to interpret.</p>
-<p><strong>Walkthrough Task</strong>
-Let’s start by opening our dataset. Use the … function to open the … dataset:
-(code opening dataset)</p>
-<p><strong>Note:</strong>
-See <strong>Reading and Resources</strong> for the raw versions of the data files used through this workshop. You are not expected to use these, but seeing the raw format might help you to better understand the data we are working with.</p>
-<p>Although the data in this workshop has been tidied for you, it is good practice to check the data. Let’s assess the type of data we are working with by using the … function:
-(code to check variable type)</p>
-<p>To plot a simple scatter plot of our data, we can use the plot() function:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">myDataframe</span><span class="op">$</span><span class="va">variable1</span>, <span class="va">myDataframe</span><span class="op">$</span><span class="va">variable2</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Where people typically make mistakes:</strong>
-If you just press <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use $ and specify the specific variables you want to compare.</p>
+<p>To plot a simple scatter plot, we can use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function:</p>
+<p><code>plot(myDataframe$variable1, myDataframe$variable2)</code></p>
+<div class="rmdcaution">
+<p><strong>Where people typically make mistakes:</strong> If you just press <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use <code>$</code> and specify the specific variables you want to compare.</p>
+</div>
 </div>
 <div id="histograms" class="section level3" number="9.2.2">
 <h3>
@@ -190,35 +190,33 @@ If you just press <code><a href="https://rdrr.io/r/graphics/plot.default.html">p
 <p>Histograms are used to visualise the distribution on a single continuous variable. This is done by splitting the range of values into intervals, called bins, and calculating the frequency of data points that sit in each interval.</p>
 <p>Histograms can be particularly useful to check whether your data is normally distributed or skewed, to view the variance (or spread) of your data, and to identify gaps in the data which may suggest issues with data collection.</p>
 <p>Histograms do not show us the relationship between variables. However, we can plot two histograms for two variables we want to compare so that we can assess the distributions of the two variables.</p>
-<p><strong>Walkthrough Task</strong>
-Using the same dataset, we will now plot a simple histogram of our … variable using the <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> function:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>We can then plot a second histogram of … variable for visual comparison:
-(write as code) hist()</p>
+<p>To plot a simple histogram, we can use the <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> function:</p>
+<p><code>hist(myDateframe$variable1)</code></p>
 </div>
 <div id="boxplots" class="section level3" number="9.2.3">
 <h3>
 <span class="header-section-number">A.2.3</span> Boxplots<a class="anchor" aria-label="anchor" href="#boxplots"><i class="fas fa-link"></i></a>
 </h3>
-<p>What is a box plot and when to use one… Benefits and limitations…</p>
-<p><strong>Walkthrough Task</strong>
-Code to plot a boxplot</p>
-</div>
-<div id="saving-plots-visualisations" class="section level3" number="9.2.4">
-<h3>
-<span class="header-section-number">A.2.4</span> Saving Plots &amp; Visualisations<a class="anchor" aria-label="anchor" href="#saving-plots-visualisations"><i class="fas fa-link"></i></a>
-</h3>
-<p>How to save a plot…</p>
+<p>Boxplots are used to compare the distribution of a continuous variable across different groups or categories. They are particularly useful when your response variable is continuous, and your explanatory variable is categorical.</p>
+<p>A boxplot summarises the distribution of data using five key statistics:</p>
+<ul>
+<li>The minimum value</li>
+<li>The lower quartile (Q1)</li>
+<li>The median</li>
+<li>The upper quartile (Q3)</li>
+<li>The maximum value</li>
+</ul>
+<p>The box represents the interquartile range (IQR), which contains the middle 50% of the data. Values that fall outside this range may appear as outliers.</p>
+<p>Boxplots summarise the distribution and variation of the data, but do not show individual observations. Therefore, some detailed variation within the dataset may not be visible.</p>
+<p>To plot a simple boxplot, we can use the <code><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot()</a></code> function:</p>
+<p><code>boxplot(myDataframe$continuousVariable ~ myDataframe$categoricalVariable)</code></p>
 </div>
 </div>
 <div id="reading-resources-1" class="section level2" number="9.3">
 <h2>
 <span class="header-section-number">A.3</span> Reading &amp; Resources<a class="anchor" aria-label="anchor" href="#reading-resources-1"><i class="fas fa-link"></i></a>
 </h2>
-<p>Any additional content (e.g. from MQB)</p>
-<p><a href="https://www.datacamp.com/doc/r/parameters?dc_referrer=https%3A%2F%2Fwww.google.com%2F" class="uri">https://www.datacamp.com/doc/r/parameters?dc_referrer=https%3A%2F%2Fwww.google.com%2F</a></p>
-<p>Raw versions of datasets</p>
+<p>Coming soon</p>
 <div class="rmdtip">
 <p><strong>Tip:</strong> This is a tip.</p>
 </div>
@@ -255,7 +253,6 @@ Code to plot a boxplot</p>
 <li><a class="nav-link" href="#scatter-plots"><span class="header-section-number">A.2.1</span> Scatter Plots</a></li>
 <li><a class="nav-link" href="#histograms"><span class="header-section-number">A.2.2</span> Histograms</a></li>
 <li><a class="nav-link" href="#boxplots"><span class="header-section-number">A.2.3</span> Boxplots</a></li>
-<li><a class="nav-link" href="#saving-plots-visualisations"><span class="header-section-number">A.2.4</span> Saving Plots &amp; Visualisations</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#reading-resources-1"><span class="header-section-number">A.3</span> Reading &amp; Resources</a></li>

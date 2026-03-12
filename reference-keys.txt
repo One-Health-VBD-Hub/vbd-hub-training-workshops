@@ -81,5 +81,4 @@ basic-plots
 scatter-plots
 histograms
 boxplots
-saving-plots-visualisations
 reading-resources-1
