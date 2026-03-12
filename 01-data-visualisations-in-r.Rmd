@@ -73,7 +73,7 @@ This workshop will use several R packages throughout, please install these ahead
 
 
 **Packages for this workshop:**
-(to be added when coding tasks)
+`ggplot2`
 
 
 ::: {.rmdtip}
@@ -104,11 +104,13 @@ Choosing the appropriate plot to best represent your data is important to commun
 
 
 In VBD research, common visualisations you might come across include:
+
 - **Scatter plots** - useful to explore relationships between variables.
 - **Boxplots** - useful to compare distributions between groups.
 - **Line plots** - useful to visualise trends over time.
 - **Bar plots** - useful to compare values between groups.
 - **Maps** - useful to show spatial patterns.
+
 
 
 In vector surveillance research, one of the most useful and frequently used visualisations is abundance plots. These can be used to show how vector counts change over time or across locations.
@@ -125,11 +127,13 @@ Effective visualisations can help us to communicate complex datasets by quickly 
 
 
 Visualising data can help us to identify:
+
 - **Distribution of data** - how values are spread across a dataset, including the spatial distribution of vectors or pathogens. 
 - **Correlative relationships** - potential associations between multiple variables, such as vector populations and environmental factors.
 - **Temporal trends** - variable changes over time, for example, vector abundance over time.
 - **Inter-group comparisons** - differences between groups, for instance, vector species across regions.
 - **Outliers or anomalies** - unexpected observations that may suggest errors to be addressed before modelling.
+
 
 
 Given how much information we can extract from them, visualisations are often the first step in exploratory data analysis before further statistical modelling.
@@ -149,8 +153,7 @@ This dataset contains tick abundance, `sample_value`, across two sampling locati
 
 
 ::: {.rmdcaution}
-**Caution:** 
-**Where most people make mistakes** - Remember to save tick_dataset_wrangled.csv to an appropriate **working directory** and **set your working directory** correctly in RStudio!
+**Where most people make mistakes:** Remember to save tick_dataset_wrangled.csv to an appropriate **working directory** and **set your working directory** correctly in RStudio!
 :::
 
 
@@ -158,9 +161,11 @@ We can plot this data to visualise the difference in abundance across the two sa
 
 
 To do this, we will use the `ggplot2` package. `ggplot2` is one of the most commonly used packages for visualisations and graphics, so it is useful for you to understand how to code with this package. It is particularly good to build plots step-by-step by defining:
+
 - The dataset we want to use.
 - The variables we want to visualise.
 - The type of plot we want to generate.
+
 
 
 Run this code to generate a simple abundance plot of `tick_data` using points to show individual observations:
@@ -185,7 +190,7 @@ tick_abundance_location
 You should now see a simple abundance plot in the “Plot” window of RStudio, which looks like this:
 
 
-``` r
+```r
 tick_abundance_location <- ggplot(tick_data, aes(x = sample_location, y = sample_value)) +
 geom_point() +
 labs(
@@ -200,8 +205,7 @@ tick_abundance_location
 
 
 ::: {.rmdtip}
-**Tip:** 
-Using ggplot2 to code visualisations can look heavy, but what we are doing is breaking down each step of the plot like building blocks. Let’s have a closer look:
+**Tip:** Using ggplot2 to code visualisations can look heavy, but what we are doing is breaking down each step of the plot like building blocks. Let’s have a closer look:
 
 
 `ggplot(tick_data, aes(x = sample_location, y = sample_value))`
@@ -236,10 +240,12 @@ Now that we have visualised the data, we identify patterns and extract informati
 
 
 From the visualisation, we can see:
+
 - Tick abundance appears to be greater in Sogn and Fjordane than in Akershus and Østfold.
 - Most observations across both locations show relatively low tick abundance, with a small number of samples showing much higher values. 
 - Sogn and Fjordane has more samples than Akershus and Østfold, suggesting a potential bias in sampling effort. This is something which may need to be addressed when running further analysis. 
 - Although some Sogn and Fjordane samples include very high tick counts, these values are spread across several observations, suggesting genuine variation in the data rather than single outliers.
+
 
 
 ### Task 2: Visualising Mosquito Abundance Over Time 
@@ -274,7 +280,7 @@ mosquito_abundance_monthly
 You should now see a new simple abundance plot in the “Plot” window of RStudio, which looks like this:
 
 
-``` r
+```r
 mosquito_abundance_monthly <- ggplot(mosquito_monthly_data, aes(x = month, y = sample_value)) +
 geom_point() +
 labs(
@@ -297,12 +303,13 @@ Now it’s your turn to have a go at identifying patterns and information about 
 
 
 ::: {.rmdtip}
-**Tip:** 
-Consider these prompts if you need some additional guidance:
+**Tip:** Consider these prompts if you need some additional guidance:
+
 - Can you observe any potential temporal or seasonal trends?
 - How is the data distributed? Are abundance counts spread or clustered?
 - Can you make comparisons between the different months?
 - Are there any potential anomalies in the dataset?
+
 :::
 
 
@@ -325,8 +332,7 @@ From these examples, we can understand how visualisations can help to generate d
 
 
 ::: {.rmdimportant}
-**Important:** 
-Remember, data visualisations alone do not show causation. They can be used as a tool to highlight potential patterns that should be tested using further statistical analysis. 
+**Important:** Remember, data visualisations alone do not show causation. They can be used as a tool to highlight potential patterns that should be tested using further statistical analysis. 
 :::
 
 
