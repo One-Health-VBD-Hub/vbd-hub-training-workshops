@@ -78,12 +78,19 @@
 </h2>
 <p>Different types of data need different types of visualisations.</p>
 <p>Choosing the appropriate plot to best represent your data is important to communicate your data and the proposed patterns clearly and accurately.</p>
-<p>In VBD research, common visualisations you might come across include:
-- <strong>Scatter plots</strong> - useful to explore relationships between variables.
-- <strong>Boxplots</strong> - useful to compare distributions between groups.
-- <strong>Line plots</strong> - useful to visualise trends over time.
-- <strong>Bar plots</strong> - useful to compare values between groups.
-- <strong>Maps</strong> - useful to show spatial patterns.</p>
+<p>In VBD research, common visualisations you might come across include:</p>
+<ul>
+<li>
+<strong>Scatter plots</strong> - useful to explore relationships between variables.</li>
+<li>
+<strong>Boxplots</strong> - useful to compare distributions between groups.</li>
+<li>
+<strong>Line plots</strong> - useful to visualise trends over time.</li>
+<li>
+<strong>Bar plots</strong> - useful to compare values between groups.</li>
+<li>
+<strong>Maps</strong> - useful to show spatial patterns.</li>
+</ul>
 <p>In vector surveillance research, one of the most useful and frequently used visualisations is abundance plots. These can be used to show how vector counts change over time or across locations.</p>
 <p>Abundance plots typically use lines to communicate overall trends in vector populations. However, points can also be used to show individual observations within the dataset. This can be particularly useful during exploratory analysis as it allows us to visualise variation in the data and identify outliers.</p>
 <p>Throughout this training, we will focus on developing effective abundance plots with real VBD datasets. We will start with simple exploratory abundance plots in this <strong>Pre- Live Session</strong> content, and build more complex abundance plots during the <strong>Live Session</strong>.</p>
@@ -93,12 +100,19 @@
 <span class="header-section-number">2.2</span> What can Visualisations Tell Us About Data?<a class="anchor" aria-label="anchor" href="#what-can-visualisations-tell-us-about-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>Effective visualisations can help us to communicate complex datasets by quickly identifying distributions and patterns in the data that can be unclear from dataframes alone.</p>
-<p>Visualising data can help us to identify:
-- <strong>Distribution of data</strong> - how values are spread across a dataset, including the spatial distribution of vectors or pathogens.
-- <strong>Correlative relationships</strong> - potential associations between multiple variables, such as vector populations and environmental factors.
-- <strong>Temporal trends</strong> - variable changes over time, for example, vector abundance over time.
-- <strong>Inter-group comparisons</strong> - differences between groups, for instance, vector species across regions.
-- <strong>Outliers or anomalies</strong> - unexpected observations that may suggest errors to be addressed before modelling.</p>
+<p>Visualising data can help us to identify:</p>
+<ul>
+<li>
+<strong>Distribution of data</strong> - how values are spread across a dataset, including the spatial distribution of vectors or pathogens.</li>
+<li>
+<strong>Correlative relationships</strong> - potential associations between multiple variables, such as vector populations and environmental factors.</li>
+<li>
+<strong>Temporal trends</strong> - variable changes over time, for example, vector abundance over time.</li>
+<li>
+<strong>Inter-group comparisons</strong> - differences between groups, for instance, vector species across regions.</li>
+<li>
+<strong>Outliers or anomalies</strong> - unexpected observations that may suggest errors to be addressed before modelling.</li>
+</ul>
 <p>Given how much information we can extract from them, visualisations are often the first step in exploratory data analysis before further statistical modelling.</p>
 <div id="task-1-visualising-tick-abundance-across-locations" class="section level3" number="2.2.1">
 <h3>
@@ -110,14 +124,15 @@
 <span><span class="va">tick_data</span></span></code></pre></div>
 <p>This dataset contains tick abundance, <code>sample_value</code>, across two sampling locations, <code>sample_location</code>.</p>
 <div class="rmdcaution">
-<p><strong>Caution:</strong>
-<strong>Where most people make mistakes</strong> - Remember to save tick_dataset_wrangled.csv to an appropriate <strong>working directory</strong> and <strong>set your working directory</strong> correctly in RStudio!</p>
+<p><strong>Where most people make mistakes:</strong> Remember to save tick_dataset_wrangled.csv to an appropriate <strong>working directory</strong> and <strong>set your working directory</strong> correctly in RStudio!</p>
 </div>
 <p>We can plot this data to visualise the difference in abundance across the two sample locations. You might typically see bar plots used to visualise abundance across two groups, but here we will use a scatter plot to show individual observations, which allows us to assess variation and identify potential outliers in the dataset.</p>
-<p>To do this, we will use the <code>ggplot2</code> package. <code>ggplot2</code> is one of the most commonly used packages for visualisations and graphics, so it is useful for you to understand how to code with this package. It is particularly good to build plots step-by-step by defining:
-- The dataset we want to use.
-- The variables we want to visualise.
-- The type of plot we want to generate.</p>
+<p>To do this, we will use the <code>ggplot2</code> package. <code>ggplot2</code> is one of the most commonly used packages for visualisations and graphics, so it is useful for you to understand how to code with this package. It is particularly good to build plots step-by-step by defining:</p>
+<ul>
+<li>The dataset we want to use.</li>
+<li>The variables we want to visualise.</li>
+<li>The type of plot we want to generate.</li>
+</ul>
 <p>Run this code to generate a simple abundance plot of <code>tick_data</code> using points to show individual observations:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span></span>
@@ -143,8 +158,7 @@
 <span></span>
 <span><span class="va">tick_abundance_location</span></span></code></pre></div>
 <div class="rmdtip">
-<p><strong>Tip:</strong>
-Using ggplot2 to code visualisations can look heavy, but what we are doing is breaking down each step of the plot like building blocks. Let’s have a closer look:</p>
+<p><strong>Tip:</strong> Using ggplot2 to code visualisations can look heavy, but what we are doing is breaking down each step of the plot like building blocks. Let’s have a closer look:</p>
 <p><code>ggplot(tick_data, aes(x = sample_location, y = sample_value))</code>
 <code>tick_data</code> is the dataset we want to visualise.
 <code>aes()</code> represents aesthetics, including which variables from the dataset we want to visualise. For this plot:
@@ -163,11 +177,13 @@ Tells R to plot a point for each observation in the dataset. For this data, one 
 <p>It is a good idea to save your visualisations so you can easily refer back to them when you need. There are several ways to save visualisations in R, but it is good practice to use code:</p>
 <p><code>ggsave("tick_abundance_location.png", plot = tick_abundance_location)</code></p>
 <p>Now that we have visualised the data, we identify patterns and extract information about the dataset.</p>
-<p>From the visualisation, we can see:
-- Tick abundance appears to be greater in Sogn and Fjordane than in Akershus and Østfold.
-- Most observations across both locations show relatively low tick abundance, with a small number of samples showing much higher values.
-- Sogn and Fjordane has more samples than Akershus and Østfold, suggesting a potential bias in sampling effort. This is something which may need to be addressed when running further analysis.
-- Although some Sogn and Fjordane samples include very high tick counts, these values are spread across several observations, suggesting genuine variation in the data rather than single outliers.</p>
+<p>From the visualisation, we can see:</p>
+<ul>
+<li>Tick abundance appears to be greater in Sogn and Fjordane than in Akershus and Østfold.</li>
+<li>Most observations across both locations show relatively low tick abundance, with a small number of samples showing much higher values.</li>
+<li>Sogn and Fjordane has more samples than Akershus and Østfold, suggesting a potential bias in sampling effort. This is something which may need to be addressed when running further analysis.</li>
+<li>Although some Sogn and Fjordane samples include very high tick counts, these values are spread across several observations, suggesting genuine variation in the data rather than single outliers.</li>
+</ul>
 </div>
 <div id="task-2-visualising-mosquito-abundance-over-time" class="section level3" number="2.2.2">
 <h3>
@@ -204,12 +220,13 @@ Tells R to plot a point for each observation in the dataset. For this data, one 
 <p><code>ggsave("mosquito_abundance_monthly.png", plot = mosquito_abundance_monthly)</code></p>
 <p>Now it’s your turn to have a go at identifying patterns and information about the dataset from this new visualisation, as we did in <strong>Task 1</strong>. Please record your answers in the <strong>Response Form</strong> at the end of the <strong>Pre- Live Session</strong> content.</p>
 <div class="rmdtip">
-<p><strong>Tip:</strong>
-Consider these prompts if you need some additional guidance:
-- Can you observe any potential temporal or seasonal trends?
-- How is the data distributed? Are abundance counts spread or clustered?
-- Can you make comparisons between the different months?
-- Are there any potential anomalies in the dataset?</p>
+<p><strong>Tip:</strong> Consider these prompts if you need some additional guidance:</p>
+<ul>
+<li>Can you observe any potential temporal or seasonal trends?</li>
+<li>How is the data distributed? Are abundance counts spread or clustered?</li>
+<li>Can you make comparisons between the different months?</li>
+<li>Are there any potential anomalies in the dataset?</li>
+</ul>
 </div>
 </div>
 </div>
@@ -225,8 +242,7 @@ Consider these prompts if you need some additional guidance:
 <strong>“Peri-domestic environments increase sandfly abundance by providing suitable breeding habitats, such as organic waste from cattle sheds.”</strong></p>
 <p>From these examples, we can understand how visualisations can help to generate data-driven research questions and hypotheses.</p>
 <div class="rmdimportant">
-<p><strong>Important:</strong>
-Remember, data visualisations alone do not show causation. They can be used as a tool to highlight potential patterns that should be tested using further statistical analysis.</p>
+<p><strong>Important:</strong> Remember, data visualisations alone do not show causation. They can be used as a tool to highlight potential patterns that should be tested using further statistical analysis.</p>
 </div>
 <div id="task-3-formulating-hypotheses-from-data-visualisations" class="section level3" number="2.3.1">
 <h3>
