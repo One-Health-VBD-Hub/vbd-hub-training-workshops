@@ -23,16 +23,13 @@ _On this site you will find the course materials and pre-work for these sessions
 </div>
 
 
-These workshops have been developed to provide online training to the VBD community, and cover two topics:
+These workshops have been developed to provide training to the VBD community, and span two training events:
 
 
-**Data visualisations in R** covers visualisations commonly used in VBD research, such as abundance plots, and how we can develop these into effective visualisations. We also consider patterns and data details that can be extracted from visualisations, and how to ensure visualisations are accessible to different audiences. 
+**November 2026 Training Event at Silwood Park** will include several workshops which will focus on using Hub tools to search and retrieve curated datasets, wrangling and visualising these datasets, and effectively communicating to different audiences. There will also be two applied workshops which will provide participants with more specialised approaches to VBD data. 
 
 
-**Data wrangling with Hub Search and ohvbd** involves navigating VBD Hub and the available resources to access VBD datasets. We will run practical examples with real VBD datasets, including accessing and wrangling complex datasets in preparation for further analyses. 
-
-
-The live workshops will run in March 2026, but these resources will be available for long term access. 
+**March 2026 Online Training Event** covered two workshops - Data Visualisations in R and Data wrangling with Hub Search and ohvbd. These resources are remain available available to support the long term access to this training content.
 
 
 The aim of these workshops is provide researchers with the skills to improve data communication and sharing with a variety of audiences, including academics, policymakers, and members of the public.
