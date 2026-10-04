@@ -347,9 +347,7 @@ To get started, we need to install and load the ohvbd package in R:
 
 ```{r, eval=FALSE}
 install.packages("ohvbd")
-```
 
-```{r}
 library(ohvbd)
 ```
 
@@ -556,7 +554,7 @@ Let’s have a look at an example of a search that returns unexpected results.
 Imagine we are searching for trait data on *Bemisia*, a genus of whitefly, using the **VecTraits** database:
 
 
-``` {r}
+``` {r, eval=FALSE}
 df <- search_hub("Bemisia", db = "vt") |>
   fetch() |>
   glean()
@@ -568,7 +566,7 @@ head(df)
 At first glance, everything may look fine. However, if we explore the dataset further, for example, by checking the unique values in the genus column, we might notice something unexpected:
 
 
-``` {r}
+``` {r, eval=FALSE}
 unique(df$Interactor1Genus)
 ```
 
@@ -607,7 +605,7 @@ Our previous code (see previous Example) returned datasets where *Bemisia* appea
 To make the search more specific, we can use `search_vt_smart()` to target the column that represents the primary species the traits refer to:
 
 
-``` {r}
+``` {r, eval=FALSE}
 df_smart <- search_vt_smart("Interactor1Genus", "equals", "Bemisia") |>
   fetch() |>
   glean()
@@ -877,11 +875,595 @@ Proper citation:
 
 
 
-
-
-
-
 # Wrangling VBD Data in R
+
+## Overview
+Data retrieved through the **VBD Hub**, using tools such as the **Hub Search** or the **ohvbd** package, can be raw and may include missing values, inconsistent formats, or unclear variable names. 
+
+
+**Data wrangling is the process of cleaning, transforming, and organising this data into a format that is suitable for analysis.**
+
+
+In this session, we will introduce key data wrangling principles, and explore commonly used techniques in VBD research, including merging datasets and standardising species names.
+
+
+**Learning Objectives**
+
+By the end of this workshop, you should be able to:
+
+1. Clean and transform VBD Hub datasets ready for analysis. 
+2. Handle common data issues, such as inconsistent formats, duplicates, and missing values.
+3. Reshape and merge datasets using standardised structures and identifiers.
+4. Standardise species names using recognised taxonomic conventions. 
+
+
+## Shifting Perspectives: Problems to Decisions 
+Real-world VBD data is rarely clean, especially if it has been collected for different purposes or recorded using different reporting standards. You may encounter:
+
+- Missing values
+- Inconsistent data types
+- Poorly named columns
+- Duplicate records
+- Data stored in inconvenient formats
+
+
+Rather than treating these as isolated problems, it can be helpful to recognise common patterns which affect downstream analyses. For instance:
+
+- Inconsistent naming affects merging datasets
+- Mixed data types affect calculations
+- Wide format affects analysis and visualisations
+
+
+When we think about data inconsistency patterns in this way, we shift our focus from **problems** to **decisions**. Each issue you identify in your dataset requires a decision:
+
+- Should missing values be removed or retained?
+- Should columns be renamed or merged?
+- Should data be formatted from wide to long format?
+
+
+When we stop asking **"what is wrong with this dataset?"** and start thinking **"what do I need this dataset to do?"**, we can make informed decisions and prioritise the most appropriate data wrangling approaches to your data and research question. 
+
+
+We cannot cover every data wrangling principle within a single training session. Today, we will focus on two commonly used data wrangling techniques applied to VBD datasets:
+
+- Merging datasets
+- Standardising species names
+
+
+## Merging Datasets
+In many research workflows, we use more than one dataset. It is rare for a single dataset to contain all the information needed to answer a research question. 
+
+
+For instance, you might have:
+
+- One dataset containing species abundance data 
+- Another dataset containing environmental variables. 
+
+
+If you want to analyse how environmental factors influence species abundance, you will need to combine these into a single dataset.
+
+
+We call this **merging** or **joining** datasets. 
+
+
+For a merge to work effectively, both datasets must share at least one common column name. This shared column is known as a **key**. In VBD datasets, a common key might be a species name, a location, or a date. 
+
+
+Let’s imagine we have two datasets which both contain a column called `species`.
+
+
+We can merge these two datasets using the `left_join()` function from the `dplyr` package:
+
+
+``` {r, eval=FALSE}
+library(dplyr)
+
+merged_data <- left_join(dataset_a, dataset_b, by = "species")
+```
+
+
+In this code:
+
+- `dataset_a` is the main dataset we want to keep.
+- `dataset_b` contains data we want to add.
+- `by = "species"` tells R to match rows using the `species` column.
+
+
+A left join keeps all the rows from `dataset_a` and adds matching information from `dataset_b` where the species value is the same.
+
+
+### Different Merge Types
+There are different types of merges or joins, each of which acts slightly differently:
+
+- A **left join**, `left_join()`, keeps all the rows from the first dataset and adds matching values from the second. This is usually the safest option, as it avoids losing data. 
+- An **inner join**, `inner_join()`, only keeps the rows that appear in both datasets. This is useful when you only want complete matches, but it risks accidental data loss.
+- A **full join**, `full_join()`, keeps all the rows from both datasets. Missing values are filled with `NA` where matches do not exist. This can be helpful in exploratory work, but may require further data cleaning.
+
+
+Choosing which merge to use depends on your research question and how you want to format rows that don’t align across datasets. If in doubt, we recommend using a **left join**.
+
+
+### Merging with Multiple Keys
+Sometimes, a single column is not enough to uniquely identify matches.  For instance, in VBD research the same species might appear in multiple locations. In this case, we can merge using multiple keys.
+
+
+``` {r, eval=FALSE}
+merged_data <- left_join(dataset_a, dataset_b, by = c("species", "location")
+```
+
+
+Here, the vector `c("species", "location")` tells R to match rows where both the `species` and `location` are the same. 
+
+Setting multiple key columns ensures more accurate matching, especially when working with ecological or epidemiological data, where the species might appear in multiple regions and should be accounted for with this in mind.
+
+
+### Frequent Merging Mistakes
+Merging is usually straightforward, but it can sometimes produce unexpected results. 
+
+
+One common cause of unexpected merge results is inconsistent formatting between datasets. For instance, if `dataset_a` formats species names as `"Ixodes ricinus"` and `dataset_b` formats species names as `"ixodes_ricinus"`, R will not identify these species as a match for merging.
+
+
+This can result in missing values or incomplete merges. 
+
+
+It is useful to remember that **a successful merge does not always mean a correct merge**. Even if your code runs without errors, the output might not be what you were aiming for.
+
+
+This is why it is important to check the merge results:
+
+- Has the number of rows changed significantly?
+- Are there unexpected missing values?
+- Do the matches look correct?
+
+
+A simple check is to compare the number of rows before and after merging using `nrow()`:
+
+``` {r, eval=FALSE}
+nrow(dataset_a)
+nrow(merged_data)
+```
+
+
+This will check the number of rows in the original dataset and the new, merged dataset. If the number of rows increases significantly, this may include duplicate matches. If it decreases, you may have lost data. 
+
+
+## Standardising Species Names
+Species names are one of the most common causes of inconsistency when merging datasets. 
+
+
+Even small formatting differences can prevent datasets from merging correctly or lead to inaccuracies in later analyses. 
+
+
+Mismatched species names are usually caused by:
+
+- **Differences in capitalisation** - `"Ixodes ricinus"` or `"IXODES RICINUS"`
+- **Using spaces or underscores** - `"ixodes ricinus"` or `"ixodes_ricinus"`
+- **Extra text**, such as spp. - `"Ixodes ricinus spp."`
+- **Duplicate rows** for the same species.
+
+
+Although these all represent the same species, R will recognise each name variation as a different value.
+
+
+### Setting All Text to Lowercase
+A good starting point when standardising species names is **setting all text to lowercase**:
+
+
+``` {r, eval=FALSE}
+clean_data <- clean_data |>
+ mutate(species = tolower(species))
+```
+
+Here, `mutate()` modifies the column, and `tolower()` converts all text in the specified column to lowercase, in this case the `species` column. 
+
+
+This ensures consistency in capitalisation across the dataset.
+
+
+### Removing Unwanted Characters
+We can **remove any unwanted characters** from the species names in our datasets, such as underscores:
+
+
+``` {r, eval=FALSE}
+clean_data <- clean_data |>
+ mutate(species = gsub("_", " ", species))
+```
+
+
+We use the `mutate()` function again, this time with `gsub()` to replace the characters in a string. In this case, we are replacing any underscores with a space in the `species` column, such as converting `"ixodes_ricinus"` to `"ixodes ricinus"`.
+
+
+### Removing Additional Text
+We can use the same approach to **remove additional text**, such as "spp.":
+
+
+``` {r, eval=FALSE}
+clean_data <- clean_data |>
+ mutate(species = gsub(" spp\\.", "", species))
+```
+
+
+Note that in this code syntax there is:
+
+- A **space** before `spp` to ensure we remove the extra text without leaving a trailing space in the species name.
+- A **double backslash** between `spp` and the point. In R, the point is considered a special character with specific meaning. We use the double backslash so R knows to treat the point as a full stop, rather than a special character.
+
+
+### Removing Extra Spaces
+We can **remove any extra spaces** by using `trimws()` within the `mutate()` function:
+
+
+``` {r, eval=FALSE}
+clean_data <- clean_data |>
+ mutate(species = trimws(species))
+```
+
+
+`trimws()` removes leading and trailing spaces from the species names. These variations can be particularly tricky to spot by simply viewing the dataset. 
+
+
+If species names are not standardised across our datasets:
+
+- Merges between datasets could fail.
+- Duplicate species entries might be created.
+- Analyses might produce inaccurate results.
+
+
+::: {.rmdnote}
+**Example: Merging Mosquito Datasets**
+
+Let's imagine we have used **ohvbd** to retrieve a dataset on mosquito abundance, `mosquito_abundance_data`, and another dataset on mosquito habitats, `mosquito_habitat_data`, in order to analyse how habitat type affects patterns of abundance in mosquitos:
+
+
+```{r include=FALSE}
+mosquito_abundance_data <- data.frame(
+  species = c("Aedes aegypti", "Culex pipiens", "aedes_aegypti", "Culex pipiens spp."),
+  location = c("Site1", "Site1", "Site2", "Site2"),
+  abundance = c(10, 5, 12, 7)
+)
+
+mosquito_habitat_data <- data.frame(
+  species = c("aedes aegypti", "culex pipiens", "aedes aegypti", "culex pipiens"),
+  location = c("Site1", "Site1", "Site2", "Site2"),
+  habitat = c("urban", "wetland", "urban", "wetland")
+)
+```
+
+
+```{r}
+mosquito_abundance_data
+
+mosquito_habitat_data
+```
+
+
+We can try to merge these datasets in their raw format using `left_join()`:
+
+
+```{r}
+library(dplyr)
+
+merged_mosquito_data <- left_join(
+  mosquito_abundance_data,
+  mosquito_habitat_data,
+  by = c("species", "location")
+)
+```
+
+
+Now, let’s check the results of our merge using `head()` to view the first few rows, and `nrow()` to see the number of rows:
+
+
+``` {r}
+head(merged_mosquito_data)
+nrow(merged_mosquito_data)
+```
+
+
+We can see that the merge has run, but something is wrong - the expected habitat data is missing. This suggests the merge did not match rows correctly. 
+
+
+Let’s take a step back and look at the original datasets:
+
+
+``` {r}
+head(mosquito_abundance_data)
+head(mosquito_habitat_data)
+```
+
+
+We can see some inconsistencies in our species names:
+- Differences in capitalisation
+- Underscores instead of spaces
+- Additional text
+
+
+Although the locations match, both the `location` and `species` need to match exactly for the merge to work. 
+
+
+Now that we have identified the issues, let’s clean the species names in both datasets:
+
+
+``` {r}
+clean_mosquito_abundance_data <- mosquito_abundance_data |>
+  mutate(species = tolower(species)) |>
+  mutate(species = gsub("_", " ", species)) |>
+  mutate(species = gsub(" spp\\.", "", species))
+
+clean_mosquito_habitat_data <- mosquito_habitat_data |>
+  mutate(species = tolower(species)) |>
+  mutate(species = gsub("_", " ", species)) |>
+  mutate(species = gsub(" spp\\.", "", species))
+```
+
+
+In this code, we have used the `mutate()` function with `tolower()` to convert to lowercase and `gsub()` to replace underscores and remove extra text.
+
+
+Now that our species names are consistent, we can try merging again:
+
+
+``` {r}
+merged_mosquito_data <- left_join(
+  clean_mosquito_abundance_data,
+  clean_mosquito_habitat_data,
+  by = c("species", "location")
+)
+
+head(merged_mosquito_data)
+nrow(merged_mosquito_data)
+```
+
+
+We can see that the merge has now worked as expected - the rows match correctly, and the habitat data has been added as expected. The dataset is now in a usable format for further wrangling and analysis. 
+:::
+
+
+::: {.rmdcaution}
+**Frequent mistake:** People often only clean one dataset before merging, but data for the key column needs to be consistent across **both** datasets for the merge to be successful.
+:::
+
+
+### Complex Cases
+So far, we have covered how to approach simple inconsistencies. 
+
+
+However, real-world VBD datasets often contain more complex inconsistencies. These might involve:
+
+- **Abbreviated genus names** - `"I. ricinus"`
+- **Additional descriptors** - `"Ixodes ricinus aff."` or `"Ixodes ricinus cf."`
+- **Mixed formatting** within the same column.
+
+
+In these cases, you may require more steps to clean the data. For instance, if we had a dataset where the `species` column contained these variations: 
+
+- `"Ixodes ricinus"`
+- `"Ixodes_ricinus"`
+- `"Ixodes ricinus spp."`
+- `"IXODES RICINUS"`
+- `"I. ricinus"`
+
+
+If we apply our earlier name cleaning techniques, we might standardise most of these, but `"I. ricinus"` would remain as is, and R would treat this as a separate value. 
+
+
+To identify these issues, we can inspect all the unique species names in the dataset using `unique()`: 
+
+
+``` {r, eval=FALSE}
+unique(clean_data$species)
+```
+
+
+This allows you to see all the distinct values in the species column, helping you to identify inconsistencies. 
+
+
+We can manually correct specific cases that cannot be handled using our earlier techniques:
+
+
+``` {r, eval=FALSE}
+clean_data <- clean_data |>
+  mutate(species = ifelse(species == "i. ricinus", "ixodes ricinus", species))
+```
+
+
+Here:
+
+- `ifelse()` check each value in the species column.
+- If a value matches `"i.cicinus"`, it is replaced with `"ixodes ricinus"`,
+- If not, the value stays the same. 
+
+
+As species columns are typically used as a **key** when merging in VBD research, ensuring species names are consistent across our datasets can allow us to merge multiple datasets more confidently and reliably.
+
+
+::: {.rmdtip}
+**Tip:** Automating our workflow feels much easier, but it is important to balance this with manual reviewing to ensure you don’t miss specific cases like these. 
+
+
+To support the balance between automation and accuracy, we can follow a three step approach:
+
+1. Apply broad cleaning techniques (lowercase, remove underscores and extra text).
+2. Inspect the results using `unique()`.
+3. Manually correct any remaining inconsistencies.
+:::
+
+
+### Resolving Species Names Using GBIF
+When using large or complex datasets, you might choose to match your species names to a recognised taxonomic database. 
+
+
+The `rgbif` package can be used to help standardise species names using the Global Biodiversity Information Facility (GBIF). 
+
+
+We can use the `name_backbone()` function to try to match your species name to a standardised species name in the GBIF backbone taxonomy:
+
+
+``` {r, eval=FALSE}
+library(rgbif)
+
+name_backbone(name = "ixodes ricinus")
+```
+
+
+This approach can help to identify spelling or formatting errors and synonymous species names. 
+
+
+## Collaborative Task
+::: {.rmdimportant}
+**Collaborative Task: Frequent Data Wrangling Mistakes**
+Let’s have a go at applying what we have learnt so far by working together in groups. Each group will be given a short example of data wrangling code, along with a small dataset. The code contains errors or issues, and your job is to identify and fix them together.
+
+
+As a group, you will:
+
+1. Identify what the code is trying to do.
+2. Run it and discuss any errors or unexpected results. 
+3. Edit the code so that it runs and produces the results you would expect.
+
+
+You might find it helpful to share out roles, for example, one person might run the code, one might take notes, and one might guide the discussion. 
+
+
+The aim of this activity is not to produce perfect code, but to **apply what you have learnt so far and think critically about data wrangling principles**. There may be more than one fix, and explaining why you chose your approach is part of the task. 
+
+
+There are 4 sets of flawed code you can work through. We recommend each group tries at least 2 sets of code. 
+
+
+```{r include=FALSE}
+# Dataset A
+data_a <- data.frame(
+  species = c("aedes aegypti", "culex pipiens", "anopheles gambiae"),
+  abundance = c(10, 25, 5)
+)
+
+# Dataset B
+data_b <- data.frame(
+  Species = c("aedes aegypti", "culex pipiens", "anopheles gambiae"),
+  trait = c("urban", "rural", "rural")
+)
+
+# Dataset C
+data_c <- data.frame(
+  species = c("Aedes aegypti", "aedes_aegypti", "Aedes aegypti spp."),
+  abundance = c(10, 12, 8)
+)
+
+# Dataset D
+data_d <- data.frame(
+  species = c("aedes aegypti", "culex pipiens"),
+  trait = c("urban", "rural")
+)
+
+# Dataset E
+data_e <- data.frame(
+  species = c("aedes aegypti", "aedes aegypti", "culex pipiens"),
+  location = c("site1", "site2", "site1"),
+  abundance = c(10, 15, 20)
+)
+
+# Dataset F
+data_f <- data.frame(
+  species = c("aedes aegypti", "culex pipiens"),
+  location = c("site1", "site1"),
+  temperature = c(25, 22)
+)
+```
+
+
+**Code 1**
+``` {r}
+data_a
+data_b
+```
+
+
+``` {r, eval=FALSE}
+# Merge datasets
+merged_data <- left_join(data_a, data_b, by = "Species")
+```
+
+
+**Code 2**
+``` {r}
+data_c
+```
+
+
+``` {r, eval=FALSE}
+# Clean species name
+clean_data <- data_c |>
+  mutate(species = tolower(Species)) |>
+  mutate(species = gsub("spp.", "", species))
+``` 
+
+
+**Code 3**
+``` {r}
+data_a
+data_d
+```
+
+
+``` {r, eval=FALSE}
+# Merge datasets
+merged_data <- inner_join(data_a, data_d, by = "species")
+``` 
+
+
+**Code 4**
+``` {r}
+data_e
+data_f
+```
+
+
+``` {r, eval=FALSE}
+# Merge datasets
+merged_data <- left_join(data_e, data_f, by = "species", "location")
+``` 
+
+
+Hopefully, this task has reinforced the data wrangling principles we have discussed so far, and developed our understanding of how reformatting our data effectively contributes to a reproducible workflow and smoother downstream analyses.
+:::
+
+
+## Planning a Wrangling Workflow
+We have discussed how to reframe data wrangling as a process, rather than a rigid set of steps.
+
+
+When you open a new dataset, it can be tempting to start making changes immediately. To relieve this temptation, we can be prepared with a guide to a practical workflow that leaves room for flexibility to account for your specific dataset and research questions.
+
+1. **Inspect the data** - understand the structure, variables, and data types.
+2. **Identify any issues** - look for inconsistencies, missing values, and formatting problems.
+3. **Prioritise tasks** - decide which issues are most important for your analysis.
+4. **Apply cleaning steps** - after you understand the data, use appropriate data wrangling approaches.
+5. **Check results** - ensure the changes you have made have worked in the way you expected.
+
+
+Without a clear workflow, it is easy to lose track of the changes you have made, and introduce new errors, especially if you don’t check your results.
+
+
+Approaching data wrangling in this way helps to ensure your work is reproducible, efficient, and aligned with your research aims. 
+
+
+::: {.rmdtip}
+**Tip:** To keep track of your workflow, add comments to your code explaining what changes you made and why:
+
+
+`# Convert data to all lowercase to ensure consistency across datasets.`
+:::
+
+
+## Key Takeaways
+- Data wrangling is a process of preparing data for a specific research question.
+- VBD datasets often require cleaning and transformation before analysis.
+- Common issues include missing values, inconsistent formats, and duplicates.
+- Merging datasets requires consistent keys and careful validation.
+- Standardising species names is essential for accurate integration.
+- Validation ensures your dataset is accurate, consistent, and ready for analysis.
 
 
 
@@ -889,12 +1471,900 @@ Proper citation:
 
 # Visualising VBD Data in R
 
+## Overview
+Visualisations are a key part of working with VBD data. They allow us to explore patterns, identify anomalies, and communicate findings clearly across different audiences. 
+
+
+In this workshop, you will use Hub curated datasets to build visualisations in R using `ggplot2`. The session focuses on abundance plots, a common and important tool in vector surveillance. We will start with simple summaries across locations, then build up to time-series plots comparing multiple locations, using colour and faceting to improve clarity. We will then discuss how visualisations can be used to generate testable hypotheses. 
+
+
+**Learning Objectives**
+
+By the end of this workshop, you should be able to:
+
+1. Summarise VBD data in R to prepare it for plotting.
+2. Build abundance plots across locations and over time using `ggplot2`.
+3. Use colour and faceting to compare patterns across multiple groups. 
+4. Identify what visualisations can tell us about VBD data.
+5. Formulate testable hypotheses from visualisations, taking alternative explanations into account. 
+6. Identify and fix common problems in visualisations. 
+
+
+## What can Visualisations Tell Us About Data?
+Effective visualisations can help us to communicate complex datasets by quickly identifying distributions and patterns in the data that can be unclear from dataframes alone. 
+
+
+Visualising data can help us to identify:
+
+- **Distribution of data** - how values are spread across a dataset, including the spatial distribution of vectors or pathogens. 
+- **Correlative relationships** - potential associations between multiple variables, such as vector populations and environmental factors.
+- **Temporal trends** - variable changes over time, for example, vector abundance over time.
+- **Inter-group comparisons** - differences between groups, for instance, vector species across regions.
+- **Outliers or anomalies** - unexpected observations that may suggest errors to be addressed before modelling.
+
+
+Given how much information we can extract from them, visualisations are often the first step in exploratory data analysis before further statistical modelling.
+
+
+## Abundance Plots
+Different types of data need different types of visualisations. Choosing the appropriate plot to best represent your data is important to communicate your data and the proposed patterns clearly and accurately. 
+
+
+In VBD research, common visualisations you might come across include:
+
+- **Scatter plots** - useful to explore relationships between variables.
+- **Box plots** - useful to compare distributions between groups.
+- **Line plots** - useful to visualise trends over time.
+- **Bar plots** - useful to compare values between groups.
+- **Maps** - useful to show spatial patterns.
+
+
+In vector surveillance research, one of the most useful and frequently used visualisations is **abundance plots**. These can be used to show how vector counts change over time or across locations.
+
+
+In VBD research, we typically want to understand how abundance patterns vary across time, space, and species. Common VBD research questions consider:
+
+- Does vector abundance change throughout the year?
+- Do certain locations consistently report higher vector counts?
+- Do different species show distinct seasonal patterns?
+
+
+In this session, we will use the `ggplot2` package to create abundance plots. `ggplot2` is one of the most commonly used packages for visualisations and graphics, so it is useful for you to understand how to code with this package. It is particularly good to build plots step-by-step by defining:
+
+- The **dataset** we want to use.
+- The **variables** we want to visualise.
+- The **type of plot** we want to generate.
+
+
+### Abundance Across Locations
+Vector populations often vary between locations. Differences in habitat, climate, host availability, and land use can all influence vector abundance. As a result, combining data from multiple sampling sites into a single trend may obscure important spatial patterns. 
+
+Let’s start by opening [mosquito_subset_wrangled.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/mosquito_subset_wrangled.csv) in RStudio and loading the required packages:
+
+
+``` {r, include=FALSE}
+library("tidyverse")
+
+mosquito_data <- read_csv("data/mosquito_subset_wrangled.csv")
+```
+
+
+``` {r, eval=FALSE}
+library("tidyverse")
+
+mosquito_data <- read_csv("data/mosquito_subset_wrangled.csv")
+```
+
+
+::: {.rmdnote}
+**Note:** `tidyverse` is an all-encompassing package that contains a bunch of extra packages.
+
+Here we will mostly be using functions from the `ggplot2` and `lubridate` packages, but we can just load them all using `tidyverse`.
+:::
+
+
+As our data involves multiple samples at the same site, we next want to summarise the abundance data for each location. We do this by grouping by location using the `group_by()` function, then summarising the abundance per location as the mean and standard error using the `summarise()` function:
+
+
+``` {r}
+abundance_per_location <- mosquito_data %>%
+  group_by(sample_location) %>%
+  summarise(
+    mean_abundance = mean(sample_value, na.rm = TRUE),
+    se_abundance = sd(sample_value, na.rm = TRUE) / sqrt(sum(!is.na(sample_value)))
+  )
+```
+
+
+Here:
+- `group_by(sample_location)` groups the rows by location, so calculations are done for each location. 
+- `summarise()` reduces each group to a single row.
+- `mean(sample_value, na.rm = TRUE)` calculates the mean, ignoring any missing values. 
+- `sd() / sqrt()` converts the standard deviation into standard error, which we can later visualise using error bars. 
+
+
+We can use `ggplot2` to visualise the abundance of mosquitos at multiple sampling locations by using `ggplot()` to define the data and aesthetics, and adding layers with `+`. We start by stating our dataset and which variables we want on the x- and y-axes:
+
+
+``` {r, eval=FALSE}
+ggplot(abundance_per_location,
+aes(x = sample_location, y = mean_abundance)) +
+```
+
+
+`aes()` stands for aesthetics, and we use it to map variables in our dataset to visual properties of the plot. Here, we are mapping the sample location and mean abundance to the x- and y- axes. 
+
+
+In the next layers, we can use `geom_col()` and `geom_errorbar()` to tell R that we want to plot bars with whiskers (vertical error lines):
+
+
+``` {r, eval=FALSE}
+geom_col(fill = "darkturquoise") +
+geom_errorbar(aes(
+ymin = mean_abundance - se_abundance,
+ymax = mean_abundance + se_abundance
+),
+width = 0.2) +
+```
+
+
+This code is starting to look heavy, but it is just building aesthetics.
+
+
+In `geom_col()`, we can use `fill` to set the colour of the bars. 
+
+
+In `geom_errorbar()`, we can use `aes()` to set the aesthetics. In this case:
+
+- We use `ymin` to set the lower end of the whisker, calculated as the mean minus the standard error of abundance.
+- We use `ymax` to set the upper end of the whisker, calculated as the mean plus the standard error of abundance.
+- `width` controls how wide the horizontal lines are at either end of the whisker.
+
+
+The final chunk of code is adding labels using `labs()`:
+
+
+``` {r, eval=FALSE}
+labs(
+title = "Mean Abundance of Culex pipiens Across Locations",
+x = "Sampling Location",
+y = "Mean Abundance"
+)
+```
+
+
+`labs()` is used to add titles and axis labels, helping to make the visualisation clear and interpretable. 
+
+
+If we piece those chunks of code together, we can generate our visualisation. Each line of this code builds on the previous one by adding a new layer to the plot. 
+
+
+``` {r}
+abundance_plot_across_locations <- ggplot(abundance_per_location,
+aes(x = sample_location, y = mean_abundance)) +
+geom_col(fill = "darkturquoise") +
+geom_errorbar(aes(
+ymin = mean_abundance - se_abundance,
+ymax = mean_abundance + se_abundance
+),
+width = 0.2) +
+labs(
+title = "Mean Abundance of Culex pipiens Across Locations",
+x = "Sampling Location",
+y = "Mean Abundance"
+)
+
+abundance_plot_across_locations
+```
+
+
+We can now use this visualisation to compare abundance patterns across sampling sites:
+
+- Mean abundance varies across locations, with Sorragna and Terre Del Reno showing the highest mean mosquito abundance, and Gattatico showing the lowest mean mosquito abundance.
+- There is a lot of variation within each location. This is consistent across the dataset, suggesting natural variation in the data to be explored further.
+
+
+Visualisations such as this can help researchers identify potential hotspots of vector activity and guide further investigation into the ecological factors driving these patterns. For our graphic, we can see a lot of variation within each location. One way to assess this in more detail is to consider abundance over time.
+
+
+::: {.rmdtip}
+**Tip:** Remember to save your graphic:
+
+
+``` {r, eval=FALSE}
+ggsave("abundance_across_locations.pdf", plot = abundance_plot_across_locations)
+```
+
+
+`ggsave()` saves your plot to a file so you can easily export your visualisation for written reports or presentations. 
+:::
+
+
+### Abundance Over Time: Time-Series 
+A **time-series** plot shows observations across a continuous timeline, allowing us to see how abundance changes over time. These visualisations can help us identify:
+
+- Seasonal trends in abundance.
+- Periods of rapid population growth or decline.
+- Potential sampling gaps or inconsistencies. 
+
+
+Understanding these patterns is particularly important in VBD research because vector populations are often strongly influenced by seasonal changes in environmental conditions, including temperature, rainfall, and host availability. 
+
+
+#### Processing Dates
+When working with **time-series** data, it is useful to understand how R stores and processes dates. In a dataset, dates are typically stored as characters (plain text format). Although an entry like `"2023-06-15"` might look like a date to us, R does not automatically recognise this as a date and will treat it as a character string. 
+
+When we generate a plot, `ggplot2` will respond to how a variable is stored. For example, variables in character format will be plotted as categorical, whereas variables in date format will be plotted along a continuous time axis. 
+
+
+In **time-series** visualisations, a continuous time axis ensures:
+
+- Observations are plotted in chronological order.
+- Spaces between data points reflect true time differences.
+- Trends over time can be interpreted accurately. 
+
+
+We are now going to visualise abundance as a true time-series by using the sampling date to show how abundance changes over continuous time for a single species.
+
+
+#### Plotting Abundance Over Time
+Later in this session, we will consider abundance over multiple locations, but for now, let’s filter the data to visualise abundance over time at a single location - `Goro`:
+
+
+``` {r}
+mosquito_data_goro <- mosquito_data %>%
+filter(sample_location == "Goro")
+```
+
+
+The pipe operator `%>%` passes the dataset from one step to the next, making the code easier to read as a sequence of actions.
+
+
+To convert our date column from characters to date objects, we can use the `as.Date()` function:
+
+
+``` {r}
+mosquito_data_goro$sample_start_date <- as.Date(mosquito_data_goro$sample_start_date)
+```
+
+
+The `as.Date()` function is used to convert a column into a proper date format so that R and `ggplot2` can recognise it as a date variable and treat it as continuous time in visualisations.
+
+
+::: {.rmdcaution}
+**Frequent mistake:** If dates are messy, the plot will look messy. Ensuring the date column is in the correct data format means that R knows how to process the data correctly. 
+:::
+
+
+We can then build our visualisation in `ggplot2`. As before, we start by stating our dataset and which variables we want on the x- and y-axes:
+
+
+``` {r, eval=FALSE}
+ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
+```
+
+
+For a true time-series, we want to visualise time as a continuous measure across observation dates, so it is appropriate to use a line plot. To do this, we use `geom_line()`, which connects observations in the order of the x-axis, allowing us to visualise changes over time. 
+
+
+We can start to consider the visual appeal of our graphics, starting with the colour of the line. Within the `geom_line()` function, we can set the `colour` of the line:
+
+
+``` {r, eval=FALSE}
+ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
+  geom_line(colour = "darkturquoise") +
+```
+
+
+Setting line colours can be useful when plotting multiple lines on the same graphic. We will further develop this idea later in this session. 
+
+
+::: {.rmdtip}
+**Tip:** Although visually pleasing graphics are nice to look at, it is often more important to understand how to develop effective visualisations that accurately communicate your data and patterns.
+
+
+We will cover both skills in this workshop, but in general, try to consider that **a plain but clear and interpretable graphic is often more useful than a flashy graphic with poor accuracy and readability**. 
+:::
+
+
+We can then add our title and axes labels using `labs()` and generate our abundance plot:
+
+
+``` {r}
+time_series_plot_goro <- ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
+  geom_line(colour = "darkturquoise") +
+  labs(
+    title = "Abundance of Culex pipiens Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+time_series_plot_goro
+```
+
+
+Oh dear, this graphic looks rather messy! Although we have used the correct code and ensured our date column is in the correct format, our visualisation is still difficult to read and interpret. This is because real-world VBD data often includes multiple samples collected on the same date. 
+
+
+To create a more effective time-series visualisation, we need to **summarise** these samples into a single value per time point:
+
+
+``` {r}
+daily_abundance_goro <- mosquito_data_goro %>%
+group_by(sample_start_date) %>%
+summarise(total_abundance = sum(sample_value, na.rm = TRUE))
+```
+
+
+Grouping by date ensures all samples collected on the same day are combined into a single value, so that we have one observation per day in our visualisation. 
+
+
+We can now use the summarised daily abundance dataset to try plotting again, this time using `daily_abundance_goro` as our data and `total_abundance` on our y-axis:
+
+
+``` {r}
+daily_abundance_plot_goro <- ggplot(daily_abundance_goro, aes(x = sample_start_date, y = total_abundance)) +
+  geom_line(colour = "darkturquoise") +
+  labs(
+    title = "Abundance of Culex pipiens Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+daily_abundance_plot_goro
+```
+
+
+This is much better! Our visualisation effectively shows the trend of mosquito abundance over time at our selected location.
+
+
+In this plot:
+
+- The **x-axis** represents the continuous sampling time period.
+- The **y-axis** represents mosquito abundance.
+- The **line** connects daily abundance over continuous time.
+
+
+**Time-series abundance plots** like this one can provide useful insights into seasonal dynamics within vector populations. These can be useful when identifying patterns in our data:
+
+- Strong seasonality - abundance spikes in summer each year. 
+- Year-to-year variability - some years have higher peaks than others.
+- General trend - although abundance varies within the year, the peak each year seems to be increasing over time.
+
+
+### Abundance Across Multiple Locations Over Time
+In the previous examples, we have visualised abundance at multiple sampling locations, and abundance changes over time for a single location, but what if we combine these to look at abundance across multiple locations over time?
+
+
+In VBD research, data are commonly collected from multiple sampling sites, and we often want to compare how vector abundance varies across these locations simultaneously.
+
+
+We can achieve this by developing our time series plot to include **multiple locations**. 
+
+
+Before, we grouped the data by the date alone, but this time, we want to group the data by both sampling location and date, so that abundance is calculated separately for each location over time:
+
+
+``` {r}
+daily_abundance_all_locations <- mosquito_data %>%
+group_by(sample_location, sample_start_date) %>%
+summarise(total_abundance = sum(sample_value, na.rm = TRUE),
+.groups = "keep")
+```
+
+
+In this code, we have calculated a separate total abundance value for each location and each date. 
+
+
+::: {.rmdcaution}
+**Frequent mistake:** Be sure to add `.groups = "keep"` when adding multiple variables to `group_by`. Without this, some packages in R will drop the last grouping level, and you will see a message like this:
+
+`summarise() has grouped output by 'sample_location'. You can override using the .groups argument`.
+:::
+
+
+To visualise the data, we will generate a time-series abundance plot as we did before, but this time, we will use the `group = sample_location` argument within `aes()` to tell R that we want a separate line for each different sampling location. Without this, `ggplot` will treat all data as a single group and only plot one continuous line.
+
+
+``` {r}
+daily_abundance_plot_all <- ggplot(
+daily_abundance_all_locations,
+aes(x = sample_start_date, y = total_abundance, group = sample_location)
+) +
+geom_line(colour = "darkturquoise") +
+labs(
+title = "Abundance of Culex pipiens Across Locations Over Time",
+x = "Date",
+y = "Abundance"
+)
+
+daily_abundance_plot_all
+```
+
+
+This is the visualisation we wanted, but it looks a bit messy. All the lines are displayed in the same colour, which makes the plot difficult to read. We can see patterns of abundance change over time, but it is difficult to distinguish between different locations. 
+
+
+What we are seeing here is that more **complex** visualisations are not always **better** visualisations, especially if interpretation is limited. 
+
+
+### Distinguishing Locations by Colour
+One option to improve our visualisation and to help distinguish between locations is to assign a different colour to each sampling location. To do this, we map `sample_location` to the `colour` aesthetic within `aes()`, rather than assigning the line colour within `geom_line()`. This allows `ggplot` to automatically assign different colours to each category in the variable, in this case, each sample location. 
+
+
+``` {r}
+daily_abundance_plot_all <- ggplot(
+daily_abundance_all_locations,
+aes(x = sample_start_date, y = total_abundance, colour = sample_location)
+) +
+geom_line() +
+labs(
+title = "Abundance of Culex pipiens Across Locations Over Time",
+x = "Date",
+y = "Abundance",
+colour = "Sampling Location"
+)
+
+daily_abundance_plot_all
+```
+
+
+::: {.rmdtip}
+Tip: When `colour` is inside `aes()`, it is mapped to a variable, when it is outside, it is a fixed value.
+:::
+
+
+By adding colour, each line now represents a different sampling location more clearly, with a key detailing the line colour for each location. This makes it easier to identify patterns across locations. 
+
+
+By plotting **both location and time together**, we can identify patterns in the data:
+
+- Strong seasonal patterns across all locations, with patterns of sharp peaks and rapid declines each year.
+- Although trends over time are similar across locations, some show higher abundance than others.
+- Some extreme peaks in abundance stand out compared to the general trends. These may represent natural variation, such as optimal conditions and location for mosquito breeding, or these observations could be outliers. Further testing would be needed to assess this. 
+
+
+However, while using colour can definitely improve graphics, **visualisations can still feel overcrowded when too many groups are displayed together**. For example, our visualisation plots **8** different locations on the same graph. Overlapping lines and similar temporal patterns can make it difficult to fully interpret the data. 
+
+
+Additionally, using colour alone can cause difficulties with accessibility to all audiences, which we will address in a later session.
+
+
+### Using Faceting to Improve Clarity
+One useful solution to this overcrowding is **faceting**, a feature in `ggplot2` that splits a single plot into multiple smaller panels.
+
+
+Each panel displays a subset of the data, allowing patterns to be compared side-by-side without overlapping elements. By separating the data into smaller panels, we can often reveal patterns that might otherwise be hidden within a crowded visualisation.
+
+
+Faceting is particularly useful when:
+
+- Comparing multiple species.
+- Comparing sampling sites.
+- Exploring patterns across environmental conditions. 
+
+
+We can apply **faceting** to our previous time-series visualisation to separate each sampling location into its own panel, rather than using different colours. This directly addresses the overlapping lines,  improving the overall clarity and readability.
+
+
+To do this, we add `facet_wrap()` to our existing code, which tells R that we want to generate several panels separated by location:
+
+
+``` {r, eval=FALSE}
+facet_wrap(~ sample_location) # tells ggplot to create one panel per location.
+```
+
+
+``` {r}
+daily_abundance_plot_faceted <- ggplot(
+  daily_abundance_all_locations,
+  aes(x = sample_start_date, y = total_abundance)
+) +
+  geom_line(colour = "darkturquoise") +
+  facet_wrap(~ sample_location) +
+  labs(
+    title = "Abundance of Culex pipiens Across Locations Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+daily_abundance_plot_faceted
+```
+
+
+#### Adjusting y-axis Scales 
+In our current visualisation, all panels share the same y-axis scale, which is good for comparisons. However, this scale also means extreme peaks are visually dominant, and locations with smaller peaks look flat in comparison.
+
+
+We can add `scales = “free_y”` within `facet_wrap()` to adjust the y-axis scales across the panels, allowing us to visualise the patterns per location in greater detail.
+
+
+``` {r, eval=FALSE}
+facet_wrap(~ sample_location, scales = "free_y")
+```
+
+
+This allows each panel to have its own y-axis scale, making it easier to see patterns in locations with lower overall abundance.
+
+
+``` {r}
+daily_abundance_plot_faceted_Y <- ggplot(
+  daily_abundance_all_locations,
+  aes(x = sample_start_date, y = total_abundance)
+) +
+  geom_line(colour = "darkturquoise") +
+  facet_wrap(~ sample_location, scales = "free_y") +
+  labs(
+    title = "Abundance of Culex pipiens Across Locations Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+daily_abundance_plot_faceted_Y
+```
+
+
+By separating each sampling location into its own panel, the patterns in the data become much clearer:
+
+- Seasonal trends are still evident across all locations, but we are now able to see how these patterns vary between locations more easily.
+- Differences in abundance magnitude are much clearer, with some locations consistently showing higher peaks, and others reflecting relatively low abundance across the time-series. 
+- Extreme peaks can be clearly associated with specific locations without overlapping lines hiding these observations.
+
+
+Overall, **faceting improves clarity** by reducing visual clutter and allowing direct comparisons between locations. This makes it easier to interpret both independent trends per location and compare patterns across multiple locations.
+
+
+### Applying These Principles to Multiple Species and Datasets
+Various vector species can exhibit very different ecological behaviours. For instance:
+
+- Some species may emerge earlier in the season.
+- Some may reach a higher peak abundance.
+- Others may vary in abundance depending on particular habitats or hosts.
+
+
+Understanding these differences is important when studying disease transmission dynamics. Luckily, **you already have the tools to visualise these patterns!**
+
+
+In the last example, we visualised abundance over time, grouped by sampling location. For multiple species comparisons, we do the same abundance plots but grouped by species, rather than sampling location. 
+
+
+This is an important advantage of using flexible tools such as R and `ggplot2`. Once we understand the principles of building effective visualisations, we can apply them to many different datasets and research questions. 
+
+
+## Formulating Hypotheses From Visualisations
+Throughout this workshop, we have seen how visualisations can help us to identify patterns and extract information from our dataset. 
+
+
+For instance, after visualising our data, we might ask:
+
+- Can we observe any temporal or seasonal trends?
+- How is the data distributed - are abundance counts spread or clustered?
+- Can we make comparisons between different groups?
+- Are there any unusual observations or potential anomalies in the dataset?
+
+
+Asking these questions is an important step in **exploratory data analysis** as it helps us to understand our dataset before moving on to further analysis. 
+
+
+We can move from identifying patterns to formulating data-driven hypotheses. 
+
+
+A **hypothesis** is a testable explanation for an observed pattern. In other words, it is not just describing what we see, but suggesting why that pattern might exist. 
+
+When formulating hypotheses, it can be helpful to think about:
+
+- Patterns over time
+- Differences between locations
+- Unusual observations
+- Alternative explanations for the same pattern
+
+
+Real-world VBD datasets are often complex, with observations collected across multiple locations, species, and time periods. When visualised, these datasets can reveal more nuanced patterns that are difficult to identify from raw data alone. 
+
+
+As visualisations become more detailed, our questions, and therefore our hypotheses, can also become more specific. 
+
+
+Instead of asking "Why is abundance high?", we might ask:
+
+- Why does abundance vary between locations?
+- Why do abundance peaks occur at different times?
+- Why do some locations show more variability than others?
+
+
+For example, if we visualised a dataset on *Culicoides* abundance over time and observed a pattern showing higher counts during the summer months, we might suggest the following hypothesis: 
+
+**"Higher temperatures during summer months provide optimal conditions for Culicoides larval development, leading to increased abundance during this season."**
+
+Here, the visualisation suggests the pattern, and the hypothesis provides a possible explanation for that pattern.
+
+
+Similarly, if we plotted a dataset on sandfly abundance across different habitat types and observed higher counts in peri-domestic environments, we might suggest this hypothesis: 
+
+**"Peri-domestic environments increase sandfly abundance by providing suitable breeding habitats, such as organic waste from cattle sheds."**
+
+Again, we move from identifying a pattern to suggesting a possible explanation as to why that pattern might be happening. 
+
+
+From these examples, we can see how using visualisations can help to generate data-driven research questions and hypotheses.
+
+
+::: {.rmdnote}
+**Example: Formulating Hypotheses From an Abundance Plot**
+
+Let’s return to the abundance plot we developed earlier. 
+
+
+Based on this visualisation, consider:
+
+- What patterns can you identify?
+- What hypotheses could you propose to explain these patterns?
+
+
+Looking at our abundance plot, we can see clear repeating peaks in abundance over time, which suggests a possible seasonal pattern in the data. We can take this a step further and ask why this might be happening. For example, we might suggest a hypothesis like:
+
+**"Seasonal environmental conditions, including temperature and rainfall, create optimal conditions for mosquito larval development, leading to repeated peaks in abundance over time."**
+
+
+We can also compare patterns between locations, for instance, some locations show higher peaks than others. We therefore might ask why abundance is higher in some locations than others, and suggest a hypothesis such as:
+
+**"Locations with more suitable breeding habitats, such as standing water or organic matter, lead to higher mosquito abundance."**
+
+
+In each case, we are moving from identifying a pattern in the visualisation to suggesting a possible explanation that could be tested. 
+:::
+
+
+### Considering Alternative Explanations
+However, before we move forward with a hypothesis, it is important to consider alternative explanations for the same patterns. 
+
+
+For example:
+
+- Differences in sampling effort between locations or years.
+- Variation in trap efficiency.
+- Missing or incomplete data.
+
+
+These factors can influence what we see in the visualisation, even if they are not biologically meaningful. For instance, the unusually high peak for `Terre del Reno` might be anomalous or driven by uneven sampling effort, rather than reflecting a true biological pattern. 
+
+
+By considering alternative explanations, we can avoid drawing incorrect conclusions and ensure our hypotheses are more robust.
+
+
+### Visualisations Do Not Confirm Causation
+While visualisations are useful for identifying patterns, it is important to remember that they do not confirm causal relationships. 
+
+
+Instead, they provide a starting point for developing hypotheses that can later be tested using statistical models, experimental studies, or additional data collection.
+
+
+In practice, the process of formulating hypotheses often involves:
+
+- Identifying patterns in the visualisation.
+- Proposing possible explanations for those patterns.
+- Considering alternative explanations.
+- Designing analyses or collecting additional data to test these hypotheses.
+
+
+**This process allows us to move from simple visual observations to well-defined, testable hypotheses.**
+
+
+## What Makes a Good Visualisation?
+So far in this workshop, we have focused on how to create visualisations and use them to explore VBD data. However, as we have seen, not all visualisations communicate information clearly or effectively. 
+
+
+A well-designed visualisation should help the viewer understand the key message of the data quickly and clearly. Poorly designed visualisations, on the other hand, can be confusing, misleading, or difficult to interpret. 
+
+
+We will now explore some of the key characteristics that contribute to effective data visualisations, and consider how small design choices can make a big difference. 
+
+
+There are a few key features commonly associated with good visualisations, these include:
+
+- **Clarity** - the plot communicates its message quickly and clearly.
+- **Accuracy** - the visual representation reflects the underlying data correctly.
+- **Simplicity** - unnecessary elements that distract from the data are avoided. 
+- **Accessibility** - the visualisation can be interpreted by a wide audience. 
+
+
+For example, clear axis labels, readable text, and appropriate colours all contribute to making a visualisation easier to interpret. 
+
+
+On the other hand, poorly designed visualisations often include limitations such as:
+
+- Unclear or missing axis labels.
+- Confusing or inappropriate colour schemes.
+- Unnecessary visual elements.
+- Misleading scales that distort how the data is represented. 
+
+
+These kinds of issues can make it harder to understand the patterns in the data, even if the underlying dataset is good.
+
+
+## Collaborative Task: Improving a Flawed Visualisation 
+::: {.rmdimportant}
+A useful way to understand what makes a visualisation effective is to fix one that is flawed. In groups, you will be given the code for a visualisation, each contains a different common problem. 
+
+
+As a group:
+
+1. Run the code and look at the plot. What is it trying to show?
+2. Identify what makes it difficult to interpret.
+3. Edit the code to create an improved version. 
+4. Be ready to briefly explain the changes you made and why. 
+
+
+There is no single correct solution. The aim is to **think critically about how visualisation design choices affect how data are interpreted**.
+
+
+If your group finishes early, swap datasets with another group and see whether you would fix their code in the same way. 
+
+
+**Graph 1**
+
+Dataset: `group1&2_data.csv`
+
+
+Flawed code:
+
+
+``` {r, eval=FALSE}
+library("ggplot2")
+library("tidyverse")
+library("lubridate")
+
+group1_data <- read.csv("group1&2_data.csv")
+
+group1_data$sample_start_date <- as.Date(group1_data$sample_start_date)
+
+daily_abundance_all <- group1_data %>%
+  group_by(sample_location, sample_start_date) %>%
+  summarise(total_abundance = sum(sample_value, na.rm = TRUE),
+            .groups = "keep")
+
+group1_plot <- ggplot(daily_abundance_all,
+       aes(x = sample_start_date, y = total_abundance, group = sample_location)) +
+  geom_line(colour = "darkturquoise") +
+  labs(
+    title = "Mosquito Abundance Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+group1_plot
+```
+
+
+**Graph 2**
+
+Dataset: `group1&2_data.csv`
+
+
+Flawed code:
+
+
+``` {r, eval=FALSE}
+library("ggplot2")
+library("tidyverse")
+library("lubridate")
+
+group2_data <- read.csv("group1&2_data.csv")
+
+group2_data_cadeo <- group2_data %>%
+  filter(sample_location == "Cadeo")
+
+group2_data_cadeo$sample_start_date <- as.Date(group2_data_cadeo$sample_start_date)
+
+group2_plot <- ggplot(group2_data_cadeo,
+       aes(x = sample_start_date, y = sample_value)) +
+  geom_col(fill = "darkturquoise") +
+  labs(
+    title = "Mosquito Abundance Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+group2_plot
+```
+
+
+**Graph 3**
+
+Dataset: `group3&4_data.csv`
+
+
+Flawed code:
+
+
+``` {r, eval=FALSE}
+library("ggplot2")
+library("tidyverse")
+library("lubridate")
+
+group3_data <- read.csv("group3&4_data.csv")
+
+group3_data$sample_start_date <- as.Date(group3_data$sample_start_date)
+
+daily_abundance <- group3_data %>%
+  group_by(sample_location, sample_start_date) %>%
+  summarise(total_abundance = sum(sample_value, na.rm = TRUE),
+            .groups = "keep")
+
+group3_plot <- ggplot(daily_abundance,
+       aes(x = sample_start_date, y = total_abundance, colour = sample_location)) +
+  geom_line()
+
+group3_plot
+```
+
+
+**Graph 4**
+
+Dataset: `group3&4_data.csv`
+
+
+Flawed code:
+
+
+``` {r, eval=FALSE}
+library("ggplot2")
+library("tidyverse")
+library("lubridate")
+
+group4_data <- read.csv("group3&4_data.csv")
+
+group4_data$sample_start_date <- as.Date(group4_data$sample_start_date)
+
+daily_abundance_all <- group4_data %>%
+  group_by(sample_start_date) %>%
+  summarise(total_abundance = sum(sample_value, na.rm = TRUE))
+
+group4_plot <- ggplot(daily_abundance_all,
+       aes(x = sample_start_date, y = total_abundance)) +
+  geom_line(colour = "darkturquoise") +
+  labs(
+    title = "Mosquito Abundance Over Time",
+    x = "Date",
+    y = "Abundance",
+    colour = "Sampling Location"
+  )
+
+group4_plot
+```
+:::
+
+
+### Sharing Collaborative Graphics 
+We will now share each improved visualisation. The aim of this discussion is not only to present the final plots but also to understand the reasoning behind the changes that each group made.
+
+
+For each visualisation, a member of each group is invited to explain:
+
+- What problems they identified in the original graph.
+- What changes they made to improve it.
+- Why those changes improved the clarity of the visualisation.
+
+
+Hopefully, this task has reinforced the key principles discussed earlier and has shown you how **small tweaks to visualisations can significantly improve the interpretability of a plot**.
+
+
+By comparing the different solutions developed by each group, you can see that there are often multiple ways to improve a visualisation, depending on the context and audience.
+
+
+## Key Takeaways
+- Visualisations are often the first step in exploratory data analysis, revealing patterns, trends and anomalies that can be difficult to see in a dataframe. 
+- Select the plot type that best suits your data, for example, bar plots for comparing groups and line plots for trends over time.
+- Prepare your data before plotting. Converting dates to date format and summarising one value per tie point makes plots accurate and readable. 
+- More detail isn’t necessarily better. Colour and faceting provide options for comparing multiple groups without overcrowding a plot. 
+- Visualisations can be used to generate testable hypotheses, but remember, the suggested patterns do not confirm causation. 
+
 
 
 
 
 # Effectively Communicating with Different Audiences
-
+Content coming soon!
 
 
 
@@ -919,1601 +2389,5 @@ Content coming soon!
 
 # Reading & Resources
 Content coming soon!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Learning objectives
-
-**By the end of this workshop, you should be able to:**
-
-1. Generate accessible visualisations to communicate complex data to different audiences and stakeholders.
-2. Formulate data-driven hypotheses from effective data visualisations.
-3. Build collaborative, professional connections within the VBD community.
-
-
-## Prerequisites
-
-**Before participating in this workshop, you should have:**
-
-- Foundational knowledge of programming in R and RStudio, including running code, installing packages, and working within scripts.
-- Some experience of formatting datasets in R, such as importing .csv files and viewing dataframes.
-- Basic understanding of VBD biology, including common vectors and pathogen transmission.
-
-
-## Training Plan
-
-### Pre- live session content
-This is to be completed ahead of the **Live Session**.
-Content will be available on the Hub under [Learning Resources](https://vbdhub.org/resources/learn).
-
-
-The [VBD Hub Forum](https://forum.vbdhub.org/t/online-training-data-visualisations-in-r/159) is available for support and networking.
-
-
-### Live session
-10:00 - 13:00 on Thursday 19th March, via Teams.
-
-
-Content will be made available on the Hub under [Learning Resources](https://vbdhub.org/resources/learn) on the day of the **Live Session**.
-
-
-### Challenge Task
-Multi-stage task to be completed independently after the **Live Session**. The stages will increase in difficulty and provide an opportunity to apply what you have learnt to real VBD datasets.
-
-
-Content will be posted on the VBD Hub under [Learning Resources](https://vbdhub.org/resources/learn) on the day of the Live Session.
-The [VBD Hub Forum](https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-in-r/160) will be available for support.
-
-
-## Navigating Course Content
-Many of the tasks in this workshop will be in a workbook-style format and will walk you through how to code specific functions and models. We encourage you to type this code yourself to practice syntax and gain the most out of the content provided, rather than copying and pasting.
-
-
-All the datasets in this workshop have been tidied and wrangled for you. This is so we can focus on the key themes within this session - effective visualisations and graphics. Raw data is also provided, and we recommend you take a look at the “before” and “after” to better understand the data we are working with. 
-
-
-All coding through this workshop will be done in Rstudio, a user friendly IDE (integrated development environment) for R language. Please ensure you have R and RStudio installed and updated ahead of the **Live Session**. If you do not already have R or RStudio installed, see [here](https://posit.co/download/rstudio-desktop/).
-
-
-## Available Materials & Support
-If you need a quick reminder of basic coding in R, additional materials and cheat sheets can be found here:
-
-- [Biological Computing in R](https://vbdhub.org/MQB/notebooks/r.html)
-- [Data Management (read up to Data visualization)](https://vbdhub.org/resources/learn/training-2025/data-management-and-visualisation)
-- [Basic Hypothesis Testing](https://vbdhub.org/MQB/notebooks/t-f-tests.html)
--	[RStudio IDE Cheatsheet](https://rstudio.github.io/cheatsheets/rstudio-ide.pdf)
--	[Data Wrangling with dplyr Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf) 
-
-
-If you need additional support through this workshop:
-
-- The [**Forum**](http://forum.vbdhub.org) is a good place to discuss queries with fellow participants.
-- Demonstrators will be available to help during the **Live Session**.
-- During the **Challenge Task**, a specific discussion on the Forum will be open to ask demonstrators questions. One-to-one video support will also be available if required.
-- For technical support (e.g. trouble accessing content or joining the Teams link), please contact support@vbdhub.org. This is **not** for coding or statistical support.
-
-
-## Installing Packages
-This workshop will use several R packages throughout, please install these ahead of the **Live Session**.
-
-
-**Packages for this workshop:**
-
-- `ggplot2`
-- `tidyverse`
-- `lubridate`
-
-
-::: {.rmdtip}
-**Reminder:** To install packages in R, use the `install.packages()` command.
-
-
-To install one package:
-``` r
-install.packages("ggplot2")
-```
-
-To install multiple packages:
-``` r
-install.packages(c("ggplot2", "dplyr", "tidyr"))
-```
-:::
-
-
-# Pre- Live Session Content
-
-``` {r include=FALSE}
-# Force load of all relevant packages just for now. We'll re-work it later.
-library(tidyverse)
-```
-
-[link to optional recap of linear models and basic plots](#recap)
-
-
-## Commonly Used Visualisations for VBD Data
-Different types of data need different types of visualisations.
-
-
-Choosing the appropriate plot to best represent your data is important to communicate your data and the proposed patterns clearly and accurately. 
-
-
-In VBD research, common visualisations you might come across include:
-
-- **Scatter plots** - useful to explore relationships between variables.
-- **Boxplots** - useful to compare distributions between groups.
-- **Line plots** - useful to visualise trends over time.
-- **Bar plots** - useful to compare values between groups.
-- **Maps** - useful to show spatial patterns.
-
-
-
-In vector surveillance research, one of the most useful and frequently used visualisations is abundance plots. These can be used to show how vector counts change over time or across locations.
-
-
-Abundance plots typically use lines to communicate overall trends in vector populations. However, points can also be used to show individual observations within the dataset. This can be particularly useful during exploratory analysis as it allows us to visualise variation in the data and identify outliers.
-
-
-Throughout this training, we will focus on developing effective abundance plots with real VBD datasets. We will start with simple exploratory abundance plots in this **Pre- Live Session** content, and build more complex abundance plots during the **Live Session**.
-
-
-## What can Visualisations Tell Us About Data?
-Effective visualisations can help us to communicate complex datasets by quickly identifying distributions and patterns in the data that can be unclear from dataframes alone. 
-
-
-Visualising data can help us to identify:
-
-- **Distribution of data** - how values are spread across a dataset, including the spatial distribution of vectors or pathogens. 
-- **Correlative relationships** - potential associations between multiple variables, such as vector populations and environmental factors.
-- **Temporal trends** - variable changes over time, for example, vector abundance over time.
-- **Inter-group comparisons** - differences between groups, for instance, vector species across regions.
-- **Outliers or anomalies** - unexpected observations that may suggest errors to be addressed before modelling.
-
-
-
-Given how much information we can extract from them, visualisations are often the first step in exploratory data analysis before further statistical modelling.
-
-
-### Task 1: Visualising Tick Abundance Across Locations 
-Let’s try visualising some VBD data. First, download [tick_dataset_wrangled.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/tick_dataset_wrangled.csv) and open it in RStudio:
-
-
-``` r
-tick_data <- read.csv("tick_dataset_wrangled.csv")
-tick_data
-```
-
-
-This dataset contains tick abundance, `sample_value`, across two sampling locations, `sample_location`.
-
-
-::: {.rmdcaution}
-**Where most people make mistakes:** Remember to save tick_dataset_wrangled.csv to an appropriate **working directory** and **set your working directory** correctly in RStudio!
-:::
-
-
-We can plot this data to visualise the difference in abundance across the two sample locations. You might typically see bar plots used to visualise abundance across two groups, but here we will use a scatter plot to show individual observations, which allows us to assess variation and identify potential outliers in the dataset.
-
-
-To do this, we will use the `ggplot2` package. `ggplot2` is one of the most commonly used packages for visualisations and graphics, so it is useful for you to understand how to code with this package. It is particularly good to build plots step-by-step by defining:
-
-- The dataset we want to use.
-- The variables we want to visualise.
-- The type of plot we want to generate.
-
-
-
-Run this code to generate a simple abundance plot of `tick_data` using points to show individual observations:
-
-
-``` r
-library("ggplot2")
-
-tick_abundance_location <- ggplot(tick_data, aes(x = sample_location, y = sample_value)) +
-geom_point() +
-labs(
-x = "Sampling Location",
-y = "Tick Abundance",
-title = "Tick Abundance Across Sampling Locations"
-)
-
-tick_abundance_location
-
-```
-
-
-You should now see a simple abundance plot in the “Plot” window of RStudio, which looks like this:
-
-
-``` {r include=FALSE}
-tick_data <- read.csv("data/tick_dataset_wrangled.csv")
-```
-
-``` {r include=FALSE}
-library("ggplot2")
-tick_abundance_location <- ggplot(tick_data, aes(x = sample_location, y = sample_value)) +
-geom_point() +
-labs(
-x = "Sampling Location",
-y = "Tick Abundance",
-title = "Tick Abundance Across Sampling Locations"
-)
-```
-
-``` {r}
-tick_abundance_location
-```
-
-
-::: {.rmdtip}
-**Tip:** Using ggplot2 to code visualisations can look heavy, but what we are doing is breaking down each step of the plot like building blocks. Let’s have a closer look:
-
-
-`ggplot(tick_data, aes(x = sample_location, y = sample_value))`
-`tick_data` is the dataset we want to visualise.
-`aes()` represents aesthetics, including which variables from the dataset we want to visualise. For this plot:
-`x = sample_location` tells R to place sampling location on the x-axis.
-`y = sample_value` tells R to place tick abundance on the y-axis.
-
-
-`geom_point()`
-Tells R to plot a point for each observation in the dataset. For this data, one observation is the tick count per sample collected at a particular location. We would change this if we wanted to use a line plot.
-
-
-``` r
-labs(
-x = "Sampling Location",
-y = "Tick Abundance",
-title = "Tick Abundance Across Sampling Locations"
-)
-```
-The `labs()` function simply adds labels to the visualisation to make it easier to interpret. For this plot, we have added an x-axis label, a y-axis label, and a title for the plot.
-:::
-
-
-It is a good idea to save your visualisations so you can easily refer back to them when you need. There are several ways to save visualisations in R, but it is good practice to use code:
-
-
-`ggsave("tick_abundance_location.png", plot = tick_abundance_location)`
-
-
-Now that we have visualised the data, we identify patterns and extract information about the dataset. 
-
-
-From the visualisation, we can see:
-
-- Tick abundance appears to be greater in Sogn and Fjordane than in Akershus and Østfold.
-- Most observations across both locations show relatively low tick abundance, with a small number of samples showing much higher values. 
-- Sogn and Fjordane has more samples than Akershus and Østfold, suggesting a potential bias in sampling effort. This is something which may need to be addressed when running further analysis. 
-- Although some Sogn and Fjordane samples include very high tick counts, these values are spread across several observations, suggesting genuine variation in the data rather than single outliers.
-
-
-
-### Task 2: Visualising Mosquito Abundance Over Time 
-Let’s try another visualisation, this time plotting vector abundance over time. Visualising data across time can help us identify temporal trends, seasonal patterns, and periods of unusually high or low abundance.
-
-
-Download the [mosquito_monthly_2023_subset.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/mosquito_monthly_2023_subset.csv) dataset and open in RStudio:
-
-
-``` r
-mosquito_monthly_data <- read.csv("mosquito_monthly_2023_subset.csv")
-mosquito_monthly_data
-```
-
-
-Now, let’s visualise the data using another simple abundance plot using points to show individual observations:
-
-
-``` r
-mosquito_abundance_monthly <- ggplot(mosquito_monthly_data, aes(x = month, y = sample_value)) +
-geom_point() +
-labs(
-x = "Month",
-y = "Mosquito Abundance",
-title = "Monthly Mosquito Abundance Across 2023"
-)
-
-mosquito_abundance_monthly
-```
-
-
-You should now see a new simple abundance plot in the “Plot” window of RStudio, which looks like this:
-
-
-```{r include=FALSE}
-mosquito_monthly_data <- read.csv("data/mosquito_monthly_2023_subset.csv")
-```
-
-``` {r include=FALSE}
-mosquito_abundance_monthly <- ggplot(mosquito_monthly_data, aes(x = month, y = sample_value)) +
-geom_point() +
-labs(
-x = "Month",
-y = "Mosquito Abundance",
-title = "Monthly Mosquito Abundance Across 2023"
-)
-```
-
-``` {r}
-mosquito_abundance_monthly
-```
-
-
-Don’t forget to save your plot:
-
-
-`ggsave("mosquito_abundance_monthly.png", plot = mosquito_abundance_monthly)`
-
-
-Now it’s your turn to have a go at identifying patterns and information about the dataset from this new visualisation, as we did in **Task 1**. Please record your answers in the **Response Form** at the end of the **Pre- Live Session** content.
-
-
-::: {.rmdtip}
-**Tip:** Consider these prompts if you need some additional guidance:
-
-- Can you observe any potential temporal or seasonal trends?
-- How is the data distributed? Are abundance counts spread or clustered?
-- Can you make comparisons between the different months?
-- Are there any potential anomalies in the dataset?
-
-:::
-
-
-## Formulating Hypotheses From Visualisations
-Now that we know what patterns can be drawn from data visualisations, we can begin to develop hypotheses on the mechanisms and processes that might explain these patterns. 
-
-
-A hypothesis is a **testable explanation** for an **observed pattern**.
-
-
-For example, if we visualised a dataset on *Culicoides* abundance over time and observed a pattern showing higher *Culicoides* counts during the summer months, we might suggest the following hypothesis: 
-**“Higher temperatures during summer provide optimal conditions for Culicoides larval development, leading to increased abundance during this season.”**
-
-
-Similarly, if we plotted a dataset on sandfly abundance across different habitat types and observed a pattern indicating higher sandfly counts in peri-domestic habitats, we might suggest this hypothesis: 
-**“Peri-domestic environments increase sandfly abundance by providing suitable breeding habitats, such as organic waste from cattle sheds.”**
-
-
-From these examples, we can understand how visualisations can help to generate data-driven research questions and hypotheses.
-
-
-::: {.rmdimportant}
-**Important:** Remember, data visualisations alone do not show causation. They can be used as a tool to highlight potential patterns that should be tested using further statistical analysis. 
-:::
-
-
-### Task 3: Formulating Hypotheses from Data Visualisations
-Have another look at the visualisations you generated in **Tasks 1** and **2**, and consider the patterns we observed in the data.
-
-
-What biological, environmental, or other factors might explain these patterns?
-
-
-Write one possible hypothesis for each visualisation that could be tested using further analysis (you do **not** need to run further analysis for this workshop).
-
-
-Please record your answers in the **Response Form** at the end of the **Pre- Live Session** content.
-
-
-## Response Form 
-Please complete this [Response Form](https://docs.google.com/forms/d/e/1FAIpQLScGu77Qc6dqKAdB7BsbdSOn-h407HI9_f7OWELcVfZLysxrJA/viewform?usp=publish-editor) after finishing the tasks above.
-
-
-This form is anonymous and is **not** an assessment. Your responses will help us to understand which areas may require more support during the **Live Session**. We aim to tailor the content to the group's needs, so you gain the most from this workshop.
-
-
-## Conclusion & Preparation for Live Session
-Ahead of the live session, ensure you keep R and RStudio installed on your device, as well as the packages we prepared earlier. 
-
-
-Please make sure you have Teams set up on your device and that your microphone is working. We will aim to send the link 48 hours before the live session. Please be aware that the live session will be recorded. 
-
-
-# Live Session
-
-
-## Live Session Schedule 
-
- - Introduction
- - Recap pre- Live Session
- - Build on Abundance Plots
- - Drawing Hypotheses from Complex Plots
- - BREAK
- - What Makes a Good Visualisation?
- - Collaborative task
- - Share Collaborative Task Results
- - BREAK
- - Communicating to Different Audiences
- - Visualisation Themes & Accessible Graphics
- - Prepare for Challenge Task & Conclusion
-
-
-## Introduction 
-Welcome to the **One Health Vector-Borne Diseases Hub Online Training**. My name is Chloё, and I work with the VBD Hub to develop training and workshops, like this session today. We are also joined by our lovely demonstrators, who will be available throughout the session to provide support and answer any questions you have. 
-
-
-**VBD Hub** is a non-profit, open-source project funded by UKRI and Defra, which aims to improve accessibility and information sharing. To do this, the project builds infrastructure and tools to allow researchers to combine knowledge and share data within the VBD research community and with policymakers. 
-
-
-Our focus today is **Visualisations in R**. By the end of this training, you should be able to: 
-
-- Generate accessible visualisations to communicate complex data to different audiences and stakeholders.
-- Formulate data-driven hypotheses from effective data visualisations.
-- Build collaborative, professional connections within the VBD community.
-
-
-In the **Pre- Live Session** content, you will have seen links to recap materials and cheat sheets. Feel free to use these if you need any reminders. If you need additional support, the **Forum** is a good first point of call where you can discuss queries with fellow participants. Our **demonstrators** will keep an eye on the chat during this call and can provide more support during tasks. 
-
-
-The written version of this content is now available on the **VBD Hub website** if you wish to follow along with this format. These written materials will be available for you to access in future, including the code examples. You are welcome to follow along with the walkthrough code in this **Live Session**, but there is no pressure, and you can have a go at the code yourself later. 
-
-
-If you have any technical difficulties or lose connection, try joining the meeting again when you can. If you need technical support, please contact support@vbdhub.org (**note**: this is only for technical support, not statistical support or questions on the course content). 
-
-
-We have breaks scheduled into this session, but if you need to step away for a few minutes at all, feel free to do so quietly. 
-
-
-## Recap Pre- Live Session Content 
-In the **Pre- Live Session** content, we covered:
-
-- Commonly used visualisations in VBD research, notably abundance plots.
-- What visualisations can tell us about data, and how this can support exploratory analysis.
-- How to use observed patterns from simple visualisations to formulate data-driven hypotheses.
-
-
-During the tasks, we tried identifying patterns and details out the datasets and proposing hypotheses from our visualisations:
-
-- 1. What patterns and data details can you identify from the **Monthly Mosquito Abundance across 2023** plot?
-- 2. What hypothesis do you propose for the visualisation in **Task 1: Tick Abundance Across Sampling Locations**?
-- 3. What hypothesis do you propose for the visualisation in **Task 2: Monthly Mosquito Abundance across 2023**?
-
-
-## Building on Abundance Plots 
-In the **Pre- Live Session** content, we covered simple abundance plots and considered how these visualisations can be used to help identify potential patterns in exploratory analysis of vector surveillance data. 
-
-
-However, these simple abundance plots often only tell us part of the story. In VBD research, we typically want to understand *how* abundance patterns vary across time, space, and species. 
-
-
-Common VBD research questions consider:
-
-- Does vector abundance change throughout the year?
-- Do certain locations consistently report higher vector counts?
-- Do different species show distinct seasonal patterns?
-
-
-In this session, we will build on the basic abundance plots introduced in the **Pre- Live Session** content by developing more complex visualisations using R and the `ggplot2` package.
-
-
-### Abundance Across Sampling Locations
-Vector populations often vary between locations. Differences in habitat, climate, host availability, and land use can all influence vector abundance. As a result, combining data from multiple sampling sites into a single trend may obscure important spatial patterns. 
-
-
-In the **Pre-Live Session** content, we plotted the abundance of ticks across two sampling locations. To do this, we used a scatter plot to view the individual observations so that we could practice identifying patterns in the data. However, in VBD research, we would typically use a bar plot to visualise abundance across multiple locations.
-
-
-Let’s start by downloading [mosquito_subset_wrangled.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/mosquito_subset_wrangled.csv). Open this dataset in RStudio and load the required packages:
-
-
-``` {r}
-library("tidyverse")
-
-mosquito_data <- read_csv("data/mosquito_subset_wrangled.csv")
-```
-
-::: {.rmdnote}
-**Note:** `tidyverse` is an all-encompassing package that contains a bunch of extra packages.
-
-Here we will mostly be using functions from the `ggplot2` and `lubridate` packages, but we can just load them all using `tidyverse`.
-:::
-
-As our data involves multiple samples at the same site, we next want to summarise the abundance data for each location. We do this by grouping by location using the `group_by()` function, then summarising the abundance per location as the `mean()` and `sd()` using the `summarise()` function:
-
-``` {r}
-abundance_per_location <- mosquito_data %>%
-  group_by(sample_location) %>%
-  summarise(
-    mean_abundance = mean(sample_value, na.rm = TRUE),
-    se_abundance = sd(sample_value, na.rm = TRUE) / sqrt(sum(!is.na(sample_value)))
-  )
-```
-
-
-We can use `ggplot2` to visualise the abundance of mosquitos at multiple sampling locations by using similar code to that in the **Pre- Live Session** content. We start by stating our dataset and which variables we want on the x- and y-axes:
-
-
-```r
-ggplot(
-  abundance_per_location,
-  aes(x = sample_location, y = mean_abundance)
-  ) +
-```
-
-
-This time, instead of using `geom_point()`, we will use `geom_col()` and `geom_errorbar()`. This tells R that we want to plot bars with whiskers (vertical error lines):
-
-
-```r
-geom_col(fill = "darkturquoise") +
-  geom_errorbar(aes(
-    ymin = mean_abundance - se_abundance,
-    ymax = mean_abundance + se_abundance
-  ),
-  width = 0.2) +
-```
-
-
-This code is starting to look heavy, but it is just building aesthetics.
-
-
-In `geom_col()`, we can use `fill` to set the colour of the bars. 
-
-
-In `geom_errorbar()`, we can use `aes()` to set the aesthetics. In this case:
-
-- We use `ymin` to set the lower end of the whisker, calculated as the mean minus the standard deviation of abundance.
-- We use `ymax` to set the upper end of the whisker, calculated as the mean plus the standard deviation of abundance.
-- `width` controls how wide the horizontal lines are at either end of the whisker.
-
-
-The final chunk of code is adding labels using `labs()` - this is the same as we practised in the **Pre- Live Session** content:
-
-
-``` r
-labs(
-  title = "Mean Abundance of Culex pipiens Across Locations",
-  x = "Sampling Location",
-  y = "Mean Abundance"
-)
-```
-
-
-If we piece those chunks of code together, we can generate our visualisation:
-
-
-``` {r}
-abundance_plot_across_locations <- ggplot(
-  abundance_per_location,
-  aes(x = sample_location, y = mean_abundance)
-  ) +
-  geom_col(fill = "darkturquoise") +
-  geom_errorbar(
-    aes(
-      ymin = mean_abundance - se_abundance,
-      ymax = mean_abundance + se_abundance
-    ),
-    width = 0.2) +
-  labs(
-    title = "Mean Abundance of Culex pipiens Across Locations",
-    x = "Sampling Location",
-    y = "Mean Abundance"
-  )
-
-abundance_plot_across_locations
-```
-
-
-::: {.rmdtip}
-**Tip:** Remember to save your graphic:
-
-
-```r
-ggsave("daily_abundance_all.pdf", plot = daily_abundance_plot_all)
-```
-:::
-
-
-We can now use this visualisation to compare abundance patterns across sampling sites:
-
-- Mean abundance varies across locations, with Sorragna and Terre Del Reno showing the highest mean mosquito abundance, and Gattatico showing the lowest mean mosquito abundance.
-- There is a lot of variation within each location. This is consistent across the dataset, suggesting natural variation in the data to be explored further.
-
-
-Visualisations such as this can help researchers identify potential hotspots of vector activity and guide further investigation into the ecological factors driving these patterns. For our graphic, we can see a lot of variation within each location. One way to assess this in more detail is to consider abundance over time. 
-
-
-### Abundance Over Time: Time-Series
-
-
-A **time-series** plot shows observations across a continuous timeline, allowing us to see how abundance changes over time. These visualisations can help us identify:
-
-- Seasonal trends in abundance.
-- Periods of rapid population growth or decline.
-- Potential sampling gaps or inconsistencies. 
-
-
-Understanding these patterns is particularly important in VBD research because vector populations are often strongly influenced by seasonal environmental conditions, including temperature, rainfall, and host availability. 
-
-
-In the **Pre- Live Session** content, we grouped observations by months. We are now going to visualise abundance as a true time-series by using the sampling date to show how abundance changes over continuous time for a single species. 
-
-
-Later in this session, we will consider abundance over multiple locations, but for now, let’s filter the data to visualise abundance over time at a single location - `Goro`:
-
-
-```{r}
-mosquito_data_goro <- mosquito_data %>%
-  filter(sample_location == "Goro")
-```
-
-
-When working with time-series data, it is useful to understand how R stores and processes dates. In a dataset, dates are typically stored as characters (plain text format). Although an entry like "2023-06-15" might look like a date to us, R does not automatically recognise this as a date and will treat it as a character string. 
-
-
-When we generate a plot, `ggplot2` will respond to how a variable is stored. For example, variables in character format will be plotted as categorical, whereas variables in date format will be plotted along a continuous time axis. 
-
-
-In time-series visualisations, a continuous time axis ensures:
-
-- Observations are plotted in chronological order.
-- Spaces between data points reflect true time differences.
-- Trends over time can be interpreted accurately. 
-
-
-To convert our date column from characters to date objects, we can use the `as.Date()` function:
-
-
-``` {r}
-mosquito_data_goro$sample_start_date <- as.Date(mosquito_data_goro$sample_start_date)
-```
-
-
-The `as.Date()` function is used to convert a column into a proper date format so that R and `ggplot2` can recognise these as dates.
-
-
-::: {.rmdcaution}
-**Frequent mistake:** If dates are messy, the plot will look messy. Ensuring the date column is in the correct data format means that R knows how to process the data correctly. 
-:::
-
-
-We can then build our visualisation in `ggplot2`, as we did in the **Pre- Live Session** content. We start by stating our dataset and which variables we want on the x- and y-axes:
-
-
-```r
-ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
-```
-
-
-In the **Pre- Live Session** content, we used `geom_point()` to generate a simple abundance plot with scatter points so that we could see the individual observations across specific months (categories). For true time-series, we want to visualise time as a continuous measure across observation dates, so it is more appropriate to use a line plot. To do this, we replace `geom_point()` with `geom_line()`:
-
-
-```r
-ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
-  geom_line() +
-```
-
-
-We can start to consider the visual appeal of our graphics, starting with the colour of the line. Within the `geom_line()` function, we can set the colour of the line:
-
-
-```r
-ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
-  geom_line(colour = "darkturquoise") +
-```
-
-
-Setting line colours can be useful when plotting multiple lines on the same graphic. We will further develop this idea later in this session. 
-
-
-::: {.rmdtip}
-**Tip:** Although visually pleasing graphics are nice to look at, it is often more important to understand how to develop effective visualisations that accurately communicate your data and patterns.
-
-
-We will cover both skills in this workshop, but in general, try to consider that a plain but **clear and interpretable graphic is often more useful than a flashy graphic with poor accuracy and readability**. 
-:::
-
-
-We can then add our title and axes labels using `labs()` as we did in the **Pre- Live Session** content, and generate our abundance plot:
-
-
-``` {r}
-time_series_plot_goro <- ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
-  geom_line(colour = "darkturquoise") +
-  labs(
-    title = "Abundance of Culex pipiens Over Time",
-    x = "Date",
-    y = "Abundance"
-  )
-
-time_series_plot_goro
-```
-
-
-Oh dear, this graphic looks rather messy! Although we have used the correct code and ensured our date column is in the correct format, our visualisation is still difficult to read and interpret. This is because real-world VBD data often includes multiple samples collected on the same data. To create a more effective time-series visualisation, we need to summarise these samples into a single value per time point:
-
-
-``` {r}
-daily_abundance_goro <- mosquito_data_goro %>%
-  group_by(sample_start_date) %>%
-  summarise(total_abundance = sum(sample_value, na.rm = TRUE))
-```
-
-
-We can now use the summarised daily abundance data to try plotting again, this time using `daily_abundance_goro` as our data and `total_abundance` on our y-axis:
-
-
-```{r}
-daily_abundance_plot_goro <- ggplot(daily_abundance_goro, aes(x = sample_start_date, y = total_abundance)) +
-  geom_line(colour = "darkturquoise") +
-  labs(
-    title = "Abundance of Culex pipiens Over Time",
-    x = "Date",
-    y = "Abundance"
-  )
-
-daily_abundance_plot_goro
-```
-
-
-This is much better! Our visualisation effectively shows the trend of mosquito abundance over time at our selected location.
-
-
-In this plot:
-
-- The x-axis represents the continuous sampling time period.
-- The y-axis represents mosquito abundance.
-- The line connects daily abundance over continuous time.
-
-
-Time-series abundance plots like this one can provide useful insights into seasonal dynamics within vector populations. These can be useful when identifying patterns in our data:
-
-- Strong seasonality - abundance spikes in summer each year. 
-- Year-to-year variability - some years have higher peaks than others.
-- General trend - although abundance varies within the year, the peak each year seems to be increasing over time.
-
-
-::: {.rmdtip}
-**Tip:** Remember to save your graphic:
-
-
-```r
-ggsave("daily_abundance_all.pdf", plot = daily_abundance_plot_all)
-```
-:::
-
-
-### Abundance Across Multiple Locations Over Time
-In the previous examples, we have visualised abundance at multiple sampling locations, and abundance changes over time for a single location, but what if we combine these to look at abundance across multiple locations over time?
-
-
-In VBD research, data are commonly collected from multiple sampling sites, and we often want to compare how vector abundance varies across these locations simultaneously.
-
-
-We can achieve this by developing our time series plot to include multiple locations. Before, we grouped the data by the date alone, but this time, we want to group the data by both sampling location and date, so that abundance is calculated separately for each location over time:
-
-
-``` {r}
-daily_abundance_all_locations <- mosquito_data %>%
-  group_by(sample_location, sample_start_date) %>%
-  summarise(total_abundance = sum(sample_value, na.rm = TRUE),
-    .groups = "keep")
-```
-
-
-::: {.rmdcaution}
-**Frequent mistake:** Be sure to add `.groups = "keep"` when adding multiple variables to group_by. Without this, some packages in R will drop variables after the first `group_by` variable, and you will see a message like this:
-
-
-`summarise() has grouped output by 'sample_location'. You can override using the .groups argument.`
-:::
-
-
-To visualise the data, we will generate a time-series abundance plot as we did before, but this time, we will use the `group = sample_location` argument within `aes()` to tell R that we want a separate line for each different sampling location:
-
-
-``` {r}
-daily_abundance_plot_all <- ggplot(
-  daily_abundance_all_locations,
-  aes(x = sample_start_date, y = total_abundance, group = sample_location)
-) +
-  geom_line(colour = "darkturquoise") +
-  labs(
-    title = "Abundance of Culex pipiens Across Locations Over Time",
-    x = "Date",
-    y = "Abundance"
-  )
-
-daily_abundance_plot_all
-```
-
-
-This is the visualisation we wanted, but it looks a bit messy. All the lines are displayed in the same colour, which makes the plot difficult to read. We can see patterns of abundance change over time, but it is difficult to distinguish between different locations. 
-
-
-What we are seeing here is that **more complex visualisations are not always better visualisations**, especially if interpretation is limited. 
-
-
-One option to improve our visualisation and to help distinguish between locations is to assign a different colour to each sampling location. To do this, we map `sampling_location` to the `colour` aesthetic within `aes()`, rather than assigning the line colour within `geom_line()`:
-
-
-``` {r}
-daily_abundance_plot_all <- ggplot(
-  daily_abundance_all_locations,
-  aes(x = sample_start_date, y = total_abundance, colour = sample_location)
-) +
-  geom_line() +
-  labs(
-    title = "Abundance of Culex pipiens Across Locations Over Time",
-    x = "Date",
-    y = "Abundance",
-    colour = "Sampling Location"
-  )
-
-daily_abundance_plot_all
-```
-
-
-By adding colour, each line now represents a different sampling location more clearly, with a key detailing the line colour for each location. This makes it easier to identify patterns across locations. 
-
-
-By plotting both location and time together, we can identify patterns in the data:
-
-- Strong seasonal patterns across all locations, with patterns of sharp peaks and rapid declines each year.
-- Although trends over time are similar across locations, some show higher abundance than others.
-- Some extreme peaks in abundance stand out compared to the general trends. These may represent natural variation, such as optimal conditions and location for mosquito breeding, or these observations could be outliers. Further testing would be needed to assess this. 
-
-
-::: {.rmdtip}
-**Tip:** Remember to save your graphic:
-
-
-```r
-ggsave("daily_abundance_all.pdf", plot = daily_abundance_plot_all)
-```
-:::
-
-
-However, while using colour can definitely improve graphics, visualisations can still feel overcrowded when too many groups are displayed together. For example, our visualisation plots 8 different locations on the same graph. Overlapping lines and similar temporal patterns can make it difficult to fully interpret the data. 
-
-
-Additionally, using colour alone can cause difficulties with accessibility to all audiences, which we will address later in this session.
-
-
-### Using Faceting to Improve Clarity
-One useful solution to this overcrowding is faceting, a feature in `ggplot2` that splits a single plot into multiple smaller panels.
-
-
-Each panel displays a subset of the data, allowing patterns to be compared side-by-side without overlapping elements. By separating the data into smaller panels, we can often reveal patterns that might otherwise be hidden within a crowded visualisation.
-
-
-Faceting is particularly useful when:
-
-- Comparing multiple species.
-- Comparing sampling sites.
-- Exploring patterns across environmental conditions. 
-
-
-We can apply faceting to our previous time-series visualisation to separate each sampling location into its own panel, rather than using different colours. This directly addresses the overlapping lines,  improving the overall clarity and readability.
-
-
-To do this, we add `facet_wrap()` to our existing code, which tells R that we want to generate several panels separated by location:
-
-
-``` {r}
-daily_abundance_plot_faceted <- ggplot(
-  daily_abundance_all_locations,
-  aes(x = sample_start_date, y = total_abundance)
-) +
-  geom_line(colour = "darkturquoise") +
-  facet_wrap(~ sample_location) +
-  labs(
-    title = "Abundance of Culex pipiens Across Locations Over Time",
-    x = "Date",
-    y = "Abundance"
-  )
-
-daily_abundance_plot_faceted
-```
-
-
-By separating each sampling location into its own panel, the patterns in the data become much clearer:
-
-- Seasonal trends are still evident across all locations, but we are now able to see how these patterns vary between locations more easily.
-- Differences in abundance magnitude are much clearer, with some locations consistently showing higher peaks, and others reflecting relatively low abundance across the time-series. 
-- Extreme peaks can be clearly associated with specific locations without overlapping lines hiding these observations.
-
-
-Overall, faceting improves clarity by reducing visual clutter and allowing direct comparisons between locations. This makes it easier to interpret both independent trends per location and compare patterns across multiple locations.
-
-
-::: {.rmdnote}
-**Optional refinement:** In our current visualisation, all panels share the same y-axis scale, which is good for comparisons. However, this scale also means extreme peaks are visually dominant, and locations with smaller peaks look flat in comparison.
-
-
-We can add `scales = "free_y"` within `facet_wrap()` to adjust the y-axis scales across the panels, allowing us to visualise the patterns per location in greater detail:
-
-
-``` {r}
-daily_abundance_plot_faceted_Y <- ggplot(
-  daily_abundance_all_locations,
-  aes(x = sample_start_date, y = total_abundance)
-) +
-  geom_line(colour = "darkturquoise") +
-  facet_wrap(~ sample_location, scales = "free_y") +
-  labs(
-    title = "Abundance of Culex pipiens Across Locations Over Time",
-    x = "Date",
-    y = "Abundance"
-  )
-
-daily_abundance_plot_faceted_Y
-```
-:::
-
-
-### Applying These Principles to Multiple Species and Datasets
-Various vector species can exhibit very different ecological behaviours. For instance:
-
-- Some species may emerge earlier in the season.
-- Some may reach a higher peak abundance.
-- Others may vary in abundance depending on particular habitats or hosts.
-
-
-Understanding these differences is important when studying disease transmission dynamics. Luckily, you already have the tools to visualise these patterns!
-
-
-In the last example, we visualised abundance over time, grouped by sampling location. For multiple species comparisons, we do the same abundance plots but grouped by species, rather than sampling location. 
-
-
-This is an important advantage of using flexible tools such as R and `ggplot2`. Once we understand the principles of building effective visualisations, we can apply them to many different datasets and research questions. 
-
-
-## Drawing Hypotheses from Complex Visualisations 
-In the **Pre- Live Session content**, we looked at how simple visualisations can help us identify patterns in data and develop initial hypotheses.
-
-
-Real-world VBD datasets are often complex, containing observations collected across multiple locations, species, and time periods. When visualised, these datasets can reveal more nuanced patterns, allowing researchers to develop more detailed and targeted hypotheses. 
-
-
-Let’s have a go at building on the earlier examples and consider how complex visualisations can help us refine our scientific questions. Based on this visualisation, what hypotheses could you generate about mosquito abundance?
-
-
-``` {r}
-daily_abundance_plot_faceted_Y
-```
-
-
-::: {.rmdtip}
-**Tip:** Consider these prompts to formulate your hypotheses:
-
-- Patterns over time
-- Differences between locations
-Unusual observations
-- Alternative explanations for the same pattern
-:::
-
-
-While visualisations are extremely useful for identifying patterns, it is important to remember that they do not by themselves confirm causal relationships. Instead, they provide a starting point for developing hypotheses that can later be tested using statistical models, experimental studies, or additional data collection.
-
-
-In practice, this process often involves several steps:
-
-- Identifying patterns in the visualisation.
-- Proposing possible explanations for those patterns.
-- Considering alternative explanations.
-- Designing analyses or studies that could test these hypotheses.
-
-
-By working through this process, researchers can move from simple visual observations to well-defined scientific questions that contribute to a deeper understanding of vector ecology and disease transmission dynamics.
-
-
-## What Makes a Good Visualisation? 
-So far in this workshop, we have focused on how to create visualisations that explore patterns in vector surveillance data. However, as we have seen, not all visualisations communicate information clearly or effectively. 
-
-
-A well-designed visualisation should help the viewer quickly understand the key message of the data. Poorly designed visualisations, on the other hand, can be confusing, misleading, or difficult to interpret. 
-
-
-We will now explore the characteristics that contribute to effective data visualisations, based on your own experience and the visualisations you have previously seen. Consider what you think makes a good or bad visualisation. 
-
-
-Some features commonly associated with good visualisations include:
-
-- **Clarity** - the plot communicates its message quickly and clearly.
-- **Accuracy** - the visual representation reflects the underlying data correctly.
-- **Simplicity** - unnecessary elements that distract from the data are avoided. 
-- **Accessibility** - the visualisation can be interpreted by a wide audience. 
-
-
-For example, clear axis labels, readable text, and appropriate colours all contribute to making a visualisation easier to interpret. 
-
-
-Conversely, poor visualisations may include limitations such as:
-
-- Unclear or missing axis labels.
-- Confusing colour schemes.
-- Unnecessary visual elements.
-- Misleading scales or distorted representation of data.
-
-
-These issues can make it difficult for viewers to understand the patterns being communicated by the visualisation.
-
-
-## Collaborative Task: Improving a Flawed Visualisation 
-To explore these concepts in practice, we will now work collaboratively to improve a series of intentionally flawed visualisations.
-
-
-We will split into breakout rooms, where each group will be given one visualisation that contains a different common visualisation mistake. These may include:
-
-- Confusing colour schemes.
-- Unclear axis labels. 
-- Inappropriate chart types.
-- Missing legends.
-- Excessive visual clutter.
-
-
-The goal of the activity is to identify the problems within the visualisation and work together to redesign it so that the underlying dataset and associated patterns are communicated more clearly. 
-
-
-You will need to work together to:
-
-- Identify what makes the visualisation difficult to interpret.
-- Modify the code to create an improved version of the visualisation.
-- Be prepared to briefly explain the changes your group made.
-
-
-Note that there is no single “correct” solution. The goal of this task is to think critically about how visualisation design choices influence how data is interpreted.
-
-
-::: {.rmdtip}
-**Tip:** Consider questions such as:
-
-- What is the main message of the visualisation?
-- What aspects of the current design make the message difficult to interpret?
-- How could the visualisation be improved?
-:::
-
-
-This activity contributes to experience in collaborative critique, a useful skill in research settings. Real-world visualisations are often refined through feedback from colleagues and collaborators. 
-
-
-### Graph 1
-Dataset: [group1_and_2_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/group1_and_2_data.csv)
-
-
-Flawed code:
-
-
-``` {r}
-library("tidyverse")
-
-group1_data <- read.csv("data/group1_and_2_data.csv")
-
-group1_data$sample_start_date <- as.Date(group1_data$sample_start_date)
-
-daily_abundance_all <- group1_data %>%
-  group_by(sample_location, sample_start_date) %>%
-  summarise(total_abundance = sum(sample_value, na.rm = TRUE),
-            .groups = "keep")
-
-group1_plot <- ggplot(daily_abundance_all,
-       aes(x = sample_start_date, y = total_abundance, group = sample_location)) +
-  geom_line(colour = "darkturquoise") +
-  labs(
-    title = "Mosquito Abundance Over Time",
-    x = "Date",
-    y = "Abundance"
-  )
-
-group1_plot
-```
-
-
-### Graph 2
-Dataset: [group1_and_2_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/group1_and_2_data.csv)
-
-
-Flawed code:
-
-
-``` {r}
-library("tidyverse")
-
-group2_data <- read.csv("data/group1_and_2_data.csv")
-
-group2_data_cadeo <- group2_data %>%
-  filter(sample_location == "Cadeo")
-
-group2_data_cadeo$sample_start_date <- as.Date(group2_data_cadeo$sample_start_date)
-
-group2_plot <- ggplot(group2_data_cadeo,
-       aes(x = sample_start_date, y = sample_value)) +
-  geom_col(fill = "darkturquoise") +
-  labs(
-    title = "Mosquito Abundance Over Time",
-    x = "Date",
-    y = "Abundance"
-  )
-
-group2_plot
-```
-
-
-### Graph 3
-Dataset: [group3_and_4_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/group3_and_4_data.csv)
-
-
-Flawed code:
-
-
-``` {r}
-library("tidyverse")
-
-group3_data <- read.csv("data/group3_and_4_data.csv")
-
-group3_data$sample_start_date <- as.Date(group3_data$sample_start_date)
-
-daily_abundance <- group3_data %>%
-  group_by(sample_location, sample_start_date) %>%
-  summarise(total_abundance = sum(sample_value, na.rm = TRUE),
-            .groups = "keep")
-
-group3_plot <- ggplot(daily_abundance,
-       aes(x = sample_start_date, y = total_abundance, colour = sample_location)) +
-  geom_line()
-
-group3_plot
-```
-
-
-### Graph 4
-Dataset: [group3_and_4_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/group3_and_4_data.csv)
-
-
-Flawed code:
-
-
-``` {r}
-library("tidyverse")
-
-group4_data <- read.csv("data/group3_and_4_data.csv")
-
-group4_data$sample_start_date <- as.Date(group4_data$sample_start_date)
-
-daily_abundance_all <- group4_data %>%
-  group_by(sample_start_date) %>%
-  summarise(total_abundance = sum(sample_value, na.rm = TRUE))
-
-group4_plot <- ggplot(daily_abundance_all,
-       aes(x = sample_start_date, y = total_abundance)) +
-  geom_line(colour = "darkturquoise") +
-  labs(
-    title = "Mosquito Abundance Over Time",
-    x = "Date",
-    y = "Abundance",
-    colour = "Sampling Location"
-  )
-
-group4_plot
-```
-
-
-## Communicating to Different Audiences 
-We can use visualisations to communicate patterns in our data to a variety of audiences. However, our visualisation and the language we use to discuss it need to be appropriately adjusted.
-
-
-When designing a visualisation, it is therefore important to consider who the intended audience is and what information they need to best understand your data and findings. 
-
-
-Your audience may include academic researchers, policymakers, or members of the public, all of which may have different levels of technical understanding and communication needs. 
-
-
-Academic audiences are often more comfortable interpreting complex figures and statistics, and may expect details on variation and uncertainty in the data. 
-
-
-Policymakers typically prefer visualisations that clearly communicate relevant trends used to influence decision-making.
-
-
-For public engagement activities, visualisations usually need to be more accessible and use simple language so the audience can understand what the graphic is communicating, without specialised knowledge. 
-
-
-Adapting visualisations to suit different audiences is an important skill for researchers who wish to communicate their findings effectively. 
-
-
-::: {.rmdtip}
-**Tip:** When designing visualisations for specific audiences, try to consider:
-
-- The level of technical knowledge.
-- How clearly the key findings are communicated.
-- Any additional information needed to easily interpret the visualisation.
-:::
-
-
-## Visualisation Themes & Accessible Graphics 
-
-### Themes
-So far, we have focused on choosing appropriate plot types, developing visualisations with multiple data types, and using visualisations to identify patterns in your data. Effective visualisations should also consider how the visual design contributes to the interpretability and accessibility of a plot to various audiences.
-
-
-In `ggplot2`, the visualisation design can be controlled using themes. Themes allow us to adjust non-data elements of a plot, including:
-
-- Background colour
-- Grid lines
-- Text size and font
-- Legend position
-
-
-All of these help to improve the clarity and readability of a visualisation.
-
-
-Themes can be applied to any ggplot using the `theme()` function or by using one of the existing `ggplot2` theme presets. For example, we can apply `theme_minimal()`, a simple theme from `ggplot2`, to one of our existing plots:
-
-
-``` {r}
-daily_abundance_plot_goro <- ggplot(daily_abundance_goro, aes(x = sample_start_date, y = total_abundance)) +
-  geom_line() +
-theme_minimal() +
-  labs(
-    title = "Abundance of Culex pipiens Over Time",
-    x = "Date",
-    y = "Abundance"
-  )
-
-daily_abundance_plot_goro
-```
-
-
-We can see that applying this theme removes the background shading and uses simple black and grey colours, resulting in a clean and easily readable visualisation. 
-
-
-`ggplot2` has several themes you can use - some commonly used themes include:
-
-- `theme_minimal()`
-- `theme_bw()`
-- `theme_classic()`
-
-
-Using consistent themes across visualisations can help to create a more professional and cohesive appearance. This is particularly useful when using visualisations to communicate data to various audiences, such as conference talks or publications. 
-
-
-### Improving Visual Clarity
-When we visualise our data, we want key patterns to stand out, particularly when presenting our data to others. We can achieve this by improving the **contrast**, for example, increasing the line width in a time series plot:
-
-
-``` r
-geom_line(linewidth = 1.2)
-```
-
-
-Or changing point style in a scatter plot:
-
-
-``` r
-geom_point(shape = 17)
-```
-
-
-Another simple method for improving visual clarity that people often forget is clear **labels** and **titles**. We have already learnt how to add these when using `ggplot2`:
-
-
-``` r
-labs(
-    title = "Abundance of Culex pipiens Over Time",
-    x = "Date",
-    y = "Abundance"
-  )
-```
-
-
-Remember, visualisation labels should be clear and informative - make sure the title and axis are readable, and the audience understands what they are looking at. Consider the medium in which you want to share your visualisation - all text should be large enough to read on presentation slides, when printed, or when viewed on different screen sizes.
-
-
-Earlier in this session, we saw how visualisation can quickly become overcrowded and difficult to interpret. Try to **avoid visual clutter** by:
-
-- Reducing the number of variables displayed in one graphic
-- Avoiding unnecessary layers.
-- Using methods such as faceting to split plots into separate panels.
-
-
-Using colours in your visualisations can be helpful, for example, to highlight different groups. However, colour can quickly reduce the clarity of your visualisation, particularly if you use bright or clashing colours with minimal contrast. 
-
-
-::: {.rmdtip}
-**Tip:** For best readability, remember to use dark lines or points on a light background. Try to use accessible colour palettes so that your visualisation is accessible to a wider audience.
-:::
-
-
-### Designing Accessible Visualisations
-Accessibility is an important consideration when designing visualisations, particularly when communicating your data to diverse audiences. For instance, some viewers may have visual impairments, such as colour vision deficiencies, which can make certain visualisations difficult to interpret. 
-
-
-There are multiple principles which can help improve the accessibility of your visualisations. Some commonly used strategies to consider include:
-
-
-**1. Using accessible colour palettes** - some colour combinations can be difficult to differentiate, such as red and green. `ggplot2` includes `viridis` colour scales, which are designed to improve visual clarity and accessibility of visualisations: `scale_colour_viridis_d()`
-
-
-**2. Using multiple visual cues** - using alternative visual cues ensures that all elements in your visualisations remain clear and visible without colour. Alternative options include line types, point shapes, and faceting. 
-
-
-**3. Exporting visualisations** - you may have noticed that throughout this workshop, we have saved our visualisations as pdf files. This format improves accessibility by allowing viewers to view details more clearly by zooming in without reducing image quality.
-
-
-**4. Providing alternative text (alt-text)** - when sharing visualisations in digital formats, alternative text descriptions can be added so that screen reader users can access your visualisations. 
-
-
-Designing accessible visualisations improves inclusivity and results in **clearer and more effective communication for all viewers**.
-
-
-## Preparing for the Challenge Task 
-The final session of this training will provide an opportunity for you to independently apply the skills and concepts discussed throughout the **Pre-** and **Live Session** content, including:
-
-- Selecting appropriate plot types.
-- Clearly communicating patterns in the data.
-- Considering the needs of different audiences.
-- Applying effective visual design principles.
-
-
-The **Challenge Task** will have multiple levels and is designed to encourage applied thinking. We encourage you to experiment with different approaches and discuss potential difficulties with each other.
-
-
-We encourage you to have a go at the task on your own, but a walkthrough version will be released after a few hours, should you need additional guidance.
-
-
-## Conclusion
-Throughout this workshop, we have explored how visualisations can be used to better understand and communicate VBD data. 
-
-
-We began by building simple abundance plots and then extended them to explore patterns across time, space, and species. We also discussed how visualisations can support hypothesis generation and how thoughtful design choices can improve the clarity and accessibility of scientific figures. 
-
-Effective visualisation is a valuable skill for researchers working with complex datasets. By carefully considering how data are represented, we can make patterns more visible, communicate findings more effectively, and support evidence-based decision-making in VBD research. 
-
-
-# Challenge Task 
-
-
-## Introduction
-This **Challenge Task** provides an opportunity for you to independently apply the skills and concepts discussed throughout this online training, including:
-
-- Selecting appropriate plot types.
-- Clearly communicating patterns in the data.
-- Considering the needs of different audiences.
-- Applying effective visual design principles.
-
-
-The **Challenge Task** has multiple levels and is designed to encourage applied thinking. Feel free to work through the levels that apply to you, but we encourage you to try all levels to make the most of the training. 
-
-
-During the **Challenge Task**, we encourage you to experiment with different approaches and discuss potential difficulties with each other via the [VBD Hub Forum](https://forum.vbdhub.org/). Our demonstrators and I will be monitoring the Forum if you need any additional support. 
-
-After approximately 2 hours, a workbook version of this challenge will be made available. This is not an answer sheet, and we encourage you to continue coding yourself, rather than reading through the solutions. This workbook will walk you through the tasks like in the examples used throughout the training, but with a bit more independence before providing the answers.
-
-
-## Level 1
-Open [challenge_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/challenge_data.csv) in RStudio.
-
-
-Identify data types from the provided dataset. 
-
-
-Visualise abundance across the different species.
-
-
-## Level 2
-Visualise abundance across the different species over time.
-
-
-Identify any patterns in your data.
-
-
-## Level 3
-Formulate some hypotheses from your data.
-
-
-## Level 4
-Identify any visual or accessibility limitations across your visualisations and make appropiate edits.
-
-
-## Level 5
-Consider how you would present your graphs as if you were presenting to:
-
-- i) Academics
-- ii) Policy makers
-- iii) Public engagement
-
-
-You may choose to write a draft script, present out loud to a colleague, or discuss with a fellow participant in the VBD Hub Forum.
-
-
-## Example Solutions
-As we have discussed, there are often several approaches to visualising data, and therefore no single correct answer. Below are some example solutions to the Challenge Task, but the main aim of this section is to encourage applied thinking so you can further develop the skills from with training to use in your own research.
-
-
-### Level 1
-When we look at `challenge_data`, we can see that we are looking at various vector species at Salt Lake over a number of years. 
-
-
-``` {r}
-library("tidyverse")
-
-challenge_data <- read_csv("data/challenge_data.csv")
-challenge_data
-```
-
-
-To begin visualising the data, we want to plot the abundance of each species. In the previous examples, we were grouping by sampling location, and we use very similar approaches when looking at multiple species. We can apply `group_by()` and `summarise()` like we did in the earlier example:
-
-
-```{r}
-abundance_per_species <- challenge_data %>%
-  group_by(species) %>%
-  summarise(
-    mean_abundance = mean(sample_value, na.rm = TRUE),
-    se_abundance = sd(sample_value, na.rm = TRUE) / sqrt(sum(!is.na(sample_value)))
-  )
-```
-
-
-We can start with an abundance bar plot with whiskers to assess variation in abundance across the different species, using our summarised data:
-
-
-```{r}
-abundance_plot_species <- ggplot(abundance_per_species,
-                                 aes(x = species, y = mean_abundance)) +
-  geom_col(fill = "darkturquoise") +
-  geom_errorbar(aes(
-    ymin = mean_abundance - se_abundance,
-    ymax = mean_abundance + se_abundance
-  ),
-  width = 0.2) +
-  labs(
-    title = "Mean Abundance of Different Vector Species in Salt Lake",
-    x = "Species",
-    y = "Mean Abundance"
-  )
-
-abundance_plot_species
-```
-
-
-In this visualisation, we can see the spread of data across the different species and begin to identify preliminary trends. 
-
-
-However, as we have discussed, these visualisations will hide some of the variation in the data, particularly in terms of variation in abundance over time. 
-
-
-### Level 2
-We next want to plot the abundance of different vector species over time. Remember, before we can visualise a time series, we want to group the data by the date, and in this case the species as well:
-
-
-```{r}
-daily_abundance_all_species <- challenge_data %>%
-  group_by(species, sample_start_date) %>%
-  summarise(total_abundance = sum(sample_value, na.rm = TRUE),
-            .groups = "keep")
-```
-
-
-With the data grouped and summarised appropriately, we are ready to visualise abundance of different species over time. We have covered several approaches to this, and we will start with plotting one line for each species, and use line colour to differentiate between species:
-
-
-```{r}
-daily_abundance_plot_species <- ggplot(
-  daily_abundance_all_species,
-  aes(x = sample_start_date, y = total_abundance, colour = species)
-) +
-  geom_line() +
-  labs(
-    title = "Mean Abundance of Different Vector Species in Salt Lake",
-    x = "Date",
-    y = "Abundance",
-    colour = "Species"
-  )
-
-daily_abundance_plot_species
-```
-
-
-When plotting multiple groups, in this case species, we have shown that visualisations can quickly become overcrowded, making them difficult to interpret. Although we have used line colour to differentiate between species, it is still tricky to see the trends in our data. 
-
-
-We can use faceting to separate our visualisation into separate panels for each species:
-
-
-```{r}
-daily_abundance_plot_species_faceted <- ggplot(
-  daily_abundance_all_species,
-  aes(x = sample_start_date, y = total_abundance)
-) +
-  geom_line(colour = "darkturquoise") +
-  facet_wrap(~ species) +
-  labs(
-    title = "Mean Abundance of Different Vector Species in Salt Lake",
-    x = "Date",
-    y = "Abundance"
-  )
-
-daily_abundance_plot_species_faceted
-```
-
-
-We can now see the trends in abundance of each species much more clearly, but we can further refine this again by adjusting the y-axis scales for each panel:
-
-
-```{r}
-daily_abundance_plot_species_faceted_y <- ggplot(
-  daily_abundance_all_species,
-  aes(x = sample_start_date, y = total_abundance)
-) +
-  geom_line(colour = "darkturquoise") +
-  facet_wrap(~ species, scales = "free_y") +
-  labs(
-    title = "Mean Abundance of Different Vector Species in Salt Lake",
-    x = "Date",
-    y = "Abundance"
-  )
-
-daily_abundance_plot_species_faceted_y
-```
-
-
-Now that we have a clear and readable visualisation, we can start to identify patterns in our dataset. 
-
-
-### Level 3
-Identifying patterns in our dataset allows us to formulate data-driven hypotheses. Reflect on the earlier prompts to consider potential hypotheses for this dataset:
-
-- Patterns over time
-- Differences between locations
-- Unusual observations
-- Alternative explanations for the same pattern
-
-
-Remember, a hypothesis is a **testable explanation** for an **observed pattern**. We are not just asking questions about the patterns in our data, but how ecological context might be applied. For instance, if abundance peaks in the summer, we would want to consider warmer temperatures or increased humidity, and how this is relevant to VBD contexts, such as larval development.
-
-
-### Level 4
-When designing visualisations, we want to make them visually appealing to improve interpretability and accessibility.
-
-
-Common considerations for improving visual clarity including:
-
-- Applying themes.
-- Increasing font size.
-- Avoid overcluttering.
-- Use colour for emphasis and contrast.
-- Ensure titles and labels are clear and informative.
-- Apply accessible elements, such as accessible colour palettes, alternative visual cues, exporting as pdf, and alt-text.
-
-
-Have you considered these in your Challenge Task visualisations?
-
-
-### Level 5
-Whether you have chosen to present to academics, policymakers, or members of the public, it is useful to remember these prompts:
-
-- The level of technical knowledge.
-- How clearly the key findings are communicated.
-- Any additional information needed to easily interpret the visualisation.
-
-
-These principles apply whether you are designing a visualisation for a presentation, journal article, or poster.
-
-
-# Reading & Resources
-
-- [Data Visualisation with ggplot2 Cheatsheet](https://rstudio.github.io/cheatsheets/data-visualization.pdf)
-- [Ten Simple Rules for Better Figures](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833)
-- [Accessibility](https://cran.r-project.org/web/packages/afcharts/vignettes/accessibility.html)
-- [tick_dataset_raw.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/tick_dataset_wrangled.csv)
-- [mosquito_dataset_raw.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/mosquito_dataset_raw.csv)
-- [challenge_data_raw.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/challenge_data_raw.csv)
 
 
