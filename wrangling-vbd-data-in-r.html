@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 5 Wrangling VBD Data in R | One Health VBD Hub Training 2026</title>
+<meta name="author" content="Chloë Coxshall">
+<meta name="description" content="5.1 Overview Data retrieved through the VBD Hub, using tools such as the Hub Search or the ohvbd package, can be raw and may include missing values, inconsistent formats, or unclear variable...">
+<meta name="generator" content="bookdown 0.45 with bs4_book()">
+<meta property="og:title" content="Chapter 5 Wrangling VBD Data in R | One Health VBD Hub Training 2026">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/wrangling-vbd-data-in-r.html">
+<meta property="og:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
+<meta property="og:description" content="5.1 Overview Data retrieved through the VBD Hub, using tools such as the Hub Search or the ohvbd package, can be raw and may include missing values, inconsistent formats, or unclear variable...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 5 Wrangling VBD Data in R | One Health VBD Hub Training 2026">
+<meta name="twitter:description" content="5.1 Overview Data retrieved through the VBD Hub, using tools such as the Hub Search or the ohvbd package, can be raw and may include missing values, inconsistent formats, or unclear variable...">
+<meta name="twitter:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/IBM_Plex_Sans-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">One Health VBD Hub Training 2026</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">November 2026 Training at Silwood Park</li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="pre-work.html"><span class="header-section-number">2</span> Pre-Work</a></li>
+<li><a class="" href="hub-tools-what-they-are-and-how-to-use-them.html"><span class="header-section-number">3</span> Hub Tools: What They Are and How to Use Them</a></li>
+<li><a class="" href="understanding-data-curation-and-standards-1.html"><span class="header-section-number">4</span> Understanding Data Curation and Standards</a></li>
+<li><a class="active" href="wrangling-vbd-data-in-r.html"><span class="header-section-number">5</span> Wrangling VBD Data in R</a></li>
+<li><a class="" href="visualising-vbd-data-in-r.html"><span class="header-section-number">6</span> Visualising VBD Data in R</a></li>
+<li><a class="" href="effectively-communicating-with-different-audiences.html"><span class="header-section-number">7</span> Effectively Communicating with Different Audiences</a></li>
+<li><a class="" href="temporal-spatial-modelling-of-disease-vectors.html"><span class="header-section-number">8</span> Temporal &amp; Spatial Modelling of Disease Vectors</a></li>
+<li><a class="" href="thermal-performance-curves.html"><span class="header-section-number">9</span> Thermal Performance Curves</a></li>
+<li><a class="" href="challenge-task.html"><span class="header-section-number">10</span> Challenge Task</a></li>
+<li><a class="" href="reading-resources.html"><span class="header-section-number">11</span> Reading &amp; Resources</a></li>
+<li class="book-part">March 2026 Online Training Workshops</li>
+<li><a class="" href="introduction-to-march-2026-training.html"><span class="header-section-number">12</span> Introduction to March 2026 Training</a></li>
+<li><a class="" href="workshop-1-data-visualisations-in-r.html"><span class="header-section-number">13</span> Workshop 1: Data Visualisations in R</a></li>
+<li><a class="" href="workshop-2-data-wrangling-with-hub-search-ohvbd.html"><span class="header-section-number">14</span> Workshop 2: Data Wrangling with Hub Search &amp; ohvbd</a></li>
+<li><a class="" href="reading-resources-1.html"><span class="header-section-number">15</span> Reading &amp; Resources</a></li>
+<li class="book-part">Optional Recap of LMs and Basic Plots</li>
+<li><a class="" href="recap.html"><span class="header-section-number">A</span> Recap of Linear Models &amp; Basic Plots (optional)</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="wrangling-vbd-data-in-r" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Wrangling VBD Data in R<a class="anchor" aria-label="anchor" href="#wrangling-vbd-data-in-r"><i class="fas fa-link"></i></a>
+</h1>
+<div id="overview-2" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data retrieved through the <strong>VBD Hub</strong>, using tools such as the <strong>Hub Search</strong> or the <strong>ohvbd</strong> package, can be raw and may include missing values, inconsistent formats, or unclear variable names.</p>
+<p><strong>Data wrangling is the process of cleaning, transforming, and organising this data into a format that is suitable for analysis.</strong></p>
+<p>In this session, we will introduce key data wrangling principles, and explore commonly used techniques in VBD research, including merging datasets and standardising species names.</p>
+<p><strong>Learning Objectives</strong></p>
+<p>By the end of this workshop, you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li>Clean and transform VBD Hub datasets ready for analysis.</li>
+<li>Handle common data issues, such as inconsistent formats, duplicates, and missing values.</li>
+<li>Reshape and merge datasets using standardised structures and identifiers.</li>
+<li>Standardise species names using recognised taxonomic conventions.</li>
+</ol>
+</div>
+<div id="shifting-perspectives-problems-to-decisions" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Shifting Perspectives: Problems to Decisions<a class="anchor" aria-label="anchor" href="#shifting-perspectives-problems-to-decisions"><i class="fas fa-link"></i></a>
+</h2>
+<p>Real-world VBD data is rarely clean, especially if it has been collected for different purposes or recorded using different reporting standards. You may encounter:</p>
+<ul>
+<li>Missing values</li>
+<li>Inconsistent data types</li>
+<li>Poorly named columns</li>
+<li>Duplicate records</li>
+<li>Data stored in inconvenient formats</li>
+</ul>
+<p>Rather than treating these as isolated problems, it can be helpful to recognise common patterns which affect downstream analyses. For instance:</p>
+<ul>
+<li>Inconsistent naming affects merging datasets</li>
+<li>Mixed data types affect calculations</li>
+<li>Wide format affects analysis and visualisations</li>
+</ul>
+<p>When we think about data inconsistency patterns in this way, we shift our focus from <strong>problems</strong> to <strong>decisions</strong>. Each issue you identify in your dataset requires a decision:</p>
+<ul>
+<li>Should missing values be removed or retained?</li>
+<li>Should columns be renamed or merged?</li>
+<li>Should data be formatted from wide to long format?</li>
+</ul>
+<p>When we stop asking <strong>“what is wrong with this dataset?”</strong> and start thinking <strong>“what do I need this dataset to do?”</strong>, we can make informed decisions and prioritise the most appropriate data wrangling approaches to your data and research question.</p>
+<p>We cannot cover every data wrangling principle within a single training session. Today, we will focus on two commonly used data wrangling techniques applied to VBD datasets:</p>
+<ul>
+<li>Merging datasets</li>
+<li>Standardising species names</li>
+</ul>
+</div>
+<div id="merging-datasets" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Merging Datasets<a class="anchor" aria-label="anchor" href="#merging-datasets"><i class="fas fa-link"></i></a>
+</h2>
+<p>In many research workflows, we use more than one dataset. It is rare for a single dataset to contain all the information needed to answer a research question.</p>
+<p>For instance, you might have:</p>
+<ul>
+<li>One dataset containing species abundance data</li>
+<li>Another dataset containing environmental variables.</li>
+</ul>
+<p>If you want to analyse how environmental factors influence species abundance, you will need to combine these into a single dataset.</p>
+<p>We call this <strong>merging</strong> or <strong>joining</strong> datasets.</p>
+<p>For a merge to work effectively, both datasets must share at least one common column name. This shared column is known as a <strong>key</strong>. In VBD datasets, a common key might be a species name, a location, or a date.</p>
+<p>Let’s imagine we have two datasets which both contain a column called <code>species</code>.</p>
+<p>We can merge these two datasets using the <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> function from the <code>dplyr</code> package:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">dataset_a</span>, <span class="va">dataset_b</span>, by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre></div>
+<p>In this code:</p>
+<ul>
+<li>
+<code>dataset_a</code> is the main dataset we want to keep.</li>
+<li>
+<code>dataset_b</code> contains data we want to add.</li>
+<li>
+<code>by = "species"</code> tells R to match rows using the <code>species</code> column.</li>
+</ul>
+<p>A left join keeps all the rows from <code>dataset_a</code> and adds matching information from <code>dataset_b</code> where the species value is the same.</p>
+<div id="different-merge-types" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> Different Merge Types<a class="anchor" aria-label="anchor" href="#different-merge-types"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are different types of merges or joins, each of which acts slightly differently:</p>
+<ul>
+<li>A <strong>left join</strong>, <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code>, keeps all the rows from the first dataset and adds matching values from the second. This is usually the safest option, as it avoids losing data.</li>
+<li>An <strong>inner join</strong>, <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join()</a></code>, only keeps the rows that appear in both datasets. This is useful when you only want complete matches, but it risks accidental data loss.</li>
+<li>A <strong>full join</strong>, <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join()</a></code>, keeps all the rows from both datasets. Missing values are filled with <code>NA</code> where matches do not exist. This can be helpful in exploratory work, but may require further data cleaning.</li>
+</ul>
+<p>Choosing which merge to use depends on your research question and how you want to format rows that don’t align across datasets. If in doubt, we recommend using a <strong>left join</strong>.</p>
+</div>
+<div id="merging-with-multiple-keys" class="section level3" number="5.3.2">
+<h3>
+<span class="header-section-number">5.3.2</span> Merging with Multiple Keys<a class="anchor" aria-label="anchor" href="#merging-with-multiple-keys"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes, a single column is not enough to uniquely identify matches. For instance, in VBD research the same species might appear in multiple locations. In this case, we can merge using multiple keys.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="wrangling-vbd-data-in-r.html#cb17-1" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(dataset_a, dataset_b, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"location"</span>)</span></code></pre></div>
+<p>Here, the vector <code>c("species", "location")</code> tells R to match rows where both the <code>species</code> and <code>location</code> are the same.</p>
+<p>Setting multiple key columns ensures more accurate matching, especially when working with ecological or epidemiological data, where the species might appear in multiple regions and should be accounted for with this in mind.</p>
+</div>
+<div id="frequent-merging-mistakes" class="section level3" number="5.3.3">
+<h3>
+<span class="header-section-number">5.3.3</span> Frequent Merging Mistakes<a class="anchor" aria-label="anchor" href="#frequent-merging-mistakes"><i class="fas fa-link"></i></a>
+</h3>
+<p>Merging is usually straightforward, but it can sometimes produce unexpected results.</p>
+<p>One common cause of unexpected merge results is inconsistent formatting between datasets. For instance, if <code>dataset_a</code> formats species names as <code>"Ixodes ricinus"</code> and <code>dataset_b</code> formats species names as <code>"ixodes_ricinus"</code>, R will not identify these species as a match for merging.</p>
+<p>This can result in missing values or incomplete merges.</p>
+<p>It is useful to remember that <strong>a successful merge does not always mean a correct merge</strong>. Even if your code runs without errors, the output might not be what you were aiming for.</p>
+<p>This is why it is important to check the merge results:</p>
+<ul>
+<li>Has the number of rows changed significantly?</li>
+<li>Are there unexpected missing values?</li>
+<li>Do the matches look correct?</li>
+</ul>
+<p>A simple check is to compare the number of rows before and after merging using <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dataset_a</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">merged_data</span><span class="op">)</span></span></code></pre></div>
+<p>This will check the number of rows in the original dataset and the new, merged dataset. If the number of rows increases significantly, this may include duplicate matches. If it decreases, you may have lost data.</p>
+</div>
+</div>
+<div id="standardising-species-names" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Standardising Species Names<a class="anchor" aria-label="anchor" href="#standardising-species-names"><i class="fas fa-link"></i></a>
+</h2>
+<p>Species names are one of the most common causes of inconsistency when merging datasets.</p>
+<p>Even small formatting differences can prevent datasets from merging correctly or lead to inaccuracies in later analyses.</p>
+<p>Mismatched species names are usually caused by:</p>
+<ul>
+<li>
+<strong>Differences in capitalisation</strong> - <code>"Ixodes ricinus"</code> or <code>"IXODES RICINUS"</code>
+</li>
+<li>
+<strong>Using spaces or underscores</strong> - <code>"ixodes ricinus"</code> or <code>"ixodes_ricinus"</code>
+</li>
+<li>
+<strong>Extra text</strong>, such as spp. - <code>"Ixodes ricinus spp."</code>
+</li>
+<li>
+<strong>Duplicate rows</strong> for the same species.</li>
+</ul>
+<p>Although these all represent the same species, R will recognise each name variation as a different value.</p>
+<div id="setting-all-text-to-lowercase" class="section level3" number="5.4.1">
+<h3>
+<span class="header-section-number">5.4.1</span> Setting All Text to Lowercase<a class="anchor" aria-label="anchor" href="#setting-all-text-to-lowercase"><i class="fas fa-link"></i></a>
+</h3>
+<p>A good starting point when standardising species names is <strong>setting all text to lowercase</strong>:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
+<span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Here, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> modifies the column, and <code><a href="https://rdrr.io/r/base/chartr.html">tolower()</a></code> converts all text in the specified column to lowercase, in this case the <code>species</code> column.</p>
+<p>This ensures consistency in capitalisation across the dataset.</p>
+</div>
+<div id="removing-unwanted-characters" class="section level3" number="5.4.2">
+<h3>
+<span class="header-section-number">5.4.2</span> Removing Unwanted Characters<a class="anchor" aria-label="anchor" href="#removing-unwanted-characters"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can <strong>remove any unwanted characters</strong> from the species names in our datasets, such as underscores:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
+<span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>We use the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> function again, this time with <code><a href="https://rdrr.io/r/base/grep.html">gsub()</a></code> to replace the characters in a string. In this case, we are replacing any underscores with a space in the <code>species</code> column, such as converting <code>"ixodes_ricinus"</code> to <code>"ixodes ricinus"</code>.</p>
+</div>
+<div id="removing-additional-text" class="section level3" number="5.4.3">
+<h3>
+<span class="header-section-number">5.4.3</span> Removing Additional Text<a class="anchor" aria-label="anchor" href="#removing-additional-text"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can use the same approach to <strong>remove additional text</strong>, such as “spp.”:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
+<span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" spp\\."</span>, <span class="st">""</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Note that in this code syntax there is:</p>
+<ul>
+<li>A <strong>space</strong> before <code>spp</code> to ensure we remove the extra text without leaving a trailing space in the species name.</li>
+<li>A <strong>double backslash</strong> between <code>spp</code> and the point. In R, the point is considered a special character with specific meaning. We use the double backslash so R knows to treat the point as a full stop, rather than a special character.</li>
+</ul>
+</div>
+<div id="removing-extra-spaces" class="section level3" number="5.4.4">
+<h3>
+<span class="header-section-number">5.4.4</span> Removing Extra Spaces<a class="anchor" aria-label="anchor" href="#removing-extra-spaces"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can <strong>remove any extra spaces</strong> by using <code><a href="https://rdrr.io/r/base/trimws.html">trimws()</a></code> within the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> function:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
+<span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="https://rdrr.io/r/base/trimws.html">trimws()</a></code> removes leading and trailing spaces from the species names. These variations can be particularly tricky to spot by simply viewing the dataset.</p>
+<p>If species names are not standardised across our datasets:</p>
+<ul>
+<li>Merges between datasets could fail.</li>
+<li>Duplicate species entries might be created.</li>
+<li>Analyses might produce inaccurate results.</li>
+</ul>
+<div class="rmdnote">
+<p><strong>Example: Merging Mosquito Datasets</strong></p>
+<p>Let’s imagine we have used <strong>ohvbd</strong> to retrieve a dataset on mosquito abundance, <code>mosquito_abundance_data</code>, and another dataset on mosquito habitats, <code>mosquito_habitat_data</code>, in order to analyse how habitat type affects patterns of abundance in mosquitos:</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mosquito_abundance_data</span></span>
+<span><span class="co">#&gt;              species location abundance</span></span>
+<span><span class="co">#&gt; 1      Aedes aegypti    Site1        10</span></span>
+<span><span class="co">#&gt; 2      Culex pipiens    Site1         5</span></span>
+<span><span class="co">#&gt; 3      aedes_aegypti    Site2        12</span></span>
+<span><span class="co">#&gt; 4 Culex pipiens spp.    Site2         7</span></span>
+<span></span>
+<span><span class="va">mosquito_habitat_data</span></span>
+<span><span class="co">#&gt;         species location habitat</span></span>
+<span><span class="co">#&gt; 1 aedes aegypti    Site1   urban</span></span>
+<span><span class="co">#&gt; 2 culex pipiens    Site1 wetland</span></span>
+<span><span class="co">#&gt; 3 aedes aegypti    Site2   urban</span></span>
+<span><span class="co">#&gt; 4 culex pipiens    Site2 wetland</span></span></code></pre></div>
+<p>We can try to merge these datasets in their raw format using <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code>:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span></span>
+<span><span class="va">merged_mosquito_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
+<span>  <span class="va">mosquito_abundance_data</span>,</span>
+<span>  <span class="va">mosquito_habitat_data</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"location"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Now, let’s check the results of our merge using <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> to view the first few rows, and <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> to see the number of rows:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">merged_mosquito_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;              species location abundance habitat</span></span>
+<span><span class="co">#&gt; 1      Aedes aegypti    Site1        10    &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2      Culex pipiens    Site1         5    &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3      aedes_aegypti    Site2        12    &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4 Culex pipiens spp.    Site2         7    &lt;NA&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">merged_mosquito_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
+<p>We can see that the merge has run, but something is wrong - the expected habitat data is missing. This suggests the merge did not match rows correctly.</p>
+<p>Let’s take a step back and look at the original datasets:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mosquito_abundance_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;              species location abundance</span></span>
+<span><span class="co">#&gt; 1      Aedes aegypti    Site1        10</span></span>
+<span><span class="co">#&gt; 2      Culex pipiens    Site1         5</span></span>
+<span><span class="co">#&gt; 3      aedes_aegypti    Site2        12</span></span>
+<span><span class="co">#&gt; 4 Culex pipiens spp.    Site2         7</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mosquito_habitat_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         species location habitat</span></span>
+<span><span class="co">#&gt; 1 aedes aegypti    Site1   urban</span></span>
+<span><span class="co">#&gt; 2 culex pipiens    Site1 wetland</span></span>
+<span><span class="co">#&gt; 3 aedes aegypti    Site2   urban</span></span>
+<span><span class="co">#&gt; 4 culex pipiens    Site2 wetland</span></span></code></pre></div>
+<p>We can see some inconsistencies in our species names:
+- Differences in capitalisation
+- Underscores instead of spaces
+- Additional text</p>
+<p>Although the locations match, both the <code>location</code> and <code>species</code> need to match exactly for the merge to work.</p>
+<p>Now that we have identified the issues, let’s clean the species names in both datasets:</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clean_mosquito_abundance_data</span> <span class="op">&lt;-</span> <span class="va">mosquito_abundance_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" spp\\."</span>, <span class="st">""</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">clean_mosquito_habitat_data</span> <span class="op">&lt;-</span> <span class="va">mosquito_habitat_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" spp\\."</span>, <span class="st">""</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>In this code, we have used the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> function with <code><a href="https://rdrr.io/r/base/chartr.html">tolower()</a></code> to convert to lowercase and <code><a href="https://rdrr.io/r/base/grep.html">gsub()</a></code> to replace underscores and remove extra text.</p>
+<p>Now that our species names are consistent, we can try merging again:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">merged_mosquito_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
+<span>  <span class="va">clean_mosquito_abundance_data</span>,</span>
+<span>  <span class="va">clean_mosquito_habitat_data</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"location"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">merged_mosquito_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         species location abundance habitat</span></span>
+<span><span class="co">#&gt; 1 aedes aegypti    Site1        10   urban</span></span>
+<span><span class="co">#&gt; 2 culex pipiens    Site1         5 wetland</span></span>
+<span><span class="co">#&gt; 3 aedes aegypti    Site2        12   urban</span></span>
+<span><span class="co">#&gt; 4 culex pipiens    Site2         7 wetland</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">merged_mosquito_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
+<p>We can see that the merge has now worked as expected - the rows match correctly, and the habitat data has been added as expected. The dataset is now in a usable format for further wrangling and analysis.</p>
+</div>
+<div class="rmdcaution">
+<p><strong>Frequent mistake:</strong> People often only clean one dataset before merging, but data for the key column needs to be consistent across <strong>both</strong> datasets for the merge to be successful.</p>
+</div>
+</div>
+<div id="complex-cases" class="section level3" number="5.4.5">
+<h3>
+<span class="header-section-number">5.4.5</span> Complex Cases<a class="anchor" aria-label="anchor" href="#complex-cases"><i class="fas fa-link"></i></a>
+</h3>
+<p>So far, we have covered how to approach simple inconsistencies.</p>
+<p>However, real-world VBD datasets often contain more complex inconsistencies. These might involve:</p>
+<ul>
+<li>
+<strong>Abbreviated genus names</strong> - <code>"I. ricinus"</code>
+</li>
+<li>
+<strong>Additional descriptors</strong> - <code>"Ixodes ricinus aff."</code> or <code>"Ixodes ricinus cf."</code>
+</li>
+<li>
+<strong>Mixed formatting</strong> within the same column.</li>
+</ul>
+<p>In these cases, you may require more steps to clean the data. For instance, if we had a dataset where the <code>species</code> column contained these variations:</p>
+<ul>
+<li><code>"Ixodes ricinus"</code></li>
+<li><code>"Ixodes_ricinus"</code></li>
+<li><code>"Ixodes ricinus spp."</code></li>
+<li><code>"IXODES RICINUS"</code></li>
+<li><code>"I. ricinus"</code></li>
+</ul>
+<p>If we apply our earlier name cleaning techniques, we might standardise most of these, but <code>"I. ricinus"</code> would remain as is, and R would treat this as a separate value.</p>
+<p>To identify these issues, we can inspect all the unique species names in the dataset using <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code>:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">clean_data</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<p>This allows you to see all the distinct values in the species column, helping you to identify inconsistencies.</p>
+<p>We can manually correct specific cases that cannot be handled using our earlier techniques:</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"i. ricinus"</span>, <span class="st">"ixodes ricinus"</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Here:</p>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> check each value in the species column.</li>
+<li>If a value matches <code>"i.cicinus"</code>, it is replaced with <code>"ixodes ricinus"</code>,</li>
+<li>If not, the value stays the same.</li>
+</ul>
+<p>As species columns are typically used as a <strong>key</strong> when merging in VBD research, ensuring species names are consistent across our datasets can allow us to merge multiple datasets more confidently and reliably.</p>
+<div class="rmdtip">
+<p><strong>Tip:</strong> Automating our workflow feels much easier, but it is important to balance this with manual reviewing to ensure you don’t miss specific cases like these.</p>
+<p>To support the balance between automation and accuracy, we can follow a three step approach:</p>
+<ol style="list-style-type: decimal">
+<li>Apply broad cleaning techniques (lowercase, remove underscores and extra text).</li>
+<li>Inspect the results using <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code>.</li>
+<li>Manually correct any remaining inconsistencies.</li>
+</ol>
+</div>
+</div>
+<div id="resolving-species-names-using-gbif" class="section level3" number="5.4.6">
+<h3>
+<span class="header-section-number">5.4.6</span> Resolving Species Names Using GBIF<a class="anchor" aria-label="anchor" href="#resolving-species-names-using-gbif"><i class="fas fa-link"></i></a>
+</h3>
+<p>When using large or complex datasets, you might choose to match your species names to a recognised taxonomic database.</p>
+<p>The <code>rgbif</code> package can be used to help standardise species names using the Global Biodiversity Information Facility (GBIF).</p>
+<p>We can use the <code>name_backbone()</code> function to try to match your species name to a standardised species name in the GBIF backbone taxonomy:</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rgbif">rgbif</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">name_backbone</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"ixodes ricinus"</span><span class="op">)</span></span></code></pre></div>
+<p>This approach can help to identify spelling or formatting errors and synonymous species names.</p>
+</div>
+</div>
+<div id="collaborative-task" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> Collaborative Task<a class="anchor" aria-label="anchor" href="#collaborative-task"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdimportant">
+<p><strong>Collaborative Task: Frequent Data Wrangling Mistakes</strong>
+Let’s have a go at applying what we have learnt so far by working together in groups. Each group will be given a short example of data wrangling code, along with a small dataset. The code contains errors or issues, and your job is to identify and fix them together.</p>
+<p>As a group, you will:</p>
+<ol style="list-style-type: decimal">
+<li>Identify what the code is trying to do.</li>
+<li>Run it and discuss any errors or unexpected results.</li>
+<li>Edit the code so that it runs and produces the results you would expect.</li>
+</ol>
+<p>You might find it helpful to share out roles, for example, one person might run the code, one might take notes, and one might guide the discussion.</p>
+<p>The aim of this activity is not to produce perfect code, but to <strong>apply what you have learnt so far and think critically about data wrangling principles</strong>. There may be more than one fix, and explaining why you chose your approach is part of the task.</p>
+<p>There are 4 sets of flawed code you can work through. We recommend each group tries at least 2 sets of code.</p>
+<p><strong>Code 1</strong></p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data_a</span></span>
+<span><span class="co">#&gt;             species abundance</span></span>
+<span><span class="co">#&gt; 1     aedes aegypti        10</span></span>
+<span><span class="co">#&gt; 2     culex pipiens        25</span></span>
+<span><span class="co">#&gt; 3 anopheles gambiae         5</span></span>
+<span><span class="va">data_b</span></span>
+<span><span class="co">#&gt;             Species trait</span></span>
+<span><span class="co">#&gt; 1     aedes aegypti urban</span></span>
+<span><span class="co">#&gt; 2     culex pipiens rural</span></span>
+<span><span class="co">#&gt; 3 anopheles gambiae rural</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Merge datasets</span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">data_a</span>, <span class="va">data_b</span>, by <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Code 2</strong></p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data_c</span></span>
+<span><span class="co">#&gt;              species abundance</span></span>
+<span><span class="co">#&gt; 1      Aedes aegypti        10</span></span>
+<span><span class="co">#&gt; 2      aedes_aegypti        12</span></span>
+<span><span class="co">#&gt; 3 Aedes aegypti spp.         8</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Clean species name</span></span>
+<span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">data_c</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"spp."</span>, <span class="st">""</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Code 3</strong></p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data_a</span></span>
+<span><span class="co">#&gt;             species abundance</span></span>
+<span><span class="co">#&gt; 1     aedes aegypti        10</span></span>
+<span><span class="co">#&gt; 2     culex pipiens        25</span></span>
+<span><span class="co">#&gt; 3 anopheles gambiae         5</span></span>
+<span><span class="va">data_d</span></span>
+<span><span class="co">#&gt;         species trait</span></span>
+<span><span class="co">#&gt; 1 aedes aegypti urban</span></span>
+<span><span class="co">#&gt; 2 culex pipiens rural</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Merge datasets</span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">data_a</span>, <span class="va">data_d</span>, by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Code 4</strong></p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data_e</span></span>
+<span><span class="co">#&gt;         species location abundance</span></span>
+<span><span class="co">#&gt; 1 aedes aegypti    site1        10</span></span>
+<span><span class="co">#&gt; 2 aedes aegypti    site2        15</span></span>
+<span><span class="co">#&gt; 3 culex pipiens    site1        20</span></span>
+<span><span class="va">data_f</span></span>
+<span><span class="co">#&gt;         species location temperature</span></span>
+<span><span class="co">#&gt; 1 aedes aegypti    site1          25</span></span>
+<span><span class="co">#&gt; 2 culex pipiens    site1          22</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Merge datasets</span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">data_e</span>, <span class="va">data_f</span>, by <span class="op">=</span> <span class="st">"species"</span>, <span class="st">"location"</span><span class="op">)</span></span></code></pre></div>
+<p>Hopefully, this task has reinforced the data wrangling principles we have discussed so far, and developed our understanding of how reformatting our data effectively contributes to a reproducible workflow and smoother downstream analyses.</p>
+</div>
+</div>
+<div id="planning-a-wrangling-workflow" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Planning a Wrangling Workflow<a class="anchor" aria-label="anchor" href="#planning-a-wrangling-workflow"><i class="fas fa-link"></i></a>
+</h2>
+<p>We have discussed how to reframe data wrangling as a process, rather than a rigid set of steps.</p>
+<p>When you open a new dataset, it can be tempting to start making changes immediately. To relieve this temptation, we can be prepared with a guide to a practical workflow that leaves room for flexibility to account for your specific dataset and research questions.</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Inspect the data</strong> - understand the structure, variables, and data types.</li>
+<li>
+<strong>Identify any issues</strong> - look for inconsistencies, missing values, and formatting problems.</li>
+<li>
+<strong>Prioritise tasks</strong> - decide which issues are most important for your analysis.</li>
+<li>
+<strong>Apply cleaning steps</strong> - after you understand the data, use appropriate data wrangling approaches.</li>
+<li>
+<strong>Check results</strong> - ensure the changes you have made have worked in the way you expected.</li>
+</ol>
+<p>Without a clear workflow, it is easy to lose track of the changes you have made, and introduce new errors, especially if you don’t check your results.</p>
+<p>Approaching data wrangling in this way helps to ensure your work is reproducible, efficient, and aligned with your research aims.</p>
+<div class="rmdtip">
+<p><strong>Tip:</strong> To keep track of your workflow, add comments to your code explaining what changes you made and why:</p>
+<p><code># Convert data to all lowercase to ensure consistency across datasets.</code></p>
+</div>
+</div>
+<div id="key-takeaways-2" class="section level2" number="5.7">
+<h2>
+<span class="header-section-number">5.7</span> Key Takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways-2"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Data wrangling is a process of preparing data for a specific research question.</li>
+<li>VBD datasets often require cleaning and transformation before analysis.</li>
+<li>Common issues include missing values, inconsistent formats, and duplicates.</li>
+<li>Merging datasets requires consistent keys and careful validation.</li>
+<li>Standardising species names is essential for accurate integration.</li>
+<li>Validation ensures your dataset is accurate, consistent, and ready for analysis.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="understanding-data-curation-and-standards-1.html"><span class="header-section-number">4</span> Understanding Data Curation and Standards</a></div>
+<div class="next"><a href="visualising-vbd-data-in-r.html"><span class="header-section-number">6</span> Visualising VBD Data in R</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#wrangling-vbd-data-in-r"><span class="header-section-number">5</span> Wrangling VBD Data in R</a></li>
+<li><a class="nav-link" href="#overview-2"><span class="header-section-number">5.1</span> Overview</a></li>
+<li><a class="nav-link" href="#shifting-perspectives-problems-to-decisions"><span class="header-section-number">5.2</span> Shifting Perspectives: Problems to Decisions</a></li>
+<li>
+<a class="nav-link" href="#merging-datasets"><span class="header-section-number">5.3</span> Merging Datasets</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#different-merge-types"><span class="header-section-number">5.3.1</span> Different Merge Types</a></li>
+<li><a class="nav-link" href="#merging-with-multiple-keys"><span class="header-section-number">5.3.2</span> Merging with Multiple Keys</a></li>
+<li><a class="nav-link" href="#frequent-merging-mistakes"><span class="header-section-number">5.3.3</span> Frequent Merging Mistakes</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#standardising-species-names"><span class="header-section-number">5.4</span> Standardising Species Names</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#setting-all-text-to-lowercase"><span class="header-section-number">5.4.1</span> Setting All Text to Lowercase</a></li>
+<li><a class="nav-link" href="#removing-unwanted-characters"><span class="header-section-number">5.4.2</span> Removing Unwanted Characters</a></li>
+<li><a class="nav-link" href="#removing-additional-text"><span class="header-section-number">5.4.3</span> Removing Additional Text</a></li>
+<li><a class="nav-link" href="#removing-extra-spaces"><span class="header-section-number">5.4.4</span> Removing Extra Spaces</a></li>
+<li><a class="nav-link" href="#complex-cases"><span class="header-section-number">5.4.5</span> Complex Cases</a></li>
+<li><a class="nav-link" href="#resolving-species-names-using-gbif"><span class="header-section-number">5.4.6</span> Resolving Species Names Using GBIF</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#collaborative-task"><span class="header-section-number">5.5</span> Collaborative Task</a></li>
+<li><a class="nav-link" href="#planning-a-wrangling-workflow"><span class="header-section-number">5.6</span> Planning a Wrangling Workflow</a></li>
+<li><a class="nav-link" href="#key-takeaways-2"><span class="header-section-number">5.7</span> Key Takeaways</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/master/01-vbd-hub-training-november-2026.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/edit/master/01-vbd-hub-training-november-2026.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-04.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

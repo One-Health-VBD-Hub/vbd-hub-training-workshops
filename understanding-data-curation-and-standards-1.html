@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 4 Understanding Data Curation and Standards | One Health VBD Hub Training 2026</title>
+<meta name="author" content="Chloë Coxshall">
+<meta name="description" content="4.1 Overview So far, we have learnt how to search for and retrieve data using VBD Hub resources. In this session, we will look at the other side of that process and consider how datasets are...">
+<meta name="generator" content="bookdown 0.45 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Understanding Data Curation and Standards | One Health VBD Hub Training 2026">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/understanding-data-curation-and-standards-1.html">
+<meta property="og:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
+<meta property="og:description" content="4.1 Overview So far, we have learnt how to search for and retrieve data using VBD Hub resources. In this session, we will look at the other side of that process and consider how datasets are...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 Understanding Data Curation and Standards | One Health VBD Hub Training 2026">
+<meta name="twitter:description" content="4.1 Overview So far, we have learnt how to search for and retrieve data using VBD Hub resources. In this session, we will look at the other side of that process and consider how datasets are...">
+<meta name="twitter:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/IBM_Plex_Sans-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">One Health VBD Hub Training 2026</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">November 2026 Training at Silwood Park</li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="pre-work.html"><span class="header-section-number">2</span> Pre-Work</a></li>
+<li><a class="" href="hub-tools-what-they-are-and-how-to-use-them.html"><span class="header-section-number">3</span> Hub Tools: What They Are and How to Use Them</a></li>
+<li><a class="active" href="understanding-data-curation-and-standards-1.html"><span class="header-section-number">4</span> Understanding Data Curation and Standards</a></li>
+<li><a class="" href="wrangling-vbd-data-in-r.html"><span class="header-section-number">5</span> Wrangling VBD Data in R</a></li>
+<li><a class="" href="visualising-vbd-data-in-r.html"><span class="header-section-number">6</span> Visualising VBD Data in R</a></li>
+<li><a class="" href="effectively-communicating-with-different-audiences.html"><span class="header-section-number">7</span> Effectively Communicating with Different Audiences</a></li>
+<li><a class="" href="temporal-spatial-modelling-of-disease-vectors.html"><span class="header-section-number">8</span> Temporal &amp; Spatial Modelling of Disease Vectors</a></li>
+<li><a class="" href="thermal-performance-curves.html"><span class="header-section-number">9</span> Thermal Performance Curves</a></li>
+<li><a class="" href="challenge-task.html"><span class="header-section-number">10</span> Challenge Task</a></li>
+<li><a class="" href="reading-resources.html"><span class="header-section-number">11</span> Reading &amp; Resources</a></li>
+<li class="book-part">March 2026 Online Training Workshops</li>
+<li><a class="" href="introduction-to-march-2026-training.html"><span class="header-section-number">12</span> Introduction to March 2026 Training</a></li>
+<li><a class="" href="workshop-1-data-visualisations-in-r.html"><span class="header-section-number">13</span> Workshop 1: Data Visualisations in R</a></li>
+<li><a class="" href="workshop-2-data-wrangling-with-hub-search-ohvbd.html"><span class="header-section-number">14</span> Workshop 2: Data Wrangling with Hub Search &amp; ohvbd</a></li>
+<li><a class="" href="reading-resources-1.html"><span class="header-section-number">15</span> Reading &amp; Resources</a></li>
+<li class="book-part">Optional Recap of LMs and Basic Plots</li>
+<li><a class="" href="recap.html"><span class="header-section-number">A</span> Recap of Linear Models &amp; Basic Plots (optional)</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="understanding-data-curation-and-standards-1" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Understanding Data Curation and Standards<a class="anchor" aria-label="anchor" href="#understanding-data-curation-and-standards-1"><i class="fas fa-link"></i></a>
+</h1>
+<div id="overview-1" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far, we have learnt how to search for and retrieve data using VBD Hub resources. In this session, we will look at the other side of that process and consider how datasets are curated and standardised before they reach the Hub. We will discuss publishing decision frameworks to help decide where and how a dataset is shared, how FAIR data principles guide the whole process, and you will have the opportunity to prepare a dataset for VecDyn yourself. Understanding data curation and standards will help to interpret the datasets you retrieve from existing databases, and prepare your own data for sharing.</p>
+<p><strong>Learning Objectives</strong></p>
+<p>By the end of this workshop, you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li>Prepare a dataset for VecDyn using the VecDyn column definitions.</li>
+<li>Apply the FAIR data principles to assess and improve a dataset.</li>
+<li>Explain how curation and standards shape the data you retrieve with Hub Search and ohvbd.</li>
+<li>Appropriately cite datasets, repositories and resources.</li>
+</ol>
+</div>
+<div id="identifying-data-types" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Identifying Data Types<a class="anchor" aria-label="anchor" href="#identifying-data-types"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the pre-work, you were introduced to the different types of data the VBD Hub works with, and the standard operating procedures (SOPs) used to curate each type. Identifying the data type is the first step in curation, because it determines where a dataset is stored and how it should be formatted. Let’s start with a quick recap.</p>
+<div class="rmdimportant">
+<p><strong>Task: Identifying Data Types</strong></p>
+<p>For each example, decide which type of data it is:</p>
+<ol style="list-style-type: decimal">
+<li>Weekly counts of <em>Culex pipiens</em> caught in light traps at five sites over two years.</li>
+<li>A record of <em>Aedes albopictus</em> observed in a garden in Kent in August 2023.</li>
+<li>Larval development time of <em>Anopheles gambiae</em> at five different temperatures.</li>
+<li>Monthly reported human West Nile virus cases by region.</li>
+<li>Mass spectrometry analysis of proteins in mosquito salivary glands.</li>
+<li>Blood-meal analysis showing which host species <em>Culex pipiens</em> fed on.</li>
+<li>Museum specimen records of <em>Ixodes ricinus</em> with collection dates and locations.</li>
+</ol>
+</div>
+</div>
+<div id="publishing-decision-framework" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Publishing Decision Framework<a class="anchor" aria-label="anchor" href="#publishing-decision-framework"><i class="fas fa-link"></i></a>
+</h2>
+<p>To ensure datasets are shared in the most appropriate way, the VBD Hub uses a publishing decision framework.</p>
+<p>This framework guides three key decisions:</p>
+<ul>
+<li>What type of data is being shared</li>
+<li>Which database it should be stored in</li>
+<li>How it should be formatted</li>
+</ul>
+<p>Once you have identified the data type, you can map this to the recommended repository:</p>
+<ul>
+<li>
+<strong>Omics data</strong> are typically stored in genomic and proteomic repositories such as <strong>GenBank</strong> or <strong>ProteomeXchange</strong>.</li>
+<li>
+<strong>Abundance data</strong> are directed to <strong>VecDyn</strong>.</li>
+<li>
+<strong>Trait data</strong> are stored in <strong>VecTraits</strong>.</li>
+<li>
+<strong>Occurrence data</strong> are shared through platforms like <strong>GBIF</strong>.</li>
+<li>
+<strong>Epidemiological or mixed datasets</strong> may be hosted directly by the <strong>VBD Hub</strong>.</li>
+</ul>
+<p>This ensures that each dataset is stored in a system best suited to its structure and use.</p>
+<div class="rmdnote">
+<p><strong>Example: Preparing a Dataset for VecDyn</strong></p>
+<p>Imagine we have collected mosquito abundance data weekly using light traps at several sampling locations.</p>
+<p>Our raw dataset might look something like this:</p>
+<ul>
+<li>A column called <code>Date</code> with mixed formats</li>
+<li>A column called <code>site</code> with inconsistent naming</li>
+<li>A column called <code>Count</code> with no explanation of how counts were collected.</li>
+</ul>
+<p>We then want to prepare this dataset for <strong>VecDyn</strong>.</p>
+<p>Instead of choosing column names ourselves, we use the <a href="https://vectorbyte.crc.nd.edu/vecdyn-columndefs">VecDyn column definitions</a> resource. This provides a standardised list of column names, along with clear definitions of what each column name means and how it should be used.</p>
+<p>For example:</p>
+<ul>
+<li>If we have a column describing when the sampling took place, the table specifies the column names <code>sample_start_date</code> and <code>sample_end_date</code>.</li>
+<li>If we want to record each sampling location, we would use <code>sample_location</code>.</li>
+<li>If we are recording the species, we can use standard taxonomy in <code>species</code> and <code>genus</code> columns.</li>
+<li>Our abundance dataset contains count data, which we would record in a column called <code>sample_value</code>.</li>
+</ul>
+</div>
+<p>The VecDyn definitions table is accompanied by additional information that guides how the data should be structured:</p>
+<ul>
+<li>
+<strong>Notes</strong> - provides further explanation, helping to clarify how the column should be used and what the values represent.</li>
+<li>
+<strong>Is Required</strong> - indicates whether a column must be included in the dataset to be accepted and usable within the VecDyn database.</li>
+<li>
+<strong>Data Format</strong> - specifies how data values should be recorded. For example, dates must follow a consistent ISO format.</li>
+<li>
+<strong>Restrictions</strong> - provides rules about what values are allowed. This might include controlled vocabularies or limits on acceptable entries.</li>
+</ul>
+<p>Given these details, we would also want to check how our data is formatted, for example, our start and end date must be in ISO format. We would also need to add any required details, such as a <code>sampling_method</code> column to state the trap type.</p>
+<p>By following these definitions, we are not just organising our dataset, we are aligning it with a shared formatting standard. This is what allows tools like the VBD Hub Search and the ohvbd package to work with multiple datasets in a consistent way - they can rely on the same column names, formats, and definitions across all data.</p>
+</div>
+<div id="fair-data-principles" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> FAIR Data Principles<a class="anchor" aria-label="anchor" href="#fair-data-principles"><i class="fas fa-link"></i></a>
+</h2>
+<p>An important concept guiding this entire data sharing process is the use of <strong>FAIR data principles</strong>.</p>
+<p><strong>FAIR stands for Findable, Accessible, Interoperable, Reusable:</strong></p>
+<ul>
+<li>
+<strong>Findable</strong> - datasets are assigned metadata and identifiers so they can be discovered through search tools.</li>
+<li>
+<strong>Accessible</strong> - data can be retrieved using standard protocols, with clear information about access conditions.</li>
+<li>
+<strong>Interoperable</strong> - datasets use standard formats, vocabularies, and structures so they can be integrated with other data.</li>
+<li>
+<strong>Reusable</strong> - datasets include sufficient documentation, metadata, and licensing so they can be used in future research.</li>
+</ul>
+<p>The <strong>VBD Hub</strong> supports these principles by ensuring datasets are well-documented, consistently structured, and linked to appropriate repositories, so that these datasets can be discovered, accessed and reused openly and effectively.</p>
+<div class="rmdimportant">
+<p><strong>Task: Preparing a Dataset for VecDyn</strong></p>
+<p>You’ve been given the following raw data. Working in small groups, use the <a href="https://vectorbyte.crc.nd.edu/vecdyn-columndefs">VecDyn column definitions</a> resource to prepare this dataset for upload to VecDyn.</p>
+<p>Here are some prompts to help you:</p>
+<ul>
+<li>Which VecDyn column should each existing column map to?</li>
+<li>What needs to change in the values themselves?</li>
+<li>What required information is missing?</li>
+<li>What metadata would you add to make this dataset FAIR?</li>
+</ul>
+</div>
+</div>
+<div id="why-use-curated-data-and-standards" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> Why Use Curated Data and Standards?<a class="anchor" aria-label="anchor" href="#why-use-curated-data-and-standards"><i class="fas fa-link"></i></a>
+</h2>
+<p>Understanding how data is curated and structured also helps when using tools like the <strong>Hub Search</strong> or the <strong>ohvbd</strong> package.</p>
+<p>For example, when you retrieve data, you may notice:</p>
+<ul>
+<li>Standardised column names</li>
+<li>Consistent date formats</li>
+<li>Structured metadata</li>
+</ul>
+<p>These features are a direct result of the data curation process.</p>
+<p>Recognising this can help you interpret datasets more effectively and identify any limitations or inconsistencies. For example, you might notice multiple columns for species names based on different databases, which you can mitigate by merging.</p>
+<p>These standards aren’t only useful when using other people’s data. Applying them to your own data from the start brings the same benefits:</p>
+<ul>
+<li>Your datasets are structured the same way across projects, field seasons, and team members.</li>
+<li>Your data can be easily combined with other datasets without extensive formatting.</li>
+<li>Recording data in a standard format from the outset means you spend less time cleaning and wrangling later on.</li>
+<li>Improves the reproducibility of your work, especially for publications.</li>
+<li>If your data already follows <strong>VecDyn</strong> or <strong>VecTraits</strong> standards, it is ready to submit when you publish, so your work can be found, reused and cited by others.</li>
+</ul>
+</div>
+<div id="from-the-data-curator" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> From the Data Curator<a class="anchor" aria-label="anchor" href="#from-the-data-curator"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>What are the most common problems you see in datasets submitted to the Hub?</li>
+<li>What’s one thing researchers could do at the data collection stage that would make curation much easier?</li>
+<li>What happens to a dataset after it’s submitted?</li>
+<li>How should people get in touch if they want to share their data?</li>
+</ul>
+</div>
+<div id="citing-curated-datasets" class="section level2" number="4.7">
+<h2>
+<span class="header-section-number">4.7</span> Citing Curated Datasets<a class="anchor" aria-label="anchor" href="#citing-curated-datasets"><i class="fas fa-link"></i></a>
+</h2>
+<p>When using datasets from the <strong>VBD Hub</strong>, it is important to consider data provenance and attribution. You should:</p>
+<ul>
+<li>Check the dataset metadata for authorship and source.</li>
+<li>Identify the original database.</li>
+<li>Follow licensing and usage conditions.</li>
+<li>Cite both the dataset and the source repository.</li>
+</ul>
+<p>Proper citation:</p>
+<ul>
+<li>Gives crest to data contributors</li>
+<li>Supports reproducibility</li>
+<li>Ensures transparency in your research</li>
+</ul>
+<div class="rmdtip">
+<p><strong>Tip:</strong> Remember to cite the tools you use to retrieve data as well. If you used <strong>ohvbd</strong>, run <code>citation(“ohvbd)</code> in R to get the recommended citation.</p>
+</div>
+</div>
+<div id="key-takeaways-1" class="section level2" number="4.8">
+<h2>
+<span class="header-section-number">4.8</span> Key Takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways-1"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Identifying the data type is the first step in curation, because it determines where a dataset is stored and how it is formatted.</li>
+<li>Standard column definitions, formats and vocabularies allow datasets from different sources to be combined, which is what makes tools like the Hub Search and ohvbd possible.</li>
+<li>The FAIR data principles guide curation so that data can be found, accessed, integrated and reused.</li>
+<li>Applying data curation standards to your own data from the start saves time later and makes your data easier to share, reuse and cite.</li>
+<li>Always cite the datasets, repositories and tools you use.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="hub-tools-what-they-are-and-how-to-use-them.html"><span class="header-section-number">3</span> Hub Tools: What They Are and How to Use Them</a></div>
+<div class="next"><a href="wrangling-vbd-data-in-r.html"><span class="header-section-number">5</span> Wrangling VBD Data in R</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#understanding-data-curation-and-standards-1"><span class="header-section-number">4</span> Understanding Data Curation and Standards</a></li>
+<li><a class="nav-link" href="#overview-1"><span class="header-section-number">4.1</span> Overview</a></li>
+<li><a class="nav-link" href="#identifying-data-types"><span class="header-section-number">4.2</span> Identifying Data Types</a></li>
+<li><a class="nav-link" href="#publishing-decision-framework"><span class="header-section-number">4.3</span> Publishing Decision Framework</a></li>
+<li><a class="nav-link" href="#fair-data-principles"><span class="header-section-number">4.4</span> FAIR Data Principles</a></li>
+<li><a class="nav-link" href="#why-use-curated-data-and-standards"><span class="header-section-number">4.5</span> Why Use Curated Data and Standards?</a></li>
+<li><a class="nav-link" href="#from-the-data-curator"><span class="header-section-number">4.6</span> From the Data Curator</a></li>
+<li><a class="nav-link" href="#citing-curated-datasets"><span class="header-section-number">4.7</span> Citing Curated Datasets</a></li>
+<li><a class="nav-link" href="#key-takeaways-1"><span class="header-section-number">4.8</span> Key Takeaways</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/master/01-vbd-hub-training-november-2026.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/edit/master/01-vbd-hub-training-november-2026.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-04.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

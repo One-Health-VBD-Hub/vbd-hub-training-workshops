@@ -1,0 +1,2479 @@
+# (PART) November 2026 Training at Silwood Park {-}
+
+# Introduction
+Content coming soon!
+
+
+
+
+# Pre-Work
+
+We are excited to welcome you to the **One Health VBD Hub Training Event** on 11th-13th November at Silwood Park. 
+
+
+Before the event, we would like you to complete this pre-work. This will help ensure everyone has a foundation understanding of the topics, and will be prepared to fully participate in the workshops. 
+
+
+The pre-work covers three sections:
+
+1. Navigating the VBD Hub
+2. Understanding Data Curation Standards
+3. Data Wrangling Principles 
+
+
+**We ask that you complete these three sections, and ensure R, RStudio, and the relevant packages are installed on your device BEFORE the event.**
+
+
+The packages you will need for the workshops are:
+
+- `ohvbd`
+- `dplyr`
+- `ggplot2`
+- `tidyverse`
+
+
+We will be using the **VBD Hub Forum** for additional support before and during the training, as well as informal chats and coordination. Please have it set up in advance, and follow [this link](https://forum.vbdhub.org/) to join. If you need help navigating the Forum, please see the video under **2.1.1 The VBD Hub Forum**.
+
+
+You will need to bring your own laptop to participate in the event. Make sure it is updated, and remember to bring your charger. 
+
+
+## Navigating the VBD Hub
+The [VBD Hub website](https://vbdhub.org/) is home to resources to help your research, and spaces for collaboration and networking with the VBD community. The website is straightforward to navigate, but if you haven’t used it before, it can be helpful to understand what information is available and where to find it.
+
+
+Watch this video tour of the VBD Hub website. Note: as the VBD Hub continues to grow, the website may have updated features in addition to those outlined in this video.
+
+
+Video coming soon!
+
+
+**Transcript:** Transcript coming soon!
+
+
+During the training event, we will discuss some of the Hub tools and how to use them in more detail, including the Hub search and the ohvbd package.
+
+
+::: {.rmdimportant}
+**Task: Exploring the Hub**
+
+Spend a few minutes navigating the VBD Hub website to familiarise yourself with the contents. 
+
+Try to identify at least one feature you might use in your own work. 
+:::
+
+
+### VBD Hub Forum
+The [VBD Hub Forum](https://forum.vbdhub.org/) is a space where users can ask questions, share knowledge and participate in discussions on VBD research and data. This resource provides users with an opportunity to connect with the VBD community.
+
+
+Watch this video which walks you through how to use the VBD Hub Forum:
+
+
+Video coming soon!
+
+
+**Transcript:** Transcript coming soon!
+
+
+By contributing to discussions on the Forum, you are not only receiving support from the VBD community, but also helping to support others and to develop a collaborative network. 
+
+
+::: {.rmdimportant}
+**Task: Register with the Hub Forum**
+
+If you have not already done so, register an account with the VBD Hub Forum and follow [this link](https://forum.vbdhub.org/) to join the thread for this training event. 
+
+Once you have registered and joined the thread, introduce yourself or start a discussion.
+:::
+
+
+## Understanding Data Curation and Standards
+Throughout the Training Event, we will be using Hub curated datasets to practice the skills learnt. Although users cannot upload data directly through the VBD Hub at this time, understanding this process is helpful for interpreting the datasets you retrieve using tools such as the Hub Search and the ohvbd package.
+
+
+Watch this short video outlining standard operating procedures when curating VBD data.
+
+
+Video coming soon!
+
+
+**Transcript:** Transcript coming soon!
+
+
+## Data Wrangling Principles
+Data wrangling is the process of cleaning, transforming, and organising raw data into a format that is suitable for analysis. 
+
+
+Throughout the Training Event, we will be using datasets retrieved from different sources. These sources might use inconsistent formats or unclear variable names, and therefore need to be wrangled before analysis.
+
+
+**Understanding data wrangling principles will help you organise your data into a usable format, making further analysis smoother and more reliable.**
+
+
+Before we start working with data in R, it is important to understand that data wrangling is not just a set of steps, but a process of making your data fit for your specific research question. 
+
+
+The choices you make when cleaning and transforming your data will directly influence your results, so it is important to apply consistent and thoughtful approaches. 
+
+
+Let’s have a look at some basic data wrangling techniques commonly applied to VBD datasets:
+
+
+**1. Understand Your Data First**
+
+**Do:** Explore your data before making any changes. We can look at the first few rows of our dataset using `head()`, which allows us to better understand our data, including checking the column names and data types. 
+
+
+**Don’t:** Jump straight into cleaning the data without fully understanding how it is formatted. Without understanding the data, you risk misinterpreting variables and accidentally removing useful data.
+
+
+**2. Save Your Raw Data**
+
+**Do:** Keep an unchanged version of the raw dataset so you can access a previous version if something goes wrong, reproduce your work, and verify your results.
+
+
+**Don’t:** Overwrite your original data. When wrangling your data in R, assign your cleaned data to a new object: `clean_data <- raw_data`.
+
+
+**3. Use Clear & Consistent Naming**
+
+**Do:** Use informative column, model, and object names so you know what your object is explicitly. Clear naming makes your R workflow easier for others (and yourself) to understand. You can rename columns using the `dplyr` function `rename()`:
+
+
+``` r
+clean_data |>
+rename(
+latitude = decimalLatitude,
+longitude = decimalLongitude
+)
+```
+
+
+In this function, the syntax works as: `new_name = old_name`.
+
+
+**Don’t:** Use unclear names or names with messy formatting. Try to avoid spaces, special characters, or specific abbreviations.
+
+
+**4. Reformat Your Data**
+
+**Do:** Convert your data to long format for analysis, using the `tidyr` function `pivot_longer()`. 
+
+
+``` r
+clean_data <- clean_data |>
+    pivot_longer(
+    cols = starts_with("year"),
+    names_to = "year",
+    values_to = "abundance"
+  )
+```
+
+
+We can break this down and have a look at what each part of this function is doing:
+
+- `cols = starts_with("year")` - This selects the columns we want to reshape. In this case, we are selecting any column that starts with "year", (for example, `year_2010`, `year_2011`).
+- `names_to = "year"` - This creates a new column called `year`, which will store the names of the original columns. Instead of having separate columns like `year_2010` and `year_2011`, those labels will now appear as values in a single column called `year`. 
+- `values_to = "abundance"` - This creates a new column called `abundance`, which will store the data values that were previously spread across those year columns.
+
+
+So instead of having one row with many year columns, we now have multiple rows where each row represents a single year-abundance observation. 
+
+
+In this format, each row represents a single observation, which can make the data easier to filter and analyse.
+
+
+**Don’t:** Use data in wide format, where values are spread across multiple columns. This can limit data wrangling and processing, such as grouping across different years and generating effective visualisations.
+
+
+**5. Record What You Do**
+
+**Do:** Keep track of your progress by recording what changes you made and why you used that approach. It is good practice to note these changes as comments in your code:
+
+
+``` r 
+# Rename columns for clarity
+# Convert data to long format for easier analysis
+```
+
+
+**Don’t:** Rely on memory alone. It is easy to forget what analytical methods you used, why you chose that approach, and what order you processed your data in. Keeping clear records of your workflow contributes to better reproducibility. 
+
+
+::: {.rmdcaution}
+**Frequent Mistake:**
+
+Try to avoid spaces, special characters, or specific abbreviations when naming objects in R.
+
+
+There are a few options for alternative syntax, we would recommend:
+- Using camelCase where letters are capitalised to indicate new words (e.g. `specificModelName`).
+- Or using an underscore to connect words (e.g. `specific_model_name`).
+
+
+If using camelCase, remember that R is case sensitive - if your object is named `specificModelName`, but you call `specificmodelname`, R will show an error:
+
+`Error: object ‘specificmodelname’ not found`
+:::
+
+
+::: {.rmdimportant}
+**Task: Applying Data Wrangling Principles to Real-World Datasets**
+
+Open this dataset in RStudio, and work through the following points:
+
+- Inspect the dataset using `head()`. Notice what the columns represent, what the data types are, and whether there are any missing values.
+- Rename your data as a new object. Any changes you make will use this new object, rather than the raw data.
+- Rename at least two columns using `rename()`. 
+- Check whether your dataset is in wide or long format. Use `pivot_longer()` if required.
+- Add comments to your code explaining what changes you made and why.
+:::
+
+
+You will now be familiar with some core data wrangling principles, which will prepare you for the Wrangling VBD Data workshop during the Training Event. In this workshop, we will cover a handful of essential wrangling techniques for VBD data.
+
+
+
+
+
+# Hub Tools: What They Are and How to Use Them
+
+## Overview
+The VBD Hub brings together datasets, tools, and community resources to support vector-borne disease research. In the pre-work, you learnt how to navigate the Hub and where to find its useful resources. This session builds on that by focusing on two tools for searching and retrieving data, Hub Search, the Hub’s web-based search interface, and ohvbd, an R package that allows you to search for and retrieve data directly in R. During this workshop, you will practice using both, learn how to refine your searches, and check what they return, and compare the two tools so you can choose the one that best fits your workflow. 
+
+
+**Learning Objectives**
+
+By the end of this workshop, you should be able to:
+
+1. Use Hub Search filters to search and download datasets relevant to a specific research question.
+2. Build an ohvbd pipeline in R to search for, filter, and fetch VBD data.
+3. Refine ohvbd searches using smart search functions.
+4. Inspect retrieved data to check it matches your research questions and identify whether wrangling is required. 
+5. Understand the differences between the Hub Search and ohvbd package, and choose the right tool for your workflow. 
+
+
+## Searching and Retrieving Data with Hub Search
+As we have seen, the **Hub Search** can be found under the **Find Data** tab on the **VBD Hub** website. 
+
+
+The **Hub Search** makes discovering datasets much easier by allowing you to search across multiple data sources in one place. This means you can identify datasets relevant to your research and explore the associated metadata before downloading, rather than searching each database source individually.
+
+
+On the **Find Data** page, you will see a **Filter** panel with several options that let you refine your search. These include:
+
+- **Category** - Filter your search based on data type, such as Occurrence, Abundance, Traits, Proteomics, and Epidemiological data. 
+- **Database** - Filter by source database, including VecDyn, VecTraits, GBIF, ProteomeXchange, and the VBD Hub.
+- **Published** - Set a date range for when the data was published by entering a start and end date. 
+- **Location** - Define a geographic area by drawing a polygon on the map. 
+- **Taxonomy** - Search for a specific species or taxonomic group.
+- **Full text search** - Refine your search by using specific keywords. 
+
+
+These filters help you to narrow down your search results and find datasets that are the most relevant to your research.
+
+
+::: {.rmdtip}
+**Note:** The Hub Search tool retrieves data from several open-access databases. If you are unfamiliar with these databases, they include:
+
+- **VecDyn** - Data on vector population dynamics, including how vector populations change over time and across locations. 
+- **VecTraits** - Data on vector traits, such as life history, behaviour, and ecology. 
+- **GBIF** - Species occurrence records, showing the time and location vector species have been observed.
+- **ProteomeXchange** - Proteomic and molecular vector data. 
+::: 
+
+
+Once you have run a search, the results will be displayed on the same page. These typically include the dataset name, the source database, and a brief description of the dataset. 
+
+
+You can also access further details, including the metadata, and geographic or temporal coverage. Clicking on the dataset will let you see options to access or download the dataset.
+
+
+These details can help you decide whether the dataset is suitable for your research before downloading it. 
+
+
+After reviewing your results, you might decide to refine your search. You might consider:
+
+- **Relevance** - does the dataset answer your research question?
+- **Coverage** - does the dataset include the correct location or time period for your research?
+- **Structure** - is the data in a usable format?
+
+
+You can refine your search by adding more filters, using more specific keywords, or combining terms, such as “species name + location”.
+
+
+::: {.rmdtip}
+**Tip:** Start with a broad search, and then gradually narrow it down.
+
+
+Remember, you don’t have to download everything - you should focus on datasets that are the most useful for your research and analysis.
+:::
+
+
+::: {.rmdimportant}
+**Task: Retrieving Ixodes ricinus Data Using Hub Search**
+
+Use the Hub Search and relevant filters to find datasets on abundance of *Ixodes ricinus*. How many results did your search return?
+
+
+Select one dataset from your search and identify the:
+
+- Dataset name
+- Publication date
+- Source database
+:::
+
+
+## Searching and Retrieving Data with the ohvbd R Package
+**ohvbd** is an R package developed by the VBD Hub that allows you to search for and retrieve data within R, without needing to download files manually from multiple sources.
+
+
+It connects to several VBD databases at once, including:
+
+- **VBD Hub (vbdhub)**
+- **VecTraits (vt)**
+- **VecDyn (vd)**
+- **GBIF (gbif)**
+- **AREAdata (ad)**
+
+
+This means you can pull datasets directly into your R workflow, making data retrieval much more efficient.
+
+
+### Building a Search Pipeline with ohvbd
+To get started, we need to install and load the ohvbd package in R: 
+
+
+
+``` r
+install.packages("ohvbd")
+
+library(ohvbd)
+```
+
+
+Once installed, we can start searching for data. 
+
+
+The ohvbd package uses a piped workflow, which allows us to build our search step-by-step.
+
+
+If we wanted to search for data on *Ixodes ricinus* from the **VecTraits** database, we can run:
+
+
+
+``` r
+ixodes_ricinus_data <- search_hub("Ixodes ricinus") |>
+  filter_db("vt") |>
+  fetch() |>
+  glean()
+```
+
+
+Let’s break this down a bit so we can understand what each step is doing:
+
+- `search_hub()` - Searches for datasets matching your query, here we want to search for `"Ixodes ricinus"`.
+- `filter_db()` - Narrows results to a specific database, in this case `"vt"`, for VecTraits.
+- `fetch()` - Retrieves the data.
+- `glean()` - Converts the data into a usable table format.
+
+
+::: {.rmdtip}
+**Tip:** We can consider a basic search with ohvbd as 4 stages:
+
+1. **Find** the data.
+2. **Filter** the search.
+3. **Fetch** the data.
+4. **Format** the data.
+:::
+
+
+The data retrieved using **ohvbd** is often raw, and its structure depends on how the original source database is formatted. This means that after retrieving the data, you will usually need to wrangle the data before you start any analysis. 
+
+
+### Quick Searches with ohvbd
+If you know which database you want to use, you can make your search more efficient by specifying the details directly into `search_hub`:
+
+
+
+``` r
+search_hub("ixodes ricinus", db = "vt")
+```
+
+
+This approach is often faster as it avoids retrieving unnecessary metadata from other databases. 
+
+
+::: {.rmdtip}
+**Tip:** You can write `?search_hub` or `?fetch_vt` in the R console to access guide documents if you need extra help using ohvbd.
+:::
+
+
+### Refining an ohvbd Search
+We can make our search more refined by adding more parameters to `search_hub()`:
+
+
+``` r
+search_hub(
+  query = "",
+  db = c("vt", "vd", "gbif", "px"),
+  fromdate = NULL,
+  todate = NULL,
+  locationpoly = NULL,
+  taxonomy = NULL,
+  exact = FALSE,
+  withoutpublished = TRUE,
+  returnlist = FALSE
+)
+```
+
+
+Let’s have a look at what each of these arguments does: 
+
+- `query` - What you are searching for, such as a species name.
+- `db` - Which databases we want to search
+- `fromdate` and `todate` - Filter by a specified date range. These parameters use ISO format (yyyy-mm-dd). 
+- `locationpoly` - Define a geographic search area.
+- `taxonomy` - Search by species ID.
+- `exact` - Return exact matches only.
+- `withoutpublished` - Include results without publication dates.
+- `returnlist` - Return the raw output list of datasets, rather than a formatted dataframe.
+
+
+::: {.rmdtip}
+**Tip:** You do not need to use all of these arguments at once. Start simple and build a search pipeline that aligns with your search aims.
+:::
+
+
+::: {.rmdnote}
+**Example: Retrieving Culex pipiens Data Using ohvbd**
+
+Imagine we want to retrieve population data on *Culex pipiens* from **VecDyn**. 
+
+
+We can start by defining our search query and filter by database using `search_hub()`:
+
+
+
+``` r
+search_hub(
+query = "Culex pipiens", 
+db = "vd")
+```
+
+
+We can also make our search more specific by adding a date filter directly into our search. For example, we might only want data from 2010: 
+
+
+
+``` r
+search_hub(
+query = "Culex pipiens", 
+db = "vd", 
+fromdate = "2010-01-01")
+```
+
+
+We can also add:
+
+- `exact = TRUE` so our search only retrieves exact matches, 
+- `withoutpublished = FALSE` so datasets without publication dates aren’t retrieved,
+- and `returnlist = TRUE` so we can view the list of retrieved datasets. 
+
+
+
+``` r
+search_results <- search_hub(
+query = "Culex pipiens", 
+db = "vd", 
+fromdate = "2010-01-01",
+exact = TRUE,
+withoutpublished = FALSE,
+returnlist = TRUE) 
+```
+
+
+This search will return a list of datasets that match our search criteria. We have stored these results in an object called `search_results`, which contains information about each dataset, rather than the data itself. This allows us to review the results before retrieving the full datasets. We can retrieve the list by running `search_results` in the R console. 
+
+
+Once we are happy with the results, we can retrieve and format the data by changing `returnlist` to `FALSE`, and adding `fetch()` and `glean()` to download the data and convert it into a usable dataframe:
+
+
+
+``` r
+culex_pipiens_data <- search_hub(
+query = "Culex pipiens", 
+db = "vd", 
+fromdate = "2010-01-01",
+exact = TRUE,
+withoutpublished = FALSE,
+returnlist = FALSE) |>
+ fetch() |>
+ glean()
+```
+
+
+Now we have retrieved the data, we can have a quick look by running:
+
+
+
+``` r
+head(culex_pipiens_data)
+```
+
+
+We can save the dataset for future use using `write.csv()`:
+
+`write.csv(culex_pipiens_data, "culex_pipiens_data.csv", row.names = FALSE)`
+:::
+
+
+Remember, data retrieved using **ohvbd** can be raw and depends on the format of the source database. When inspecting the data, it is useful to consider:
+
+- What type of data has the search returned?
+- How many columns are there?
+- Are there any missing values?
+
+
+### Unexpected Search Results
+As you become more familiar with the ohvbd package, you might find that your searches do not always return exactly what you expect. 
+
+
+This is because searches are not only based on exact matches, but also on how datasets are indexed and described within the underlying databases. 
+
+
+For example, a search term may match multiple fields within the dataset:
+
+- Species names
+- Dataset titles
+- Metadata descriptions
+
+
+This means that a search can return results that are related to your query, but not exactly what you intended. 
+
+
+::: {.rmdnote}
+**Example: Unexpected Results from a Bemisia Search**
+
+Let’s have a look at an example of a search that returns unexpected results.
+
+
+Imagine we are searching for trait data on *Bemisia*, a genus of whitefly, using the **VecTraits** database:
+
+
+
+``` r
+df <- search_hub("Bemisia", db = "vt") |>
+  fetch() |>
+  glean()
+
+head(df)
+```
+
+
+At first glance, everything may look fine. However, if we explore the dataset further, for example, by checking the unique values in the genus column, we might notice something unexpected:
+
+
+
+``` r
+unique(df$Interactor1Genus)
+```
+
+
+Alongside *Bemisia*, another genus appears: *Axinoscymnus*, which is a ladybird. This can seem confusing, we searched for whiteflies, not ladybirds. 
+
+
+If we look more closely at the dataset, we can see that:
+
+- *Axinoscymnus* appears in the `Interactor1Genus` column
+- *Bemisia* appears in the `Interactor2Genus` column
+
+
+This tells us that the dataset includes interactions between species. So while *Bemisia* is included in the search results, it is not always the primary species the trait data refers to.
+:::
+
+
+To mitigate unexpected results, the ohvbd package provides more advanced ways to refine your search. 
+
+
+One key approach is to use **smart search functions**, written as `search_x_smart()`, where `x` can be replaced with the code for the appropriate database, such as `vt` for VecTraits, or `vd` for VecDyn. 
+
+
+Unlike `search_hub()`, which searches across multiple fields, smart search functions let you choose which field to search, how to match it (e.g. `"equals"` or `"contains"`), and the value to look for. This means you can control exactly where your search term is being matched.
+
+
+::: {.rmdnote}
+**Example: Unexpected Results from a Bemisia Search (cont.)**
+
+Instead of searching broadly for *Bemisia*, we can refine our search using a smart search function.
+
+
+Our previous code (see previous Example) returned datasets where *Bemisia* appeared in multiple columns, including as a secondary interacting species. 
+
+
+To make the search more specific, we can use `search_vt_smart()` to target the column that represents the primary species the traits refer to:
+
+
+
+``` r
+df_smart <- search_vt_smart("Interactor1Genus", "equals", "Bemisia") |>
+  fetch() |>
+  glean()
+
+unique(df_smart$Interactor1Genus)
+```
+
+
+We can see that only *Bemisia* appears in the primary species column. This mitigates the unintended results, such as **Axinoscymnus*, that appeared in our earlier search.
+:::
+
+
+By using smart search functions, we can more precisely control how our query is applied, ensuring that the data we retrieve aligns with our research question. 
+
+
+In addition to refining the search itself, it is often necessary to apply data wrangling techniques after retrieval. 
+
+
+These might include:
+
+- Filtering rows based on specific conditions
+- Standardising or correcting species names
+- Merging columns where necessary
+
+
+These steps are a normal part of working with integrated datasets, where multiple species, interactions, or naming conventions may be present.
+
+
+By combining targeted searching with careful data wrangling, we can ensure that the final dataset aligns with our specific research question.
+
+
+## Hub Search vs. ohvbd
+You might have noticed that the **ohvbd package** and the **Hub Search** are quite similar, as they both allow you to search across multiple databases.
+
+
+However, there are some differences between the two resources:
+
+- With ohvbd, once your code is written, it can be re-run to retrieve updated data, which improves reproducibility. 
+- Additionally, all results can be retrieved and combined directly within R. 
+- With Hub Search, datasets are typically downloaded manually one at a time.
+- ohvbd is most useful for users who work in R, whereas users who work with other software will find the Hub Search more appropriate.
+
+
+Both tools are useful, and the best choice depends on your workflow and experience.
+
+
+::: {.rmdimportant}
+**Task: Retrieving the Same Dataset with Hub Search and ohvbd**
+
+Have a go at retrieving this dataset using both the Hub Search and ohvbd. Remember to think about which filters will narrow your search most efficiently.
+
+
+For Hub Search, open the dataset, check its metadata, and download it. 
+For ohvbd, use `fetch()` and `glean()` to retrieve the dataset as a dataframe. 
+
+
+Once you have retrieved your dataset, consider:
+
+- Which filters did you use, were these the most efficient?
+- Which resource got you to the dataset faster?
+- Which tool would you use if you needed this dataset plus several similar ones?
+:::
+
+
+## Key Takeaways
+- The Hub Search and ohvbd both let you search several VBD databases at once, so you don’t need to search each source individually. 
+- Start with a broad search and then narrow down, checking results for relevance, coverage and structure before downloading. 
+- Searches match across species names, dataset titles and metadata, so results may include data you didn’t expect. Smart search functions with ohvbd let you target a specific column. 
+- Choose the tool that best fits your workflow. Hub Search suits point-and-click exploration and non-R users. ohvbd is better suited to R users, anyone working with multiple datasets, and anyone who needs a reproducible search they can re-run. 
+
+
+
+
+
+# Understanding Data Curation and Standards
+
+## Overview
+So far, we have learnt how to search for and retrieve data using VBD Hub resources. In this session, we will look at the other side of that process and consider how datasets are curated and standardised before they reach the Hub. We will discuss publishing decision frameworks to help decide where and how a dataset is shared, how FAIR data principles guide the whole process, and you will have the opportunity to prepare a dataset for VecDyn yourself. Understanding data curation and standards will help to interpret the datasets you retrieve from existing databases, and prepare your own data for sharing. 
+
+
+**Learning Objectives**
+
+By the end of this workshop, you should be able to:
+
+1. Prepare a dataset for VecDyn using the VecDyn column definitions. 
+2. Apply the FAIR data principles to assess and improve a dataset.
+3. Explain how curation and standards shape the data you retrieve with Hub Search and ohvbd. 
+4. Appropriately cite datasets, repositories and resources.
+
+
+## Identifying Data Types
+In the pre-work, you were introduced to the different types of data the VBD Hub works with, and the standard operating procedures (SOPs) used to curate each type. Identifying the data type is the first step in curation, because it determines where a dataset is stored and how it should be formatted. Let’s start with a quick recap. 
+
+
+::: {.rmdimportant}
+**Task: Identifying Data Types**
+
+For each example, decide which type of data it is:
+
+1. Weekly counts of *Culex pipiens* caught in light traps at five sites over two years. 
+2. A record of *Aedes albopictus* observed in a garden in Kent in August 2023. 
+3. Larval development time of *Anopheles gambiae* at five different temperatures. 
+4. Monthly reported human West Nile virus cases by region. 
+5. Mass spectrometry analysis of proteins in mosquito salivary glands. 
+6. Blood-meal analysis showing which host species *Culex pipiens* fed on.
+7. Museum specimen records of *Ixodes ricinus* with collection dates and locations.
+:::
+
+
+## Publishing Decision Framework
+To ensure datasets are shared in the most appropriate way, the VBD Hub uses a publishing decision framework. 
+
+
+This framework guides three key decisions:
+
+- What type of data is being shared
+- Which database it should be stored in
+- How it should be formatted
+
+
+Once you have identified the data type, you can map this to the recommended repository:
+
+- **Omics data** are typically stored in genomic and proteomic repositories such as **GenBank** or **ProteomeXchange**.
+- **Abundance data** are directed to **VecDyn**.
+- **Trait data** are stored in **VecTraits**.
+- **Occurrence data** are shared through platforms like **GBIF**.
+- **Epidemiological or mixed datasets** may be hosted directly by the **VBD Hub**.
+
+
+This ensures that each dataset is stored in a system best suited to its structure and use.
+
+
+::: {.rmdnote}
+**Example: Preparing a Dataset for VecDyn**
+
+Imagine we have collected mosquito abundance data weekly using light traps at several sampling locations. 
+
+
+Our raw dataset might look something like this:
+
+- A column called `Date` with mixed formats
+- A column called `site` with inconsistent naming
+- A column called `Count` with no explanation of how counts were collected.  
+
+
+We then want to prepare this dataset for **VecDyn**. 
+
+
+Instead of choosing column names ourselves, we use the [VecDyn column definitions](https://vectorbyte.crc.nd.edu/vecdyn-columndefs) resource. This provides a standardised list of column names, along with clear definitions of what each column name means and how it should be used. 
+
+
+For example: 
+
+- If we have a column describing when the sampling took place, the table specifies the column names `sample_start_date` and `sample_end_date`.
+- If we want to record each sampling location, we would use `sample_location`.
+- If we are recording the species, we can use standard taxonomy in `species` and `genus` columns. 
+- Our abundance dataset contains count data, which we would record in a column called `sample_value`.
+:::
+
+
+The VecDyn definitions table is accompanied by additional information that guides how the data should be structured:
+
+- **Notes** - provides further explanation, helping to clarify how the column should be used and what the values represent.
+- **Is Required** - indicates whether a column must be included in the dataset to be accepted and usable within the VecDyn database. 
+- **Data Format** - specifies how data values should be recorded. For example, dates must follow a consistent ISO format.
+- **Restrictions** - provides rules about what values are allowed. This might include controlled vocabularies or limits on acceptable entries. 
+
+
+Given these details, we would also want to check how our data is formatted, for example, our start and end date must be in ISO format. We would also need to add any required details, such as a `sampling_method` column to state the trap type.
+
+
+By following these definitions, we are not just organising our dataset, we are aligning it with a shared formatting standard. This is what allows tools like the VBD Hub Search and the ohvbd package to work with multiple datasets in a consistent way - they can rely on the same column names, formats, and definitions across all data.
+
+
+## FAIR Data Principles
+An important concept guiding this entire data sharing process is the use of **FAIR data principles**.
+
+
+**FAIR stands for Findable, Accessible, Interoperable, Reusable:**
+
+- **Findable** - datasets are assigned metadata and identifiers so they can be discovered through search tools.
+- **Accessible** - data can be retrieved using standard protocols, with clear information about access conditions. 
+- **Interoperable** - datasets use standard formats, vocabularies, and structures so they can be integrated with other data.
+- **Reusable** - datasets include sufficient documentation, metadata, and licensing so they can be used in future research. 
+
+
+The **VBD Hub** supports these principles by ensuring datasets are well-documented, consistently structured, and linked to appropriate repositories, so that these datasets can be discovered, accessed and reused openly and effectively. 
+
+
+::: {.rmdimportant}
+**Task: Preparing a Dataset for VecDyn**
+
+You’ve been given the following raw data. Working in small groups, use the [VecDyn column definitions](https://vectorbyte.crc.nd.edu/vecdyn-columndefs) resource to prepare this dataset for upload to VecDyn.
+
+
+Here are some prompts to help you:
+
+- Which VecDyn column should each existing column map to?
+- What needs to change in the values themselves?
+- What required information is missing?
+- What metadata would you add to make this dataset FAIR?
+:::
+
+
+## Why Use Curated Data and Standards?
+Understanding how data is curated and structured also helps when using tools like the **Hub Search** or the **ohvbd** package. 
+
+
+For example, when you retrieve data, you may notice:
+
+- Standardised column names
+- Consistent date formats
+- Structured metadata
+
+
+These features are a direct result of the data curation process.
+
+
+Recognising this can help you interpret datasets more effectively and identify any limitations or inconsistencies. For example, you might notice multiple columns for species names based on different databases, which you can mitigate by merging.
+
+
+These standards aren’t only useful when using other people’s data. Applying them to your own data from the start brings the same benefits:
+
+- Your datasets are structured the same way across projects, field seasons, and team members.
+- Your data can be easily combined with other datasets without extensive formatting. 
+- Recording data in a standard format from the outset means you spend less time cleaning and wrangling later on. 
+- Improves the reproducibility of your work, especially for publications.
+- If your data already follows **VecDyn** or **VecTraits** standards, it is ready to submit when you publish, so your work can be found, reused and cited by others.
+
+
+## From the Data Curator
+- What are the most common problems you see in datasets submitted to the Hub?
+- What’s one thing researchers could do at the data collection stage that would make curation much easier?
+- What happens to a dataset after it’s submitted?
+- How should people get in touch if they want to share their data?
+
+
+## Citing Curated Datasets
+When using datasets from the **VBD Hub**, it is important to consider data provenance and attribution. You should:
+
+- Check the dataset metadata for authorship and source.
+- Identify the original database.
+- Follow licensing and usage conditions.
+- Cite both the dataset and the source repository. 
+
+
+Proper citation:
+
+- Gives crest to data contributors
+- Supports reproducibility
+- Ensures transparency in your research
+
+
+::: {.rmdtip}
+**Tip:** Remember to cite the tools you use to retrieve data as well. If you used **ohvbd**, run `citation(“ohvbd)` in R to get the recommended citation.
+:::
+
+
+## Key Takeaways
+- Identifying the data type is the first step in curation, because it determines where a dataset is stored and how it is formatted.
+- Standard column definitions, formats and vocabularies allow datasets from different sources to be combined, which is what makes tools like the Hub Search and ohvbd possible. 
+- The FAIR data principles guide curation so that data can be found, accessed, integrated and reused. 
+- Applying data curation standards to your own data from the start saves time later and makes your data easier to share, reuse and cite.
+- Always cite the datasets, repositories and tools you use. 
+
+
+
+
+
+# Wrangling VBD Data in R
+
+## Overview
+Data retrieved through the **VBD Hub**, using tools such as the **Hub Search** or the **ohvbd** package, can be raw and may include missing values, inconsistent formats, or unclear variable names. 
+
+
+**Data wrangling is the process of cleaning, transforming, and organising this data into a format that is suitable for analysis.**
+
+
+In this session, we will introduce key data wrangling principles, and explore commonly used techniques in VBD research, including merging datasets and standardising species names.
+
+
+**Learning Objectives**
+
+By the end of this workshop, you should be able to:
+
+1. Clean and transform VBD Hub datasets ready for analysis. 
+2. Handle common data issues, such as inconsistent formats, duplicates, and missing values.
+3. Reshape and merge datasets using standardised structures and identifiers.
+4. Standardise species names using recognised taxonomic conventions. 
+
+
+## Shifting Perspectives: Problems to Decisions 
+Real-world VBD data is rarely clean, especially if it has been collected for different purposes or recorded using different reporting standards. You may encounter:
+
+- Missing values
+- Inconsistent data types
+- Poorly named columns
+- Duplicate records
+- Data stored in inconvenient formats
+
+
+Rather than treating these as isolated problems, it can be helpful to recognise common patterns which affect downstream analyses. For instance:
+
+- Inconsistent naming affects merging datasets
+- Mixed data types affect calculations
+- Wide format affects analysis and visualisations
+
+
+When we think about data inconsistency patterns in this way, we shift our focus from **problems** to **decisions**. Each issue you identify in your dataset requires a decision:
+
+- Should missing values be removed or retained?
+- Should columns be renamed or merged?
+- Should data be formatted from wide to long format?
+
+
+When we stop asking **"what is wrong with this dataset?"** and start thinking **"what do I need this dataset to do?"**, we can make informed decisions and prioritise the most appropriate data wrangling approaches to your data and research question. 
+
+
+We cannot cover every data wrangling principle within a single training session. Today, we will focus on two commonly used data wrangling techniques applied to VBD datasets:
+
+- Merging datasets
+- Standardising species names
+
+
+## Merging Datasets
+In many research workflows, we use more than one dataset. It is rare for a single dataset to contain all the information needed to answer a research question. 
+
+
+For instance, you might have:
+
+- One dataset containing species abundance data 
+- Another dataset containing environmental variables. 
+
+
+If you want to analyse how environmental factors influence species abundance, you will need to combine these into a single dataset.
+
+
+We call this **merging** or **joining** datasets. 
+
+
+For a merge to work effectively, both datasets must share at least one common column name. This shared column is known as a **key**. In VBD datasets, a common key might be a species name, a location, or a date. 
+
+
+Let’s imagine we have two datasets which both contain a column called `species`.
+
+
+We can merge these two datasets using the `left_join()` function from the `dplyr` package:
+
+
+
+``` r
+library(dplyr)
+
+merged_data <- left_join(dataset_a, dataset_b, by = "species")
+```
+
+
+In this code:
+
+- `dataset_a` is the main dataset we want to keep.
+- `dataset_b` contains data we want to add.
+- `by = "species"` tells R to match rows using the `species` column.
+
+
+A left join keeps all the rows from `dataset_a` and adds matching information from `dataset_b` where the species value is the same.
+
+
+### Different Merge Types
+There are different types of merges or joins, each of which acts slightly differently:
+
+- A **left join**, `left_join()`, keeps all the rows from the first dataset and adds matching values from the second. This is usually the safest option, as it avoids losing data. 
+- An **inner join**, `inner_join()`, only keeps the rows that appear in both datasets. This is useful when you only want complete matches, but it risks accidental data loss.
+- A **full join**, `full_join()`, keeps all the rows from both datasets. Missing values are filled with `NA` where matches do not exist. This can be helpful in exploratory work, but may require further data cleaning.
+
+
+Choosing which merge to use depends on your research question and how you want to format rows that don’t align across datasets. If in doubt, we recommend using a **left join**.
+
+
+### Merging with Multiple Keys
+Sometimes, a single column is not enough to uniquely identify matches.  For instance, in VBD research the same species might appear in multiple locations. In this case, we can merge using multiple keys.
+
+
+
+``` r
+merged_data <- left_join(dataset_a, dataset_b, by = c("species", "location")
+```
+
+
+Here, the vector `c("species", "location")` tells R to match rows where both the `species` and `location` are the same. 
+
+Setting multiple key columns ensures more accurate matching, especially when working with ecological or epidemiological data, where the species might appear in multiple regions and should be accounted for with this in mind.
+
+
+### Frequent Merging Mistakes
+Merging is usually straightforward, but it can sometimes produce unexpected results. 
+
+
+One common cause of unexpected merge results is inconsistent formatting between datasets. For instance, if `dataset_a` formats species names as `"Ixodes ricinus"` and `dataset_b` formats species names as `"ixodes_ricinus"`, R will not identify these species as a match for merging.
+
+
+This can result in missing values or incomplete merges. 
+
+
+It is useful to remember that **a successful merge does not always mean a correct merge**. Even if your code runs without errors, the output might not be what you were aiming for.
+
+
+This is why it is important to check the merge results:
+
+- Has the number of rows changed significantly?
+- Are there unexpected missing values?
+- Do the matches look correct?
+
+
+A simple check is to compare the number of rows before and after merging using `nrow()`:
+
+
+``` r
+nrow(dataset_a)
+nrow(merged_data)
+```
+
+
+This will check the number of rows in the original dataset and the new, merged dataset. If the number of rows increases significantly, this may include duplicate matches. If it decreases, you may have lost data. 
+
+
+## Standardising Species Names
+Species names are one of the most common causes of inconsistency when merging datasets. 
+
+
+Even small formatting differences can prevent datasets from merging correctly or lead to inaccuracies in later analyses. 
+
+
+Mismatched species names are usually caused by:
+
+- **Differences in capitalisation** - `"Ixodes ricinus"` or `"IXODES RICINUS"`
+- **Using spaces or underscores** - `"ixodes ricinus"` or `"ixodes_ricinus"`
+- **Extra text**, such as spp. - `"Ixodes ricinus spp."`
+- **Duplicate rows** for the same species.
+
+
+Although these all represent the same species, R will recognise each name variation as a different value.
+
+
+### Setting All Text to Lowercase
+A good starting point when standardising species names is **setting all text to lowercase**:
+
+
+
+``` r
+clean_data <- clean_data |>
+ mutate(species = tolower(species))
+```
+
+Here, `mutate()` modifies the column, and `tolower()` converts all text in the specified column to lowercase, in this case the `species` column. 
+
+
+This ensures consistency in capitalisation across the dataset.
+
+
+### Removing Unwanted Characters
+We can **remove any unwanted characters** from the species names in our datasets, such as underscores:
+
+
+
+``` r
+clean_data <- clean_data |>
+ mutate(species = gsub("_", " ", species))
+```
+
+
+We use the `mutate()` function again, this time with `gsub()` to replace the characters in a string. In this case, we are replacing any underscores with a space in the `species` column, such as converting `"ixodes_ricinus"` to `"ixodes ricinus"`.
+
+
+### Removing Additional Text
+We can use the same approach to **remove additional text**, such as "spp.":
+
+
+
+``` r
+clean_data <- clean_data |>
+ mutate(species = gsub(" spp\\.", "", species))
+```
+
+
+Note that in this code syntax there is:
+
+- A **space** before `spp` to ensure we remove the extra text without leaving a trailing space in the species name.
+- A **double backslash** between `spp` and the point. In R, the point is considered a special character with specific meaning. We use the double backslash so R knows to treat the point as a full stop, rather than a special character.
+
+
+### Removing Extra Spaces
+We can **remove any extra spaces** by using `trimws()` within the `mutate()` function:
+
+
+
+``` r
+clean_data <- clean_data |>
+ mutate(species = trimws(species))
+```
+
+
+`trimws()` removes leading and trailing spaces from the species names. These variations can be particularly tricky to spot by simply viewing the dataset. 
+
+
+If species names are not standardised across our datasets:
+
+- Merges between datasets could fail.
+- Duplicate species entries might be created.
+- Analyses might produce inaccurate results.
+
+
+::: {.rmdnote}
+**Example: Merging Mosquito Datasets**
+
+Let's imagine we have used **ohvbd** to retrieve a dataset on mosquito abundance, `mosquito_abundance_data`, and another dataset on mosquito habitats, `mosquito_habitat_data`, in order to analyse how habitat type affects patterns of abundance in mosquitos:
+
+
+
+
+
+
+``` r
+mosquito_abundance_data
+#>              species location abundance
+#> 1      Aedes aegypti    Site1        10
+#> 2      Culex pipiens    Site1         5
+#> 3      aedes_aegypti    Site2        12
+#> 4 Culex pipiens spp.    Site2         7
+
+mosquito_habitat_data
+#>         species location habitat
+#> 1 aedes aegypti    Site1   urban
+#> 2 culex pipiens    Site1 wetland
+#> 3 aedes aegypti    Site2   urban
+#> 4 culex pipiens    Site2 wetland
+```
+
+
+We can try to merge these datasets in their raw format using `left_join()`:
+
+
+
+``` r
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
+merged_mosquito_data <- left_join(
+  mosquito_abundance_data,
+  mosquito_habitat_data,
+  by = c("species", "location")
+)
+```
+
+
+Now, let’s check the results of our merge using `head()` to view the first few rows, and `nrow()` to see the number of rows:
+
+
+
+``` r
+head(merged_mosquito_data)
+#>              species location abundance habitat
+#> 1      Aedes aegypti    Site1        10    <NA>
+#> 2      Culex pipiens    Site1         5    <NA>
+#> 3      aedes_aegypti    Site2        12    <NA>
+#> 4 Culex pipiens spp.    Site2         7    <NA>
+nrow(merged_mosquito_data)
+#> [1] 4
+```
+
+
+We can see that the merge has run, but something is wrong - the expected habitat data is missing. This suggests the merge did not match rows correctly. 
+
+
+Let’s take a step back and look at the original datasets:
+
+
+
+``` r
+head(mosquito_abundance_data)
+#>              species location abundance
+#> 1      Aedes aegypti    Site1        10
+#> 2      Culex pipiens    Site1         5
+#> 3      aedes_aegypti    Site2        12
+#> 4 Culex pipiens spp.    Site2         7
+head(mosquito_habitat_data)
+#>         species location habitat
+#> 1 aedes aegypti    Site1   urban
+#> 2 culex pipiens    Site1 wetland
+#> 3 aedes aegypti    Site2   urban
+#> 4 culex pipiens    Site2 wetland
+```
+
+
+We can see some inconsistencies in our species names:
+- Differences in capitalisation
+- Underscores instead of spaces
+- Additional text
+
+
+Although the locations match, both the `location` and `species` need to match exactly for the merge to work. 
+
+
+Now that we have identified the issues, let’s clean the species names in both datasets:
+
+
+
+``` r
+clean_mosquito_abundance_data <- mosquito_abundance_data |>
+  mutate(species = tolower(species)) |>
+  mutate(species = gsub("_", " ", species)) |>
+  mutate(species = gsub(" spp\\.", "", species))
+
+clean_mosquito_habitat_data <- mosquito_habitat_data |>
+  mutate(species = tolower(species)) |>
+  mutate(species = gsub("_", " ", species)) |>
+  mutate(species = gsub(" spp\\.", "", species))
+```
+
+
+In this code, we have used the `mutate()` function with `tolower()` to convert to lowercase and `gsub()` to replace underscores and remove extra text.
+
+
+Now that our species names are consistent, we can try merging again:
+
+
+
+``` r
+merged_mosquito_data <- left_join(
+  clean_mosquito_abundance_data,
+  clean_mosquito_habitat_data,
+  by = c("species", "location")
+)
+
+head(merged_mosquito_data)
+#>         species location abundance habitat
+#> 1 aedes aegypti    Site1        10   urban
+#> 2 culex pipiens    Site1         5 wetland
+#> 3 aedes aegypti    Site2        12   urban
+#> 4 culex pipiens    Site2         7 wetland
+nrow(merged_mosquito_data)
+#> [1] 4
+```
+
+
+We can see that the merge has now worked as expected - the rows match correctly, and the habitat data has been added as expected. The dataset is now in a usable format for further wrangling and analysis. 
+:::
+
+
+::: {.rmdcaution}
+**Frequent mistake:** People often only clean one dataset before merging, but data for the key column needs to be consistent across **both** datasets for the merge to be successful.
+:::
+
+
+### Complex Cases
+So far, we have covered how to approach simple inconsistencies. 
+
+
+However, real-world VBD datasets often contain more complex inconsistencies. These might involve:
+
+- **Abbreviated genus names** - `"I. ricinus"`
+- **Additional descriptors** - `"Ixodes ricinus aff."` or `"Ixodes ricinus cf."`
+- **Mixed formatting** within the same column.
+
+
+In these cases, you may require more steps to clean the data. For instance, if we had a dataset where the `species` column contained these variations: 
+
+- `"Ixodes ricinus"`
+- `"Ixodes_ricinus"`
+- `"Ixodes ricinus spp."`
+- `"IXODES RICINUS"`
+- `"I. ricinus"`
+
+
+If we apply our earlier name cleaning techniques, we might standardise most of these, but `"I. ricinus"` would remain as is, and R would treat this as a separate value. 
+
+
+To identify these issues, we can inspect all the unique species names in the dataset using `unique()`: 
+
+
+
+``` r
+unique(clean_data$species)
+```
+
+
+This allows you to see all the distinct values in the species column, helping you to identify inconsistencies. 
+
+
+We can manually correct specific cases that cannot be handled using our earlier techniques:
+
+
+
+``` r
+clean_data <- clean_data |>
+  mutate(species = ifelse(species == "i. ricinus", "ixodes ricinus", species))
+```
+
+
+Here:
+
+- `ifelse()` check each value in the species column.
+- If a value matches `"i.cicinus"`, it is replaced with `"ixodes ricinus"`,
+- If not, the value stays the same. 
+
+
+As species columns are typically used as a **key** when merging in VBD research, ensuring species names are consistent across our datasets can allow us to merge multiple datasets more confidently and reliably.
+
+
+::: {.rmdtip}
+**Tip:** Automating our workflow feels much easier, but it is important to balance this with manual reviewing to ensure you don’t miss specific cases like these. 
+
+
+To support the balance between automation and accuracy, we can follow a three step approach:
+
+1. Apply broad cleaning techniques (lowercase, remove underscores and extra text).
+2. Inspect the results using `unique()`.
+3. Manually correct any remaining inconsistencies.
+:::
+
+
+### Resolving Species Names Using GBIF
+When using large or complex datasets, you might choose to match your species names to a recognised taxonomic database. 
+
+
+The `rgbif` package can be used to help standardise species names using the Global Biodiversity Information Facility (GBIF). 
+
+
+We can use the `name_backbone()` function to try to match your species name to a standardised species name in the GBIF backbone taxonomy:
+
+
+
+``` r
+library(rgbif)
+
+name_backbone(name = "ixodes ricinus")
+```
+
+
+This approach can help to identify spelling or formatting errors and synonymous species names. 
+
+
+## Collaborative Task
+::: {.rmdimportant}
+**Collaborative Task: Frequent Data Wrangling Mistakes**
+Let’s have a go at applying what we have learnt so far by working together in groups. Each group will be given a short example of data wrangling code, along with a small dataset. The code contains errors or issues, and your job is to identify and fix them together.
+
+
+As a group, you will:
+
+1. Identify what the code is trying to do.
+2. Run it and discuss any errors or unexpected results. 
+3. Edit the code so that it runs and produces the results you would expect.
+
+
+You might find it helpful to share out roles, for example, one person might run the code, one might take notes, and one might guide the discussion. 
+
+
+The aim of this activity is not to produce perfect code, but to **apply what you have learnt so far and think critically about data wrangling principles**. There may be more than one fix, and explaining why you chose your approach is part of the task. 
+
+
+There are 4 sets of flawed code you can work through. We recommend each group tries at least 2 sets of code. 
+
+
+
+
+
+**Code 1**
+
+``` r
+data_a
+#>             species abundance
+#> 1     aedes aegypti        10
+#> 2     culex pipiens        25
+#> 3 anopheles gambiae         5
+data_b
+#>             Species trait
+#> 1     aedes aegypti urban
+#> 2     culex pipiens rural
+#> 3 anopheles gambiae rural
+```
+
+
+
+``` r
+# Merge datasets
+merged_data <- left_join(data_a, data_b, by = "Species")
+```
+
+
+**Code 2**
+
+``` r
+data_c
+#>              species abundance
+#> 1      Aedes aegypti        10
+#> 2      aedes_aegypti        12
+#> 3 Aedes aegypti spp.         8
+```
+
+
+
+``` r
+# Clean species name
+clean_data <- data_c |>
+  mutate(species = tolower(Species)) |>
+  mutate(species = gsub("spp.", "", species))
+```
+
+
+**Code 3**
+
+``` r
+data_a
+#>             species abundance
+#> 1     aedes aegypti        10
+#> 2     culex pipiens        25
+#> 3 anopheles gambiae         5
+data_d
+#>         species trait
+#> 1 aedes aegypti urban
+#> 2 culex pipiens rural
+```
+
+
+
+``` r
+# Merge datasets
+merged_data <- inner_join(data_a, data_d, by = "species")
+```
+
+
+**Code 4**
+
+``` r
+data_e
+#>         species location abundance
+#> 1 aedes aegypti    site1        10
+#> 2 aedes aegypti    site2        15
+#> 3 culex pipiens    site1        20
+data_f
+#>         species location temperature
+#> 1 aedes aegypti    site1          25
+#> 2 culex pipiens    site1          22
+```
+
+
+
+``` r
+# Merge datasets
+merged_data <- left_join(data_e, data_f, by = "species", "location")
+```
+
+
+Hopefully, this task has reinforced the data wrangling principles we have discussed so far, and developed our understanding of how reformatting our data effectively contributes to a reproducible workflow and smoother downstream analyses.
+:::
+
+
+## Planning a Wrangling Workflow
+We have discussed how to reframe data wrangling as a process, rather than a rigid set of steps.
+
+
+When you open a new dataset, it can be tempting to start making changes immediately. To relieve this temptation, we can be prepared with a guide to a practical workflow that leaves room for flexibility to account for your specific dataset and research questions.
+
+1. **Inspect the data** - understand the structure, variables, and data types.
+2. **Identify any issues** - look for inconsistencies, missing values, and formatting problems.
+3. **Prioritise tasks** - decide which issues are most important for your analysis.
+4. **Apply cleaning steps** - after you understand the data, use appropriate data wrangling approaches.
+5. **Check results** - ensure the changes you have made have worked in the way you expected.
+
+
+Without a clear workflow, it is easy to lose track of the changes you have made, and introduce new errors, especially if you don’t check your results.
+
+
+Approaching data wrangling in this way helps to ensure your work is reproducible, efficient, and aligned with your research aims. 
+
+
+::: {.rmdtip}
+**Tip:** To keep track of your workflow, add comments to your code explaining what changes you made and why:
+
+
+`# Convert data to all lowercase to ensure consistency across datasets.`
+:::
+
+
+## Key Takeaways
+- Data wrangling is a process of preparing data for a specific research question.
+- VBD datasets often require cleaning and transformation before analysis.
+- Common issues include missing values, inconsistent formats, and duplicates.
+- Merging datasets requires consistent keys and careful validation.
+- Standardising species names is essential for accurate integration.
+- Validation ensures your dataset is accurate, consistent, and ready for analysis.
+
+
+
+
+
+# Visualising VBD Data in R
+
+## Overview
+Visualisations are a key part of working with VBD data. They allow us to explore patterns, identify anomalies, and communicate findings clearly across different audiences. 
+
+
+In this workshop, you will use Hub curated datasets to build visualisations in R using `ggplot2`. The session focuses on abundance plots, a common and important tool in vector surveillance. We will start with simple summaries across locations, then build up to time-series plots comparing multiple locations, using colour and faceting to improve clarity. We will then discuss how visualisations can be used to generate testable hypotheses. 
+
+
+**Learning Objectives**
+
+By the end of this workshop, you should be able to:
+
+1. Summarise VBD data in R to prepare it for plotting.
+2. Build abundance plots across locations and over time using `ggplot2`.
+3. Use colour and faceting to compare patterns across multiple groups. 
+4. Identify what visualisations can tell us about VBD data.
+5. Formulate testable hypotheses from visualisations, taking alternative explanations into account. 
+6. Identify and fix common problems in visualisations. 
+
+
+## What can Visualisations Tell Us About Data?
+Effective visualisations can help us to communicate complex datasets by quickly identifying distributions and patterns in the data that can be unclear from dataframes alone. 
+
+
+Visualising data can help us to identify:
+
+- **Distribution of data** - how values are spread across a dataset, including the spatial distribution of vectors or pathogens. 
+- **Correlative relationships** - potential associations between multiple variables, such as vector populations and environmental factors.
+- **Temporal trends** - variable changes over time, for example, vector abundance over time.
+- **Inter-group comparisons** - differences between groups, for instance, vector species across regions.
+- **Outliers or anomalies** - unexpected observations that may suggest errors to be addressed before modelling.
+
+
+Given how much information we can extract from them, visualisations are often the first step in exploratory data analysis before further statistical modelling.
+
+
+## Abundance Plots
+Different types of data need different types of visualisations. Choosing the appropriate plot to best represent your data is important to communicate your data and the proposed patterns clearly and accurately. 
+
+
+In VBD research, common visualisations you might come across include:
+
+- **Scatter plots** - useful to explore relationships between variables.
+- **Box plots** - useful to compare distributions between groups.
+- **Line plots** - useful to visualise trends over time.
+- **Bar plots** - useful to compare values between groups.
+- **Maps** - useful to show spatial patterns.
+
+
+In vector surveillance research, one of the most useful and frequently used visualisations is **abundance plots**. These can be used to show how vector counts change over time or across locations.
+
+
+In VBD research, we typically want to understand how abundance patterns vary across time, space, and species. Common VBD research questions consider:
+
+- Does vector abundance change throughout the year?
+- Do certain locations consistently report higher vector counts?
+- Do different species show distinct seasonal patterns?
+
+
+In this session, we will use the `ggplot2` package to create abundance plots. `ggplot2` is one of the most commonly used packages for visualisations and graphics, so it is useful for you to understand how to code with this package. It is particularly good to build plots step-by-step by defining:
+
+- The **dataset** we want to use.
+- The **variables** we want to visualise.
+- The **type of plot** we want to generate.
+
+
+### Abundance Across Locations
+Vector populations often vary between locations. Differences in habitat, climate, host availability, and land use can all influence vector abundance. As a result, combining data from multiple sampling sites into a single trend may obscure important spatial patterns. 
+
+Let’s start by opening [mosquito_subset_wrangled.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/mosquito_subset_wrangled.csv) in RStudio and loading the required packages:
+
+
+
+
+
+
+``` r
+library("tidyverse")
+
+mosquito_data <- read_csv("data/mosquito_subset_wrangled.csv")
+```
+
+
+::: {.rmdnote}
+**Note:** `tidyverse` is an all-encompassing package that contains a bunch of extra packages.
+
+Here we will mostly be using functions from the `ggplot2` and `lubridate` packages, but we can just load them all using `tidyverse`.
+:::
+
+
+As our data involves multiple samples at the same site, we next want to summarise the abundance data for each location. We do this by grouping by location using the `group_by()` function, then summarising the abundance per location as the mean and standard error using the `summarise()` function:
+
+
+
+``` r
+abundance_per_location <- mosquito_data %>%
+  group_by(sample_location) %>%
+  summarise(
+    mean_abundance = mean(sample_value, na.rm = TRUE),
+    se_abundance = sd(sample_value, na.rm = TRUE) / sqrt(sum(!is.na(sample_value)))
+  )
+```
+
+
+Here:
+- `group_by(sample_location)` groups the rows by location, so calculations are done for each location. 
+- `summarise()` reduces each group to a single row.
+- `mean(sample_value, na.rm = TRUE)` calculates the mean, ignoring any missing values. 
+- `sd() / sqrt()` converts the standard deviation into standard error, which we can later visualise using error bars. 
+
+
+We can use `ggplot2` to visualise the abundance of mosquitos at multiple sampling locations by using `ggplot()` to define the data and aesthetics, and adding layers with `+`. We start by stating our dataset and which variables we want on the x- and y-axes:
+
+
+
+``` r
+ggplot(abundance_per_location,
+aes(x = sample_location, y = mean_abundance)) +
+```
+
+
+`aes()` stands for aesthetics, and we use it to map variables in our dataset to visual properties of the plot. Here, we are mapping the sample location and mean abundance to the x- and y- axes. 
+
+
+In the next layers, we can use `geom_col()` and `geom_errorbar()` to tell R that we want to plot bars with whiskers (vertical error lines):
+
+
+
+``` r
+geom_col(fill = "darkturquoise") +
+geom_errorbar(aes(
+ymin = mean_abundance - se_abundance,
+ymax = mean_abundance + se_abundance
+),
+width = 0.2) +
+```
+
+
+This code is starting to look heavy, but it is just building aesthetics.
+
+
+In `geom_col()`, we can use `fill` to set the colour of the bars. 
+
+
+In `geom_errorbar()`, we can use `aes()` to set the aesthetics. In this case:
+
+- We use `ymin` to set the lower end of the whisker, calculated as the mean minus the standard error of abundance.
+- We use `ymax` to set the upper end of the whisker, calculated as the mean plus the standard error of abundance.
+- `width` controls how wide the horizontal lines are at either end of the whisker.
+
+
+The final chunk of code is adding labels using `labs()`:
+
+
+
+``` r
+labs(
+title = "Mean Abundance of Culex pipiens Across Locations",
+x = "Sampling Location",
+y = "Mean Abundance"
+)
+```
+
+
+`labs()` is used to add titles and axis labels, helping to make the visualisation clear and interpretable. 
+
+
+If we piece those chunks of code together, we can generate our visualisation. Each line of this code builds on the previous one by adding a new layer to the plot. 
+
+
+
+``` r
+abundance_plot_across_locations <- ggplot(abundance_per_location,
+aes(x = sample_location, y = mean_abundance)) +
+geom_col(fill = "darkturquoise") +
+geom_errorbar(aes(
+ymin = mean_abundance - se_abundance,
+ymax = mean_abundance + se_abundance
+),
+width = 0.2) +
+labs(
+title = "Mean Abundance of Culex pipiens Across Locations",
+x = "Sampling Location",
+y = "Mean Abundance"
+)
+
+abundance_plot_across_locations
+```
+
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-44-1.png" width="672" />
+
+
+We can now use this visualisation to compare abundance patterns across sampling sites:
+
+- Mean abundance varies across locations, with Sorragna and Terre Del Reno showing the highest mean mosquito abundance, and Gattatico showing the lowest mean mosquito abundance.
+- There is a lot of variation within each location. This is consistent across the dataset, suggesting natural variation in the data to be explored further.
+
+
+Visualisations such as this can help researchers identify potential hotspots of vector activity and guide further investigation into the ecological factors driving these patterns. For our graphic, we can see a lot of variation within each location. One way to assess this in more detail is to consider abundance over time.
+
+
+::: {.rmdtip}
+**Tip:** Remember to save your graphic:
+
+
+
+``` r
+ggsave("abundance_across_locations.pdf", plot = abundance_plot_across_locations)
+```
+
+
+`ggsave()` saves your plot to a file so you can easily export your visualisation for written reports or presentations. 
+:::
+
+
+### Abundance Over Time: Time-Series 
+A **time-series** plot shows observations across a continuous timeline, allowing us to see how abundance changes over time. These visualisations can help us identify:
+
+- Seasonal trends in abundance.
+- Periods of rapid population growth or decline.
+- Potential sampling gaps or inconsistencies. 
+
+
+Understanding these patterns is particularly important in VBD research because vector populations are often strongly influenced by seasonal changes in environmental conditions, including temperature, rainfall, and host availability. 
+
+
+#### Processing Dates
+When working with **time-series** data, it is useful to understand how R stores and processes dates. In a dataset, dates are typically stored as characters (plain text format). Although an entry like `"2023-06-15"` might look like a date to us, R does not automatically recognise this as a date and will treat it as a character string. 
+
+When we generate a plot, `ggplot2` will respond to how a variable is stored. For example, variables in character format will be plotted as categorical, whereas variables in date format will be plotted along a continuous time axis. 
+
+
+In **time-series** visualisations, a continuous time axis ensures:
+
+- Observations are plotted in chronological order.
+- Spaces between data points reflect true time differences.
+- Trends over time can be interpreted accurately. 
+
+
+We are now going to visualise abundance as a true time-series by using the sampling date to show how abundance changes over continuous time for a single species.
+
+
+#### Plotting Abundance Over Time
+Later in this session, we will consider abundance over multiple locations, but for now, let’s filter the data to visualise abundance over time at a single location - `Goro`:
+
+
+
+``` r
+mosquito_data_goro <- mosquito_data %>%
+filter(sample_location == "Goro")
+```
+
+
+The pipe operator `%>%` passes the dataset from one step to the next, making the code easier to read as a sequence of actions.
+
+
+To convert our date column from characters to date objects, we can use the `as.Date()` function:
+
+
+
+``` r
+mosquito_data_goro$sample_start_date <- as.Date(mosquito_data_goro$sample_start_date)
+```
+
+
+The `as.Date()` function is used to convert a column into a proper date format so that R and `ggplot2` can recognise it as a date variable and treat it as continuous time in visualisations.
+
+
+::: {.rmdcaution}
+**Frequent mistake:** If dates are messy, the plot will look messy. Ensuring the date column is in the correct data format means that R knows how to process the data correctly. 
+:::
+
+
+We can then build our visualisation in `ggplot2`. As before, we start by stating our dataset and which variables we want on the x- and y-axes:
+
+
+
+``` r
+ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
+```
+
+
+For a true time-series, we want to visualise time as a continuous measure across observation dates, so it is appropriate to use a line plot. To do this, we use `geom_line()`, which connects observations in the order of the x-axis, allowing us to visualise changes over time. 
+
+
+We can start to consider the visual appeal of our graphics, starting with the colour of the line. Within the `geom_line()` function, we can set the `colour` of the line:
+
+
+
+``` r
+ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
+  geom_line(colour = "darkturquoise") +
+```
+
+
+Setting line colours can be useful when plotting multiple lines on the same graphic. We will further develop this idea later in this session. 
+
+
+::: {.rmdtip}
+**Tip:** Although visually pleasing graphics are nice to look at, it is often more important to understand how to develop effective visualisations that accurately communicate your data and patterns.
+
+
+We will cover both skills in this workshop, but in general, try to consider that **a plain but clear and interpretable graphic is often more useful than a flashy graphic with poor accuracy and readability**. 
+:::
+
+
+We can then add our title and axes labels using `labs()` and generate our abundance plot:
+
+
+
+``` r
+time_series_plot_goro <- ggplot(mosquito_data_goro, aes(x = sample_start_date, y = sample_value)) +
+  geom_line(colour = "darkturquoise") +
+  labs(
+    title = "Abundance of Culex pipiens Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+time_series_plot_goro
+```
+
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-50-1.png" width="672" />
+
+
+Oh dear, this graphic looks rather messy! Although we have used the correct code and ensured our date column is in the correct format, our visualisation is still difficult to read and interpret. This is because real-world VBD data often includes multiple samples collected on the same date. 
+
+
+To create a more effective time-series visualisation, we need to **summarise** these samples into a single value per time point:
+
+
+
+``` r
+daily_abundance_goro <- mosquito_data_goro %>%
+group_by(sample_start_date) %>%
+summarise(total_abundance = sum(sample_value, na.rm = TRUE))
+```
+
+
+Grouping by date ensures all samples collected on the same day are combined into a single value, so that we have one observation per day in our visualisation. 
+
+
+We can now use the summarised daily abundance dataset to try plotting again, this time using `daily_abundance_goro` as our data and `total_abundance` on our y-axis:
+
+
+
+``` r
+daily_abundance_plot_goro <- ggplot(daily_abundance_goro, aes(x = sample_start_date, y = total_abundance)) +
+  geom_line(colour = "darkturquoise") +
+  labs(
+    title = "Abundance of Culex pipiens Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+daily_abundance_plot_goro
+```
+
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-52-1.png" width="672" />
+
+
+This is much better! Our visualisation effectively shows the trend of mosquito abundance over time at our selected location.
+
+
+In this plot:
+
+- The **x-axis** represents the continuous sampling time period.
+- The **y-axis** represents mosquito abundance.
+- The **line** connects daily abundance over continuous time.
+
+
+**Time-series abundance plots** like this one can provide useful insights into seasonal dynamics within vector populations. These can be useful when identifying patterns in our data:
+
+- Strong seasonality - abundance spikes in summer each year. 
+- Year-to-year variability - some years have higher peaks than others.
+- General trend - although abundance varies within the year, the peak each year seems to be increasing over time.
+
+
+### Abundance Across Multiple Locations Over Time
+In the previous examples, we have visualised abundance at multiple sampling locations, and abundance changes over time for a single location, but what if we combine these to look at abundance across multiple locations over time?
+
+
+In VBD research, data are commonly collected from multiple sampling sites, and we often want to compare how vector abundance varies across these locations simultaneously.
+
+
+We can achieve this by developing our time series plot to include **multiple locations**. 
+
+
+Before, we grouped the data by the date alone, but this time, we want to group the data by both sampling location and date, so that abundance is calculated separately for each location over time:
+
+
+
+``` r
+daily_abundance_all_locations <- mosquito_data %>%
+group_by(sample_location, sample_start_date) %>%
+summarise(total_abundance = sum(sample_value, na.rm = TRUE),
+.groups = "keep")
+```
+
+
+In this code, we have calculated a separate total abundance value for each location and each date. 
+
+
+::: {.rmdcaution}
+**Frequent mistake:** Be sure to add `.groups = "keep"` when adding multiple variables to `group_by`. Without this, some packages in R will drop the last grouping level, and you will see a message like this:
+
+`summarise() has grouped output by 'sample_location'. You can override using the .groups argument`.
+:::
+
+
+To visualise the data, we will generate a time-series abundance plot as we did before, but this time, we will use the `group = sample_location` argument within `aes()` to tell R that we want a separate line for each different sampling location. Without this, `ggplot` will treat all data as a single group and only plot one continuous line.
+
+
+
+``` r
+daily_abundance_plot_all <- ggplot(
+daily_abundance_all_locations,
+aes(x = sample_start_date, y = total_abundance, group = sample_location)
+) +
+geom_line(colour = "darkturquoise") +
+labs(
+title = "Abundance of Culex pipiens Across Locations Over Time",
+x = "Date",
+y = "Abundance"
+)
+
+daily_abundance_plot_all
+```
+
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+
+
+This is the visualisation we wanted, but it looks a bit messy. All the lines are displayed in the same colour, which makes the plot difficult to read. We can see patterns of abundance change over time, but it is difficult to distinguish between different locations. 
+
+
+What we are seeing here is that more **complex** visualisations are not always **better** visualisations, especially if interpretation is limited. 
+
+
+### Distinguishing Locations by Colour
+One option to improve our visualisation and to help distinguish between locations is to assign a different colour to each sampling location. To do this, we map `sample_location` to the `colour` aesthetic within `aes()`, rather than assigning the line colour within `geom_line()`. This allows `ggplot` to automatically assign different colours to each category in the variable, in this case, each sample location. 
+
+
+
+``` r
+daily_abundance_plot_all <- ggplot(
+daily_abundance_all_locations,
+aes(x = sample_start_date, y = total_abundance, colour = sample_location)
+) +
+geom_line() +
+labs(
+title = "Abundance of Culex pipiens Across Locations Over Time",
+x = "Date",
+y = "Abundance",
+colour = "Sampling Location"
+)
+
+daily_abundance_plot_all
+```
+
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-55-1.png" width="672" />
+
+
+::: {.rmdtip}
+Tip: When `colour` is inside `aes()`, it is mapped to a variable, when it is outside, it is a fixed value.
+:::
+
+
+By adding colour, each line now represents a different sampling location more clearly, with a key detailing the line colour for each location. This makes it easier to identify patterns across locations. 
+
+
+By plotting **both location and time together**, we can identify patterns in the data:
+
+- Strong seasonal patterns across all locations, with patterns of sharp peaks and rapid declines each year.
+- Although trends over time are similar across locations, some show higher abundance than others.
+- Some extreme peaks in abundance stand out compared to the general trends. These may represent natural variation, such as optimal conditions and location for mosquito breeding, or these observations could be outliers. Further testing would be needed to assess this. 
+
+
+However, while using colour can definitely improve graphics, **visualisations can still feel overcrowded when too many groups are displayed together**. For example, our visualisation plots **8** different locations on the same graph. Overlapping lines and similar temporal patterns can make it difficult to fully interpret the data. 
+
+
+Additionally, using colour alone can cause difficulties with accessibility to all audiences, which we will address in a later session.
+
+
+### Using Faceting to Improve Clarity
+One useful solution to this overcrowding is **faceting**, a feature in `ggplot2` that splits a single plot into multiple smaller panels.
+
+
+Each panel displays a subset of the data, allowing patterns to be compared side-by-side without overlapping elements. By separating the data into smaller panels, we can often reveal patterns that might otherwise be hidden within a crowded visualisation.
+
+
+Faceting is particularly useful when:
+
+- Comparing multiple species.
+- Comparing sampling sites.
+- Exploring patterns across environmental conditions. 
+
+
+We can apply **faceting** to our previous time-series visualisation to separate each sampling location into its own panel, rather than using different colours. This directly addresses the overlapping lines,  improving the overall clarity and readability.
+
+
+To do this, we add `facet_wrap()` to our existing code, which tells R that we want to generate several panels separated by location:
+
+
+
+``` r
+facet_wrap(~ sample_location) # tells ggplot to create one panel per location.
+```
+
+
+
+``` r
+daily_abundance_plot_faceted <- ggplot(
+  daily_abundance_all_locations,
+  aes(x = sample_start_date, y = total_abundance)
+) +
+  geom_line(colour = "darkturquoise") +
+  facet_wrap(~ sample_location) +
+  labs(
+    title = "Abundance of Culex pipiens Across Locations Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+daily_abundance_plot_faceted
+```
+
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+
+
+#### Adjusting y-axis Scales 
+In our current visualisation, all panels share the same y-axis scale, which is good for comparisons. However, this scale also means extreme peaks are visually dominant, and locations with smaller peaks look flat in comparison.
+
+
+We can add `scales = “free_y”` within `facet_wrap()` to adjust the y-axis scales across the panels, allowing us to visualise the patterns per location in greater detail.
+
+
+
+``` r
+facet_wrap(~ sample_location, scales = "free_y")
+```
+
+
+This allows each panel to have its own y-axis scale, making it easier to see patterns in locations with lower overall abundance.
+
+
+
+``` r
+daily_abundance_plot_faceted_Y <- ggplot(
+  daily_abundance_all_locations,
+  aes(x = sample_start_date, y = total_abundance)
+) +
+  geom_line(colour = "darkturquoise") +
+  facet_wrap(~ sample_location, scales = "free_y") +
+  labs(
+    title = "Abundance of Culex pipiens Across Locations Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+daily_abundance_plot_faceted_Y
+```
+
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-59-1.png" width="672" />
+
+
+By separating each sampling location into its own panel, the patterns in the data become much clearer:
+
+- Seasonal trends are still evident across all locations, but we are now able to see how these patterns vary between locations more easily.
+- Differences in abundance magnitude are much clearer, with some locations consistently showing higher peaks, and others reflecting relatively low abundance across the time-series. 
+- Extreme peaks can be clearly associated with specific locations without overlapping lines hiding these observations.
+
+
+Overall, **faceting improves clarity** by reducing visual clutter and allowing direct comparisons between locations. This makes it easier to interpret both independent trends per location and compare patterns across multiple locations.
+
+
+### Applying These Principles to Multiple Species and Datasets
+Various vector species can exhibit very different ecological behaviours. For instance:
+
+- Some species may emerge earlier in the season.
+- Some may reach a higher peak abundance.
+- Others may vary in abundance depending on particular habitats or hosts.
+
+
+Understanding these differences is important when studying disease transmission dynamics. Luckily, **you already have the tools to visualise these patterns!**
+
+
+In the last example, we visualised abundance over time, grouped by sampling location. For multiple species comparisons, we do the same abundance plots but grouped by species, rather than sampling location. 
+
+
+This is an important advantage of using flexible tools such as R and `ggplot2`. Once we understand the principles of building effective visualisations, we can apply them to many different datasets and research questions. 
+
+
+## Formulating Hypotheses From Visualisations
+Throughout this workshop, we have seen how visualisations can help us to identify patterns and extract information from our dataset. 
+
+
+For instance, after visualising our data, we might ask:
+
+- Can we observe any temporal or seasonal trends?
+- How is the data distributed - are abundance counts spread or clustered?
+- Can we make comparisons between different groups?
+- Are there any unusual observations or potential anomalies in the dataset?
+
+
+Asking these questions is an important step in **exploratory data analysis** as it helps us to understand our dataset before moving on to further analysis. 
+
+
+We can move from identifying patterns to formulating data-driven hypotheses. 
+
+
+A **hypothesis** is a testable explanation for an observed pattern. In other words, it is not just describing what we see, but suggesting why that pattern might exist. 
+
+When formulating hypotheses, it can be helpful to think about:
+
+- Patterns over time
+- Differences between locations
+- Unusual observations
+- Alternative explanations for the same pattern
+
+
+Real-world VBD datasets are often complex, with observations collected across multiple locations, species, and time periods. When visualised, these datasets can reveal more nuanced patterns that are difficult to identify from raw data alone. 
+
+
+As visualisations become more detailed, our questions, and therefore our hypotheses, can also become more specific. 
+
+
+Instead of asking "Why is abundance high?", we might ask:
+
+- Why does abundance vary between locations?
+- Why do abundance peaks occur at different times?
+- Why do some locations show more variability than others?
+
+
+For example, if we visualised a dataset on *Culicoides* abundance over time and observed a pattern showing higher counts during the summer months, we might suggest the following hypothesis: 
+
+**"Higher temperatures during summer months provide optimal conditions for Culicoides larval development, leading to increased abundance during this season."**
+
+Here, the visualisation suggests the pattern, and the hypothesis provides a possible explanation for that pattern.
+
+
+Similarly, if we plotted a dataset on sandfly abundance across different habitat types and observed higher counts in peri-domestic environments, we might suggest this hypothesis: 
+
+**"Peri-domestic environments increase sandfly abundance by providing suitable breeding habitats, such as organic waste from cattle sheds."**
+
+Again, we move from identifying a pattern to suggesting a possible explanation as to why that pattern might be happening. 
+
+
+From these examples, we can see how using visualisations can help to generate data-driven research questions and hypotheses.
+
+
+::: {.rmdnote}
+**Example: Formulating Hypotheses From an Abundance Plot**
+
+Let’s return to the abundance plot we developed earlier. 
+
+
+Based on this visualisation, consider:
+
+- What patterns can you identify?
+- What hypotheses could you propose to explain these patterns?
+
+
+Looking at our abundance plot, we can see clear repeating peaks in abundance over time, which suggests a possible seasonal pattern in the data. We can take this a step further and ask why this might be happening. For example, we might suggest a hypothesis like:
+
+**"Seasonal environmental conditions, including temperature and rainfall, create optimal conditions for mosquito larval development, leading to repeated peaks in abundance over time."**
+
+
+We can also compare patterns between locations, for instance, some locations show higher peaks than others. We therefore might ask why abundance is higher in some locations than others, and suggest a hypothesis such as:
+
+**"Locations with more suitable breeding habitats, such as standing water or organic matter, lead to higher mosquito abundance."**
+
+
+In each case, we are moving from identifying a pattern in the visualisation to suggesting a possible explanation that could be tested. 
+:::
+
+
+### Considering Alternative Explanations
+However, before we move forward with a hypothesis, it is important to consider alternative explanations for the same patterns. 
+
+
+For example:
+
+- Differences in sampling effort between locations or years.
+- Variation in trap efficiency.
+- Missing or incomplete data.
+
+
+These factors can influence what we see in the visualisation, even if they are not biologically meaningful. For instance, the unusually high peak for `Terre del Reno` might be anomalous or driven by uneven sampling effort, rather than reflecting a true biological pattern. 
+
+
+By considering alternative explanations, we can avoid drawing incorrect conclusions and ensure our hypotheses are more robust.
+
+
+### Visualisations Do Not Confirm Causation
+While visualisations are useful for identifying patterns, it is important to remember that they do not confirm causal relationships. 
+
+
+Instead, they provide a starting point for developing hypotheses that can later be tested using statistical models, experimental studies, or additional data collection.
+
+
+In practice, the process of formulating hypotheses often involves:
+
+- Identifying patterns in the visualisation.
+- Proposing possible explanations for those patterns.
+- Considering alternative explanations.
+- Designing analyses or collecting additional data to test these hypotheses.
+
+
+**This process allows us to move from simple visual observations to well-defined, testable hypotheses.**
+
+
+## What Makes a Good Visualisation?
+So far in this workshop, we have focused on how to create visualisations and use them to explore VBD data. However, as we have seen, not all visualisations communicate information clearly or effectively. 
+
+
+A well-designed visualisation should help the viewer understand the key message of the data quickly and clearly. Poorly designed visualisations, on the other hand, can be confusing, misleading, or difficult to interpret. 
+
+
+We will now explore some of the key characteristics that contribute to effective data visualisations, and consider how small design choices can make a big difference. 
+
+
+There are a few key features commonly associated with good visualisations, these include:
+
+- **Clarity** - the plot communicates its message quickly and clearly.
+- **Accuracy** - the visual representation reflects the underlying data correctly.
+- **Simplicity** - unnecessary elements that distract from the data are avoided. 
+- **Accessibility** - the visualisation can be interpreted by a wide audience. 
+
+
+For example, clear axis labels, readable text, and appropriate colours all contribute to making a visualisation easier to interpret. 
+
+
+On the other hand, poorly designed visualisations often include limitations such as:
+
+- Unclear or missing axis labels.
+- Confusing or inappropriate colour schemes.
+- Unnecessary visual elements.
+- Misleading scales that distort how the data is represented. 
+
+
+These kinds of issues can make it harder to understand the patterns in the data, even if the underlying dataset is good.
+
+
+## Collaborative Task: Improving a Flawed Visualisation 
+::: {.rmdimportant}
+A useful way to understand what makes a visualisation effective is to fix one that is flawed. In groups, you will be given the code for a visualisation, each contains a different common problem. 
+
+
+As a group:
+
+1. Run the code and look at the plot. What is it trying to show?
+2. Identify what makes it difficult to interpret.
+3. Edit the code to create an improved version. 
+4. Be ready to briefly explain the changes you made and why. 
+
+
+There is no single correct solution. The aim is to **think critically about how visualisation design choices affect how data are interpreted**.
+
+
+If your group finishes early, swap datasets with another group and see whether you would fix their code in the same way. 
+
+
+**Graph 1**
+
+Dataset: `group1&2_data.csv`
+
+
+Flawed code:
+
+
+
+``` r
+library("ggplot2")
+library("tidyverse")
+library("lubridate")
+
+group1_data <- read.csv("group1&2_data.csv")
+
+group1_data$sample_start_date <- as.Date(group1_data$sample_start_date)
+
+daily_abundance_all <- group1_data %>%
+  group_by(sample_location, sample_start_date) %>%
+  summarise(total_abundance = sum(sample_value, na.rm = TRUE),
+            .groups = "keep")
+
+group1_plot <- ggplot(daily_abundance_all,
+       aes(x = sample_start_date, y = total_abundance, group = sample_location)) +
+  geom_line(colour = "darkturquoise") +
+  labs(
+    title = "Mosquito Abundance Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+group1_plot
+```
+
+
+**Graph 2**
+
+Dataset: `group1&2_data.csv`
+
+
+Flawed code:
+
+
+
+``` r
+library("ggplot2")
+library("tidyverse")
+library("lubridate")
+
+group2_data <- read.csv("group1&2_data.csv")
+
+group2_data_cadeo <- group2_data %>%
+  filter(sample_location == "Cadeo")
+
+group2_data_cadeo$sample_start_date <- as.Date(group2_data_cadeo$sample_start_date)
+
+group2_plot <- ggplot(group2_data_cadeo,
+       aes(x = sample_start_date, y = sample_value)) +
+  geom_col(fill = "darkturquoise") +
+  labs(
+    title = "Mosquito Abundance Over Time",
+    x = "Date",
+    y = "Abundance"
+  )
+
+group2_plot
+```
+
+
+**Graph 3**
+
+Dataset: `group3&4_data.csv`
+
+
+Flawed code:
+
+
+
+``` r
+library("ggplot2")
+library("tidyverse")
+library("lubridate")
+
+group3_data <- read.csv("group3&4_data.csv")
+
+group3_data$sample_start_date <- as.Date(group3_data$sample_start_date)
+
+daily_abundance <- group3_data %>%
+  group_by(sample_location, sample_start_date) %>%
+  summarise(total_abundance = sum(sample_value, na.rm = TRUE),
+            .groups = "keep")
+
+group3_plot <- ggplot(daily_abundance,
+       aes(x = sample_start_date, y = total_abundance, colour = sample_location)) +
+  geom_line()
+
+group3_plot
+```
+
+
+**Graph 4**
+
+Dataset: `group3&4_data.csv`
+
+
+Flawed code:
+
+
+
+``` r
+library("ggplot2")
+library("tidyverse")
+library("lubridate")
+
+group4_data <- read.csv("group3&4_data.csv")
+
+group4_data$sample_start_date <- as.Date(group4_data$sample_start_date)
+
+daily_abundance_all <- group4_data %>%
+  group_by(sample_start_date) %>%
+  summarise(total_abundance = sum(sample_value, na.rm = TRUE))
+
+group4_plot <- ggplot(daily_abundance_all,
+       aes(x = sample_start_date, y = total_abundance)) +
+  geom_line(colour = "darkturquoise") +
+  labs(
+    title = "Mosquito Abundance Over Time",
+    x = "Date",
+    y = "Abundance",
+    colour = "Sampling Location"
+  )
+
+group4_plot
+```
+:::
+
+
+### Sharing Collaborative Graphics 
+We will now share each improved visualisation. The aim of this discussion is not only to present the final plots but also to understand the reasoning behind the changes that each group made.
+
+
+For each visualisation, a member of each group is invited to explain:
+
+- What problems they identified in the original graph.
+- What changes they made to improve it.
+- Why those changes improved the clarity of the visualisation.
+
+
+Hopefully, this task has reinforced the key principles discussed earlier and has shown you how **small tweaks to visualisations can significantly improve the interpretability of a plot**.
+
+
+By comparing the different solutions developed by each group, you can see that there are often multiple ways to improve a visualisation, depending on the context and audience.
+
+
+## Key Takeaways
+- Visualisations are often the first step in exploratory data analysis, revealing patterns, trends and anomalies that can be difficult to see in a dataframe. 
+- Select the plot type that best suits your data, for example, bar plots for comparing groups and line plots for trends over time.
+- Prepare your data before plotting. Converting dates to date format and summarising one value per tie point makes plots accurate and readable. 
+- More detail isn’t necessarily better. Colour and faceting provide options for comparing multiple groups without overcrowding a plot. 
+- Visualisations can be used to generate testable hypotheses, but remember, the suggested patterns do not confirm causation. 
+
+
+
+
+
+# Effectively Communicating with Different Audiences
+Content coming soon!
+
+
+
+
+# Temporal & Spatial Modelling of Disease Vectors
+Content coming soon!
+
+
+
+
+# Thermal Performance Curves
+Content coming soon!
+
+
+
+
+# Challenge Task
+Content coming soon!
+
+
+
+
+# Reading & Resources
+Content coming soon!
+
+
