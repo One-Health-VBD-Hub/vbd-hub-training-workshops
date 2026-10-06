@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 7 Effectively Communicating with Different Audiences | One Health VBD Hub Training 2026</title>
 <meta name="author" content="Chloë Coxshall">
-<meta name="description" content="Content coming soon!">
+<meta name="description" content="7.1 Overview Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the...">
 <meta name="generator" content="bookdown 0.45 with bs4_book()">
 <meta property="og:title" content="Chapter 7 Effectively Communicating with Different Audiences | One Health VBD Hub Training 2026">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/effectively-communicating-with-different-audiences.html">
 <meta property="og:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
-<meta property="og:description" content="Content coming soon!">
+<meta property="og:description" content="7.1 Overview Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 7 Effectively Communicating with Different Audiences | One Health VBD Hub Training 2026">
-<meta name="twitter:description" content="Content coming soon!">
+<meta name="twitter:description" content="7.1 Overview Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the...">
 <meta name="twitter:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -78,14 +78,206 @@
 <h1>
 <span class="header-section-number">7</span> Effectively Communicating with Different Audiences<a class="anchor" aria-label="anchor" href="#effectively-communicating-with-different-audiences"><i class="fas fa-link"></i></a>
 </h1>
-<p>Content coming soon!</p>
+<div id="overview-4" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-4"><i class="fas fa-link"></i></a>
+</h2>
+<p>Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the people who need it.</p>
+<p>In VBD research, those people are not only other researchers. The same surveillance result might need to reach a public health team deciding where to trap next season, and a parent wondering whether it is safe to take their children to the park. Each of them needs something different from the same evidence.</p>
+<p>In this session, we will consider a single finding through three stages:</p>
+<ul>
+<li>
+<strong>Make it readable</strong> - designing visualisations that are clear and accessible to everyone.</li>
+<li>
+<strong>Make it meaningful</strong> - describing findings in honest and useful ways.</li>
+<li>
+<strong>Make it land</strong> - tailoring the same finding for academic, policy, and public audiences.</li>
+</ul>
+<p><strong>Learning Objectives</strong></p>
+<p>By the end of this workshop, you should be able to:</p>
+<ul>
+<li>Design clear and accessible visualisations in R.</li>
+<li>Communicate uncertainty in ways that are honest and still useful.</li>
+<li>Tailor a VBD finding for academic, policy, and public audiences without changing the underlying science.</li>
+</ul>
+</div>
+<div id="who-is-this-for" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Who Is This For?<a class="anchor" aria-label="anchor" href="#who-is-this-for"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the visualisations workshop, we built a time-series plot showing Culex pipiens abundance across multiple sampling locations. Let’s start by looking at it again.</p>
+<p>Visualisation image coming soon.</p>
+<p>Ask yourself <strong>who is this visualisation for?</strong></p>
+<p>Now consider three people who all need to understand the finding show in this plot:</p>
+<ul>
+<li>
+<strong>Dr Wren</strong>, an entomologist, who wants to know how the data were collected and how strong the pattern is.</li>
+<li>
+<strong>Jay</strong>, a regional public health lead, who has to decide whether to fund more mosquito surveillance next summer.</li>
+<li>
+<strong>Robin</strong>, a parent who lives near one of the sampling sites, and wants to know whether their family is at risk.</li>
+</ul>
+<p>All three need to understand this finding.</p>
+<div class="rmdtip">
+<p><strong>Tip:</strong> Before you share any finding, ask yourself two questions. Who is this for? And what do they need to do with it?</p>
+</div>
+</div>
+<div id="make-it-readable" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Make It Readable<a class="anchor" aria-label="anchor" href="#make-it-readable"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before we think about who we are talking to, our visualisations need to be accessible for everyone. A plot that is cluttered, poorly labelled, or relies on colours some people can’t distinguish won’t be clear for any audience, however carefully we tailor the message around it.</p>
+<p>A useful checklist for readable visualisations is <strong>CLEAR</strong>:</p>
+<ul>
+<li>
+<strong>C</strong>lean design</li>
+<li>
+<strong>L</strong>abels that tell the story</li>
+<li>
+<strong>E</strong>xtra visual cues</li>
+<li>
+<strong>A</strong>ccessible colours</li>
+<li>
+<strong>R</strong>eadable everywhere</li>
+</ul>
+<p>Let’s work through these to understand how to approach each one.</p>
+<div id="clean-design" class="section level3" number="7.3.1">
+<h3>
+<span class="header-section-number">7.3.1</span> Clean Design<a class="anchor" aria-label="anchor" href="#clean-design"><i class="fas fa-link"></i></a>
+</h3>
+<p>In <code>ggplot2</code>, we can change the non-data elements of a plot using <strong>themes</strong>, include the:</p>
+<ul>
+<li>Background colour</li>
+<li>Grid lines</li>
+<li>Text size and font</li>
+<li>Legend position</li>
+</ul>
+<p><code>ggplot2</code> has several built-in themes, including:</p>
+<ul>
+<li><code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code></li>
+<li><code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code></li>
+<li><code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code></li>
+</ul>
+<p><strong>Themes</strong> are added to a plot like any other layer, using <code>+</code>. For example, we can apply <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> to our time-series plot:</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily_abundance_all_locations</span>,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample_start_date</span>, y <span class="op">=</span> <span class="va">total_abundance</span>, colour <span class="op">=</span> <span class="va">sample_location</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>This removes the grey background and uses simple, light grid lines, so the data stands out more clearly.</p>
+<p>We can also use the <code>base_size</code> argument to increase the size of all text on the plot at once:</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span></code></pre></div>
+<div class="rmdtip">
+<p><strong>Tip:</strong> Using the same theme across all your visualisations gives your work a consistent, professional appearance.</p>
+</div>
+</div>
+<div id="labels-that-tell-the-story" class="section level3" number="7.3.2">
+<h3>
+<span class="header-section-number">7.3.2</span> Labels That Tell the Story<a class="anchor" aria-label="anchor" href="#labels-that-tell-the-story"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="extra-visual-cues" class="section level3" number="7.3.3">
+<h3>
+<span class="header-section-number">7.3.3</span> Extra Visual Cues<a class="anchor" aria-label="anchor" href="#extra-visual-cues"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="accessible-colours" class="section level3" number="7.3.4">
+<h3>
+<span class="header-section-number">7.3.4</span> Accessible Colours<a class="anchor" aria-label="anchor" href="#accessible-colours"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="readable-everywhere" class="section level3" number="7.3.5">
+<h3>
+<span class="header-section-number">7.3.5</span> Readable Everywhere<a class="anchor" aria-label="anchor" href="#readable-everywhere"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdnote">
+<p><strong>Example: Applying the CLEAR Checklist</strong></p>
+<p>Let’s apply the checklist to our time-series plot. Here is the original version:</p>
+</div>
+<div class="rmdimportant">
+<p><strong>Task: Accessibility Makeover</strong></p>
+</div>
+</div>
+</div>
+<div id="make-it-meaningful" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> Make it Meaningful<a class="anchor" aria-label="anchor" href="#make-it-meaningful"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="make-it-land" class="section level2" number="7.5">
+<h2>
+<span class="header-section-number">7.5</span> Make it Land<a class="anchor" aria-label="anchor" href="#make-it-land"><i class="fas fa-link"></i></a>
+</h2>
+<div id="academic-audiences" class="section level3" number="7.5.1">
+<h3>
+<span class="header-section-number">7.5.1</span> Academic Audiences<a class="anchor" aria-label="anchor" href="#academic-audiences"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="policy-audiences" class="section level3" number="7.5.2">
+<h3>
+<span class="header-section-number">7.5.2</span> Policy Audiences<a class="anchor" aria-label="anchor" href="#policy-audiences"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="public-audiences" class="section level3" number="7.5.3">
+<h3>
+<span class="header-section-number">7.5.3</span> Public Audiences<a class="anchor" aria-label="anchor" href="#public-audiences"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdnote">
+<p><strong>Example: Reframing One Finding for Three Audiences</strong></p>
+</div>
+</div>
+</div>
+<div id="the-hot-seat" class="section level2" number="7.6">
+<h2>
+<span class="header-section-number">7.6</span> The Hot Seat<a class="anchor" aria-label="anchor" href="#the-hot-seat"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdimportant">
+<p><strong>Task: The Hot Seat</strong></p>
+<p>In this task, you will practise communicating a VBD finding to Dr Wren, Jay, and Robin.</p>
+</div>
+</div>
+<div id="who-is-this-for-now" class="section level2" number="7.7">
+<h2>
+<span class="header-section-number">7.7</span> Who Is This For Now?<a class="anchor" aria-label="anchor" href="#who-is-this-for-now"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="key-takeaways-4" class="section level2" number="7.8">
+<h2>
+<span class="header-section-number">7.8</span> Key Takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways-4"><i class="fas fa-link"></i></a>
+</h2>
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="visualising-vbd-data-in-r.html"><span class="header-section-number">6</span> Visualising VBD Data in R</a></div>
 <div class="next"><a href="temporal-spatial-modelling-of-disease-vectors.html"><span class="header-section-number">8</span> Temporal &amp; Spatial Modelling of Disease Vectors</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#effectively-communicating-with-different-audiences"><span class="header-section-number">7</span> Effectively Communicating with Different Audiences</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#effectively-communicating-with-different-audiences"><span class="header-section-number">7</span> Effectively Communicating with Different Audiences</a></li>
+<li><a class="nav-link" href="#overview-4"><span class="header-section-number">7.1</span> Overview</a></li>
+<li><a class="nav-link" href="#who-is-this-for"><span class="header-section-number">7.2</span> Who Is This For?</a></li>
+<li>
+<a class="nav-link" href="#make-it-readable"><span class="header-section-number">7.3</span> Make It Readable</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#clean-design"><span class="header-section-number">7.3.1</span> Clean Design</a></li>
+<li><a class="nav-link" href="#labels-that-tell-the-story"><span class="header-section-number">7.3.2</span> Labels That Tell the Story</a></li>
+<li><a class="nav-link" href="#extra-visual-cues"><span class="header-section-number">7.3.3</span> Extra Visual Cues</a></li>
+<li><a class="nav-link" href="#accessible-colours"><span class="header-section-number">7.3.4</span> Accessible Colours</a></li>
+<li><a class="nav-link" href="#readable-everywhere"><span class="header-section-number">7.3.5</span> Readable Everywhere</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#make-it-meaningful"><span class="header-section-number">7.4</span> Make it Meaningful</a></li>
+<li>
+<a class="nav-link" href="#make-it-land"><span class="header-section-number">7.5</span> Make it Land</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#academic-audiences"><span class="header-section-number">7.5.1</span> Academic Audiences</a></li>
+<li><a class="nav-link" href="#policy-audiences"><span class="header-section-number">7.5.2</span> Policy Audiences</a></li>
+<li><a class="nav-link" href="#public-audiences"><span class="header-section-number">7.5.3</span> Public Audiences</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#the-hot-seat"><span class="header-section-number">7.6</span> The Hot Seat</a></li>
+<li><a class="nav-link" href="#who-is-this-for-now"><span class="header-section-number">7.7</span> Who Is This For Now?</a></li>
+<li><a class="nav-link" href="#key-takeaways-4"><span class="header-section-number">7.8</span> Key Takeaways</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -102,7 +294,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-04.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

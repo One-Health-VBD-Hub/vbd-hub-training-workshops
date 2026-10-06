@@ -95,7 +95,7 @@
 y = mx + c
 \]</span></p>
 <p>To code a linear regression model, we can use the following syntax:</p>
-<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">specificModelName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">responseVariable</span> <span class="op">~</span> <span class="va">explanatoryVariable</span>, data <span class="op">=</span> <span class="va">yourDataset</span><span class="op">)</span></span></code></pre></div>
 <div class="rmdtip">
 <p><strong>Tip:</strong> When naming models or other objects in R, try to use specific names so you know what your object is explicitly. Using short names like model1, model2, etc. can get confusing.</p>
@@ -109,7 +109,7 @@ y = mx + c
 <pre><code>#&gt; Error: object ‘specificmodelname’ not found.</code></pre>
 </div>
 <p>To view the output of a linear regression model, we can use the summary() function:</p>
-<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
 <p>This will show a lot of information (which is useful to familiarise yourself with), but for this workshop, we are primarily interested in the Coefficients table.</p>
 <p>This table will have one row for each coefficient in the model - two rows for a simple linear regression model: the Intercept and the Slope.</p>
@@ -137,10 +137,10 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 </h3>
 <p>What happens if your explanatory variable is categorical, rather than continuous? This is where ANOVA models come in, or the <strong>AN</strong>alysis <strong>O</strong>f <strong>VA</strong>riance across the means of different groups or categories. An ANOVA is a useful type of linear model, particularly when the response variable is continuous, and the explanatory variable is categorical.</p>
 <p>Coding an ANOVA is essentially the same as a linear regression model - we still use the lm() function to fit the relationship between a response and explanatory variable. However, now that the explanatory variable is categorical, the slope represents the difference between group (category) means.</p>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">specificModelName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">continuousResponse</span> <span class="op">~</span> <span class="va">categoricalExplanatory</span>, data <span class="op">=</span> <span class="va">yourDataset</span><span class="op">)</span></span></code></pre></div>
 <p>As before, we can use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function to check the model output and view the Coefficients table (which will be laid out in the same way as a linear regression model output).</p>
-<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
 <p>Despite looking the same, there are some differences for an ANOVA output:</p>
 <ul>
@@ -148,7 +148,7 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 <li>The Slope is the difference between the mean of the first category and this (named) category.</li>
 </ul>
 <p>While the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function can be used to assess the differences between specific categories, the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function can tell us whether or not the categorical explanatory variable as a whole has a significant effect on the response variable.</p>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
 <p>The output of the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function also provides a table, which lists the following statistics:</p>
 <ul>
@@ -271,7 +271,7 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-04.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

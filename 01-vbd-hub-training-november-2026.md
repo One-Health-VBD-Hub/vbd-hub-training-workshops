@@ -10,9 +10,11 @@ Content coming soon!
 
 We are excited to welcome you to the **One Health VBD Hub Training Event** on 11th-13th November at Silwood Park. 
 
+<br>
 
 Before the event, we would like you to complete this pre-work. This will help ensure everyone has a foundation understanding of the topics, and will be prepared to fully participate in the workshops. 
 
+<br>
 
 The pre-work covers three sections:
 
@@ -20,39 +22,90 @@ The pre-work covers three sections:
 2. Understanding Data Curation Standards
 3. Data Wrangling Principles 
 
+<br>
 
 **We ask that you complete these three sections, and ensure R, RStudio, and the relevant packages are installed on your device BEFORE the event.**
 
+<br>
 
 The packages you will need for the workshops are:
 
 - `ohvbd`
+- `tidyverse`
 - `dplyr`
 - `ggplot2`
-- `tidyverse`
 
+<br>
 
 We will be using the **VBD Hub Forum** for additional support before and during the training, as well as informal chats and coordination. Please have it set up in advance, and follow [this link](https://forum.vbdhub.org/) to join. If you need help navigating the Forum, please see the video under **2.1.1 The VBD Hub Forum**.
 
+<br>
 
 You will need to bring your own laptop to participate in the event. Make sure it is updated, and remember to bring your charger. 
 
+<br>
 
 ## Navigating the VBD Hub
 The [VBD Hub website](https://vbdhub.org/) is home to resources to help your research, and spaces for collaboration and networking with the VBD community. The website is straightforward to navigate, but if you haven’t used it before, it can be helpful to understand what information is available and where to find it.
 
+<br>
 
 Watch this video tour of the VBD Hub website. Note: as the VBD Hub continues to grow, the website may have updated features in addition to those outlined in this video.
 
+<br>
 
 Video coming soon!
 
 
-**Transcript:** Transcript coming soon!
+<details>
+<summary>Video transcript</summary>
 
+The VBD Hub website is home to resources to help your research, and spaces for collaboration and networking with the VBD community. The VBD Hub website is straightforward to navigate, but if you haven’t used it before, it can be helpful to understand what information is available and where to find it. In this video, we will walk through the main sections of the Hub and highlight some of the key tools and resources you can use.
+
+
+When you first visit the site, you will see the Home screen. Here, you will find a general overview of what the Hub is and what it aims to achieve. You will also see the Getting started section, which provides quick access to some of the key information and resources available on the Hub site, including:
+
+- Find data 
+- Share data
+- Learn
+
+
+You may also notice the Roadmap section, which outlines the development of the VBD Hub over time, since July 2024. As the platform continues to grow, new developments will be updated here. 
+
+
+The Find Data tab is one of the core features of the VBD Hub. This is where you can find the Hub Search tool, which allows you to explore open-access databases within the VBD Hub system. The search tool includes a filter panel, which can be used to refine your search based on different parameters, helping you find datasets relevant to your research. You may notice this page is linked under the Getting started section of the Home page.
+
+
+Under the About tab, you will find a more in depth overview of the VBD Hub, including the aims of the Hub, and the critical impact of a platform like this. There is also a list of the Core team, and their involvement within the Hub. This section is useful if you want to better understand the background and overarching goals of the platform.
+
+
+The Resources tab offers several useful pages which you can access through a dropdown menu:
+
+- R package - This page provides information on the ohvbd package for R developed by the Hub, including latest release patch notes. 
+- FAIR data - This section introduces FAIR data principles - making data Findable, Accessible, Interoperable, Reusable. These principles are important when working with open-access datasets. 
+- How to share? - This page provides guidance on standards and privacy of data sharing, including standard operating procedures for specific data types. 
+- Learn - Here, you can find learning resources developed by the Hub, including self-paced workbooks, and content from previous workshops. 
+
+
+You may notice some of these are also linked under the Getting started section on the Home page. Overall, these resources support both data use and data sharing, as well as learning and training.
+
+
+Under the Community tab, you will find another drop-down menu, with links to:
+
+- Forum - This opens a separate page to the VBD Hub Forum, a space where users can connect with the VBD community by asking questions, sharing ideas, and discussing topics related to VBDs and data. 
+- Blog - The blog includes updates and announcements from the Hub, including new developments, contributions, and upcoming opportunities, such as training sessions.
+- Impact tracker - This page provides figures and statistics on how the Hub and its resources are being used by the community. By sharing these details, we demonstrate the value of data sharing and the broader impact of the Hub within the VBD community.
+
+
+In this video we have covered how to navigate the VBD Hub website and where to find useful resources. Understanding the layout of the Hub will help you to make the most of the tools and datasets available in your own research.
+
+</details>
+
+<br>
 
 During the training event, we will discuss some of the Hub tools and how to use them in more detail, including the Hub search and the ohvbd package.
 
+<br>
 
 ::: {.rmdimportant}
 **Task: Exploring the Hub**
@@ -62,6 +115,7 @@ Spend a few minutes navigating the VBD Hub website to familiarise yourself with 
 Try to identify at least one feature you might use in your own work. 
 :::
 
+<br>
 
 ### VBD Hub Forum
 The [VBD Hub Forum](https://forum.vbdhub.org/) is a space where users can ask questions, share knowledge and participate in discussions on VBD research and data. This resource provides users with an opportunity to connect with the VBD community.
@@ -73,7 +127,131 @@ Watch this video which walks you through how to use the VBD Hub Forum:
 Video coming soon!
 
 
-**Transcript:** Transcript coming soon!
+<details>
+<summary>Video transcript</summary>
+
+In this video, we will explore how data is shared, curated, and made available through the VBD Hub. Although users cannot upload data directly through the VBD Hub at this time, understanding this process is helpful for interpreting the datasets you retrieve using tools such as the Hub Search and the ohvbd package.
+
+
+The VBD Hub resources bring together data from multiple sources, including databases such as VecDyn, VecTraits, and GBIF. Before being uploaded to these databases, datasets go through a process of curation, formatting, and standardisation to ensure the data is structured consistently. This consistency is what allows us to search across datasets, combine data from different sources, and use the VBD Hub data retrieval tools effectively. Understanding this process helps you to interpret the datasets you download, including:
+
+- Why the datasets follow a particular structure
+- How the variables are defined
+- How data from different sources is combined in a consistent way
+
+
+Before any dataset is shared, the VBD Hub follows a structured Data Management Plan, which outlines how data should be handled from collection through to publication. This process begins when a new dataset is identified, either by a researcher or through community contribution. 
+
+1. The first step is to determine whether the data are sensitive, for example, whether they include identifiable human data. Sensitive datasets may require additional data protection measures or working with the Hub curator before submitting to an appropriate repository.
+2. Next, the Hub assesses whether the data are ready for release. This includes checking whether the dataset meets publication requirements, or funder specifications. 
+3. If the data are not yet ready for release, the Hub curator works with the data provider to prepare the dataset for release. 
+4. If the data are ready for release the next step is to ensure ethical considerations are addressed, including data protection, and to apply appropriate metadata standards. 
+5. Finally, the Hub determines whether the dataset should be hosted directly, or deposited into an external repository.
+
+
+When sharing VBD data, it is important to consider the type of data being collected as different data types require different structures and standards. Data types might include:
+
+- Occurrence data 
+- Abundance data 
+- Trait data 
+- Genomic data 
+- Proteomic data 
+- Microarray data 
+- Transcriptomic data 
+- Epidemiological data 
+- Environmental data 
+
+
+Each of these data types follows specific standard operating procedures (or SOPs), which define how the data should be formatted and described. These SOPs help to ensure that datasets from different sources can be combined and compared within the database. 
+
+
+Occurrence data record where and when a species has been observed. For this data type, the VBD Hub recommends using standards based on Darwin Core, which is widely used for biodiversity data. This means datasets should include:
+
+- A confirmed species name using a recognised taxonomy
+- Geographic coordinates
+- A date of observation
+
+Occurrence data are typically shared through platforms such as GBIF, which collate biodiversity records from around the world. Using Darwin Core ensures that your data can be integrated with these global systems and used in large-scale analyses of species distributions. Additional details, such as how the observation was made or who recorded it, are often included as metadata.
+
+
+Abundance data describe how many individuals were collected at a given place and time. The VBD Hub formats these datasets for VecDyn, which focuses on vector population dynamics. To support this, datasets must clearly define:
+
+- Sampling start and end dates
+- Location identifiers
+- Sampling method, such as trap type
+- Sampling effort, such as number of traps 
+- The units of abundance
+
+These requirements ensure that abundance data can be interpreted clearly and used reliably with other datasets.
+
+
+Trait data describe biological or ecological characteristics of a species. The VBD Hub recommends structuring these datasets for VecTraits, which is designed specifically for biological trait data. To ensure consistency, each record must include:
+
+- A clearly defined trait 
+- Standardised units of measurement
+- The species the trait applies to
+- Context such as life stage, sex, or environmental conditions
+
+Standardising trait definitions allows researchers to compare characteristics across species and studies.
+
+
+Genomic data describe DNA sequences and genetic information. The VBD Hub recommends depositing these data in established repositories such as GenBank, with links available through the Hub. These datasets must include:
+
+- Sequence data in standard formats
+- Metadata describing the organism, sampling location, and methods
+- Links to associated publications or projects
+
+Using established genomic repositories ensures long-term storage, accessibility, and integration with other molecular datasets.
+
+
+Proteomic data describe the proteins expressed by an organism, helping us to understand biological function and response. These datasets are typically include:
+
+- Protein identifiers or names
+- Measurements of protein presence or abundance 
+- Details of the experimental design 
+
+The VBD Hub recommends uploading proteomic data to ProteomeXchange, and provides links to the appropriate data submission guidelines. 
+
+
+Microarray data measure gene expression across many genes simultaneously. To be reusable, these datasets must include:
+
+- Raw and processed expression data
+- Clear descriptors of the experimental design 
+- Information about the platform used
+
+These datasets are often deposited in public gene expression repositories, ensuring they can be accessed and reanalysed by other researchers. 
+
+
+Transcriptomic data describe RNA expression, showing which genes are active under specific conditions. The VBD Hub recommends submitting these datasets to repositories such as the Sequence Read Archive (SRA), with guidelines linked through the Hub. The requirements for these repositories include:
+
+- RNA sequence data
+- Expression measurements
+- Experimental conditions and protocols
+
+This information allows other researchers to interpret gene expression patterns and reuse the data in new analyses.
+
+
+Epidemiological data describe disease occurrence and transmission in populations. These datasets often do not fit into a single external repository, so they may be hosted directly by the VBD Hub. They must clearly define:
+
+- Case definitions
+- Time and location of observations
+- The population being studied
+
+These data may involve sensitive information, therefore ethical considerations and data protection are especially important. 
+
+
+Environmental data describe conditions such as climate, habitat, or land use. These datasets may be linked to external environmental databases or hosted within the Hub, depending on their structure. They must include:
+
+- The variables measured, such as temperature or rainfall
+- Units and measurement methods
+- Spatial and temporal resolution
+
+These details are essential for linking environmental data with biological or epidemiological datasets in later analyses. 
+
+
+In this video, we have explored how data is shared, curated, and structured within the VBD Hub. Understanding these concepts provides important context for working with VBD data and helps you make better use of the resources available through the VBD Hub.
+
+</details>
 
 
 By contributing to discussions on the Forum, you are not only receiving support from the VBD community, but also helping to support others and to develop a collaborative network. 
@@ -2450,7 +2628,178 @@ By comparing the different solutions developed by each group, you can see that t
 
 
 # Effectively Communicating with Different Audiences
-Content coming soon!
+
+## Overview
+Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the people who need it. 
+
+
+In VBD research, those people are not only other researchers. The same surveillance result might need to reach a public health team deciding where to trap next season, and a parent wondering whether it is safe to take their children to the park. Each of them needs something different from the same evidence.
+
+
+In this session, we will consider a single finding through three stages:
+
+- **Make it readable** - designing visualisations that are clear and accessible to everyone.
+- **Make it meaningful** - describing findings in honest and useful ways.
+- **Make it land** - tailoring the same finding for academic, policy, and public audiences.
+
+
+**Learning Objectives**
+
+By the end of this workshop, you should be able to:
+
+- Design clear and accessible visualisations in R.
+- Communicate uncertainty in ways that are honest and still useful.
+- Tailor a VBD finding for academic, policy, and public audiences without changing the underlying science.
+
+
+## Who Is This For?
+In the visualisations workshop, we built a time-series plot showing Culex pipiens abundance across multiple sampling locations. Let's start by looking at it again.
+
+
+Visualisation image coming soon.
+
+
+Ask yourself **who is this visualisation for?**
+
+
+Now consider three people who all need to understand the finding show in this plot:
+
+- **Dr Wren**, an entomologist, who wants to know how the data were collected and how strong the pattern is.
+- **Jay**, a regional public health lead, who has to decide whether to fund more mosquito surveillance next summer.
+- **Robin**, a parent who lives near one of the sampling sites, and wants to know whether their family is at risk.
+
+
+All three need to understand this finding.
+
+
+::: {.rmdtip}
+**Tip:** Before you share any finding, ask yourself two questions. Who is this for? And what do they need to do with it?
+:::
+
+
+## Make It Readable
+Before we think about who we are talking to, our visualisations need to be accessible for everyone. A plot that is cluttered, poorly labelled, or relies on colours some people can't distinguish won’t be clear for any audience, however carefully we tailor the message around it.
+
+
+A useful checklist for readable visualisations is **CLEAR**:
+
+- **C**lean design
+- **L**abels that tell the story
+- **E**xtra visual cues
+- **A**ccessible colours
+- **R**eadable everywhere
+
+
+Let's work through these to understand how to approach each one.
+
+
+### Clean Design
+In `ggplot2`, we can change the non-data elements of a plot using **themes**, include the:
+
+- Background colour
+- Grid lines
+- Text size and font
+- Legend position
+
+
+`ggplot2` has several built-in themes, including:
+
+- `theme_minimal()`
+- `theme_bw()`
+- `theme_classic()`
+
+
+**Themes** are added to a plot like any other layer, using `+`. For example, we can apply `theme_minimal()` to our time-series plot:
+
+
+
+``` r
+ggplot(daily_abundance_all_locations,
+       aes(x = sample_start_date, y = total_abundance, colour = sample_location)) +
+  geom_line() +
+  theme_minimal()
+```
+
+
+This removes the grey background and uses simple, light grid lines, so the data stands out more clearly.
+
+
+We can also use the `base_size` argument to increase the size of all text on the plot at once:
+
+
+
+``` r
+theme_minimal(base_size = 14)
+```
+
+
+::: {.rmdtip}
+**Tip:** Using the same theme across all your visualisations gives your work a consistent, professional appearance.
+:::
+
+
+### Labels That Tell the Story
+
+
+### Extra Visual Cues
+
+
+### Accessible Colours
+
+
+### Readable Everywhere
+
+
+::: {.rmdnote}
+**Example: Applying the CLEAR Checklist**
+
+Let's apply the checklist to our time-series plot. Here is the original version:
+
+:::
+
+
+::: {.rmdimportant}
+**Task: Accessibility Makeover**
+
+:::
+
+
+## Make it Meaningful
+
+
+## Make it Land
+
+
+### Academic Audiences
+
+
+### Policy Audiences
+
+
+### Public Audiences
+
+
+::: {.rmdnote}
+**Example: Reframing One Finding for Three Audiences**
+
+:::
+
+
+## The Hot Seat
+
+::: {.rmdimportant}
+**Task: The Hot Seat**
+
+In this task, you will practise communicating a VBD finding to Dr Wren, Jay, and Robin.
+
+:::
+
+
+## Who Is This For Now?
+
+
+## Key Takeaways
+
 
 
 

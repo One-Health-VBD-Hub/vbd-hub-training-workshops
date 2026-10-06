@@ -160,10 +160,10 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <div class="rmdtip">
 <p><strong>Reminder:</strong> To install packages in R, use the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> command.</p>
 <p>To install one package:</p>
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ggplot2"</span><span class="op">)</span></span></code></pre></div>
 <p>To install multiple packages:</p>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyr"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -309,7 +309,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <p><strong>ohvbd</strong> is an R package developed by the <strong>VBD Hub</strong> that allows you to search for and retrieve data within R, without needing to download files from multiple sources.</p>
 <p>It connects to several VBD database sources at once, including <strong>VBD Hub</strong> (vbdhub), <strong>VecTraits</strong> (vt), <strong>VecDyn</strong> (vd), <strong>GBIF</strong> (gbif), and <strong>AreaData</strong> (px), and pulls datasets directly into your R workflow.</p>
 <p>You can install <strong>ohvbd</strong> from CRAN by running this code in R:</p>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fwimp/ohvbd">ohvbd</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'ohvbd'</span></span>
@@ -317,7 +317,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     extract</span></span></code></pre></div>
 <p><strong>ohvbd</strong> uses a piped workflow, which allows us to build on each step of our code. For example, if we wanted to search for data on <em>Ixodes ricinus</em> from the <strong>VecTraits</strong> database, we can run:</p>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ixodes_ricinus_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span><span class="st">"Ixodes ricinus"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/filter_db.html">filter_db</a></span><span class="op">(</span><span class="st">"vt"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch</a></span><span class="op">(</span>connections <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -356,7 +356,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 </div>
 <p>The data we retrieve from <strong>ohvbd</strong> is often raw and its formatting depends on the original source database. After using the package, you will then need to wrangle and analyse the data yourself.</p>
 <p>We can make our search more refined by adding more search parameters and retrieving the IDs for any datasets that match those parameters:</p>
-<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span></span>
 <span>  query <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  db <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"vt"</span>, <span class="st">"vd"</span>, <span class="st">"gbif"</span>, <span class="st">"px"</span><span class="op">)</span>,</span>
@@ -398,20 +398,20 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <p><strong>ohvbd Task</strong></p>
 <p>Let’s have a go at retrieving data using <em><strong>ohvbd</strong>. Consider what we would want to include to search for data on </em>Aedes aegypti* from <strong>VecTraits</strong>.</p>
 <p>We first want to define our search string using <code><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub()</a></code>:</p>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span><span class="st">"Aedes aegypti"</span><span class="op">)</span></span></code></pre></div>
 <p>Next, we want to filter our search so that data is only retrieved from <strong>VecTraits</strong>:</p>
-<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/filter_db.html">filter_db</a></span><span class="op">(</span><span class="st">"vt"</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can combine these lines of code to retrieve and format the data:</p>
-<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aedes_aegypti_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span><span class="st">"Aedes aegypti"</span>, db <span class="op">=</span> <span class="st">"vt"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/filter_db.html">filter_db</a></span><span class="op">(</span><span class="st">"vt"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch</a></span><span class="op">(</span>connections <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Notice we also added <code><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch()</a></code> and <code><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean()</a></code> to our pipeline. These ensure the data is downloaded and formatted for further wrangling and analysis.</p>
 <p>Once we have searched and retrieved the data we want, we can inspect the dataset:</p>
-<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">aedes_aegypti_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;ohvbd.data.frame&gt;</span></span>
 <span><span class="co">#&gt; Database: vt</span></span>
@@ -870,7 +870,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <li>Are there any missing values?</li>
 </ul>
 <p>Let’s save our data, we will use this later in the workshop:</p>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">aedes_aegypti_data</span>, <span class="st">"aedes_aegypti_data.csv"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="rmdnote">
 <p><strong>Note:</strong> If you want to practice more examples of using the <strong>ohvbd package</strong>, try looking at these vignettes:</p>
@@ -944,7 +944,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <p><strong>Data Wrangling Task</strong></p>
 <p>Let’s have a go at applying these data wrangling principles to the dataset we retrieved using <strong>ohvbd</strong>.</p>
 <p><strong>1. Understand your data first</strong> - run <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> before making any changes to your data:</p>
-<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">aedes_aegypti_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;ohvbd.data.frame&gt;</span></span>
 <span><span class="co">#&gt; Database: vt</span></span>
@@ -1398,10 +1398,10 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <span><span class="co">#&gt; 6             Location</span></span></code></pre></div>
 <p>Notice what the columns represent, what the data types are, and whether there are any missing values.</p>
 <p><strong>2. Save your raw data</strong> - save your data as a new object. Any changes you make will use this new object, rather than the raw data:</p>
-<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_aedes_data</span> <span class="op">&lt;-</span> <span class="va">aedes_aegypti_data</span></span></code></pre></div>
 <p><strong>3. Use clear and consistent naming</strong> - rename at least two columns with more informative names:</p>
-<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">clean_aedes_data</span> <span class="op">&lt;-</span> <span class="va">clean_aedes_data</span> <span class="op">|&gt;</span></span>
@@ -1501,7 +1501,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 </ul>
 <p>It is normal if you found some of this content challenging, it can sometimes be tricky when you are getting your head around new resources.</p>
 <p>In the <strong>Pre-Live Session</strong> content, we used <code><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub()</a></code> in the <strong>ohvbd package</strong> to search and retrieve datasets. This is the base function for an <strong>ohvbd</strong> search, and is useful for data exploration. However, if you know what you are looking for, you can make this process more efficient by specifying the source database directly into the fetch:</p>
-<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span><span class="st">"ixodes ricinus"</span>, db <span class="op">=</span> <span class="st">"vt"</span><span class="op">)</span></span></code></pre></div>
 <p>This approach is typically significantly faster as it avoids retrieving unnecessary GBIF metadata.</p>
 <div class="rmdtip">
@@ -1564,7 +1564,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <p>We call this <strong>merging</strong> or <strong>joining</strong> datasets.</p>
 <p>For a merge to work effectively, both datasets must share at least one common column name. This is often referred to as a <strong>key</strong>. In VBD datasets, a common key might be a species name, a location, or a date.</p>
 <p>Let’s imagine we have two datasets which both contain a column called species. We can merge these two datasets using the <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> function from the <code>dplyr</code> package:</p>
-<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">dataset_a</span>, <span class="va">dataset_b</span>, by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre></div>
@@ -1577,13 +1577,13 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 </ul>
 <p>Choosing which merge to use depends on your research question and how you want to format rows that don’t align across datasets.</p>
 <p>We can also merge by multiple columns when a single column is not enough to uniquely identify a match. For example, in VBD research, we might need to merge by species and location:</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="workshop-2-data-wrangling-with-hub-search-ohvbd.html#cb127-1" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(dataset_a, dataset_b, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"location"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="workshop-2-data-wrangling-with-hub-search-ohvbd.html#cb129-1" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(dataset_a, dataset_b, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"location"</span>)</span></code></pre></div>
 <p>When we set multiple key columns, we ensure that matches only occur when both the species and the location align. This is particularly useful when working with ecological or epidemiological data, where the species might appear in multiple regions and should be accounted for with this in mind.</p>
 <p>Merging is usually straightforward, but it can become tricky when we assume the key represents the same thing in both datasets, but the data contains inconsistencies. For example, if <code>dataset_a</code> formats species names as <code>"Ixodes ricinus"</code> and <code>dataset_b</code> formats species names as <code>"ixodes_ricinus"</code>, R will not identify these species as a match for merging.</p>
 <div class="rmdcaution">
 <p><strong>Frequent mistake:</strong> A <strong>successful merge</strong> does not always guarantee a <strong>correct merge</strong>. Even if your code runs without errors, the result may not be what you were aiming for. It is important to check whether the new, merged dataset makes sense, for instance has the number of rows changed drastically, are there missing values in the new columns, and do the matches look correct?</p>
 <p>A useful quick check is:</p>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dataset_a</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">merged_data</span><span class="op">)</span></span></code></pre></div>
 <p>This will check the number of rows in the original dataset and the new, merged dataset. A significant increase in the number of rows might suggest duplicate matches, and a significant decrease indicates you might have lost data.</p>
@@ -1603,19 +1603,19 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 </ul>
 <p>Although we know these all represent the same species, R will recognise each differently formatted name as a different value.</p>
 <p>A good starting point when standardising species names is setting all text to lowercase:</p>
-<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We can also make sure species names in our data don’t have any unwanted characters, such as underscores:</p>
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Or additional text, such as “spp.”:</p>
-<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" spp\\."</span>, <span class="st">""</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Or any extra spaces:</p>
-<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>If species names are not standardised across our datasets:</p>
@@ -1626,7 +1626,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 </ul>
 <p><strong>Example</strong></p>
 <p>Let’s imagine we have used <strong>ohvbd</strong> to retrieve a dataset on mosquito abundance, <code>mosquito_abundance_data</code>, and another dataset on mosquito habitats, <code>mosquito_habitat_data</code>, in order to analyse patterns of abundance dependent on habitat type:</p>
-<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mosquito_abundance_data</span></span>
 <span><span class="co">#&gt;              species location abundance</span></span>
 <span><span class="co">#&gt; 1      Aedes aegypti    Site1        10</span></span>
@@ -1641,7 +1641,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <span><span class="co">#&gt; 3 aedes aegypti    Site2   urban</span></span>
 <span><span class="co">#&gt; 4 culex pipiens    Site2 wetland</span></span></code></pre></div>
 <p>We can try to merge these datasets in their raw format:</p>
-<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">merged_mosquito_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
@@ -1650,7 +1650,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"location"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Let’s double check what our data looks like using <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> and <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>:</p>
-<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">merged_mosquito_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              species location abundance habitat</span></span>
 <span><span class="co">#&gt; 1      Aedes aegypti    Site1        10    &lt;NA&gt;</span></span>
@@ -1662,7 +1662,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <p>Oh dear! We can see that our merge has run, but the rows have not matched correctly. We would expect a habitat column from the dataset we wanted to combine, but this isn’t showing because something has gone wrong in the merge.</p>
 <p>This is because the species names are formatted differently across the two datasets, so R has treated these as different values. Although the locations match, both the location <strong>and</strong> species need to match exactly for the merge to work.</p>
 <p>Let’s have a look at our original data:</p>
-<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mosquito_abundance_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              species location abundance</span></span>
 <span><span class="co">#&gt; 1      Aedes aegypti    Site1        10</span></span>
@@ -1683,7 +1683,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <li>Additional text</li>
 </ul>
 <p>Let’s make sure all our species names are lowercase and remove unwanted formatting:</p>
-<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_mosquito_abundance_data</span> <span class="op">&lt;-</span> <span class="va">mosquito_abundance_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1694,7 +1694,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" spp\\."</span>, <span class="st">""</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Now that our species names are consistent, we can try merging again:</p>
-<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">merged_mosquito_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
 <span>  <span class="va">clean_mosquito_abundance_data</span>,</span>
 <span>  <span class="va">clean_mosquito_habitat_data</span>,</span>
@@ -1730,11 +1730,11 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 </ul>
 <p>If we apply our earlier name cleaning techniques, we might standardise most of these species name formats, but <code>"I. ricinus"</code> would remain as is, and R would process this as a different value.</p>
 <p>In situations like this, where not all inconsistencies can be solved with simple text replacement, you will likely need to inspect unique values in your dataset:</p>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">clean_data</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></code></pre></div>
 <p>This allows you to see all the distinct values in the species column, so that you can identify inconsistent formats, such as <code>"I. ricinus"</code>, and decide on a consistent naming format for your data.</p>
 <p>Specific cases might need to be manually recoded:</p>
-<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"i. ricinus"</span>, <span class="st">"ixodes ricinus"</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>As species columns are typically used as a key when merging in VBD research, ensuring species names are consistent across our datasets can allow us to merge multiple datasets more confidently and reliably.</p>
@@ -1755,7 +1755,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <p><strong>(optional) Resolving species names using GBIF</strong></p>
 <p>When using large or messy datasets, an alternative approach you might choose is to match your species names against a recognised taxonomic database.</p>
 <p>The <code>rgbif</code> package can be used to help standardise species names using the Global Biodiversity Information Facility (GBIF). We can use the <code>name_backbone()</code> function to try to match your species name input to a standardised species name in the GBIF backbone taxonomy:</p>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rgbif">rgbif</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">name_backbone</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"ixodes ricinus"</span><span class="op">)</span></span></code></pre></div>
@@ -1806,7 +1806,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <p>The aim of this activity is not to produce perfect code or script, but to apply what you have learnt so far and think critically about data wrangling principles. Reflecting on your decisions is an important part of developing effective data wrangling skills.</p>
 <p>After completing the task in your breakout room, we will join the main room again. Each group will be able to share the changes they made to wrangle their dataset, and why they made these decisions.</p>
 <p><strong>Example 1</strong></p>
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Dataset A</span></span>
 <span><span class="va">data_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aedes aegypti"</span>, <span class="st">"culex pipiens"</span>, <span class="st">"anopheles gambiae"</span><span class="op">)</span>,</span>
@@ -1822,7 +1822,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <span><span class="co"># Merge datasets</span></span>
 <span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">data_a</span>, <span class="va">data_b</span>, by <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Example 2</strong></p>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Dataset</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Aedes aegypti"</span>, <span class="st">"aedes_aegypti"</span>, <span class="st">"Aedes aegypti spp."</span><span class="op">)</span>,</span>
@@ -1834,7 +1834,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"spp."</span>, <span class="st">""</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Example 3</strong></p>
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Dataset A</span></span>
 <span><span class="va">data_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aedes aegypti"</span>, <span class="st">"culex pipiens"</span>, <span class="st">"anopheles gambiae"</span><span class="op">)</span>,</span>
@@ -1850,7 +1850,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <span><span class="co"># Merge datasets</span></span>
 <span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">data_a</span>, <span class="va">data_b</span>, by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Example 4</strong></p>
-<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Dataset A</span></span>
 <span><span class="va">data_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aedes aegypti"</span>, <span class="st">"aedes aegypti"</span>, <span class="st">"culex pipiens"</span><span class="op">)</span>,</span>
@@ -2008,25 +2008,25 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <ul>
 <li>Set all text to lowercase:</li>
 </ul>
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Remove unwanted characters, such as underscores:</li>
 </ul>
-<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Remove additional text, such as “spp.”:</li>
 </ul>
-<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" spp\\."</span>, <span class="st">""</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Remove any extra spaces:</li>
 </ul>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -2133,7 +2133,7 @@ The <a href="https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisations-i
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-04.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
