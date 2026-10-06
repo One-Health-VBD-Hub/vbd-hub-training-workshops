@@ -21,39 +21,18 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
         with:
-          use-public-rspm: false
           r-version: renv
-          
-      # System dependencies are not taken care of (yet) by r-lib/actions/setup-renv
-      # We rely on pak and explicitly install them for the renv.lock packages
-      # We could use pak-based installation for renv, which includes system
-      # requirements, but would have to handle the pak cache explicitly
-      # See https://github.com/r-lib/actions/issues/785
-      - name: Setup pak to install system dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: jsonlite, processx
-          dependencies: NA
-          cache-version: 'sysreqs-1' # ensure keys are not shared with the renv cache
-      - name: Install system dependencies
-        run: |
-          (sysreqs_cmds <- pak::pkg_sysreqs(names(jsonlite::read_json("renv.lock")$Packages), dependencies = FALSE))
-          # inspired by pkgdepends:::sysreqs_install
-          lapply(unlist(sysreqs_cmds[c("pre_install", "install_scripts", "post_install")]), function(cmd) {
-            processx::run("sudo", c("sh", "-c", cmd))
-          })
-        shell: Rscript {0}
 
       - uses: r-lib/actions/setup-renv@v2
 
       - name: Cache bookdown results
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: _bookdown_files
           key: bookdown-${{ hashFiles('**/*Rmd') }}
@@ -65,7 +44,7 @@ jobs:
 
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4.8.0
         with:
           branch: gh-pages
           folder: _book
