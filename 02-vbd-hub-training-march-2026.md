@@ -230,7 +230,7 @@ You should now see a simple abundance plot in the “Plot” window of RStudio, 
 tick_abundance_location
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" />
 
 
 ::: {.rmdtip}
@@ -318,7 +318,7 @@ You should now see a new simple abundance plot in the “Plot” window of RStud
 mosquito_abundance_monthly
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" />
 
 
 Don’t forget to save your plot:
@@ -587,7 +587,7 @@ abundance_plot_across_locations <- ggplot(
 abundance_plot_across_locations
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" />
 
 
 ::: {.rmdtip}
@@ -718,7 +718,7 @@ time_series_plot_goro <- ggplot(mosquito_data_goro, aes(x = sample_start_date, y
 time_series_plot_goro
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-13-1.png" alt="" width="672" />
 
 
 Oh dear, this graphic looks rather messy! Although we have used the correct code and ensured our date column is in the correct format, our visualisation is still difficult to read and interpret. This is because real-world VBD data often includes multiple samples collected on the same data. To create a more effective time-series visualisation, we need to summarise these samples into a single value per time point:
@@ -748,7 +748,7 @@ daily_abundance_plot_goro <- ggplot(daily_abundance_goro, aes(x = sample_start_d
 daily_abundance_plot_goro
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" />
 
 
 This is much better! Our visualisation effectively shows the trend of mosquito abundance over time at our selected location.
@@ -824,7 +824,7 @@ daily_abundance_plot_all <- ggplot(
 daily_abundance_plot_all
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-17-1.png" alt="" width="672" />
 
 
 This is the visualisation we wanted, but it looks a bit messy. All the lines are displayed in the same colour, which makes the plot difficult to read. We can see patterns of abundance change over time, but it is difficult to distinguish between different locations. 
@@ -853,7 +853,7 @@ daily_abundance_plot_all <- ggplot(
 daily_abundance_plot_all
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-18-1.png" alt="" width="672" />
 
 
 By adding colour, each line now represents a different sampling location more clearly, with a key detailing the line colour for each location. This makes it easier to identify patterns across locations. 
@@ -919,7 +919,7 @@ daily_abundance_plot_faceted <- ggplot(
 daily_abundance_plot_faceted
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-19-1.png" alt="" width="672" />
 
 
 By separating each sampling location into its own panel, the patterns in the data become much clearer:
@@ -956,7 +956,7 @@ daily_abundance_plot_faceted_Y <- ggplot(
 daily_abundance_plot_faceted_Y
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" />
 :::
 
 
@@ -992,7 +992,7 @@ Let’s have a go at building on the earlier examples and consider how complex v
 daily_abundance_plot_faceted_Y
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-21-1.png" alt="" width="672" />
 
 
 ::: {.rmdtip}
@@ -1122,7 +1122,7 @@ group1_plot <- ggplot(daily_abundance_all,
 group1_plot
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-22-1.png" alt="" width="672" />
 
 
 **Graph 2**
@@ -1156,7 +1156,7 @@ group2_plot <- ggplot(group2_data_cadeo,
 group2_plot
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-23-1.png" alt="" width="672" />
 
 
 **Graph 3**
@@ -1187,7 +1187,7 @@ group3_plot <- ggplot(daily_abundance,
 group3_plot
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-24-1.png" alt="" width="672" />
 
 
 **Graph 4**
@@ -1225,7 +1225,7 @@ group4_plot
 #> • colour : "Sampling Location"
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-25-1.png" alt="" width="672" />
 
 
 ### Communicating to Different Audiences 
@@ -1294,7 +1294,7 @@ theme_minimal() +
 daily_abundance_plot_goro
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-26-1.png" alt="" width="672" />
 
 
 We can see that applying this theme removes the background shading and uses simple black and grey colours, resulting in a clean and easily readable visualisation. 
@@ -1545,7 +1545,7 @@ abundance_plot_species <- ggplot(abundance_per_species,
 abundance_plot_species
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-29-1.png" alt="" width="672" />
 
 
 In this visualisation, we can see the spread of data across the different species and begin to identify preliminary trends. 
@@ -1588,7 +1588,7 @@ daily_abundance_plot_species <- ggplot(
 daily_abundance_plot_species
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-31-1.png" alt="" width="672" />
 
 
 When plotting multiple groups, in this case species, we have shown that visualisations can quickly become overcrowded, making them difficult to interpret. Although we have used line colour to differentiate between species, it is still tricky to see the trends in our data. 
@@ -1614,7 +1614,7 @@ daily_abundance_plot_species_faceted <- ggplot(
 daily_abundance_plot_species_faceted
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-32-1.png" alt="" width="672" />
 
 
 We can now see the trends in abundance of each species much more clearly, but we can further refine this again by adjusting the y-axis scales for each panel:
@@ -1637,7 +1637,7 @@ daily_abundance_plot_species_faceted_y <- ggplot(
 daily_abundance_plot_species_faceted_y
 ```
 
-<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-33-1.png" width="672" />
+<img src="02-vbd-hub-training-march-2026_files/figure-html/unnamed-chunk-33-1.png" alt="" width="672" />
 
 
 Now that we have a clear and readable visualisation, we can start to identify patterns in our dataset. 
