@@ -2542,7 +2542,176 @@ By comparing the different solutions developed by each group, you can see that t
 
 
 # Effectively Communicating with Different Audiences
-Content coming soon!
+
+## Overview
+Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the people who need it. 
+
+
+In VBD research, those people are not only other researchers. The same surveillance result might need to reach a public health team deciding where to trap next season, and a parent wondering whether it is safe to take their children to the park. Each of them needs something different from the same evidence.
+
+
+In this session, we will consider a single finding through three stages:
+
+- **Make it readable** - designing visualisations that are clear and accessible to everyone.
+- **Make it meaningful** - describing findings in honest and useful ways.
+- **Make it land** - tailoring the same finding for academic, policy, and public audiences.
+
+
+**Learning Objectives**
+
+By the end of this workshop, you should be able to:
+
+- Design clear and accessible visualisations in R.
+- Communicate uncertainty in ways that are honest and still useful.
+- Tailor a VBD finding for academic, policy, and public audiences without changing the underlying science.
+
+
+## Who Is This For?
+In the visualisations workshop, we built a time-series plot showing Culex pipiens abundance across multiple sampling locations. Let's start by looking at it again.
+
+
+Visualisation image coming soon.
+
+
+Ask yourself **who is this visualisation for?**
+
+
+Now consider three people who all need to understand the finding show in this plot:
+
+- **Dr Wren**, an entomologist, who wants to know how the data were collected and how strong the pattern is.
+- **Jay**, a regional public health lead, who has to decide whether to fund more mosquito surveillance next summer.
+- **Robin**, a parent who lives near one of the sampling sites, and wants to know whether their family is at risk.
+
+
+All three need to understand this finding.
+
+
+::: {.rmdtip}
+**Tip:** Before you share any finding, ask yourself two questions. Who is this for? And what do they need to do with it?
+:::
+
+
+## Make It Readable
+Before we think about who we are talking to, our visualisations need to be accessible for everyone. A plot that is cluttered, poorly labelled, or relies on colours some people can't distinguish won’t be clear for any audience, however carefully we tailor the message around it.
+
+
+A useful checklist for readable visualisations is **CLEAR**:
+
+- **C**lean design
+- **L**abels that tell the story
+- **E**xtra visual cues
+- **A**ccessible colours
+- **R**eadable everywhere
+
+
+Let's work through these to understand how to approach each one.
+
+
+### Clean Design
+In `ggplot2`, we can change the non-data elements of a plot using **themes**, include the:
+
+- Background colour
+- Grid lines
+- Text size and font
+- Legend position
+
+
+`ggplot2` has several built-in themes, including:
+
+- `theme_minimal()`
+- `theme_bw()`
+- `theme_classic()`
+
+
+**Themes** are added to a plot like any other layer, using `+`. For example, we can apply `theme_minimal()` to our time-series plot:
+
+
+``` {r, eval=FALSE}
+ggplot(daily_abundance_all_locations,
+       aes(x = sample_start_date, y = total_abundance, colour = sample_location)) +
+  geom_line() +
+  theme_minimal()
+```
+
+
+This removes the grey background and uses simple, light grid lines, so the data stands out more clearly.
+
+
+We can also use the `base_size` argument to increase the size of all text on the plot at once:
+
+
+``` {r, eval=FALSE}
+theme_minimal(base_size = 14)
+```
+
+
+::: {.rmdtip}
+**Tip:** Using the same theme across all your visualisations gives your work a consistent, professional appearance.
+:::
+
+
+### Labels That Tell the Story
+
+
+### Extra Visual Cues
+
+
+### Accessible Colours
+
+
+### Readable Everywhere
+
+
+::: {.rmdnote}
+**Example: Applying the CLEAR Checklist**
+
+Let's apply the checklist to our time-series plot. Here is the original version:
+
+:::
+
+
+::: {.rmdimportant}
+**Task: Accessibility Makeover**
+
+:::
+
+
+## Make it Meaningful
+
+
+## Make it Land
+
+
+### Academic Audiences
+
+
+### Policy Audiences
+
+
+### Public Audiences
+
+
+::: {.rmdnote}
+**Example: Reframing One Finding for Three Audiences**
+
+:::
+
+
+## The Hot Seat
+
+::: {.rmdimportant}
+**Task: The Hot Seat**
+
+In this task, you will practise communicating a VBD finding to Dr Wren, Jay, and Robin.
+
+:::
+
+
+## Who Is This For Now?
+
+
+## Key Takeaways
+
 
 
 
