@@ -10,11 +10,11 @@ Content coming soon!
 
 We are excited to welcome you to the **One Health VBD Hub Training Event** on 11th-13th November at Silwood Park. 
 
-<br>
+
 
 Before the event, we would like you to complete this pre-work. This will help ensure everyone has a foundation understanding of the topics, and will be prepared to fully participate in the workshops. 
 
-<br>
+
 
 The pre-work covers three sections:
 
@@ -22,11 +22,11 @@ The pre-work covers three sections:
 2. Understanding Data Curation Standards
 3. Data Wrangling Principles 
 
-<br>
+
 
 **We ask that you complete these three sections, and ensure R, RStudio, and the relevant packages are installed on your device BEFORE the event.**
 
-<br>
+
 
 The packages you will need for the workshops are:
 
@@ -35,24 +35,24 @@ The packages you will need for the workshops are:
 - `dplyr`
 - `ggplot2`
 
-<br>
 
-We will be using the **VBD Hub Forum** for additional support before and during the training, as well as informal chats and coordination. Please have it set up in advance, and follow [this link](https://forum.vbdhub.org/) to join. If you need help navigating the Forum, please see the video under **2.1.1 The VBD Hub Forum**.
 
-<br>
+We will be using the **VBD Hub Forum** for additional support before and during the training, as well as informal chats and coordination. Please have it set up in advance, and follow [this link](https://forum.vbdhub.org/) to join. If you need help navigating the Forum, please see the video under [**2.1.1 The VBD Hub Forum**](#forumvideo).
+
+
 
 You will need to bring your own laptop to participate in the event. Make sure it is updated, and remember to bring your charger. 
 
-<br>
+
 
 ## Navigating the VBD Hub
 The [VBD Hub website](https://vbdhub.org/) is home to resources to help your research, and spaces for collaboration and networking with the VBD community. The website is straightforward to navigate, but if you haven’t used it before, it can be helpful to understand what information is available and where to find it.
 
-<br>
+
 
 Watch this video tour of the VBD Hub website. Note: as the VBD Hub continues to grow, the website may have updated features in addition to those outlined in this video.
 
-<br>
+
 
 Video coming soon!
 
@@ -101,11 +101,11 @@ In this video we have covered how to navigate the VBD Hub website and where to f
 
 </details>
 
-<br>
+
 
 During the training event, we will discuss some of the Hub tools and how to use them in more detail, including the Hub search and the ohvbd package.
 
-<br>
+
 
 ::: {.rmdimportant}
 **Task: Exploring the Hub**
@@ -115,9 +115,9 @@ Spend a few minutes navigating the VBD Hub website to familiarise yourself with 
 Try to identify at least one feature you might use in your own work. 
 :::
 
-<br>
 
-### VBD Hub Forum
+
+### VBD Hub Forum {#forumvideo}
 The [VBD Hub Forum](https://forum.vbdhub.org/) is a space where users can ask questions, share knowledge and participate in discussions on VBD research and data. This resource provides users with an opportunity to connect with the VBD community.
 
 
@@ -421,7 +421,7 @@ You will now be familiar with some core data wrangling principles, which will pr
 The VBD Hub brings together datasets, tools, and community resources to support vector-borne disease research. In the pre-work, you learnt how to navigate the Hub and where to find its useful resources. This session builds on that by focusing on two tools for searching and retrieving data, Hub Search, the Hub’s web-based search interface, and ohvbd, an R package that allows you to search for and retrieve data directly in R. During this workshop, you will practice using both, learn how to refine your searches, and check what they return, and compare the two tools so you can choose the one that best fits your workflow. 
 
 
-**Learning Objectives**
+### **Learning Objectives**
 
 By the end of this workshop, you should be able to:
 
@@ -849,6 +849,9 @@ Once you have retrieved your dataset, consider:
 
 
 ## Key Takeaways
+
+
+
 - The Hub Search and ohvbd both let you search several VBD databases at once, so you don’t need to search each source individually. 
 - Start with a broad search and then narrow down, checking results for relevance, coverage and structure before downloading. 
 - Searches match across species names, dataset titles and metadata, so results may include data you didn’t expect. Smart search functions with ohvbd let you target a specific column. 
@@ -861,10 +864,11 @@ Once you have retrieved your dataset, consider:
 # Understanding Data Curation and Standards
 
 ## Overview
+
 So far, we have learnt how to search for and retrieve data using VBD Hub resources. In this session, we will look at the other side of that process and consider how datasets are curated and standardised before they reach the Hub. We will discuss publishing decision frameworks to help decide where and how a dataset is shared, how FAIR data principles guide the whole process, and you will have the opportunity to prepare a dataset for VecDyn yourself. Understanding data curation and standards will help to interpret the datasets you retrieve from existing databases, and prepare your own data for sharing. 
 
 
-**Learning Objectives**
+### **Learning Objectives**
 
 By the end of this workshop, you should be able to:
 
@@ -875,6 +879,7 @@ By the end of this workshop, you should be able to:
 
 
 ## Identifying Data Types
+
 In the pre-work, you were introduced to the different types of data the VBD Hub works with, and the standard operating procedures (SOPs) used to curate each type. Identifying the data type is the first step in curation, because it determines where a dataset is stored and how it should be formatted. Let’s start with a quick recap. 
 
 
@@ -894,6 +899,7 @@ For each example, decide which type of data it is:
 
 
 ## Publishing Decision Framework
+
 To ensure datasets are shared in the most appropriate way, the VBD Hub uses a publishing decision framework. 
 
 
@@ -959,6 +965,7 @@ By following these definitions, we are not just organising our dataset, we are a
 
 
 ## FAIR Data Principles
+
 An important concept guiding this entire data sharing process is the use of **FAIR data principles**.
 
 
@@ -989,6 +996,7 @@ Here are some prompts to help you:
 
 
 ## Why Use Curated Data and Standards?
+
 Understanding how data is curated and structured also helps when using tools like the **Hub Search** or the **ohvbd** package. 
 
 
@@ -1015,6 +1023,9 @@ These standards aren’t only useful when using other people’s data. Applying 
 
 
 ## From the Data Curator
+
+
+
 - What are the most common problems you see in datasets submitted to the Hub?
 - What’s one thing researchers could do at the data collection stage that would make curation much easier?
 - What happens to a dataset after it’s submitted?
@@ -1022,6 +1033,7 @@ These standards aren’t only useful when using other people’s data. Applying 
 
 
 ## Citing Curated Datasets
+
 When using datasets from the **VBD Hub**, it is important to consider data provenance and attribution. You should:
 
 - Check the dataset metadata for authorship and source.
@@ -1032,7 +1044,7 @@ When using datasets from the **VBD Hub**, it is important to consider data prove
 
 Proper citation:
 
-- Gives crest to data contributors
+- Gives credit to data contributors
 - Supports reproducibility
 - Ensures transparency in your research
 
@@ -1043,6 +1055,9 @@ Proper citation:
 
 
 ## Key Takeaways
+
+
+
 - Identifying the data type is the first step in curation, because it determines where a dataset is stored and how it is formatted.
 - Standard column definitions, formats and vocabularies allow datasets from different sources to be combined, which is what makes tools like the Hub Search and ohvbd possible. 
 - The FAIR data principles guide curation so that data can be found, accessed, integrated and reused. 
@@ -1056,6 +1071,7 @@ Proper citation:
 # Wrangling VBD Data in R
 
 ## Overview
+
 Data retrieved through the **VBD Hub**, using tools such as the **Hub Search** or the **ohvbd** package, can be raw and may include missing values, inconsistent formats, or unclear variable names. 
 
 
@@ -1065,7 +1081,7 @@ Data retrieved through the **VBD Hub**, using tools such as the **Hub Search** o
 In this session, we will introduce key data wrangling principles, and explore commonly used techniques in VBD research, including merging datasets and standardising species names.
 
 
-**Learning Objectives**
+### **Learning Objectives**
 
 By the end of this workshop, you should be able to:
 
@@ -1076,6 +1092,7 @@ By the end of this workshop, you should be able to:
 
 
 ## Shifting Perspectives: Problems to Decisions 
+
 Real-world VBD data is rarely clean, especially if it has been collected for different purposes or recorded using different reporting standards. You may encounter:
 
 - Missing values
@@ -1109,6 +1126,7 @@ We cannot cover every data wrangling principle within a single training session.
 
 
 ## Merging Datasets
+
 In many research workflows, we use more than one dataset. It is rare for a single dataset to contain all the information needed to answer a research question. 
 
 
@@ -1151,6 +1169,7 @@ A left join keeps all the rows from `dataset_a` and adds matching information fr
 
 
 ### Different Merge Types
+
 There are different types of merges or joins, each of which acts slightly differently:
 
 - A **left join**, `left_join()`, keeps all the rows from the first dataset and adds matching values from the second. This is usually the safest option, as it avoids losing data. 
@@ -1162,6 +1181,7 @@ Choosing which merge to use depends on your research question and how you want t
 
 
 ### Merging with Multiple Keys
+
 Sometimes, a single column is not enough to uniquely identify matches.  For instance, in VBD research the same species might appear in multiple locations. In this case, we can merge using multiple keys.
 
 
@@ -1176,6 +1196,7 @@ Setting multiple key columns ensures more accurate matching, especially when wor
 
 
 ### Frequent Merging Mistakes
+
 Merging is usually straightforward, but it can sometimes produce unexpected results. 
 
 
@@ -1207,11 +1228,10 @@ This will check the number of rows in the original dataset and the new, merged d
 
 
 ## Standardising Species Names
+
 Species names are one of the most common causes of inconsistency when merging datasets. 
 
-
 Even small formatting differences can prevent datasets from merging correctly or lead to inaccuracies in later analyses. 
-
 
 Mismatched species names are usually caused by:
 
@@ -1223,8 +1243,8 @@ Mismatched species names are usually caused by:
 
 Although these all represent the same species, R will recognise each name variation as a different value.
 
-
 ### Setting All Text to Lowercase
+
 A good starting point when standardising species names is **setting all text to lowercase**:
 
 
@@ -1240,6 +1260,7 @@ This ensures consistency in capitalisation across the dataset.
 
 
 ### Removing Unwanted Characters
+
 We can **remove any unwanted characters** from the species names in our datasets, such as underscores:
 
 
@@ -1253,6 +1274,7 @@ We use the `mutate()` function again, this time with `gsub()` to replace the cha
 
 
 ### Removing Additional Text
+
 We can use the same approach to **remove additional text**, such as "spp.":
 
 
@@ -1269,6 +1291,7 @@ Note that in this code syntax there is:
 
 
 ### Removing Extra Spaces
+
 We can **remove any extra spaces** by using `trimws()` within the `mutate()` function:
 
 
@@ -1352,6 +1375,7 @@ head(mosquito_habitat_data)
 
 
 We can see some inconsistencies in our species names:
+
 - Differences in capitalisation
 - Underscores instead of spaces
 - Additional text
@@ -1404,6 +1428,7 @@ We can see that the merge has now worked as expected - the rows match correctly,
 
 
 ### Complex Cases
+
 So far, we have covered how to approach simple inconsistencies. 
 
 
@@ -1469,6 +1494,7 @@ To support the balance between automation and accuracy, we can follow a three st
 
 
 ### Resolving Species Names Using GBIF
+
 When using large or complex datasets, you might choose to match your species names to a recognised taxonomic database. 
 
 
@@ -1489,6 +1515,7 @@ This approach can help to identify spelling or formatting errors and synonymous 
 
 
 ## Collaborative Task
+
 ::: {.rmdimportant}
 **Collaborative Task: Frequent Data Wrangling Mistakes**
 Let’s have a go at applying what we have learnt so far by working together in groups. Each group will be given a short example of data wrangling code, along with a small dataset. The code contains errors or issues, and your job is to identify and fix them together.
@@ -1609,6 +1636,7 @@ Hopefully, this task has reinforced the data wrangling principles we have discus
 
 
 ## Planning a Wrangling Workflow
+
 We have discussed how to reframe data wrangling as a process, rather than a rigid set of steps.
 
 
@@ -1636,6 +1664,9 @@ Approaching data wrangling in this way helps to ensure your work is reproducible
 
 
 ## Key Takeaways
+
+
+
 - Data wrangling is a process of preparing data for a specific research question.
 - VBD datasets often require cleaning and transformation before analysis.
 - Common issues include missing values, inconsistent formats, and duplicates.
@@ -1650,13 +1681,14 @@ Approaching data wrangling in this way helps to ensure your work is reproducible
 # Visualising VBD Data in R
 
 ## Overview
+
 Visualisations are a key part of working with VBD data. They allow us to explore patterns, identify anomalies, and communicate findings clearly across different audiences. 
 
 
 In this workshop, you will use Hub curated datasets to build visualisations in R using `ggplot2`. The session focuses on abundance plots, a common and important tool in vector surveillance. We will start with simple summaries across locations, then build up to time-series plots comparing multiple locations, using colour and faceting to improve clarity. We will then discuss how visualisations can be used to generate testable hypotheses. 
 
 
-**Learning Objectives**
+### **Learning Objectives**
 
 By the end of this workshop, you should be able to:
 
@@ -1685,6 +1717,7 @@ Given how much information we can extract from them, visualisations are often th
 
 
 ## Abundance Plots
+
 Different types of data need different types of visualisations. Choosing the appropriate plot to best represent your data is important to communicate your data and the proposed patterns clearly and accurately. 
 
 
@@ -1715,6 +1748,7 @@ In this session, we will use the `ggplot2` package to create abundance plots. `g
 
 
 ### Abundance Across Locations
+
 Vector populations often vary between locations. Differences in habitat, climate, host availability, and land use can all influence vector abundance. As a result, combining data from multiple sampling sites into a single trend may obscure important spatial patterns. 
 
 Let’s start by opening [mosquito_subset_wrangled.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/mosquito_subset_wrangled.csv) in RStudio and loading the required packages:
@@ -1859,6 +1893,7 @@ ggsave("abundance_across_locations.pdf", plot = abundance_plot_across_locations)
 
 
 ### Abundance Over Time: Time-Series 
+
 A **time-series** plot shows observations across a continuous timeline, allowing us to see how abundance changes over time. These visualisations can help us identify:
 
 - Seasonal trends in abundance.
@@ -1870,6 +1905,7 @@ Understanding these patterns is particularly important in VBD research because v
 
 
 #### Processing Dates
+
 When working with **time-series** data, it is useful to understand how R stores and processes dates. In a dataset, dates are typically stored as characters (plain text format). Although an entry like `"2023-06-15"` might look like a date to us, R does not automatically recognise this as a date and will treat it as a character string. 
 
 When we generate a plot, `ggplot2` will respond to how a variable is stored. For example, variables in character format will be plotted as categorical, whereas variables in date format will be plotted along a continuous time axis. 
@@ -1886,6 +1922,7 @@ We are now going to visualise abundance as a true time-series by using the sampl
 
 
 #### Plotting Abundance Over Time
+
 Later in this session, we will consider abundance over multiple locations, but for now, let’s filter the data to visualise abundance over time at a single location - `Goro`:
 
 
@@ -2011,6 +2048,7 @@ In this plot:
 
 
 ### Abundance Across Multiple Locations Over Time
+
 In the previous examples, we have visualised abundance at multiple sampling locations, and abundance changes over time for a single location, but what if we combine these to look at abundance across multiple locations over time?
 
 
@@ -2067,6 +2105,7 @@ What we are seeing here is that more **complex** visualisations are not always *
 
 
 ### Distinguishing Locations by Colour
+
 One option to improve our visualisation and to help distinguish between locations is to assign a different colour to each sampling location. To do this, we map `sample_location` to the `colour` aesthetic within `aes()`, rather than assigning the line colour within `geom_line()`. This allows `ggplot` to automatically assign different colours to each category in the variable, in this case, each sample location. 
 
 
@@ -2109,6 +2148,7 @@ Additionally, using colour alone can cause difficulties with accessibility to al
 
 
 ### Using Faceting to Improve Clarity
+
 One useful solution to this overcrowding is **faceting**, a feature in `ggplot2` that splits a single plot into multiple smaller panels.
 
 
@@ -2151,6 +2191,7 @@ daily_abundance_plot_faceted
 
 
 #### Adjusting y-axis Scales 
+
 In our current visualisation, all panels share the same y-axis scale, which is good for comparisons. However, this scale also means extreme peaks are visually dominant, and locations with smaller peaks look flat in comparison.
 
 
@@ -2193,6 +2234,7 @@ Overall, **faceting improves clarity** by reducing visual clutter and allowing d
 
 
 ### Applying These Principles to Multiple Species and Datasets
+
 Various vector species can exhibit very different ecological behaviours. For instance:
 
 - Some species may emerge earlier in the season.
@@ -2210,6 +2252,7 @@ This is an important advantage of using flexible tools such as R and `ggplot2`. 
 
 
 ## Formulating Hypotheses From Visualisations
+
 Throughout this workshop, we have seen how visualisations can help us to identify patterns and extract information from our dataset. 
 
 
@@ -2294,6 +2337,7 @@ In each case, we are moving from identifying a pattern in the visualisation to s
 
 
 ### Considering Alternative Explanations
+
 However, before we move forward with a hypothesis, it is important to consider alternative explanations for the same patterns. 
 
 
@@ -2311,6 +2355,7 @@ By considering alternative explanations, we can avoid drawing incorrect conclusi
 
 
 ### Visualisations Do Not Confirm Causation
+
 While visualisations are useful for identifying patterns, it is important to remember that they do not confirm causal relationships. 
 
 
@@ -2329,6 +2374,7 @@ In practice, the process of formulating hypotheses often involves:
 
 
 ## What Makes a Good Visualisation?
+
 So far in this workshop, we have focused on how to create visualisations and use them to explore VBD data. However, as we have seen, not all visualisations communicate information clearly or effectively. 
 
 
@@ -2361,6 +2407,7 @@ These kinds of issues can make it harder to understand the patterns in the data,
 
 
 ## Collaborative Task: Improving a Flawed Visualisation 
+
 ::: {.rmdimportant}
 A useful way to understand what makes a visualisation effective is to fix one that is flawed. In groups, you will be given the code for a visualisation, each contains a different common problem. 
 
@@ -2514,6 +2561,7 @@ group4_plot
 
 
 ### Sharing Collaborative Graphics 
+
 We will now share each improved visualisation. The aim of this discussion is not only to present the final plots but also to understand the reasoning behind the changes that each group made.
 
 
@@ -2531,6 +2579,7 @@ By comparing the different solutions developed by each group, you can see that t
 
 
 ## Key Takeaways
+
 - Visualisations are often the first step in exploratory data analysis, revealing patterns, trends and anomalies that can be difficult to see in a dataframe. 
 - Select the plot type that best suits your data, for example, bar plots for comparing groups and line plots for trends over time.
 - Prepare your data before plotting. Converting dates to date format and summarising one value per tie point makes plots accurate and readable. 
@@ -2557,7 +2606,7 @@ In this session, we will consider a single finding through three stages:
 - **Make it land** - tailoring the same finding for academic, policy, and public audiences.
 
 
-**Learning Objectives**
+### **Learning Objectives**
 
 By the end of this workshop, you should be able to:
 
@@ -2567,6 +2616,7 @@ By the end of this workshop, you should be able to:
 
 
 ## Who Is This For?
+
 In the visualisations workshop, we built a time-series plot showing Culex pipiens abundance across multiple sampling locations. Let's start by looking at it again.
 
 
@@ -2592,6 +2642,7 @@ All three need to understand this finding.
 
 
 ## Make It Readable
+
 Before we think about who we are talking to, our visualisations need to be accessible for everyone. A plot that is cluttered, poorly labelled, or relies on colours some people can't distinguish won’t be clear for any audience, however carefully we tailor the message around it.
 
 
@@ -2608,6 +2659,7 @@ Let's work through these to understand how to approach each one.
 
 
 ### Clean Design
+
 In `ggplot2`, we can change the non-data elements of a plot using **themes**, include the:
 
 - Background colour
@@ -2711,6 +2763,7 @@ In this task, you will practise communicating a VBD finding to Dr Wren, Jay, and
 
 
 ## Key Takeaways
+
 
 
 
