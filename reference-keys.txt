@@ -1,11 +1,12 @@
 introduction
 pre-work
 navigating-the-vbd-hub
-vbd-hub-forum
+forumvideo
 understanding-data-curation-and-standards
 data-wrangling-principles
 hub-tools-what-they-are-and-how-to-use-them
 overview
+learning-objectives
 searching-and-retrieving-data-with-hub-search
 searching-and-retrieving-data-with-the-ohvbd-r-package
 building-a-search-pipeline-with-ohvbd
@@ -16,6 +17,7 @@ hub-search-vs.-ohvbd
 key-takeaways
 understanding-data-curation-and-standards-1
 overview-1
+learning-objectives-1
 identifying-data-types
 publishing-decision-framework
 fair-data-principles
@@ -25,6 +27,7 @@ citing-curated-datasets
 key-takeaways-1
 wrangling-vbd-data-in-r
 overview-2
+learning-objectives-2
 shifting-perspectives-problems-to-decisions
 merging-datasets
 different-merge-types
@@ -42,6 +45,7 @@ planning-a-wrangling-workflow
 key-takeaways-2
 visualising-vbd-data-in-r
 overview-3
+learning-objectives-3
 what-can-visualisations-tell-us-about-data
 abundance-plots
 abundance-across-locations
@@ -62,6 +66,7 @@ sharing-collaborative-graphics
 key-takeaways-3
 effectively-communicating-with-different-audiences
 overview-4
+learning-objectives-4
 who-is-this-for
 make-it-readable
 clean-design
@@ -84,7 +89,7 @@ reading-resources
 introduction-to-march-2026-training
 workshop-1-data-visualisations-in-r
 introduction-1
-learning-objectives
+learning-objectives-5
 prerequisites
 training-plan
 navigating-course-content
@@ -126,7 +131,7 @@ level-5
 example-solutions
 workshop-2-data-wrangling-with-hub-search-ohvbd
 introduction-4
-learning-objectives-1
+learning-objectives-6
 prerequisites-1
 training-plan-1
 navigating-course-content-1

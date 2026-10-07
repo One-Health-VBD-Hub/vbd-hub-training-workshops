@@ -19,7 +19,7 @@ The live workshops took place in March 2026, and these resources are available f
 ## Introduction
 
 
-### Learning objectives
+### **Learning objectives**
 
 **By the end of this workshop, you should be able to:**
 
@@ -66,6 +66,7 @@ The [VBD Hub Forum](https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisa
 
 
 ### Navigating Course Content
+
 Many of the tasks in this workshop will be in a workbook-style format and will walk you through how to code specific functions and models. We encourage you to type this code yourself to practice syntax and gain the most out of the content provided, rather than copying and pasting.
 
 
@@ -76,6 +77,7 @@ All coding through this workshop will be done in Rstudio, a user friendly IDE (i
 
 
 ### Available Materials & Support
+
 If you need a quick reminder of basic coding in R, additional materials and cheat sheets can be found here:
 
 - [Biological Computing in R](https://vbdhub.org/MQB/notebooks/r.html)
@@ -128,6 +130,7 @@ install.packages(c("ggplot2", "dplyr", "tidyr"))
 
 
 ### Commonly Used Visualisations for VBD Data
+
 Different types of data need different types of visualisations.
 
 
@@ -154,6 +157,7 @@ Throughout this training, we will focus on developing effective abundance plots 
 
 
 ### What can Visualisations Tell Us About Data?
+
 Effective visualisations can help us to communicate complex datasets by quickly identifying distributions and patterns in the data that can be unclear from dataframes alone. 
 
 
@@ -171,6 +175,7 @@ Given how much information we can extract from them, visualisations are often th
 
 
 ### Task 1: Visualising Tick Abundance Across Locations
+
 Let’s try visualising some VBD data. First, download [tick_dataset_wrangled.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/tick_dataset_wrangled.csv) and open it in RStudio:
 
 
@@ -278,6 +283,7 @@ From the visualisation, we can see:
 
 
 ### Task 2: Visualising Mosquito Abundance Over Time 
+
 Let’s try another visualisation, this time plotting vector abundance over time. Visualising data across time can help us identify temporal trends, seasonal patterns, and periods of unusually high or low abundance.
 
 
@@ -342,6 +348,7 @@ Now it’s your turn to have a go at identifying patterns and information about 
 
 
 ### Formulating Hypotheses From Visualisations
+
 Now that we know what patterns can be drawn from data visualisations, we can begin to develop hypotheses on the mechanisms and processes that might explain these patterns. 
 
 
@@ -365,6 +372,7 @@ From these examples, we can understand how visualisations can help to generate d
 
 
 ### Task 3: Formulating Hypotheses from Data Visualisations
+
 Have another look at the visualisations you generated in **Tasks 1** and **2**, and consider the patterns we observed in the data.
 
 
@@ -378,6 +386,7 @@ Please record your answers in the **Response Form** at the end of the **Pre- Liv
 
 
 ### Response Form 
+
 Please complete this [Response Form](https://docs.google.com/forms/d/e/1FAIpQLScGu77Qc6dqKAdB7BsbdSOn-h407HI9_f7OWELcVfZLysxrJA/viewform?usp=publish-editor) after finishing the tasks above.
 
 
@@ -385,6 +394,7 @@ This form is anonymous and is **not** an assessment. Your responses will help us
 
 
 ### Conclusion & Preparation for Live Session
+
 Ahead of the live session, ensure you keep R and RStudio installed on your device, as well as the packages we prepared earlier. 
 
 
@@ -411,6 +421,7 @@ Please make sure you have Teams set up on your device and that your microphone i
 
 
 ### Introduction 
+
 Welcome to the **One Health Vector-Borne Diseases Hub Online Training**. 
 
 
@@ -437,6 +448,7 @@ We have breaks scheduled into this session, but if you need to step away for a f
 
 
 ### Recap Pre- Live Session Content 
+
 In the **Pre- Live Session** content, we covered:
 
 - Commonly used visualisations in VBD research, notably abundance plots.
@@ -452,6 +464,7 @@ During the tasks, we tried identifying patterns and details out the datasets and
 
 
 ### Building on Abundance Plots 
+
 In the **Pre- Live Session** content, we covered simple abundance plots and considered how these visualisations can be used to help identify potential patterns in exploratory analysis of vector surveillance data. 
 
 
@@ -469,6 +482,7 @@ In this session, we will build on the basic abundance plots introduced in the **
 
 
 ### Abundance Across Sampling Locations
+
 Vector populations often vary between locations. Differences in habitat, climate, host availability, and land use can all influence vector abundance. As a result, combining data from multiple sampling sites into a single trend may obscure important spatial patterns. 
 
 
@@ -610,7 +624,6 @@ Visualisations such as this can help researchers identify potential hotspots of 
 
 
 ### Abundance Over Time: Time-Series
-
 
 A **time-series** plot shows observations across a continuous timeline, allowing us to see how abundance changes over time. These visualisations can help us identify:
 
@@ -779,6 +792,7 @@ ggsave("daily_abundance_all.pdf", plot = daily_abundance_plot_all)
 
 
 ### Abundance Across Multiple Locations Over Time
+
 In the previous examples, we have visualised abundance at multiple sampling locations, and abundance changes over time for a single location, but what if we combine these to look at abundance across multiple locations over time?
 
 
@@ -883,6 +897,7 @@ Additionally, using colour alone can cause difficulties with accessibility to al
 
 
 ### Using Faceting to Improve Clarity
+
 One useful solution to this overcrowding is faceting, a feature in `ggplot2` that splits a single plot into multiple smaller panels.
 
 
@@ -961,6 +976,7 @@ daily_abundance_plot_faceted_Y
 
 
 ### Applying These Principles to Multiple Species and Datasets
+
 Various vector species can exhibit very different ecological behaviours. For instance:
 
 - Some species may emerge earlier in the season.
@@ -978,6 +994,7 @@ This is an important advantage of using flexible tools such as R and `ggplot2`. 
 
 
 ### Drawing Hypotheses from Complex Visualisations 
+
 In the **Pre- Live Session content**, we looked at how simple visualisations can help us identify patterns in data and develop initial hypotheses.
 
 
@@ -1020,6 +1037,7 @@ By working through this process, researchers can move from simple visual observa
 
 
 ### What Makes a Good Visualisation? 
+
 So far in this workshop, we have focused on how to create visualisations that explore patterns in vector surveillance data. However, as we have seen, not all visualisations communicate information clearly or effectively. 
 
 
@@ -1052,6 +1070,7 @@ These issues can make it difficult for viewers to understand the patterns being 
 
 
 ### Collaborative Task: Improving a Flawed Visualisation 
+
 To explore these concepts in practice, we will now work collaboratively to improve a series of intentionally flawed visualisations.
 
 
@@ -1229,6 +1248,7 @@ group4_plot
 
 
 ### Communicating to Different Audiences 
+
 We can use visualisations to communicate patterns in our data to a variety of audiences. However, our visualisation and the language we use to discuss it need to be appropriately adjusted.
 
 
@@ -1382,6 +1402,7 @@ Designing accessible visualisations improves inclusivity and results in **cleare
 
 
 ### Preparing for the Challenge Task 
+
 The final session of this training will provide an opportunity for you to independently apply the skills and concepts discussed throughout the **Pre-** and **Live Session** content, including:
 
 - Selecting appropriate plot types.
@@ -1397,6 +1418,7 @@ We encourage you to have a go at the task on your own, but a walkthrough version
 
 
 ### Conclusion
+
 Throughout this workshop, we have explored how visualisations can be used to better understand and communicate VBD data. 
 
 
@@ -1409,6 +1431,7 @@ Effective visualisation is a valuable skill for researchers working with complex
 
 
 ### Introduction
+
 This **Challenge Task** provides an opportunity for you to independently apply the skills and concepts discussed throughout this online training, including:
 
 - Selecting appropriate plot types.
@@ -1426,6 +1449,7 @@ After approximately 2 hours, a workbook version of this challenge will be made a
 
 
 ### Level 1
+
 Open [challenge_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/challenge_data.csv) in RStudio.
 
 
@@ -1436,6 +1460,7 @@ Visualise abundance across the different species.
 
 
 ### Level 2
+
 Visualise abundance across the different species over time.
 
 
@@ -1443,14 +1468,17 @@ Identify any patterns in your data.
 
 
 ### Level 3
+
 Formulate some hypotheses from your data.
 
 
 ### Level 4
+
 Identify any visual or accessibility limitations across your visualisations and make appropiate edits.
 
 
 ### Level 5
+
 Consider how you would present your graphs as if you were presenting to:
 
 - i) Academics
@@ -1462,6 +1490,7 @@ You may choose to write a draft script, present out loud to a colleague, or disc
 
 
 ### Example Solutions
+
 As we have discussed, there are often several approaches to visualising data, and therefore no single correct answer. Below are some example solutions to the Challenge Task, but the main aim of this section is to encourage applied thinking so you can further develop the skills from with training to use in your own research.
 
 
@@ -1737,6 +1766,7 @@ The [VBD Hub Forum](https://forum.vbdhub.org/t/challenge-task-q-a-data-visualisa
 
 
 ### Navigating Course Content
+
 Many of the tasks in this workshop will be in a workbook-style format and will walk you through how to code specific functions and models. We encourage you to type this code yourself to practice syntax and gain the most out of the content provided, rather than copying and pasting.
 
 
@@ -1744,6 +1774,7 @@ All coding through this workshop will be done in Rstudio, a user friendly IDE (i
 
 
 ### Available Materials & Support
+
 If you need a quick reminder of basic coding in R, additional materials and cheat sheets can be found here:
 
 - [Biological Computing in R](https://vbdhub.org/MQB/notebooks/r.html)
@@ -1762,6 +1793,7 @@ If you need additional support through this workshop:
 
 
 ### Installing Packages
+
 This workshop will use several R packages throughout, please install these ahead of the **Live Session**.
 
 
@@ -1791,6 +1823,7 @@ install.packages(c("ggplot2", "dplyr", "tidyr"))
 
 
 ### VBD Hub Overview
+
 The **VBD Hub** is a non-profit, open-source project funded by UKRI and Defra, which aims to improve accessibility and information sharing. To do this, the project builds infrastructure and tools to allow researchers to combine knowledge and share data within the VBD research community and with policymakers.  
 
 
@@ -1801,6 +1834,7 @@ In this session, we will cover some of the key resources available through the *
 
 
 ### Navigating VBD Hub
+
 The [VBD Hub website](https://vbdhub.org/) is straightforward to navigate, but if you haven’t used it before it can be useful to know what information you can find and where.
 
 
@@ -2589,6 +2623,7 @@ You might want to reply to each others' posts to network with your fellow partic
 
 
 ### Data Wrangling Principles
+
 Data wrangling is the process of cleaning, transforming, and organising raw data into a format that is suitable for your analysis. 
 
 
@@ -3144,6 +3179,7 @@ clean_aedes_data <- clean_aedes_data |>
 
 
 ### Response Form 
+
 Please complete this [Response Form](https://docs.google.com/forms/d/e/1FAIpQLSdshvuPxVUR1-87qeZgfGI0fIigrJthmS4S1IzHen3DjggiLQ/viewform?usp=publish-editor) after finishing the tasks above.
 
 
@@ -3151,6 +3187,7 @@ This form is anonymous and is not an assessment. Your responses will help us to 
 
 
 ### Conclusion & Preparation for Live Session
+
 Ahead of the live session, ensure you keep R and RStudio installed on your device, as well as the packages we prepared earlier. 
 
 
@@ -3180,6 +3217,7 @@ Please make sure you have Teams set up on your device and that your microphone i
 
 
 ### Introduction 
+
 Welcome to the **One Health Vector-Borne Diseases Hub Online Training**. 
 
 
@@ -3206,6 +3244,7 @@ We have breaks scheduled into this session, but if you need to step away for a f
 
 
 ### Recap Pre- Live Session Content 
+
 In the **Pre- Live Session** content, we covered:
 
 - Navigating the **VBD Hub** website and where to find key resources.
@@ -3241,6 +3280,7 @@ This approach is typically significantly faster as it avoids retrieving unnecess
 
 
 ### Real World Data is Messy 
+
 Real-world VBD data is rarely clean, especially if it has been collected for different purposes or recorded using different reporting standards. 
 
 
@@ -3271,6 +3311,7 @@ When we stop asking **"what is wrong with this dataset?"** and start thinking **
 
 
 ### Data Wrangling Principles
+
 Data wrangling is a broad topic, and there is no single "correct" way to wrangle data. The methods you choose to wrangle your data will depend on your research question, the type of data you are working with, and how it is formatted.
 
 
@@ -3290,11 +3331,12 @@ There are numerous ways to wrangle your data, including filtering rows, converti
 
 We cannot cover every data wrangling principle within a single training session. Today, we will focus on two methods commonly applied to VBD data:
 
-- 1. Merging data.
-- 2. Cleaning species names.
+1. Merging data.
+2. Cleaning species names.
 
 
 ### Merging Datasets
+
 Often, research workflows incorporate more than one dataset as it is rare for a single dataset to contain all the information you need to answer your research question. For instance, you might have one dataset on species abundance data and another on environmental variables. If you want to analyse how the environment influences species abundance, you will likely want to combine these into a single dataset.
 
 
@@ -3358,6 +3400,7 @@ This will check the number of rows in the original dataset and the new, merged d
 
 
 ### Cleaing Species Names 
+
 Species names are one of the most common causes of inconsistency when merging datasets from multiple sources. 
 
 
@@ -3657,6 +3700,7 @@ Approaching data wrangling in this way helps to ensure your work is reproducible
 
 
 ### Collaborative Task 
+
 Let’s have a go at applying what we have learnt so far by working together in breakout rooms. Each group will be given a short example of data wrangling code, along with a small dataset. The code contains errors or issues for you to work collaboratively to identify and fix. 
 
 
@@ -3761,6 +3805,7 @@ merged_data <- left_join(data_a, data_b, by = "species", "location")
 
 
 ### Share Results from Collaborative Task 
+
 We will now share how each group wrangled their data. Remember, the aim of this discussion is to understand the reasoning behind the changes that each group made. 
 
 
@@ -3779,6 +3824,7 @@ By comparing workflows used by each group, we can see that there are multiple wa
 
 
 ### What Does Collaboration Mean to You? 
+
 So far in this session, we have focused on applied data wrangling skills in the context of VBD datasets. These skills are important when we retrieve data from **VBD Hub** resources such as **Hub Search** and **ohvbd**. 
 
 
@@ -3819,6 +3865,7 @@ Combining the ability to use resources such as **Hub Search** and **ohvbd**, app
 
 
 ### Preparing for the Challenge Task 
+
 The final session of this training will provide an opportunity for you to independently apply the skills and concepts discussed throughout the **Pre-** and **Live Session** content, including:
 
 - Navigating the **VBD Hub** website and where to find key resources.
@@ -3838,6 +3885,7 @@ We encourage you to have a go at the task on your own, but a walkthrough version
 
 
 ### Conclusion
+
 Throughout this workshop, we have explored how to search, retrieve, and wrangle VBD data so that we have a better understanding of the datasets we are working with, ready for effective further analysis. 
 
 
@@ -3851,6 +3899,7 @@ Effective data wrangling and collaboration are valuable skills for researchers w
 
 
 ### Introduction
+
 This Challenge Task provides an opportunity for you to independently apply the skills and concepts discussed throughout this online training, including:
 
 - Navigating the **VBD Hub** website and where to find key resources.
@@ -3870,6 +3919,7 @@ After approximately 2 hours, a workbook version of this challenge will be made a
 
 
 ### Level 1 - Retrieve a dataset
+
 Use the **ohvbd package** to find and retrieve a VBD dataset of your choice. Feel free to choose a dataset that aligns with your own interest, but try to choose one that includes species data, location data, and environmental or trait variables. 
 
 
@@ -3904,6 +3954,7 @@ View your dataset:
 
 
 ### Level 2 - Wrangle your data
+
 Apply at least two data wrangling techniques to improve the usability of your dataset. Consider why you chose those changes for your specific dataset.
 
 
@@ -3913,6 +3964,7 @@ Apply at least two data wrangling techniques to improve the usability of your da
 
 
 ### Level 3 - Cleaning species names
+
 Identify the species column of your dataset and check if the species names are formatted consistently. Apply name cleaning techniques where appropriate.
 
 
@@ -3943,6 +3995,7 @@ clean_data <- clean_data |>
 
 
 ### Level 4 - Merging datasets
+
 For this level, you have a choice of two options (we recommend trying **Level 4a** to make the most of this training session):
 
 
@@ -3963,6 +4016,7 @@ For this level, you have a choice of two options (we recommend trying **Level 4a
 
 
 ### Level 5 - Share and collaborate
+
 Share a short summary of your wrangling process on the **VBD Hub Forum**, including:
 
 - The dataset you chose.

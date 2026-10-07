@@ -85,7 +85,10 @@
 <p>Data retrieved through the <strong>VBD Hub</strong>, using tools such as the <strong>Hub Search</strong> or the <strong>ohvbd</strong> package, can be raw and may include missing values, inconsistent formats, or unclear variable names.</p>
 <p><strong>Data wrangling is the process of cleaning, transforming, and organising this data into a format that is suitable for analysis.</strong></p>
 <p>In this session, we will introduce key data wrangling principles, and explore commonly used techniques in VBD research, including merging datasets and standardising species names.</p>
-<p><strong>Learning Objectives</strong></p>
+<div id="learning-objectives-2" class="section level3" number="5.1.1">
+<h3>
+<span class="header-section-number">5.1.1</span> <strong>Learning Objectives</strong><a class="anchor" aria-label="anchor" href="#learning-objectives-2"><i class="fas fa-link"></i></a>
+</h3>
 <p>By the end of this workshop, you should be able to:</p>
 <ol style="list-style-type: decimal">
 <li>Clean and transform VBD Hub datasets ready for analysis.</li>
@@ -93,6 +96,7 @@
 <li>Reshape and merge datasets using standardised structures and identifiers.</li>
 <li>Standardise species names using recognised taxonomic conventions.</li>
 </ol>
+</div>
 </div>
 <div id="shifting-perspectives-problems-to-decisions" class="section level2" number="5.2">
 <h2>
@@ -326,10 +330,12 @@
 <span><span class="co">#&gt; 2 culex pipiens    Site1 wetland</span></span>
 <span><span class="co">#&gt; 3 aedes aegypti    Site2   urban</span></span>
 <span><span class="co">#&gt; 4 culex pipiens    Site2 wetland</span></span></code></pre></div>
-<p>We can see some inconsistencies in our species names:
-- Differences in capitalisation
-- Underscores instead of spaces
-- Additional text</p>
+<p>We can see some inconsistencies in our species names:</p>
+<ul>
+<li>Differences in capitalisation</li>
+<li>Underscores instead of spaces</li>
+<li>Additional text</li>
+</ul>
 <p>Although the locations match, both the <code>location</code> and <code>species</code> need to match exactly for the merge to work.</p>
 <p>Now that we have identified the issues, let’s clean the species names in both datasets:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -550,7 +556,9 @@ Let’s have a go at applying what we have learnt so far by working together in 
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#wrangling-vbd-data-in-r"><span class="header-section-number">5</span> Wrangling VBD Data in R</a></li>
-<li><a class="nav-link" href="#overview-2"><span class="header-section-number">5.1</span> Overview</a></li>
+<li>
+<a class="nav-link" href="#overview-2"><span class="header-section-number">5.1</span> Overview</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#learning-objectives-2"><span class="header-section-number">5.1.1</span> Learning Objectives</a></li></ul>
+</li>
 <li><a class="nav-link" href="#shifting-perspectives-problems-to-decisions"><span class="header-section-number">5.2</span> Shifting Perspectives: Problems to Decisions</a></li>
 <li>
 <a class="nav-link" href="#merging-datasets"><span class="header-section-number">5.3</span> Merging Datasets</a><ul class="nav navbar-nav">
@@ -589,7 +597,7 @@ Let’s have a go at applying what we have learnt so far by working together in 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-06.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
