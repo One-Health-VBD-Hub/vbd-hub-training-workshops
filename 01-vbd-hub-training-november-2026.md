@@ -37,7 +37,7 @@ The packages you will need for the workshops are:
 
 
 
-We will be using the **VBD Hub Forum** for additional support before and during the training, as well as informal chats and coordination. Please have it set up in advance, and follow [this link](https://forum.vbdhub.org/) to join. If you need help navigating the Forum, please see the video under [**2.1.1 The VBD Hub Forum**](#forumvideo).
+We will be using the **VBD Hub Forum** for additional support before and during the training, as well as informal chats and coordination. Please have it set up in advance, and follow [this link](https://forum.vbdhub.org/t/november-training-silwood-park/253) to join. If you need help navigating the Forum, please see the video under [**2.1.1 The VBD Hub Forum**](#forumvideo).
 
 
 
@@ -122,6 +122,36 @@ The [VBD Hub Forum](https://forum.vbdhub.org/) is a space where users can ask qu
 
 
 Watch this video which walks you through how to use the VBD Hub Forum:
+
+
+Video coming soon!
+
+
+<details>
+<summary>Video transcript</summary>
+
+Transcript coming soon!
+
+<details>
+
+
+By contributing to discussions on the Forum, you are not only receiving support from the VBD community, but also helping to support others and to develop a collaborative network. 
+
+
+::: {.rmdimportant}
+**Task: Register with the Hub Forum**
+
+If you have not already done so, register an account with the VBD Hub Forum and follow [this link](https://forum.vbdhub.org/t/november-training-silwood-park/253) to join the thread for this training event. 
+
+Once you have registered and joined the thread, introduce yourself or start a discussion.
+:::
+
+
+## Understanding Data Curation and Standards
+Throughout the Training Event, we will be using Hub curated datasets to practice the skills learnt. Although users cannot upload data directly through the VBD Hub at this time, understanding this process is helpful for interpreting the datasets you retrieve using tools such as the Hub Search and the ohvbd package.
+
+
+Watch this short video outlining standard operating procedures when curating VBD data.
 
 
 Video coming soon!
@@ -252,31 +282,6 @@ These details are essential for linking environmental data with biological or ep
 In this video, we have explored how data is shared, curated, and structured within the VBD Hub. Understanding these concepts provides important context for working with VBD data and helps you make better use of the resources available through the VBD Hub.
 
 </details>
-
-
-By contributing to discussions on the Forum, you are not only receiving support from the VBD community, but also helping to support others and to develop a collaborative network. 
-
-
-::: {.rmdimportant}
-**Task: Register with the Hub Forum**
-
-If you have not already done so, register an account with the VBD Hub Forum and follow [this link](https://forum.vbdhub.org/) to join the thread for this training event. 
-
-Once you have registered and joined the thread, introduce yourself or start a discussion.
-:::
-
-
-## Understanding Data Curation and Standards
-Throughout the Training Event, we will be using Hub curated datasets to practice the skills learnt. Although users cannot upload data directly through the VBD Hub at this time, understanding this process is helpful for interpreting the datasets you retrieve using tools such as the Hub Search and the ohvbd package.
-
-
-Watch this short video outlining standard operating procedures when curating VBD data.
-
-
-Video coming soon!
-
-
-**Transcript:** Transcript coming soon!
 
 
 ## Data Wrangling Principles
