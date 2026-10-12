@@ -1,4 +1,5 @@
 introduction
+schedule
 pre-work
 navigating-the-vbd-hub
 forumvideo
@@ -145,7 +146,7 @@ data-wrangling-principles-1
 response-form-1
 conclusion-preparation-for-live-session-1
 live-session-1
-schedule
+schedule-1
 introduction-5
 recap-pre--live-session-content-1
 real-world-data-is-messy

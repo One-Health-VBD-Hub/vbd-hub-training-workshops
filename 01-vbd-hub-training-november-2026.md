@@ -4,6 +4,70 @@
 Content coming soon!
 
 
+## Schedule
+**Wednesday 11th November 2026**
+
+10:00 - Welcome and Introduction
+
+10:30 - Hub Tools: What they are and how to use them
+
+11:30 - Coffee Break
+
+11:45 - Understanding Data Curation and Standards
+
+12:45 - Lunch
+
+13:45 - Wrangling VBD Data in R
+
+14:45 - Coffee Break
+
+15:00 - Visualising VBD Data in R
+
+16:00 - Coffee Break
+
+16:15 - Effectively Communicating with Different Audiences 
+
+17:15 - Training Day Ends
+
+18:00 - Dinner
+
+
+**Thursday 12th November 2026**
+
+10:00 - Welcome and Introduction
+
+10:30 - Temporal and Spatial Data in VBD Research
+
+11:30 - Coffee Break
+
+11:45 - Using Thermal Performance Curves in VBD Research
+
+12:45 - Lunch
+
+13:45 - Challenge Task
+
+15:15 - Coffee Break
+
+15:30 - Challenge Task (cont.)
+
+17:00 - Training Day Ends
+
+17:30 - Pub-Style Talk and Dinner
+
+
+**Friday 13th November 2026 (half-day)**
+
+10:00 - Welcome and Introduction
+
+10:30 - Presentations
+
+11:30 - Coffee Break
+
+11:45 - Presentations (cont.)
+
+12:45 - Concluding Talk
+
+13:00 - Training Event Ends
 
 
 # Pre-Work
@@ -130,7 +194,23 @@ Video coming soon!
 <details>
 <summary>Video transcript</summary>
 
-Transcript coming soon!
+In the Navigating the VBD Hub video, we saw that the VBD Hub Forum can be accessed under the community tab on the Hub website. The VBD Hub Forum is a space where users can ask questions, share knowledge and participate in discussions on VBD research and data. This resource provides users with an opportunity to connect with the VBD community.
+
+
+When you access the Forum, you will see that discussions are organised into categories and tags. For example, Training, General, Events, Jobs, and Infrastructure. Grouping similar discussion threads in this way makes it easier to navigate the Forum and find areas relevant to your interests. You can use the side bar, or the drop down menus to access a full list of categories and tags currently used on the Forum. You can select a category to explore the associated tags and discussion threads. For instance, if we click on General, we can use the “tags” button to view a list of tags used to group discussions under this category label. We can also scroll to see the existing discussion topics. 
+
+
+The Forum is designed to be interactive, and there are several ways in which you can engage with this platform. You might want to:
+
+- Follow discussions that are relevant to your work, so you can keep up to date with new developments and responses.
+- Post a new question or start a discussion if you are looking for support or want to share a new idea.
+- Respond to existing discussion threads by contributing your own knowledge, ideas, or experience.
+
+
+For example, we can click on the “Welcome to VBD Hub Forum” discussion under the General category and scroll through existing responses. We can use the “like” button to like a response, and the “reply” button to post our own response. By contributing to discussions on the Forum, you are not only receiving support from the VBD community, but also helping to support others and to develop a collaborative network. 
+
+
+In this video, we have covered how to navigate and use the VBD Hub Forum; a useful platform which supports collaboration and knowledge sharing within the VBD community.
 
 <details>
 
