@@ -1,0 +1,79 @@
+SiteName,decimalLatitude,decimalLongitude,sample_start_date,genus,species,sample_sex,LIFESTAGE,Sampling.Method,year_2024,year_2025,year_2026
+Whipsnade,51.847572,-0.534735,2025-10-08,Ixodes,spp.,Unknown,Larvae,Flagging,NA,2,NA
+Whipsnade,51.847572,-0.534735,2025-10-08,Ixodes,spp.,Unknown,Nymph,Flagging,NA,125,NA
+Whipsnade,51.847572,-0.534735,2025-10-08,Ixodes,ricinus,Male,Adult,Flagging,NA,63,NA
+Whipsnade,51.847572,-0.534735,2025-10-08,Ixodes,ricinus,Female,Adult,Flagging,NA,61,NA
+West Blean,51.327005,1.077634,2025-05-19,Ixodes,ricinus,Male,Adult,Flagging,NA,1,NA
+West Blean,51.327005,1.077634,2025-05-19,Ixodes,ricinus,Female,Adult,Flagging,NA,1,NA
+Titty Hill,51.024378,-0.781233,2024-06-18,Ixodes,spp.,Unknown,Nymph,On_person,4,NA,NA
+Titty Hill,51.024378,-0.781233,2024-06-18,Ixodes,ricinus,Male,Adult,On_person,6,NA,NA
+Titty Hill,51.024378,-0.781233,2024-06-18,Ixodes,ricinus,Female,Adult,On_person,5,NA,NA
+South Blean,51.272607,0.999192,2025-05-19,Ixodes,spp.,Unknown,Larvae,Flagging,NA,1,NA
+South Blean,51.272607,0.999192,2025-05-19,Ixodes,spp.,Unknown,Nymph,Flagging,NA,102,NA
+South Blean,51.272607,0.999192,2025-05-19,Ixodes,ricinus,Male,Adult,Flagging,NA,7,NA
+South Blean,51.272607,0.999192,2025-05-19,Ixodes,ricinus,Female,Adult,Flagging,NA,5,NA
+New Forest,50.873527,-1.659671,2025-09-09,Ixodes,spp.,Unknown,Larvae,Flagging,NA,4,NA
+New Forest,50.873527,-1.659671,2025-09-09,Ixodes,spp.,Unknown,Nymph,Flagging,NA,138,NA
+New Forest,50.873527,-1.659671,2024-04-12,Ixodes,spp.,Unknown,Larvae,Flagging,3,NA,NA
+New Forest,50.873527,-1.659671,2024-04-12,Ixodes,spp.,Unknown,Nymph,Flagging,326,NA,NA
+New Forest,50.873527,-1.659671,2025-09-09,Ixodes,ricinus,Male,Adult,Flagging,NA,4,NA
+New Forest,50.873527,-1.659671,2025-09-09,Ixodes,ricinus,Female,Adult,Flagging,NA,2,NA
+New Forest,50.873527,-1.659671,2024-04-12,Ixodes,ricinus,Male,Adult,Flagging,42,NA,NA
+New Forest,50.873527,-1.659671,2024-04-12,Ixodes,ricinus,Female,Adult,Flagging,32,NA,NA
+Marley Common,51.07298,-0.735009,2024-07-18,Ixodes,ricinus,Male,Adult,On_person,1,NA,NA
+Marley Common,51.07298,-0.735009,2024-07-18,Ixodes,ricinus,Female,Adult,On_person,1,NA,NA
+Marley Common,51.07298,-0.735009,2024-06-25,Ixodes,ricinus,Male,Adult,On_person,1,NA,NA
+Marley Common,51.07298,-0.735009,2024-06-25,Ixodes,ricinus,Female,Adult,On_person,2,NA,NA
+Marley Common,51.07298,-0.735009,2024-06-18,Ixodes,ricinus,Male,Adult,On_person,2,NA,NA
+Marley Common,51.07298,-0.735009,2024-06-18,Ixodes,ricinus,Female,Adult,On_person,3,NA,NA
+Marley Common,51.07298,-0.735009,2024-06-06,Ixodes,ricinus,Female,Adult,On_person,1,NA,NA
+Hydon's ball & Heath,51.15254,-0.601565,2024-06-09,Ixodes,ricinus,Male,Adult,On_person,1,NA,NA
+Horsell Common,51.337792,-0.556074,2025-09-08,Ixodes,spp.,Unknown,Nymph,Flagging,NA,3,NA
+Horsell Common,51.337792,-0.556074,2025-09-08,Ixodes,ricinus,Male,Adult,Flagging,NA,1,NA
+Henley,51.026012,-0.72768,2024-06-30,Ixodes,ricinus,Male,Adult,On_person,3,NA,NA
+Henley,51.026012,-0.72768,2024-06-30,Ixodes,ricinus,Female,Adult,On_person,1,NA,NA
+Guisborough Forest,54.516111,-1.092608,2024-06-05,Ixodes,spp.,Unknown,Nymph,Flagging,77,NA,NA
+Guisborough Forest,54.516111,-1.092608,2024-06-05,Ixodes,ricinus,Male,Adult,Flagging,46,NA,NA
+Guisborough Forest,54.516111,-1.092608,2024-06-05,Ixodes,ricinus,Female,Adult,Flagging,43,NA,NA
+Epsom Common,51.334331,-0.291375,2026-04-10,Ixodes,spp.,Unknown,Larvae,Flagging,NA,NA,1
+Epsom Common,51.334331,-0.291375,2026-04-10,Ixodes,spp.,Unknown,Nymph,Flagging,NA,NA,1246
+Epsom Common,51.334331,-0.291375,2025-04-10,Ixodes,spp.,Unknown,Larvae,Flagging,NA,8,NA
+Epsom Common,51.334331,-0.291375,2025-04-10,Ixodes,spp.,Unknown,Nymph,Flagging,NA,651,NA
+Epsom Common,51.334331,-0.291375,2024-08-19,Ixodes,spp.,Unknown,Nymph,Flagging,72,NA,NA
+Epsom Common,51.334331,-0.291375,2024-04-29,Ixodes,spp.,Unknown,Nymph,Flagging,252,NA,NA
+Epsom Common,51.334331,-0.291375,2024-03-21,Ixodes,spp.,Unknown,Larvae,Flagging,2,NA,NA
+Epsom Common,51.334331,-0.291375,2024-03-21,Ixodes,spp.,Unknown,Nymph,Flagging,241,NA,NA
+Epsom Common,51.334331,-0.291375,2026-04-10,Ixodes,ricinus,Male,Adult,Flagging,NA,NA,37
+Epsom Common,51.334331,-0.291375,2026-04-10,Ixodes,ricinus,Female,Adult,Flagging,NA,NA,23
+Epsom Common,51.334331,-0.291375,2025-04-10,Ixodes,ricinus,Male,Adult,Flagging,NA,23,NA
+Epsom Common,51.334331,-0.291375,2025-04-10,Ixodes,ricinus,Female,Adult,Flagging,NA,19,NA
+Epsom Common,51.334331,-0.291375,2024-08-19,Ixodes,ricinus,Male,Adult,Flagging,9,NA,NA
+Epsom Common,51.334331,-0.291375,2024-08-19,Ixodes,ricinus,Female,Adult,Flagging,7,NA,NA
+Epsom Common,51.334331,-0.291375,2024-04-29,Ixodes,ricinus,Male,Adult,Flagging,18,NA,NA
+Epsom Common,51.334331,-0.291375,2024-04-29,Ixodes,ricinus,Female,Adult,Flagging,19,NA,NA
+Epsom Common,51.334331,-0.291375,2024-03-21,Ixodes,ricinus,Male,Adult,Flagging,14,NA,NA
+Epsom Common,51.334331,-0.291375,2024-03-21,Ixodes,ricinus,Female,Adult,Flagging,5,NA,NA
+Devil's Punchbowl,51.116502,-0.71634,2024-06-18,Ixodes,spp.,Unknown,Nymph,On_person,1,NA,NA
+Devil's Punchbowl,51.116502,-0.71634,2024-06-28,Ixodes,ricinus,Male,Adult,On_person,2,NA,NA
+Devil's Punchbowl,51.116502,-0.71634,2024-06-24,Ixodes,ricinus,Female,Adult,On_person,2,NA,NA
+Dalby Forest,54.309174,-0.645016,2024-06-04,Ixodes,spp.,Unknown,Larvae,Flagging,1,NA,NA
+Dalby Forest,54.309174,-0.645016,2024-06-04,Ixodes,spp.,Unknown,Nymph,Flagging,38,NA,NA
+Dalby Forest,54.309174,-0.645016,2024-06-04,Ixodes,ricinus,Male,Adult,Flagging,15,NA,NA
+Dalby Forest,54.309174,-0.645016,2024-06-04,Ixodes,ricinus,Female,Adult,Flagging,9,NA,NA
+Black Down,51.069571,-0.687223,2024-06-16,Ixodes,ricinus,Male,Adult,On_person,1,NA,NA
+Black Down,51.069571,-0.687223,2024-06-14,Ixodes,ricinus,Male,Adult,On_person,1,NA,NA
+Bartley Heath,51.275655,-0.952803,2025-04-10,Ixodes,spp.,Unknown,Larvae,Flagging,NA,11,NA
+Bartley Heath,51.275655,-0.952803,2025-04-10,Ixodes,spp.,Unknown,Nymph,Flagging,NA,317,NA
+Bartley Heath,51.275655,-0.952803,2024-03-15,Ixodes,spp.,Unknown,Larvae,Flagging,9,NA,NA
+Bartley Heath,51.275655,-0.952803,2024-03-15,Ixodes,spp.,Unknown,Nymph,Flagging,212,NA,NA
+Bartley Heath,51.275655,-0.952803,2025-04-10,Ixodes,ricinus,Male,Adult,Flagging,NA,12,NA
+Bartley Heath,51.275655,-0.952803,2025-04-10,Ixodes,ricinus,Female,Adult,Flagging,NA,7,NA
+Bartley Heath,51.275655,-0.952803,2024-03-15,Ixodes,ricinus,Male,Adult,Flagging,7,NA,NA
+Bartley Heath,51.275655,-0.952803,2024-03-15,Ixodes,ricinus,Female,Adult,Flagging,6,NA,NA
+Ashtead Common,51.319878,-0.31079,2026-06-05,Ixodes,spp.,Unknown,Larvae,Flagging,NA,NA,229
+Ashtead Common,51.319878,-0.31079,2026-06-05,Ixodes,spp.,Unknown,Nymph,Flagging,NA,NA,428
+Ashtead Common,51.319878,-0.31079,2024-03-21,Ixodes,spp.,Unknown,Nymph,Flagging,22,NA,NA
+Ashtead Common,51.319878,-0.31079,2026-06-05,Ixodes,ricinus,Male,Adult,Flagging,NA,NA,21
+Ashtead Common,51.319878,-0.31079,2026-06-05,Ixodes,ricinus,Female,Adult,Flagging,NA,NA,10
+Ashtead Common,51.319878,-0.31079,2024-03-21,Ixodes,ricinus,Male,Adult,Flagging,1,NA,NA
+Ashtead Common,51.319878,-0.31079,2024-03-21,Ixodes,ricinus,Female,Adult,Flagging,0,NA,NA
