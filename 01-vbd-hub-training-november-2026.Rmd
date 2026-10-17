@@ -7,67 +7,67 @@ Content coming soon!
 ## Schedule
 **Wednesday 11th November 2026**
 
-10:00 - Welcome and Introduction
+   10:00 - Welcome and Introduction
 
-10:30 - Hub Tools: What they are and how to use them
+   10:30 - Hub Tools: What they are and how to use them
 
-11:30 - Coffee Break
+   11:30 - Coffee Break
 
-11:45 - Understanding Data Curation and Standards
+   11:45 - Understanding Data Curation and Standards
 
-12:45 - Lunch
+   12:45 - Lunch
 
-13:45 - Wrangling VBD Data in R
+   13:45 - Wrangling VBD Data in R
 
-14:45 - Coffee Break
+   14:45 - Coffee Break
 
-15:00 - Visualising VBD Data in R
+   15:00 - Visualising VBD Data in R
 
-16:00 - Coffee Break
+   16:00 - Coffee Break
 
-16:15 - Effectively Communicating with Different Audiences 
+   16:15 - Effectively Communicating with Different Audiences 
 
-17:15 - Training Day Ends
+   17:15 - Training Day Ends
 
-18:00 - Dinner
+   18:00 - Dinner
 
 
 **Thursday 12th November 2026**
 
-10:00 - Welcome and Introduction
+   10:00 - Welcome and Introduction
 
-10:30 - Temporal and Spatial Data in VBD Research
+   10:30 - Temporal and Spatial Data in VBD Research
 
-11:30 - Coffee Break
+   11:30 - Coffee Break
 
-11:45 - Using Thermal Performance Curves in VBD Research
+   11:45 - Using Thermal Performance Curves in VBD Research
 
-12:45 - Lunch
+   12:45 - Lunch
 
-13:45 - Challenge Task
+   13:45 - Challenge Task
 
-15:15 - Coffee Break
+   15:15 - Coffee Break
 
-15:30 - Challenge Task (cont.)
+   15:30 - Challenge Task (cont.)
 
-17:00 - Training Day Ends
+   17:00 - Training Day Ends
 
-17:30 - Pub-Style Talk and Dinner
+   17:30 - Pub-Style Talk and Dinner
 
 
 **Friday 13th November 2026 (half-day)**
 
-10:00 - Welcome and Introduction
+   10:00 - Welcome and Introduction
 
-10:30 - Presentations
+   10:30 - Presentations
 
-11:30 - Coffee Break
+   11:30 - Coffee Break
 
-11:45 - Presentations (cont.)
+   11:45 - Presentations (cont.)
 
-12:45 - Concluding Talk
+   12:45 - Concluding Talk
 
-13:00 - Training Event Ends
+   13:00 - Training Event Ends
 
 
 # Pre-Work
@@ -405,11 +405,11 @@ Let’s have a look at some basic data wrangling techniques commonly applied to 
 
 
 ``` r
-clean_data |>
-rename(
-latitude = decimalLatitude,
-longitude = decimalLongitude
-)
+clean_aedes_data <- clean_data |>
+  rename(
+    latitude = decimalLatitude,
+    longitude = decimalLongitude
+  )
 ```
 
 
@@ -427,10 +427,10 @@ In this function, the syntax works as: `new_name = old_name`.
 ``` r
 clean_data <- clean_data |>
     pivot_longer(
-    cols = starts_with("year"),
-    names_to = "year",
-    values_to = "abundance"
-  )
+      cols = starts_with("year"),
+      names_to = "year",
+      values_to = "abundance"
+    )
 ```
 
 
@@ -448,6 +448,34 @@ In this format, each row represents a single observation, which can make the dat
 
 
 **Don’t:** Use data in wide format, where values are spread across multiple columns. This can limit data wrangling and processing, such as grouping across different years and generating effective visualisations.
+
+
+::: {.rmdtip}
+**Tip: Dealing with NAs after pivoting**
+
+When you convert data to long format, any empty cells in the wide data become rows with NA in the new values column. You can remove these rows by adding the argument `values_drop_na = TRUE` to your `pivot_longer()` code:
+
+
+``` r
+clean_aedes_data <- clean_aedes_data |>
+    pivot_longer(
+    cols = starts_with("year"),
+    names_to = "year",
+    values_to = "abundance",
+    values_drop_na = TRUE
+  )
+```
+
+
+Before using this argument, check what the NAs in your dataset actually mean:
+
+- **The NAs come from the data’s wide format** - If the empty cells only exist because of how the data was spread across columns, for example, a site that was not sampled in a particular year, the rows hold no information and it is safe to remove them. 
+
+- **The NAs are genuine missing data** - If a value should exist but was not recorded, for example, a site was sampled but the count was missing, keep these rows. Removing them hides gaps in your data, which may affect your analysis and results. 
+
+
+Remember that **NA is not the same as zero**. A zero means no mosquitoes were found, but an NA means there is no information. Always look at your data after pivoting before deciding whether to remove NAs. 
+:::
 
 
 **5. Record What You Do**
@@ -482,15 +510,30 @@ If using camelCase, remember that R is case sensitive - if your object is named 
 
 
 ::: {.rmdimportant}
-**Task: Applying Data Wrangling Principles to Real-World Datasets**
+**Task: Applying Data Wrangling Principles to a Tick Dataset**
 
-Open this dataset in RStudio, and work through the following points:
+Open the dataset [ticktools_task.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/ticktools_task.csv) in RStudio. This is a VecDyn dataset containing counts of ticks collected at sites across England as part of the TickTools project, and is available through the VBD Hub. We have made some changes to the original dataset to give you the opportunity to practise these data wrangling skills. 
 
-- Inspect the dataset using `head()`. Notice what the columns represent, what the data types are, and whether there are any missing values.
-- Rename your data as a new object. Any changes you make will use this new object, rather than the raw data.
-- Rename at least two columns using `rename()`. 
-- Check whether your dataset is in wide or long format. Use `pivot_longer()` if required.
-- Add comments to your code explaining what changes you made and why.
+
+Work through the following points:
+
+1. Inspect the dataset using `head()`. Notice what the columns represent, what the data types are, and whether there are any missing values.
+
+2. Rename your data as a new object. Any changes you make will use this new object, rather than the raw data.
+
+3. Rename at least two columns using `rename()`. 
+
+4. Check whether your dataset is in wide or long format. Use `pivot_longer()` if required.
+
+5. After pivoting, look at your data again and check for NAs. Think about what these values represent, and decide whether they should be removed.
+
+6.  Add comments to your code explaining what changes you made and why.
+
+
+The original VecDyn dataset, [ticktools_original.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/ticktools_original.csv), is already in long format, with clear and consistent column names. Each abundance count is stored in a single column, `sample_value`, rather than being spread across separate year columns. This is one of the benefits of using data from a curated repository - the data has already been standardised. 
+
+
+The original dataset also has many more columns than the task version, including information on taxonomy, sampling methods, and who collected the data. Some of these additional columns are empty, as not every study records every type of information. We will look at these columns in more detail during the Training Event.
 :::
 
 
