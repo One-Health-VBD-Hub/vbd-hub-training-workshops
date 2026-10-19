@@ -163,14 +163,14 @@
 <li><code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code></li>
 </ul>
 <p><strong>Themes</strong> are added to a plot like any other layer, using <code>+</code>. For example, we can apply <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> to our time-series plot:</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily_abundance_all_locations</span>,</span>
 <span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample_start_date</span>, y <span class="op">=</span> <span class="va">total_abundance</span>, colour <span class="op">=</span> <span class="va">sample_location</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This removes the grey background and uses simple, light grid lines, so the data stands out more clearly.</p>
 <p>We can also use the <code>base_size</code> argument to increase the size of all text on the plot at once:</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span></code></pre></div>
 <div class="rmdtip">
 <p><strong>Tip:</strong> Using the same theme across all your visualisations gives your work a consistent, professional appearance.</p>
@@ -300,7 +300,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-17.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

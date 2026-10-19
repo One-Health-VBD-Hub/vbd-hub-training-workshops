@@ -289,11 +289,11 @@ Video transcript
 <p><strong>3. Use Clear &amp; Consistent Naming</strong></p>
 <p><strong>Do:</strong> Use informative column, model, and object names so you know what your object is explicitly. Clear naming makes your R workflow easier for others (and yourself) to understand. You can rename columns using the <code>dplyr</code> function <code>rename()</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">|&gt;</span></span>
-<span><span class="fu">rename</span><span class="op">(</span></span>
-<span>latitude <span class="op">=</span> <span class="va">decimalLatitude</span>,</span>
-<span>longitude <span class="op">=</span> <span class="va">decimalLongitude</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">clean_aedes_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">rename</span><span class="op">(</span></span>
+<span>    latitude <span class="op">=</span> <span class="va">decimalLatitude</span>,</span>
+<span>    longitude <span class="op">=</span> <span class="va">decimalLongitude</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>In this function, the syntax works as: <code>new_name = old_name</code>.</p>
 <p><strong>Don’t:</strong> Use unclear names or names with messy formatting. Try to avoid spaces, special characters, or specific abbreviations.</p>
 <p><strong>4. Reformat Your Data</strong></p>
@@ -301,10 +301,10 @@ Video transcript
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="va">clean_data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">pivot_longer</span><span class="op">(</span></span>
-<span>    cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="st">"year"</span><span class="op">)</span>,</span>
-<span>    names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
-<span>    values_to <span class="op">=</span> <span class="st">"abundance"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>      cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="st">"year"</span><span class="op">)</span>,</span>
+<span>      names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>      values_to <span class="op">=</span> <span class="st">"abundance"</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 <p>We can break this down and have a look at what each part of this function is doing:</p>
 <ul>
 <li>
@@ -317,9 +317,27 @@ Video transcript
 <p>So instead of having one row with many year columns, we now have multiple rows where each row represents a single year-abundance observation.</p>
 <p>In this format, each row represents a single observation, which can make the data easier to filter and analyse.</p>
 <p><strong>Don’t:</strong> Use data in wide format, where values are spread across multiple columns. This can limit data wrangling and processing, such as grouping across different years and generating effective visualisations.</p>
+<div class="rmdtip">
+<p><strong>Tip: Dealing with NAs after pivoting</strong></p>
+<p>When you convert data to long format, any empty cells in the wide data become rows with NA in the new values column. You can remove these rows by adding the argument <code>values_drop_na = TRUE</code> to your <code>pivot_longer()</code> code:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clean_aedes_data</span> <span class="op">&lt;-</span> <span class="va">clean_aedes_data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">pivot_longer</span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="st">"year"</span><span class="op">)</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"abundance"</span>,</span>
+<span>    values_drop_na <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p>Before using this argument, check what the NAs in your dataset actually mean:</p>
+<ul>
+<li><p><strong>The NAs come from the data’s wide format</strong> - If the empty cells only exist because of how the data was spread across columns, for example, a site that was not sampled in a particular year, the rows hold no information and it is safe to remove them.</p></li>
+<li><p><strong>The NAs are genuine missing data</strong> - If a value should exist but was not recorded, for example, a site was sampled but the count was missing, keep these rows. Removing them hides gaps in your data, which may affect your analysis and results.</p></li>
+</ul>
+<p>Remember that <strong>NA is not the same as zero</strong>. A zero means no mosquitoes were found, but an NA means there is no information. Always look at your data after pivoting before deciding whether to remove NAs.</p>
+</div>
 <p><strong>5. Record What You Do</strong></p>
 <p><strong>Do:</strong> Keep track of your progress by recording what changes you made and why you used that approach. It is good practice to note these changes as comments in your code:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Rename columns for clarity</span></span>
 <span><span class="co"># Convert data to long format for easier analysis</span></span></code></pre></div>
 <p><strong>Don’t:</strong> Rely on memory alone. It is easy to forget what analytical methods you used, why you chose that approach, and what order you processed your data in. Keeping clear records of your workflow contributes to better reproducibility.</p>
@@ -333,15 +351,19 @@ Video transcript
 <p><code>Error: object ‘specificmodelname’ not found</code></p>
 </div>
 <div class="rmdimportant">
-<p><strong>Task: Applying Data Wrangling Principles to Real-World Datasets</strong></p>
-<p>Open this dataset in RStudio, and work through the following points:</p>
-<ul>
-<li>Inspect the dataset using <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>. Notice what the columns represent, what the data types are, and whether there are any missing values.</li>
-<li>Rename your data as a new object. Any changes you make will use this new object, rather than the raw data.</li>
-<li>Rename at least two columns using <code>rename()</code>.</li>
-<li>Check whether your dataset is in wide or long format. Use <code>pivot_longer()</code> if required.</li>
-<li>Add comments to your code explaining what changes you made and why.</li>
-</ul>
+<p><strong>Task: Applying Data Wrangling Principles to a Tick Dataset</strong></p>
+<p>Open the dataset <a href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/ticktools_task.csv">ticktools_task.csv</a> in RStudio. This is a VecDyn dataset containing counts of ticks collected at sites across England as part of the TickTools project, and is available through the VBD Hub. We have made some changes to the original dataset to give you the opportunity to practise these data wrangling skills.</p>
+<p>Work through the following points:</p>
+<ol style="list-style-type: decimal">
+<li><p>Inspect the dataset using <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>. Notice what the columns represent, what the data types are, and whether there are any missing values.</p></li>
+<li><p>Rename your data as a new object. Any changes you make will use this new object, rather than the raw data.</p></li>
+<li><p>Rename at least two columns using <code>rename()</code>.</p></li>
+<li><p>Check whether your dataset is in wide or long format. Use <code>pivot_longer()</code> if required.</p></li>
+<li><p>After pivoting, look at your data again and check for NAs. Think about what these values represent, and decide whether they should be removed.</p></li>
+<li><p>Add comments to your code explaining what changes you made and why.</p></li>
+</ol>
+<p>The original VecDyn dataset, <a href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/ticktools_original.csv">ticktools_original.csv</a>, is already in long format, with clear and consistent column names. Each abundance count is stored in a single column, <code>sample_value</code>, rather than being spread across separate year columns. This is one of the benefits of using data from a curated repository - the data has already been standardised.</p>
+<p>The original dataset also has many more columns than the task version, including information on taxonomy, sampling methods, and who collected the data. Some of these additional columns are empty, as not every study records every type of information. We will look at these columns in more detail during the Training Event.</p>
 </div>
 <p>You will now be familiar with some core data wrangling principles, which will prepare you for the Wrangling VBD Data workshop during the Training Event. In this workshop, we will cover a handful of essential wrangling techniques for VBD data.</p>
 </div>
@@ -375,7 +397,7 @@ Video transcript
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-17.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
