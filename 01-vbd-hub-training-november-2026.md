@@ -5,69 +5,87 @@ Content coming soon!
 
 
 ## Schedule
-**Wednesday 11th November 2026**
 
-   10:00 - Welcome and Introduction
+<details>
+<summary>Wednesday 11th November 2026</summary>
 
-   10:30 - Hub Tools: What they are and how to use them
+   09:10 - Pick up from Travelodge
+   
+   09:30 - Welcome, Pastries and Introduction
 
-   11:30 - Coffee Break
+   10:00 - Hub Tools: What they are and how to use them
 
-   11:45 - Understanding Data Curation and Standards
+   11:00 - Coffee Break
 
-   12:45 - Lunch
+   11:30 - Understanding Data Curation and Standards
 
-   13:45 - Wrangling VBD Data in R
+   12:30 - Lunch
 
-   14:45 - Coffee Break
+   13:30 - Wrangling VBD Data in R
+
+   14:30 - Coffee Break
 
    15:00 - Visualising VBD Data in R
 
-   16:00 - Coffee Break
+   16:00 - Break
 
    16:15 - Effectively Communicating with Different Audiences 
 
    17:15 - Training Day Ends
 
-   18:00 - Dinner
+   17:30 - Dinner at Silwood
+   
+   18:30 - Return to Travelodge
+
+</details>
 
 
-**Thursday 12th November 2026**
+<details>
+<summary>Thursday 12th November 2026</summary>
 
-   10:00 - Welcome and Introduction
+   09:10 - Pick up from Travelodge
+   
+   09:30 - Welcome, Pastries and Introduction
 
-   10:30 - Temporal and Spatial Data in VBD Research
+   10:00 - Temporal and Spatial Data in VBD Research
 
-   11:30 - Coffee Break
+   11:00 - Coffee Break
 
-   11:45 - Using Thermal Performance Curves in VBD Research
+   11:30 - Using Thermal Performance Curves in VBD Research
 
-   12:45 - Lunch
+   12:30 - Lunch
 
-   13:45 - Challenge Task
+   13:30 - Challenge Task
 
-   15:15 - Coffee Break
+   15:00 - Coffee Break
 
    15:30 - Challenge Task (cont.)
 
    17:00 - Training Day Ends
 
-   17:30 - Pub-Style Talk and Dinner
+   17:30 - Pub-Style Talk and Dinner at Silwood
+   
+   19:00 - Return to Travelodge
+
+</details>
 
 
-**Friday 13th November 2026 (half-day)**
+<details>
+<summary>Friday 13th November 2026 (half-day)</summary>
 
-   10:00 - Welcome and Introduction
+   09:10 - Pick up from Travelodge
+   
+   09:30 - Welcome, Pastries and Introduction
 
-   10:30 - Presentations
+   09:45 - Presentations
 
-   11:30 - Coffee Break
+   11:00 - Coffee Break
 
-   11:45 - Presentations (cont.)
+   11:15 - Presentations (cont.)
 
-   12:45 - Concluding Talk
+   12:30 - Concluding Talk, Training Event Ends
 
-   13:00 - Training Event Ends
+</details>
 
 
 # Pre-Work
@@ -117,8 +135,7 @@ The [VBD Hub website](https://vbdhub.org/) is home to resources to help your res
 Watch this video tour of the VBD Hub website. Note: as the VBD Hub continues to grow, the website may have updated features in addition to those outlined in this video.
 
 
-
-Video coming soon!
+<iframe src="https://www.youtube.com/embed/ctdCJemxRfU" width="672" height="400px" data-external="1"></iframe>
 
 
 <details>
@@ -188,7 +205,7 @@ The [VBD Hub Forum](https://forum.vbdhub.org/) is a space where users can ask qu
 Watch this video which walks you through how to use the VBD Hub Forum:
 
 
-Video coming soon!
+<iframe src="https://www.youtube.com/embed/Px7cVLaidcw" width="672" height="400px" data-external="1"></iframe>
 
 
 <details>
@@ -234,7 +251,7 @@ Throughout the Training Event, we will be using Hub curated datasets to practice
 Watch this short video outlining standard operating procedures when curating VBD data.
 
 
-Video coming soon!
+<iframe src="https://www.youtube.com/embed/8wcn_VpU2V8" width="672" height="400px" data-external="1"></iframe>
 
 
 <details>
@@ -2050,7 +2067,7 @@ y = "Mean Abundance"
 abundance_plot_across_locations
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-44-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-47-1.png" alt="" width="672" />
 
 
 We can now use this visualisation to compare abundance patterns across sampling sites:
@@ -2186,7 +2203,7 @@ time_series_plot_goro <- ggplot(mosquito_data_goro, aes(x = sample_start_date, y
 time_series_plot_goro
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-50-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-53-1.png" alt="" width="672" />
 
 
 Oh dear, this graphic looks rather messy! Although we have used the correct code and ensured our date column is in the correct format, our visualisation is still difficult to read and interpret. This is because real-world VBD data often includes multiple samples collected on the same date. 
@@ -2222,7 +2239,7 @@ daily_abundance_plot_goro <- ggplot(daily_abundance_goro, aes(x = sample_start_d
 daily_abundance_plot_goro
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-52-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-55-1.png" alt="" width="672" />
 
 
 This is much better! Our visualisation effectively shows the trend of mosquito abundance over time at our selected location.
@@ -2294,7 +2311,7 @@ y = "Abundance"
 daily_abundance_plot_all
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-54-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-57-1.png" alt="" width="672" />
 
 
 This is the visualisation we wanted, but it looks a bit messy. All the lines are displayed in the same colour, which makes the plot difficult to read. We can see patterns of abundance change over time, but it is difficult to distinguish between different locations. 
@@ -2325,7 +2342,7 @@ colour = "Sampling Location"
 daily_abundance_plot_all
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-55-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-58-1.png" alt="" width="672" />
 
 
 ::: {.rmdtip}
@@ -2393,7 +2410,7 @@ daily_abundance_plot_faceted <- ggplot(
 daily_abundance_plot_faceted
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-57-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-60-1.png" alt="" width="672" />
 
 
 #### Adjusting y-axis Scales 
@@ -2430,7 +2447,7 @@ daily_abundance_plot_faceted_Y <- ggplot(
 daily_abundance_plot_faceted_Y
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-59-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-62-1.png" alt="" width="672" />
 
 
 By separating each sampling location into its own panel, the patterns in the data become much clearer:

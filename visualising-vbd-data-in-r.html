@@ -222,7 +222,7 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">abundance_plot_across_locations</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-44-1.png" alt="" width="672"></div>
+<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-47-1.png" alt="" width="672"></div>
 <p>We can now use this visualisation to compare abundance patterns across sampling sites:</p>
 <ul>
 <li>Mean abundance varies across locations, with Sorragna and Terre Del Reno showing the highest mean mosquito abundance, and Gattatico showing the lowest mean mosquito abundance.</li>
@@ -299,7 +299,7 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">time_series_plot_goro</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-50-1.png" alt="" width="672"></div>
+<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-53-1.png" alt="" width="672"></div>
 <p>Oh dear, this graphic looks rather messy! Although we have used the correct code and ensured our date column is in the correct format, our visualisation is still difficult to read and interpret. This is because real-world VBD data often includes multiple samples collected on the same date.</p>
 <p>To create a more effective time-series visualisation, we need to <strong>summarise</strong> these samples into a single value per time point:</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
@@ -318,7 +318,7 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">daily_abundance_plot_goro</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-52-1.png" alt="" width="672"></div>
+<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-55-1.png" alt="" width="672"></div>
 <p>This is much better! Our visualisation effectively shows the trend of mosquito abundance over time at our selected location.</p>
 <p>In this plot:</p>
 <ul>
@@ -366,7 +366,7 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">daily_abundance_plot_all</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-54-1.png" alt="" width="672"></div>
+<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-57-1.png" alt="" width="672"></div>
 <p>This is the visualisation we wanted, but it looks a bit messy. All the lines are displayed in the same colour, which makes the plot difficult to read. We can see patterns of abundance change over time, but it is difficult to distinguish between different locations.</p>
 <p>What we are seeing here is that more <strong>complex</strong> visualisations are not always <strong>better</strong> visualisations, especially if interpretation is limited.</p>
 </div>
@@ -389,7 +389,7 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">daily_abundance_plot_all</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-55-1.png" alt="" width="672"></div>
+<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-58-1.png" alt="" width="672"></div>
 <div class="rmdtip">
 <p>Tip: When <code>colour</code> is inside <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>, it is mapped to a variable, when it is outside, it is a fixed value.</p>
 </div>
@@ -433,7 +433,7 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">daily_abundance_plot_faceted</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-57-1.png" alt="" width="672"></div>
+<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-60-1.png" alt="" width="672"></div>
 <div id="adjusting-y-axis-scales" class="section level4" number="6.3.5.1">
 <h4>
 <span class="header-section-number">6.3.5.1</span> Adjusting y-axis Scales<a class="anchor" aria-label="anchor" href="#adjusting-y-axis-scales"><i class="fas fa-link"></i></a>
@@ -457,7 +457,7 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">daily_abundance_plot_faceted_Y</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-59-1.png" alt="" width="672"></div>
+<div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-62-1.png" alt="" width="672"></div>
 <p>By separating each sampling location into its own panel, the patterns in the data become much clearer:</p>
 <ul>
 <li>Seasonal trends are still evident across all locations, but we are now able to see how these patterns vary between locations more easily.</li>
@@ -785,7 +785,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-19.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
