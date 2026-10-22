@@ -1174,13 +1174,57 @@ These standards aren’t only useful when using other people’s data. Applying 
 
 
 ## From the Data Curator
+Sarah is the VBD Hub Data Curator. Her job involves finding the data we all want to see, taking a deep dive into the ongoings of the data, reshaping it into something that can be reused over and over again and building relationships within the community to create trust in the Hub, trust to share their data in a way that gives them full control and let's the world see their research. 
 
 
+We've asked Sarah some questions about the data curation process and submitting data to the VBD Hub.
 
-- What are the most common problems you see in datasets submitted to the Hub?
-- What’s one thing researchers could do at the data collection stage that would make curation much easier?
-- What happens to a dataset after it’s submitted?
-- How should people get in touch if they want to share their data?
+
+**What are the most common problems you see in datasets submitted to the Hub?**
+
+"1. **Missing data** - When planning your experiment, right at the start, think about what variables you need to use to make this reusable. So we often have:
+
+- Missing dates
+- Missing species identification methods
+- Missing locations
+- Missing trap types
+- Missing information on how long the traps are left out for
+
+
+2. **Poor data dictionaries** - When a curator asks the provider what the data means and they too are confused. This is often caused by instructions lost in communication between team members, all recording things in slightly different ways.
+ 
+ 
+3. **Problems with zeroes** - What does your 0 mean? Does it mean a trap failed, does it mean a trap was put out and none of that mosquito species were collected, why were those mosquito species put in your dataset anyway?
+
+
+4. **Dates** - They can be differently interpreted from where you are in the world so let’s please use YYYY-MM-DD.
+
+
+5. **Data in wide format** (not long format) - which requires more wrangling!"
+
+
+**What’s one thing researchers could do at the data collection stage that would make curation much easier?**
+
+"1. Think about **reusability**, think about if you wanted to use your data in the future for a different analysis. Have you collected enough information and in an understandable way that you could pick it up in 3 years time and know what it all means?
+
+
+2. **Standardise** your data collection sheets! Give all your team the same data collection templates.
+
+
+3. Look at a data repository you want to deposit in and check you have all the **required fields** before you start collecting data."
+
+
+**What happens to a dataset after it’s submitted?**
+
+"This depends on what data you submit to the Hub. In general what will happen is that I will run checks on the data to check all the required fields for that data type are in the dataset. I will check if I have data dictionaries/methods/publications that will help me to understand the data and then I will reshape the data into the format required for submission to the individual repositories. Anything that is unclear or if I notice data duplications or missing location info etc I will contact the provider. The more info you provide, the less I have to bother you!"
+
+
+**How should people get in touch if they want to share their data?**
+
+"There are a few ways to get hold of the Hub team but if you want to go direct to source, please email me at s.kelly@imperial.ac.uk. I don’t bite, I don’t mind how messy your data is, trust me I have seen it all and that is what I am here for! To help you future proof your own work. To take away some of that burden. 
+
+
+I think it is actually always really helpful to reach out to me at the very beginning of your study! I can help check you are collecting all the right data to make your data FAIR. Having your data in a place for all to see leads to some awesome future collaboration opportunities when someone discovers your data and wants to reach out to you! So, we require you to share your contact information with us on the dataset so you can be reached directly."
 
 
 ## Citing Curated Datasets
