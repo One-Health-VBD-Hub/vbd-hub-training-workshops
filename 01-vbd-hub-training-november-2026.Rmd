@@ -1018,8 +1018,6 @@ Once you have retrieved your dataset, consider:
 
 ## Key Takeaways
 
-
-
 - The Hub Search and ohvbd both let you search several VBD databases at once, so you don’t need to search each source individually. 
 - Start with a broad search and then narrow down, checking results for relevance, coverage and structure before downloading. 
 - Searches match across species names, dataset titles and metadata, so results may include data you didn’t expect. Smart search functions with ohvbd let you target a specific column. 
@@ -1151,15 +1149,24 @@ The **VBD Hub** supports these principles by ensuring datasets are well-document
 ::: {.rmdimportant}
 **Task: Preparing a Dataset for VecDyn**
 
-You’ve been given the following raw data. Working in small groups, use the [VecDyn column definitions](https://vectorbyte.crc.nd.edu/vecdyn-columndefs) resource to prepare this dataset for upload to VecDyn.
+You’ve been given the following [raw data](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/vecdyn_prep_task_raw.csv) and short Methods paragraph. Working in small groups, use the [VecDyn column definitions](https://vectorbyte.crc.nd.edu/vecdyn-columndefs) resource to prepare this dataset for upload to VecDyn.
 
 
 Here are some prompts to help you:
 
 - Which VecDyn column should each existing column map to?
 - What needs to change in the values themselves?
+- How might you work out the start and end dates where these are missing?
 - What required information is missing?
-- What metadata would you add to make this dataset FAIR?
+- How does the metadata from this dataset support each of the FAIR principles?
+
+
+**Methods**
+
+Adult mosquitoes were collected using Mosquito Magnet, BG-Pro and BG-Sentinel 2 traps, and larvae and pupae were collected by dipping. Surveillance ran from 1st June to 31st October 2024. Catches were pooled and reported by sampling week. For each record, the Date is the first day of a 7-day sampling week, and the count is the number of *Culex modestus* caught at that site during that week. At some sites, *Culex modestus* was not found at any point during the survey. For these sites, there is a single record with a count of 0. This record covers the whole survey period, and its Date is the first day of the survey. All specimens were identified morphologically. 
+
+
+(This dataset and Methods has been edited for this task. The original dataset is from Abbott *et al*. (2025) “Evidence of much wider distribution of the potential West Nile virus vector, *Culex modestus*, in the UK”, *Parasites & Vectors* 18: 482, [doi:10.1186/s13071-025-06936-3](https://link.springer.com/article/10.1186/s13071-025-06936-3).
 :::
 
 
@@ -1267,8 +1274,6 @@ Proper citation:
 
 
 ## Key Takeaways
-
-
 
 - Identifying the data type is the first step in curation, because it determines where a dataset is stored and how it is formatted.
 - Standard column definitions, formats and vocabularies allow datasets from different sources to be combined, which is what makes tools like the Hub Search and ohvbd possible. 
