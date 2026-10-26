@@ -1,7 +1,24 @@
 # (PART) November 2026 Training at Silwood Park {-}
 
 # Introduction
-Content coming soon!
+The One Health VBD Hub is hosting a training event from **11th - 13th November 2026**, held at Silwood Park, Ascot. 
+
+
+The 3 day training event will include:
+
+- An introduction to the **Hub Search** and **ohvbd R package** as tools to search and retrieve curated VBD datasets. 
+- Training in data curation for VBD databases
+- Pipelines for wrangling and visualising curated datasets
+- Effectively communicating VBD research to different audiences. 
+
+
+Analysis will be primarily in the **R programming language**. 
+
+
+This workshop is appropriate for participants who have working experience with R and beginner to intermediate statistical knowledge (e.g., ANOVA, hypothesis testing, linear regression).
+
+
+Participation will be limited to early career scientists, primarily postgraduate students and postdoctoral researchers, and practitioners with relevant experience (for example vector control professionals) and interest. 
 
 
 ## Schedule
