@@ -167,11 +167,13 @@
 <p><strong>ohvbd</strong> is an R package developed by the VBD Hub that allows you to search for and retrieve data within R, without needing to download files manually from multiple sources.</p>
 <p>It connects to several VBD databases at once, including:</p>
 <ul>
-<li><strong>VBD Hub (vbdhub)</strong></li>
 <li><strong>VecTraits (vt)</strong></li>
 <li><strong>VecDyn (vd)</strong></li>
 <li><strong>GBIF (gbif)</strong></li>
-<li><strong>AREAdata (ad)</strong></li>
+<li><strong>ProteomeXchange (px)</strong></li>
+<li>
+<strong>AREAdata</strong>, which is accessed with separate functions, such as <code><a href="https://ohvbd.vbdhub.org/reference/fetch_ad.html">fetch_ad()</a></code>
+</li>
 </ul>
 <p>This means you can pull datasets directly into your R workflow, making data retrieval much more efficient.</p>
 <div id="building-a-search-pipeline-with-ohvbd" class="section level3" number="3.3.1">
@@ -194,13 +196,13 @@
 <p>Let’s break this down a bit so we can understand what each step is doing:</p>
 <ul>
 <li>
-<code><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub()</a></code> - Searches for datasets matching your query, here we want to search for <code>"Ixodes ricinus"</code>.</li>
+<code><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub()</a></code> - Searches for datasets matching your query, here we want to search for <code>"Ixodes ricinus"</code>. This gives us the IDs of matching datasets, not the data itself.</li>
 <li>
 <code><a href="https://ohvbd.vbdhub.org/reference/filter_db.html">filter_db()</a></code> - Narrows results to a specific database, in this case <code>"vt"</code>, for VecTraits.</li>
 <li>
-<code><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch()</a></code> - Retrieves the data.</li>
+<code><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch()</a></code> - Downloads the data for those IDs, in its raw format.</li>
 <li>
-<code><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean()</a></code> - Converts the data into a usable table format.</li>
+<code><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean()</a></code> - Converts the raw data into a usable dataframe.</li>
 </ul>
 <div class="rmdtip">
 <p><strong>Tip:</strong> We can consider a basic search with ohvbd as 4 stages:</p>
@@ -224,7 +226,7 @@
 <p>If you know which database you want to use, you can make your search more efficient by specifying the details directly into <code>search_hub</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span><span class="st">"ixodes ricinus"</span>, db <span class="op">=</span> <span class="st">"vt"</span><span class="op">)</span></span></code></pre></div>
-<p>This approach is often faster as it avoids retrieving unnecessary metadata from other databases.</p>
+<p>This gives the same result as <code><a href="https://ohvbd.vbdhub.org/reference/filter_db.html">filter_db()</a></code>, but is more efficient because it only searches the database you need.</p>
 <div class="rmdtip">
 <p><strong>Tip:</strong> You can write <code><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">?search_hub</a></code> or <code><a href="https://ohvbd.vbdhub.org/reference/fetch_vt.html">?fetch_vt</a></code> in the R console to access guide documents if you need extra help using ohvbd.</p>
 </div>
@@ -266,7 +268,19 @@
 <code>returnlist</code> - Return the raw output list of datasets, rather than a formatted dataframe.</li>
 </ul>
 <div class="rmdtip">
-<p><strong>Tip:</strong> You do not need to use all of these arguments at once. Start simple and build a search pipeline that aligns with your search aims.</p>
+<p><strong>Tip:</strong></p>
+<p>You do not need to use all of these arguments at once. Start simple and build a search pipeline that aligns with your search aims.</p>
+</div>
+<div class="rmdcaution">
+<p><strong>Frequent mistake:</strong></p>
+<p><code>taxonomy</code> and <code>locationpoly</code> need inputs in a specific format, which <code>ohvbd</code> can create for you:</p>
+<ul>
+<li>
+<code><a href="https://ohvbd.vbdhub.org/reference/match_species.html">match_species()</a></code> finds species IDs from GBIF, using the <code>rgbif</code> package. For example, <code>match_species("Culex pipiens")</code>.</li>
+<li>
+<code><a href="https://ohvbd.vbdhub.org/reference/match_countries.html">match_countries()</a></code> creates a country outline, using the <code>rnaturalearth</code> package. For example, <code>match_countries("United Kingdom")</code>.</li>
+</ul>
+<p>You can find out more on the <a href="https://ohvbd.vbdhub.org/reference/match_species.html">match_species()</a> and <a href="https://ohvbd.vbdhub.org/reference/match_countries.html">match_countries()</a> reference pages.</p>
 </div>
 <div class="rmdnote">
 <p><strong>Example: Retrieving Culex pipiens Data Using ohvbd</strong></p>
@@ -276,38 +290,30 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span></span>
 <span>query <span class="op">=</span> <span class="st">"Culex pipiens"</span>, </span>
 <span>db <span class="op">=</span> <span class="st">"vd"</span><span class="op">)</span></span></code></pre></div>
-<p>We can also make our search more specific by adding a date filter directly into our search. For example, we might only want data from 2010:</p>
+<p>We can also make our search more specific by adding a date filter directly into our search. For example, we might only want datasets published from 2010 onwards:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span></span>
 <span>query <span class="op">=</span> <span class="st">"Culex pipiens"</span>, </span>
 <span>db <span class="op">=</span> <span class="st">"vd"</span>, </span>
 <span>fromdate <span class="op">=</span> <span class="st">"2010-01-01"</span><span class="op">)</span></span></code></pre></div>
+<p>Note that this filters by when the dataset was published, not when the data were collected.</p>
 <p>We can also add:</p>
 <ul>
 <li>
 <code>exact = TRUE</code> so our search only retrieves exact matches,</li>
 <li>
-<code>withoutpublished = FALSE</code> so datasets without publication dates aren’t retrieved,</li>
-<li>and <code>returnlist = TRUE</code> so we can view the list of retrieved datasets.</li>
+<code>withoutpublished = FALSE</code> so datasets without publication dates aren’t retrieved.</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">search_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span></span>
-<span>query <span class="op">=</span> <span class="st">"Culex pipiens"</span>, </span>
-<span>db <span class="op">=</span> <span class="st">"vd"</span>, </span>
-<span>fromdate <span class="op">=</span> <span class="st">"2010-01-01"</span>,</span>
-<span>exact <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>withoutpublished <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>returnlist <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
-<p>This search will return a list of datasets that match our search criteria. We have stored these results in an object called <code>search_results</code>, which contains information about each dataset, rather than the data itself. This allows us to review the results before retrieving the full datasets. We can retrieve the list by running <code>search_results</code> in the R console.</p>
-<p>Once we are happy with the results, we can retrieve and format the data by changing <code>returnlist</code> to <code>FALSE</code>, and adding <code><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch()</a></code> and <code><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean()</a></code> to download the data and convert it into a usable dataframe:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="hub-tools-what-they-are-and-how-to-use-them.html#cb11-1" tabindex="-1"></a>search_results <span class="ot">&lt;-</span> <span class="fu">search_hub</span>(</span>
+<span id="cb11-2"><a href="hub-tools-what-they-are-and-how-to-use-them.html#cb11-2" tabindex="-1"></a><span class="at">query =</span> <span class="st">"Culex pipiens"</span>, </span>
+<span id="cb11-3"><a href="hub-tools-what-they-are-and-how-to-use-them.html#cb11-3" tabindex="-1"></a><span class="at">db =</span> <span class="st">"vd"</span>, </span>
+<span id="cb11-4"><a href="hub-tools-what-they-are-and-how-to-use-them.html#cb11-4" tabindex="-1"></a><span class="at">fromdate =</span> <span class="st">"2010-01-01"</span>,</span>
+<span id="cb11-5"><a href="hub-tools-what-they-are-and-how-to-use-them.html#cb11-5" tabindex="-1"></a><span class="at">exact =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-6"><a href="hub-tools-what-they-are-and-how-to-use-them.html#cb11-6" tabindex="-1"></a><span class="at">withoutpublished =</span> <span class="cn">FALSE</span></span></code></pre></div>
+<p>This search returns the IDs of the datasets that match our search criteria. We have stored these in an object called <code>search_results</code>, which contains information about each dataset, rather than the data itself. This allows us to review the results before retrieving the full datasets. We can view them by running <code>search_results</code> in the R console.</p>
+<p>Once we are happy with the results, we can retrieve the data with <code><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch()</a></code>, and use <code><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean()</a></code> to extract it and convert it into a usable dataframe:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">culex_pipiens_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span></span>
-<span>query <span class="op">=</span> <span class="st">"Culex pipiens"</span>, </span>
-<span>db <span class="op">=</span> <span class="st">"vd"</span>, </span>
-<span>fromdate <span class="op">=</span> <span class="st">"2010-01-01"</span>,</span>
-<span>exact <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>withoutpublished <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>returnlist <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="va">culex_pipiens_data</span> <span class="op">&lt;-</span> <span class="va">search_results</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Now we have retrieved the data, we can have a quick look by running:</p>
@@ -316,12 +322,15 @@
 <p>We can save the dataset for future use using <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code>:</p>
 <p><code>write.csv(culex_pipiens_data, "culex_pipiens_data.csv", row.names = FALSE)</code></p>
 </div>
-<p>Remember, data retrieved using <strong>ohvbd</strong> can be raw and depends on the format of the source database. When inspecting the data, it is useful to consider:</p>
-<ul>
-<li>What type of data has the search returned?</li>
-<li>How many columns are there?</li>
-<li>Are there any missing values?</li>
-</ul>
+<div class="rmdtip">
+<p><strong>Tip:</strong></p>
+<p>Broad searches can return a lot of datasets, which can take a while to download. Run <code>length(search_results)</code> to see how many datasets your search found, and use <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> to try fetching just a few first, for example:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">culex_pipiens_data</span> <span class="op">&lt;-</span> <span class="va">search_results</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div id="unexpected-search-results" class="section level3" number="3.3.4">
 <h3>
@@ -340,14 +349,14 @@
 <p><strong>Example: Unexpected Results from a Bemisia Search</strong></p>
 <p>Let’s have a look at an example of a search that returns unexpected results.</p>
 <p>Imagine we are searching for trait data on <em>Bemisia</em>, a genus of whitefly, using the <strong>VecTraits</strong> database:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span><span class="st">"Bemisia"</span>, db <span class="op">=</span> <span class="st">"vt"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <p>At first glance, everything may look fine. However, if we explore the dataset further, for example, by checking the unique values in the genus column, we might notice something unexpected:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Interactor1Genus</span><span class="op">)</span></span></code></pre></div>
 <p>Alongside <em>Bemisia</em>, another genus appears: <em>Axinoscymnus</em>, which is a ladybird. This can seem confusing, we searched for whiteflies, not ladybirds.</p>
 <p>If we look more closely at the dataset, we can see that:</p>
@@ -367,13 +376,17 @@
 <p>Instead of searching broadly for <em>Bemisia</em>, we can refine our search using a smart search function.</p>
 <p>Our previous code (see previous Example) returned datasets where <em>Bemisia</em> appeared in multiple columns, including as a secondary interacting species.</p>
 <p>To make the search more specific, we can use <code><a href="https://ohvbd.vbdhub.org/reference/search_vt_smart.html">search_vt_smart()</a></code> to target the column that represents the primary species the traits refer to:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_smart</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_vt_smart.html">search_vt_smart</a></span><span class="op">(</span><span class="st">"Interactor1Genus"</span>, <span class="st">"equals"</span>, <span class="st">"Bemisia"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean</a></span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Interactor1Genus"</span>, <span class="st">"Interactor1Species"</span>, <span class="st">"Interactor2Genus"</span><span class="op">)</span>,</span>
+<span>    returnunique <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_smart</span><span class="op">$</span><span class="va">Interactor1Genus</span><span class="op">)</span></span></code></pre></div>
-<p>We can see that only <em>Bemisia</em> appears in the primary species column. This mitigates the unintended results, such as **Axinoscymnus*, that appeared in our earlier search.</p>
+<p>Here we have also used <code>cols</code> in <code><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean()</a></code> to keep only the columns we need, and <code>returnunique = TRUE</code> to remove any duplicate rows.</p>
+<p>We can see that only <em>Bemisia</em> appears in the primary species column. This mitigates the unintended results, such as <em>Axinoscymnus</em>, that appeared in our earlier search.</p>
 </div>
 <p>By using smart search functions, we can more precisely control how our query is applied, ensuring that the data we retrieve aligns with our research question.</p>
 <p>In addition to refining the search itself, it is often necessary to apply data wrangling techniques after retrieval.</p>
@@ -402,13 +415,14 @@
 <p>Both tools are useful, and the best choice depends on your workflow and experience.</p>
 <div class="rmdimportant">
 <p><strong>Task: Retrieving the Same Dataset with Hub Search and ohvbd</strong></p>
-<p>Have a go at retrieving this dataset using both the Hub Search and ohvbd. Remember to think about which filters will narrow your search most efficiently.</p>
+<p>Have a go at retrieving the data from this paper using both the Hub Search and ohvbd: Blagrove MSC, Arias-Goeta C, Di Genua C, Failloux A-B, Sinkins SP (2013). A <em>Wolbachia w</em>Mel transinfection in <em>Aedes albopictus</em> is not detrimental to host fitness and inhibits Chikungunya virus. <em>PLoS Neglected Tropical Diseases</em> 7(3): e2152.</p>
+<p>Remember to think about which filters will narrow your search most efficiently.</p>
 <p>For Hub Search, open the dataset, check its metadata, and download it.
 For ohvbd, use <code><a href="https://ohvbd.vbdhub.org/reference/fetch.html">fetch()</a></code> and <code><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean()</a></code> to retrieve the dataset as a dataframe.</p>
 <p>Once you have retrieved your dataset, consider:</p>
 <ul>
 <li>Which filters did you use, were these the most efficient?</li>
-<li>Which resource got you to the dataset faster?</li>
+<li>Which tool got you to the dataset faster?</li>
 <li>Which tool would you use if you needed this dataset plus several similar ones?</li>
 </ul>
 </div>

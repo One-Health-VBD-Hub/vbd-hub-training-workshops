@@ -671,11 +671,11 @@ Select one dataset from your search and identify the:
 
 It connects to several VBD databases at once, including:
 
-- **VBD Hub (vbdhub)**
 - **VecTraits (vt)**
 - **VecDyn (vd)**
 - **GBIF (gbif)**
-- **AREAdata (ad)**
+- **ProteomeXchange (px)**
+- **AREAdata**, which is accessed with separate functions, such as `fetch_ad()`
 
 
 This means you can pull datasets directly into your R workflow, making data retrieval much more efficient.
@@ -713,10 +713,10 @@ ixodes_ricinus_data <- search_hub("Ixodes ricinus") |>
 
 Let’s break this down a bit so we can understand what each step is doing:
 
-- `search_hub()` - Searches for datasets matching your query, here we want to search for `"Ixodes ricinus"`.
+- `search_hub()` - Searches for datasets matching your query, here we want to search for `"Ixodes ricinus"`. This gives us the IDs of matching datasets, not the data itself.
 - `filter_db()` - Narrows results to a specific database, in this case `"vt"`, for VecTraits.
-- `fetch()` - Retrieves the data.
-- `glean()` - Converts the data into a usable table format.
+- `fetch()` - Downloads the data for those IDs, in its raw format.
+- `glean()` - Converts the raw data into a usable dataframe.
 
 
 ::: {.rmdtip}
@@ -742,7 +742,7 @@ search_hub("ixodes ricinus", db = "vt")
 ```
 
 
-This approach is often faster as it avoids retrieving unnecessary metadata from other databases. 
+This gives the same result as `filter_db()`, but is more efficient because it only searches the database you need.
 
 
 ::: {.rmdtip}
@@ -775,14 +775,29 @@ Let’s have a look at what each of these arguments does:
 - `db` - Which databases we want to search
 - `fromdate` and `todate` - Filter by a specified date range. These parameters use ISO format (yyyy-mm-dd). 
 - `locationpoly` - Define a geographic search area.
-- `taxonomy` - Search by species ID.
+- `taxonomy` - Search by species ID. 
 - `exact` - Return exact matches only.
 - `withoutpublished` - Include results without publication dates.
 - `returnlist` - Return the raw output list of datasets, rather than a formatted dataframe.
 
 
 ::: {.rmdtip}
-**Tip:** You do not need to use all of these arguments at once. Start simple and build a search pipeline that aligns with your search aims.
+**Tip:** 
+
+You do not need to use all of these arguments at once. Start simple and build a search pipeline that aligns with your search aims.
+:::
+
+
+::: {.rmdcaution}
+**Frequent mistake:** 
+
+`taxonomy` and `locationpoly` need inputs in a specific format, which `ohvbd` can create for you:
+
+- `match_species()` finds species IDs from GBIF, using the `rgbif` package. For example, `match_species("Culex pipiens")`.
+- `match_countries()` creates a country outline, using the `rnaturalearth` package. For example, `match_countries("United Kingdom")`.
+
+
+You can find out more on the [match_species()](https://ohvbd.vbdhub.org/reference/match_species.html) and [match_countries()](https://ohvbd.vbdhub.org/reference/match_countries.html) reference pages.
 :::
 
 
@@ -803,7 +818,7 @@ db = "vd")
 ```
 
 
-We can also make our search more specific by adding a date filter directly into our search. For example, we might only want data from 2010: 
+We can also make our search more specific by adding a date filter directly into our search. For example, we might only want datasets published from 2010 onwards:
 
 
 
@@ -815,12 +830,13 @@ fromdate = "2010-01-01")
 ```
 
 
+Note that this filters by when the dataset was published, not when the data were collected.
+
+
 We can also add:
 
 - `exact = TRUE` so our search only retrieves exact matches, 
-- `withoutpublished = FALSE` so datasets without publication dates aren’t retrieved,
-- and `returnlist = TRUE` so we can view the list of retrieved datasets. 
-
+- `withoutpublished = FALSE` so datasets without publication dates aren’t retrieved.
 
 
 ``` r
@@ -829,26 +845,19 @@ query = "Culex pipiens",
 db = "vd", 
 fromdate = "2010-01-01",
 exact = TRUE,
-withoutpublished = FALSE,
-returnlist = TRUE) 
+withoutpublished = FALSE
 ```
 
 
-This search will return a list of datasets that match our search criteria. We have stored these results in an object called `search_results`, which contains information about each dataset, rather than the data itself. This allows us to review the results before retrieving the full datasets. We can retrieve the list by running `search_results` in the R console. 
+This search returns the IDs of the datasets that match our search criteria. We have stored these in an object called `search_results`, which contains information about each dataset, rather than the data itself. This allows us to review the results before retrieving the full datasets. We can view them by running `search_results` in the R console.
 
 
-Once we are happy with the results, we can retrieve and format the data by changing `returnlist` to `FALSE`, and adding `fetch()` and `glean()` to download the data and convert it into a usable dataframe:
+Once we are happy with the results, we can retrieve the data with `fetch()`, and use `glean()` to extract it and convert it into a usable dataframe:
 
 
 
 ``` r
-culex_pipiens_data <- search_hub(
-query = "Culex pipiens", 
-db = "vd", 
-fromdate = "2010-01-01",
-exact = TRUE,
-withoutpublished = FALSE,
-returnlist = FALSE) |>
+culex_pipiens_data <- search_results |>
  fetch() |>
  glean()
 ```
@@ -869,11 +878,21 @@ We can save the dataset for future use using `write.csv()`:
 :::
 
 
-Remember, data retrieved using **ohvbd** can be raw and depends on the format of the source database. When inspecting the data, it is useful to consider:
+::: {.rmdtip}
+**Tip:** 
 
-- What type of data has the search returned?
-- How many columns are there?
-- Are there any missing values?
+Broad searches can return a lot of datasets, which can take a while to download. Run `length(search_results)` to see how many datasets your search found, and use `head()` to try fetching just a few first, for example:
+
+
+
+``` r
+culex_pipiens_data <- search_results |> 
+  head(5) |> 
+  fetch() |> 
+  glean()
+```
+:::
+
 
 
 ### Unexpected Search Results
@@ -959,13 +978,19 @@ To make the search more specific, we can use `search_vt_smart()` to target the c
 ``` r
 df_smart <- search_vt_smart("Interactor1Genus", "equals", "Bemisia") |>
   fetch() |>
-  glean()
+  glean(
+    cols = c("Interactor1Genus", "Interactor1Species", "Interactor2Genus"),
+    returnunique = TRUE
+  )
 
 unique(df_smart$Interactor1Genus)
 ```
 
 
-We can see that only *Bemisia* appears in the primary species column. This mitigates the unintended results, such as **Axinoscymnus*, that appeared in our earlier search.
+Here we have also used `cols` in `glean()` to keep only the columns we need, and `returnunique = TRUE` to remove any duplicate rows.
+
+
+We can see that only *Bemisia* appears in the primary species column. This mitigates the unintended results, such as *Axinoscymnus*, that appeared in our earlier search.
 :::
 
 
@@ -1006,7 +1031,10 @@ Both tools are useful, and the best choice depends on your workflow and experien
 ::: {.rmdimportant}
 **Task: Retrieving the Same Dataset with Hub Search and ohvbd**
 
-Have a go at retrieving this dataset using both the Hub Search and ohvbd. Remember to think about which filters will narrow your search most efficiently.
+Have a go at retrieving the data from this paper using both the Hub Search and ohvbd: Blagrove MSC, Arias-Goeta C, Di Genua C, Failloux A-B, Sinkins SP (2013). A *Wolbachia w*Mel transinfection in *Aedes albopictus* is not detrimental to host fitness and inhibits Chikungunya virus. *PLoS Neglected Tropical Diseases* 7(3): e2152.
+
+
+Remember to think about which filters will narrow your search most efficiently.
 
 
 For Hub Search, open the dataset, check its metadata, and download it. 
@@ -1016,7 +1044,7 @@ For ohvbd, use `fetch()` and `glean()` to retrieve the dataset as a dataframe.
 Once you have retrieved your dataset, consider:
 
 - Which filters did you use, were these the most efficient?
-- Which resource got you to the dataset faster?
+- Which tool got you to the dataset faster?
 - Which tool would you use if you needed this dataset plus several similar ones?
 :::
 
@@ -2133,7 +2161,7 @@ y = "Mean Abundance"
 abundance_plot_across_locations
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-47-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-48-1.png" alt="" width="672" />
 
 
 We can now use this visualisation to compare abundance patterns across sampling sites:
@@ -2269,7 +2297,7 @@ time_series_plot_goro <- ggplot(mosquito_data_goro, aes(x = sample_start_date, y
 time_series_plot_goro
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-53-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-54-1.png" alt="" width="672" />
 
 
 Oh dear, this graphic looks rather messy! Although we have used the correct code and ensured our date column is in the correct format, our visualisation is still difficult to read and interpret. This is because real-world VBD data often includes multiple samples collected on the same date. 
@@ -2305,7 +2333,7 @@ daily_abundance_plot_goro <- ggplot(daily_abundance_goro, aes(x = sample_start_d
 daily_abundance_plot_goro
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-55-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-56-1.png" alt="" width="672" />
 
 
 This is much better! Our visualisation effectively shows the trend of mosquito abundance over time at our selected location.
@@ -2377,7 +2405,7 @@ y = "Abundance"
 daily_abundance_plot_all
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-57-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-58-1.png" alt="" width="672" />
 
 
 This is the visualisation we wanted, but it looks a bit messy. All the lines are displayed in the same colour, which makes the plot difficult to read. We can see patterns of abundance change over time, but it is difficult to distinguish between different locations. 
@@ -2408,7 +2436,7 @@ colour = "Sampling Location"
 daily_abundance_plot_all
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-58-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-59-1.png" alt="" width="672" />
 
 
 ::: {.rmdtip}
@@ -2476,7 +2504,7 @@ daily_abundance_plot_faceted <- ggplot(
 daily_abundance_plot_faceted
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-60-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-61-1.png" alt="" width="672" />
 
 
 #### Adjusting y-axis Scales 
@@ -2513,7 +2541,7 @@ daily_abundance_plot_faceted_Y <- ggplot(
 daily_abundance_plot_faceted_Y
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-62-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-63-1.png" alt="" width="672" />
 
 
 By separating each sampling location into its own panel, the patterns in the data become much clearer:
