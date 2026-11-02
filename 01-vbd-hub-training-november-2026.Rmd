@@ -2837,60 +2837,93 @@ By comparing the different solutions developed by each group, you can see that t
 # Effectively Communicating with Different Audiences
 
 ## Overview
-Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the people who need it. 
+Throughout this training, we have been working with data, including finding it, cleaning it, and plotting it. But for a finding to shape decisions beyond research, it needs to reach the people who need it in a form they can understand and use. In VBD research, the audience are rarely just other researchers. The same surveillance result might need to reach a public health team deciding where to trap next season, and someone living near a sampling site who has just seen a worrying headline. Each of them needs something different from the same evidence. During this workshop, we will discuss how to make a VBD finding clear, honest about uncertainty, and appropriate for the audience who need it.
 
 
-In VBD research, those people are not only other researchers. The same surveillance result might need to reach a public health team deciding where to trap next season, and a parent wondering whether it is safe to take their children to the park. Each of them needs something different from the same evidence.
-
-
-In this session, we will consider a single finding through three stages:
-
-- **Make it readable** - designing visualisations that are clear and accessible to everyone.
-- **Make it meaningful** - describing findings in honest and useful ways.
-- **Make it land** - tailoring the same finding for academic, policy, and public audiences.
-
-
-### **Learning Objectives**
+**Learning Objectives**
 
 By the end of this workshop, you should be able to:
 
-- Design clear and accessible visualisations in R.
-- Communicate uncertainty in ways that are honest and still useful.
-- Tailor a VBD finding for academic, policy, and public audiences without changing the underlying science.
+1. Identify what academic, policy, and public audiences need from a VBD findings, and why. 
+2. Make visualisation designs clearer and more accessible in R.
+3. Communicate uncertainty in ways that are honest and still useful.
+4. Tailor a VBD finding for academic, policy, and public audiences without changing the underlying science.
 
 
-## Who Is This For?
-
-In the visualisations workshop, we built a time-series plot showing Culex pipiens abundance across multiple sampling locations. Let's start by looking at it again.
-
-
-Visualisation image coming soon.
+## Know Your Audience
+A finding has the most impact is the people receiving it can understand it and use it. 
 
 
-Ask yourself **who is this visualisation for?**
+In VBD research, the same result might reach other researchers, public health teams, policymakers, journalists, and members of the public. Each audience brings different knowledge, priorities, and time pressures, and each plans to do something different with the information they hear. 
 
 
-Now consider three people who all need to understand the finding show in this plot:
-
-- **Dr Wren**, an entomologist, who wants to know how the data were collected and how strong the pattern is.
-- **Jay**, a regional public health lead, who has to decide whether to fund more mosquito surveillance next summer.
-- **Robin**, a parent who lives near one of the sampling sites, and wants to know whether their family is at risk.
+Communicating well means adapting the emphasis, level of detail, and language for each audience, without changing the underlying science. 
 
 
-All three need to understand this finding.
+### Meet the Audience
+Throughout this workshop, we will follow three people. Each represents one of the audiences VBD researchers communicate with most often, and each could realistically come across the same piece of mosquito surveillance research. 
 
 
-::: {.rmdtip}
-**Tip:** Before you share any finding, ask yourself two questions. Who is this for? And what do they need to do with it?
+<details>
+<summary>**Dr Wren, entomologist (academic audience)**</summary>
+
+Dr Wren studies Culex mosquitoes at a university and regularly reviews papers in the field. She is the person who will read your paper, cite it, build on it, or question it at a conference.
+
+</details>
+
+
+<details>
+<summary>**Jay, regional public health lead (policy audience)**</summary>
+
+Jay decides where the region’s mosquito surveillance budget goes each summer, and briefs local councillors on vector-borne disease risks. Your findings could shape where traps are placed next year. 
+
+</details>
+
+
+<details>
+<summary>**Robin, a parent living near a sampling site (public audience)**</summary>
+
+Robin walks the dog past one of the mosquito traps every morning, and has started noticing headlines about mosquitoes. He is most likely to hear about your work second-hand, through local news, a council leaflet, or social media. 
+
+</details>
+
+
+All three could come across the same finding, but each will ask very different questions about it. Later, we will look at exactly what each of them needs and why.
+
+
+::: {.rmdimportant}
+**Discussion:**
+
+Which of these three people do you find hardest to communicate with?
 :::
 
 
-## Make It Readable
+### Three Steps to Reaching Your Audience
+To reach Dr Wren, Jay, and Robin, a finding needs to go through three steps:
 
-Before we think about who we are talking to, our visualisations need to be accessible for everyone. A plot that is cluttered, poorly labelled, or relies on colours some people can't distinguish won’t be clear for any audience, however carefully we tailor the message around it.
+1. **Make it readable** - Design visualisations that are clear and accessible, so everyone can see what the data show. 
+2. **Make it meaningful** - Describe the finding in words, with the right level of certainty. 
+3. **Make it land** - Tailor the message to what each audience needs.
 
 
-A useful checklist for readable visualisations is **CLEAR**:
+Each step builds on the one before. A clear plot shows your audience what the data say, the right wording helps them understand what it means, and tailoring the message helps them use it. 
+
+
+In this workshop, we will explore each of these steps in more detail. 
+
+
+## Make it Readable
+In the visualisations workshop, we learnt the building blocks of VBD visualisations. In this section, we will run through some tips and tricks for making visualisations clean, accessible, and appropriate for different audiences. 
+
+
+Some of these tips help every audience, others matter more for particular people:
+
+- **Dr Wren** will expect to see variation and uncertainty in a plot. 
+- **Jay** needs the key message in the title, to understand the details at a glance. 
+- **Robin** needs plain-language labels, with no specialist jargon.
+
+
+A useful checklist to remember for readable visualisations is **CLEAR**:
 
 - **C**lean design
 - **L**abels that tell the story
@@ -2899,17 +2932,8 @@ A useful checklist for readable visualisations is **CLEAR**:
 - **R**eadable everywhere
 
 
-Let's work through these to understand how to approach each one.
-
-
 ### Clean Design
-
-In `ggplot2`, we can change the non-data elements of a plot using **themes**, include the:
-
-- Background colour
-- Grid lines
-- Text size and font
-- Legend position
+In `ggplot2`, we can change the non-data elements of a plot using **themes**. These include the background colour, grid lines, text size and font, and legend position. 
 
 
 `ggplot2` has several built-in themes, including:
@@ -2919,95 +2943,353 @@ In `ggplot2`, we can change the non-data elements of a plot using **themes**, in
 - `theme_classic()`
 
 
-**Themes** are added to a plot like any other layer, using `+`. For example, we can apply `theme_minimal()` to our time-series plot:
+For example, `theme_minimal()` removes the grey background and uses simple, light grid lines, so the data stands out more clearly. 
+
+
+Themes are added to a plot in the same ways as layers, using `+` . We can also use additional arguments within the theme, such as `base_size` to increase the size of all text on the plot at once, and `base_family` to apply a consistent font. 
+
+
+::: {.rmdtip}
+**Tips:**
+
+These are just a few of the built-in themes. You can see all of them, with example plots, on the [ggplot2 website](https://ggplot2.tidyverse.org/reference/ggtheme.html).
+
+
+Using the same theme across all your visualisations gives your work a consistent, professional appearance. 
+::: 
+
+
+### Labels that Tell the Story
+We have already used `labs()` to add title and axis labels. Clear labels help your audience understand what they are looking at, so make sure that:
+
+- Axis labels describe the data, including units where relevant. 
+- Legend titles are readable, rather than raw column names such as `sample_location`.
+- The title states the key message, not just what is plotted. 
+
+
+The last point is easy to overlook. Compare these two titles for the same visualisation:
+
+- "Abundance Over Time"
+- "Culex pipiens abundance peaks every summer at all sites"
+
+
+The first tells the viewer what they are looking at. The second tells them what to notice. Most audiences, especially busy ones, will likely read the title and scan the visualisation.
+
+
+::: {.rmdcaution}
+**Frequent mistake:**
+
+A message-led title must be supported by the data. Always check that your title does not claim more than the plot shows. 
+:::
+
+
+### Extra Visual Cues
+If colour is the only way to tell groups apart, some viewers will not be able to read your plot. This includes people with colour vision deficiencies, and anyone viewing a printout in black and white. 
+
+
+We can add a second visual cue so the plot does not rely on colour alone. For line plots, we can map the same variable to both `colour` and `linetype`:
 
 
 ``` {r, eval=FALSE}
-ggplot(daily_abundance_all_locations,
-       aes(x = sample_start_date, y = total_abundance, colour = sample_location)) +
-  geom_line() +
-  theme_minimal()
+aes(x = sample_start_date, y = total_abundance,
+	colour = sample_location, linetype = sample_location)
 ```
 
 
-This removes the grey background and uses simple, light grid lines, so the data stands out more clearly.
+In doing so, we can differentiate by colour as well as solid or dotted lines.
 
 
-We can also use the `base_size` argument to increase the size of all text on the plot at once:
+For scatter plots, we can map a variable to `shape` in the same way as `linetype`. This sets the variable points as different shapes, such as circles, squares, and triangles.
+
+
+We can also make important elements stand out by increasing their contracts, for example, by making lines thicker:
 
 
 ``` {r, eval=FALSE}
-theme_minimal(base_size = 14)
+geom_line(linewidth = 0.8)
 ```
 
 
 ::: {.rmdtip}
-**Tip:** Using the same theme across all your visualisations gives your work a consistent, professional appearance.
+**Tip:**
+
+As we saw in the visualisations workshop, when there are many groups plotted on a single graph, it can be difficult to tell these apart. This is still the case even if we apply extra visual cues. 
+
+
+We used **faceting** to distinguish between groups in busy visualisations, which is another option to make your visualisation clearer and more accessible. 
 :::
-
-
-### Labels That Tell the Story
-
-
-### Extra Visual Cues
 
 
 ### Accessible Colours
+When we do use colour, we should choose colour palettes that can be distinguished by as many viewers as possible. Combinations such as red and green are difficult for people with the most common forms of colour vision deficiency to tell apart. 
+
+
+`ggplot2` includes the viridis colour palettes, which are designed to be readable by people with colour vision deficiencies, and to print well in greyscale.
+
+
+To use viridis, add the scale that matches the type of variable you want to map to colour:
+
+- For **categories**, use `scale_colour_viridis_d()`, where `d` stands for discrete. 
+- For **numeric values**, use `scale_colour_viridis_c()`, where `c` stands for continuous. 
+- For **filled shapes**, such as bars, swap `colour` for `fill`, for example, `scale_fill_viridis_d()`.
+
+
+::: {.rmdtip}
+Viridis comes in eight palettes, which are listed on the [ggplot2 website](https://ggplot2.tidyverse.org/reference/scale_viridis.html).
+
+
+In general, dark lines or points on a light background are the easiest to read. Avoid using lots of bright or clashing colours. 
+::: 
 
 
 ### Readable Everywhere
+Your visualisation may be viewed on a projector, in a printed report, or on a phone screen. Therefore, it is important to make sure it is readable wherever it ends up:
 
-
-::: {.rmdnote}
-**Example: Applying the CLEAR Checklist**
-
-Let's apply the checklist to our time-series plot. Here is the original version:
-
-:::
-
-
-::: {.rmdimportant}
-**Task: Accessibility Makeover**
-
-:::
+- Make sure the **text is large enough** to read on slides. Increasing `base_size` in your theme is a quick way to do this. 
+- **Saving plots as PDFs** can be helpful when considering readability, as these can be zoomed in without losing quality.
+- You might also consider writing **alternative text (alt text)** when sharing plots digitally, so that people using screen readers can access them. Good alt text describes what the plot shows and its key message, for example, "Line graph of *Culex pipiens* abundance at eight sites from 2015 to 2022, showing a peak every summer at all sites."
 
 
 ## Make it Meaningful
+A clear, accessible plot is a good starting point, but as soon as we describe a finding in words, we make choices about how certain it sounds. This could be in a title, a summary, or even a conversation. 
 
 
-## Make it Land
+This is really important for VBD research, as how we describe our findings can shape:
+
+- Public perception of risk
+- Policy decisions
+- Funding priorities
+- Trust in science
 
 
-### Academic Audiences
+Even small wording changes can greatly alter how a finding is interpreted. For example, compare these two statements:
+
+- "Environmental suitability for vector establishment may increase under projected climatic conditions."
+- "Climate change will cause mosquito-bore disease to spread."
 
 
-### Policy Audiences
+Both statements cover the same topic, but they communicate very different levels of certainty. The first describes what the evidence supports and acknowledges uncertainty, whereas the second implies a guaranteed outcome that the evidence may not support. 
 
 
-### Public Audiences
+However, being cautious isn’t automatically the right answer either. For example, when communicating with policy makers, they will likely expect specific details and likely outcomes which will help inform decisions. 
 
 
-::: {.rmdnote}
-**Example: Reframing One Finding for Three Audiences**
+Common pitfalls in communication often revolve around poorly explained uncertainty, which can create confusion and leave space for misinformation:
 
+- **Overstating certainty** can create unnecessary alarm, or unrealistic expectations. 
+- **Being too vague** can prevent useful action and reduce trust. 
+
+
+Responsible communication means finding the **balance** between the two. 
+
+
+::: {.rmdimportant}
+**Task: The Certainty Spectrum**
+
+In this task, there is a line with three points marked along it:
+
+- One end is too cautious to be useful
+- The middle is just right
+- The other end is overconfident
+
+
+Each of the following statements describe the same finding: mosquito counts were higher during warmer weeks at most sampling sites.
+
+
+Decide where each of these statements sit on the uncertainty spectrum line:
+
+1. "Mosquito numbers were higher during warmer weeks at most of our sites."
+2. "Warmer weather may be linked to increased mosquito activity."
+3. "Hot summers are driving a mosquito boom."
+4. "Mosquito-borne outbreaks are now inevitable as summers get hotter."
+5. "Given the limitations of the surveillance data, no conclusions can be drawn about temperature and mosquito numbers."
+
+
+There is no single correct answer, the aim is to notice how wording shifts certainty, and how different people can interpret the same finding. 
 :::
 
 
-## The Hot Seat
+### Principles for Communicating Uncertainty
+Uncertainty is a normal and unavoidable part of VBD research. It does not make findings unusable, but it does shape how they should be communicated. There are some principles we can remember to help.
+
+
+**1. Say what you know, what you don't, and what it means**
+
+Uncertainty is best communicated alongside a clear message, rather than instead of one. For example, compare these two statements:
+
+- "Current evidence suggests increased mosquito activity during wetter periods, although surveillance coverage remains limited in some regions."
+- "Due to multiple methodological limitations and uncertainty surrounding surveillance completeness, conclusions should be interpreted with caution."
+
+
+The second statement may be technically correct, but nobody could act on it. The first is honest about its limitations, and still gives the reader something useful. There is an important difference between communicating uncertainty and communicating indecision. 
+
+
+**2. Keep the chain intact**
+
+For a vector-borne disease to pose a risk to people, several things needs to be true:
+
+1. The environment is suitable for the vector.
+2. The vector is present.
+3. The pathogen is present in the vector population. 
+4. Transmission to people or animals is occurring.
+
+
+Each step can be considered a separate question requiring separate evidence. Environmental suitability doesn’t mean the vector is present, vector presence doesn’t mean the pathogen is present, and pathogen presence doesn't mean transmission is occurring. 
+
+
+As findings move from research into policy and public discussion, these steps are often merged together. For instance, an environmental suitability model can quickly become reported as “outbreaks are coming”, even though the model never tested this. 
+
+
+**3. Absence of evidence is not evidence of absence.**
+
+When a surveillance report states that "no vectors were detected", there are two possible explanations. Either there really are no vectors in the area, or there are vectors but the surveillance didn’t pick them up. The second can happen if sampling was limited, trapping effort was uneven, or trapping stopped for part of the season. 
+
+
+Readers often assume the first explanation. Compare these two statements:
+
+- "No vectors were detected in the region."
+- "No vectors were detected at the five sites sampled between June and July. Trapping was paused in August, and the north region was not sampled."
+
+
+The first statement sounds like an all-clear, whereas the second reports the same result but explains what it is based on so the reader can decide how much to rely on the finding. 
+
+
+This is important because **people act on what they hear**. A member of the public might stop taking precautions, while a policy maker might decide surveillance in the area is no longer needed. 
+
+
+## Make it Land
+At the start of this session, we met Dr Wren, Jay, and Robin. We will now look at what each of them needs from a finding, why they need it, and how to write for them. 
+
+
+The science doesn’t change between them, what changes is the:
+
+- Emphasis
+- Level of detail
+- Language
+
+
+### Academic Audiences: Dr Wren
+**What she asks:** How strong is the evidence?
+
+
+**What she needs:** How the data were collected, effect sizes, and the limitations of the study.
+
+
+**Why:** Researchers build on and critique each other’s findings. Dr Wren needs enough detail to decide whether to trust a result, and whether it could be reproduced. 
+
+
+**Typical formats:** Journal articles, conference talks, and abstracts. 
+
+
+**What to avoid:** Jargon that overshadows the key finding. 
+
+
+::: {.rmdnote}
+**Example: Avoiding Jargon**
+
+Academic audiences are generally comfortable with technical terms, complex figures, and uncertainty, but technically correct isn’t always the same as clear. 
+
+For example, instead of saying: "Vector abundance demonstrated statistically significant positive covariance with anomalous precipitation metrics.", it would be just as accurate and much quicker to understand: "Higher rainfall periods were associated with increased mosquito abundance."
+
+This is particularly important in VBD research, where entomologists, epidemiologists, ecologists, and clinicians often work together, but may use different terminology. 
+:::
+
+
+### Policy Audiences: Jay
+**What she asks:** What should we do, and where?
+
+
+**What she needs:** What the finding means for action, how confident to be, and a recommendation. 
+
+
+**Why:** Jay makes decisions with limited time and budget, and needs to justify these decisions to others. A finding she can’t act on is of little use to her, however interesting it might be. 
+
+
+**Typical formats:** Policy briefs, operational summaries, and short briefings. 
+
+
+**What to avoid:** Heavy caveats that limit action.
+
+
+::: {.rmdnote}
+**Example: Communicating Findings to Inform Decisions**
+
+A useful question to ask when communicating with policy audiences is what decisions could this information help support?
+
+
+For example, "Higher rainfall periods were associated with increased mosquito abundance, suggesting wetter seasons may require enhanced surveillance activity."
+
+
+This communicates the finding, why it matters, and a possible action, without overwhelming the reader. Uncertainty and limitations should still be included, but in a form that can be used. 
+:::
+
+
+### Public Audiences: Robin
+**What he asks:** Does this affect my family?
+
+
+**What he needs:** Whether he should be worried, and what, if anything, he can do.
+
+
+**Why:** Robin makes decisions everyday based on what he hears. Public communication can influence behaviour, how risks people think a situation is, and trust in science. 
+
+
+**Typical formats:** Webpages, health advisories, local news, and social media. 
+
+
+**What to avoid:** Alarm, false reassurance, or patronising tones. 
+
+
+::: {.rmdtip}
+**Tip:**
+
+Overly alarming communication can create unnecessary fear, but overly reassuring communication can damage trust if the evidence changes later. 
+
+
+Additionally, public audiences may have little technical background, but that doesn’t mean communication should be overly simplistic or patronising.
+::: 
+
+::: {.rmdnote}
+**Example: Balancing Risk**
+
+Members of the public may interpret vector presence, environmental suitability, or increased surveillance as meaning that an outbreak is already happening. Equally, "no vectors detected" may be interpreted as "there is nothing to worry about". 
+
+
+For example, compare the following statements:
+
+- "Lyme disease is spreading across the UK."
+- "Tick numbers may be increasing in some areas, but not all ticks carry Lyme disease. Checking yourself, your family and pets for ticks after time outdoors, and removing any you find promptly, helps reduce the risk."
+
+
+The second statement is honest about the finding, reduces alarm, and gives the reader something practical to do. 
+:::
+
+
+### Reframing Findings for Different Audiences
 
 ::: {.rmdimportant}
 **Task: The Hot Seat**
 
-In this task, you will practise communicating a VBD finding to Dr Wren, Jay, and Robin.
-
-:::
+In this task, you will practise communicating a VBD finding to Dr Wren, Jay, and Robin. 
 
 
-## Who Is This For Now?
+In groups of four, one person takes the role of the communicator. The other three each take a role card for **Dr Wren** (academic audience), **Jay** (policy audience), or **Robin** (public audience). If you named someone as the hardest to communicate with at the start of the session, now is your chance to try communicating in their shoes. 
+
+
+Each group will receive a scenario card, and a curveball envelope:
+
+1. **Prepare** - Read your scenario together. Agree on what the evidence does and doesn’t show. 
+2. **Hot Seat** - The communicator explains the finding to each character in turn. Each character responds in role, using the prompts on their card. If the explanation doesn’t work for your character, push back.
+3. **Curveball** - Open your curveball envelope. Something has changed and your group needs to respond. Swap communicator for this round. 
+4. **Final Message** - As a group, write one sentence about your finding for one of the three characters. Don’t tell the other groups which character it is for. When everyone is ready, each group will share their finding, and the room will guess which audience it is for. 
+::: 
 
 
 ## Key Takeaways
-
+1. **Know your audience** - Before you share any finding, ask who it is for and what they need to do with it. Academic, policy, and public audiences ask very different questions of the same evidence.
+2. **Make it readable** - Use the CLEAR checklist when designing visualisations. Remember that accessible visualisations work better for everyone. 
+3. **Make it meaningful** - Wording changes how a certain finding is interpreted. Aim to balance caution so that the finding can be used to inform decisions. 
+4. **Make it land** - Tailor the emphasis, detail, and language for each audience, without changing the underlying science. 
 
 
 
