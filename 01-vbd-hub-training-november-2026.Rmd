@@ -2864,28 +2864,15 @@ Communicating well means adapting the emphasis, level of detail, and language fo
 Throughout this workshop, we will follow three people. Each represents one of the audiences VBD researchers communicate with most often, and each could realistically come across the same piece of mosquito surveillance research. 
 
 
-<details>
-<summary>**Dr Wren, entomologist (academic audience)**</summary>
-
-Dr Wren studies Culex mosquitoes at a university and regularly reviews papers in the field. She is the person who will read your paper, cite it, build on it, or question it at a conference.
-
-</details>
+**Dr Wren, entomologist (academic audience)** - Dr Wren studies Culex mosquitoes at a university and regularly reviews papers in the field. She is the person who will read your paper, cite it, build on it, or question it at a conference.
 
 
-<details>
-<summary>**Jay, regional public health lead (policy audience)**</summary>
-
-Jay decides where the region’s mosquito surveillance budget goes each summer, and briefs local councillors on vector-borne disease risks. Your findings could shape where traps are placed next year. 
-
-</details>
+**Jay, regional public health lead (policy audience)** - Jay decides where the region’s mosquito surveillance budget goes each summer, and briefs local councillors on vector-borne disease risks. Your findings could shape where traps are placed next year. 
 
 
-<details>
-<summary>**Robin, a parent living near a sampling site (public audience)**</summary>
+**Robin, a parent living near a sampling site (public audience)** - Robin walks the dog past one of the mosquito traps every morning, and has started noticing headlines about mosquitoes. He is most likely to hear about your work second-hand, through local news, a council leaflet, or social media. 
 
-Robin walks the dog past one of the mosquito traps every morning, and has started noticing headlines about mosquitoes. He is most likely to hear about your work second-hand, through local news, a council leaflet, or social media. 
 
-</details>
 
 
 All three could come across the same finding, but each will ask very different questions about it. Later, we will look at exactly what each of them needs and why.
