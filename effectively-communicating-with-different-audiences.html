@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 7 Effectively Communicating with Different Audiences | One Health VBD Hub Training 2026</title>
 <meta name="author" content="Chloë Coxshall">
-<meta name="description" content="7.1 Overview Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the...">
+<meta name="description" content="7.1 Overview Throughout this training, we have been working with data, including finding it, cleaning it, and plotting it. But for a finding to shape decisions beyond research, it needs to reach...">
 <meta name="generator" content="bookdown 0.48 with bs4_book()">
 <meta property="og:title" content="Chapter 7 Effectively Communicating with Different Audiences | One Health VBD Hub Training 2026">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/effectively-communicating-with-different-audiences.html">
 <meta property="og:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
-<meta property="og:description" content="7.1 Overview Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the...">
+<meta property="og:description" content="7.1 Overview Throughout this training, we have been working with data, including finding it, cleaning it, and plotting it. But for a finding to shape decisions beyond research, it needs to reach...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 7 Effectively Communicating with Different Audiences | One Health VBD Hub Training 2026">
-<meta name="twitter:description" content="7.1 Overview Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the...">
+<meta name="twitter:description" content="7.1 Overview Throughout this training, we have been working with data, including finding it, cleaning it, and plotting it. But for a finding to shape decisions beyond research, it needs to reach...">
 <meta name="twitter:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -82,56 +82,72 @@
 <h2>
 <span class="header-section-number">7.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-4"><i class="fas fa-link"></i></a>
 </h2>
-<p>Throughout this training, we have discussed finding data, cleaning data, and visualising data. But it is also important to consider the impact of data and results when they reach the people who need it.</p>
-<p>In VBD research, those people are not only other researchers. The same surveillance result might need to reach a public health team deciding where to trap next season, and a parent wondering whether it is safe to take their children to the park. Each of them needs something different from the same evidence.</p>
-<p>In this session, we will consider a single finding through three stages:</p>
-<ul>
-<li>
-<strong>Make it readable</strong> - designing visualisations that are clear and accessible to everyone.</li>
-<li>
-<strong>Make it meaningful</strong> - describing findings in honest and useful ways.</li>
-<li>
-<strong>Make it land</strong> - tailoring the same finding for academic, policy, and public audiences.</li>
-</ul>
-<div id="learning-objectives-4" class="section level3" number="7.1.1">
-<h3>
-<span class="header-section-number">7.1.1</span> <strong>Learning Objectives</strong><a class="anchor" aria-label="anchor" href="#learning-objectives-4"><i class="fas fa-link"></i></a>
-</h3>
+<p>Throughout this training, we have been working with data, including finding it, cleaning it, and plotting it. But for a finding to shape decisions beyond research, it needs to reach the people who need it in a form they can understand and use. In VBD research, the audience are rarely just other researchers. The same surveillance result might need to reach a public health team deciding where to trap next season, and someone living near a sampling site who has just seen a worrying headline. Each of them needs something different from the same evidence. During this workshop, we will discuss how to make a VBD finding clear, honest about uncertainty, and appropriate for the audience who need it.</p>
+<p><strong>Learning Objectives</strong></p>
 <p>By the end of this workshop, you should be able to:</p>
-<ul>
-<li>Design clear and accessible visualisations in R.</li>
+<ol style="list-style-type: decimal">
+<li>Identify what academic, policy, and public audiences need from a VBD findings, and why.</li>
+<li>Make visualisation designs clearer and more accessible in R.</li>
 <li>Communicate uncertainty in ways that are honest and still useful.</li>
 <li>Tailor a VBD finding for academic, policy, and public audiences without changing the underlying science.</li>
-</ul>
+</ol>
 </div>
-</div>
-<div id="who-is-this-for" class="section level2" number="7.2">
+<div id="know-your-audience" class="section level2" number="7.2">
 <h2>
-<span class="header-section-number">7.2</span> Who Is This For?<a class="anchor" aria-label="anchor" href="#who-is-this-for"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.2</span> Know Your Audience<a class="anchor" aria-label="anchor" href="#know-your-audience"><i class="fas fa-link"></i></a>
 </h2>
-<p>In the visualisations workshop, we built a time-series plot showing Culex pipiens abundance across multiple sampling locations. Let’s start by looking at it again.</p>
-<p>Visualisation image coming soon.</p>
-<p>Ask yourself <strong>who is this visualisation for?</strong></p>
-<p>Now consider three people who all need to understand the finding show in this plot:</p>
-<ul>
+<p>A finding has the most impact is the people receiving it can understand it and use it.</p>
+<p>In VBD research, the same result might reach other researchers, public health teams, policymakers, journalists, and members of the public. Each audience brings different knowledge, priorities, and time pressures, and each plans to do something different with the information they hear.</p>
+<p>Communicating well means adapting the emphasis, level of detail, and language for each audience, without changing the underlying science.</p>
+<div id="meet-the-audience" class="section level3" number="7.2.1">
+<h3>
+<span class="header-section-number">7.2.1</span> Meet the Audience<a class="anchor" aria-label="anchor" href="#meet-the-audience"><i class="fas fa-link"></i></a>
+</h3>
+<p>Throughout this workshop, we will follow three people. Each represents one of the audiences VBD researchers communicate with most often, and each could realistically come across the same piece of mosquito surveillance research.</p>
+<details><summary><strong>Dr Wren, entomologist (academic audience)</strong>
+</summary><p>Dr Wren studies Culex mosquitoes at a university and regularly reviews papers in the field. She is the person who will read your paper, cite it, build on it, or question it at a conference.</p>
+</details><details><summary><strong>Jay, regional public health lead (policy audience)</strong>
+</summary><p>Jay decides where the region’s mosquito surveillance budget goes each summer, and briefs local councillors on vector-borne disease risks. Your findings could shape where traps are placed next year.</p>
+</details><details><summary><strong>Robin, a parent living near a sampling site (public audience)</strong>
+</summary><p>Robin walks the dog past one of the mosquito traps every morning, and has started noticing headlines about mosquitoes. He is most likely to hear about your work second-hand, through local news, a council leaflet, or social media.</p>
+</details><p>All three could come across the same finding, but each will ask very different questions about it. Later, we will look at exactly what each of them needs and why.</p>
+<div class="rmdimportant">
+<p><strong>Discussion:</strong></p>
+<p>Which of these three people do you find hardest to communicate with?</p>
+</div>
+</div>
+<div id="three-steps-to-reaching-your-audience" class="section level3" number="7.2.2">
+<h3>
+<span class="header-section-number">7.2.2</span> Three Steps to Reaching Your Audience<a class="anchor" aria-label="anchor" href="#three-steps-to-reaching-your-audience"><i class="fas fa-link"></i></a>
+</h3>
+<p>To reach Dr Wren, Jay, and Robin, a finding needs to go through three steps:</p>
+<ol style="list-style-type: decimal">
 <li>
-<strong>Dr Wren</strong>, an entomologist, who wants to know how the data were collected and how strong the pattern is.</li>
+<strong>Make it readable</strong> - Design visualisations that are clear and accessible, so everyone can see what the data show.</li>
 <li>
-<strong>Jay</strong>, a regional public health lead, who has to decide whether to fund more mosquito surveillance next summer.</li>
+<strong>Make it meaningful</strong> - Describe the finding in words, with the right level of certainty.</li>
 <li>
-<strong>Robin</strong>, a parent who lives near one of the sampling sites, and wants to know whether their family is at risk.</li>
-</ul>
-<p>All three need to understand this finding.</p>
-<div class="rmdtip">
-<p><strong>Tip:</strong> Before you share any finding, ask yourself two questions. Who is this for? And what do they need to do with it?</p>
+<strong>Make it land</strong> - Tailor the message to what each audience needs.</li>
+</ol>
+<p>Each step builds on the one before. A clear plot shows your audience what the data say, the right wording helps them understand what it means, and tailoring the message helps them use it.</p>
+<p>In this workshop, we will explore each of these steps in more detail.</p>
 </div>
 </div>
 <div id="make-it-readable" class="section level2" number="7.3">
 <h2>
-<span class="header-section-number">7.3</span> Make It Readable<a class="anchor" aria-label="anchor" href="#make-it-readable"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3</span> Make it Readable<a class="anchor" aria-label="anchor" href="#make-it-readable"><i class="fas fa-link"></i></a>
 </h2>
-<p>Before we think about who we are talking to, our visualisations need to be accessible for everyone. A plot that is cluttered, poorly labelled, or relies on colours some people can’t distinguish won’t be clear for any audience, however carefully we tailor the message around it.</p>
-<p>A useful checklist for readable visualisations is <strong>CLEAR</strong>:</p>
+<p>In the visualisations workshop, we learnt the building blocks of VBD visualisations. In this section, we will run through some tips and tricks for making visualisations clean, accessible, and appropriate for different audiences.</p>
+<p>Some of these tips help every audience, others matter more for particular people:</p>
+<ul>
+<li>
+<strong>Dr Wren</strong> will expect to see variation and uncertainty in a plot.</li>
+<li>
+<strong>Jay</strong> needs the key message in the title, to understand the details at a glance.</li>
+<li>
+<strong>Robin</strong> needs plain-language labels, with no specialist jargon.</li>
+</ul>
+<p>A useful checklist to remember for readable visualisations is <strong>CLEAR</strong>:</p>
 <ul>
 <li>
 <strong>C</strong>lean design</li>
@@ -144,112 +160,279 @@
 <li>
 <strong>R</strong>eadable everywhere</li>
 </ul>
-<p>Let’s work through these to understand how to approach each one.</p>
 <div id="clean-design" class="section level3" number="7.3.1">
 <h3>
 <span class="header-section-number">7.3.1</span> Clean Design<a class="anchor" aria-label="anchor" href="#clean-design"><i class="fas fa-link"></i></a>
 </h3>
-<p>In <code>ggplot2</code>, we can change the non-data elements of a plot using <strong>themes</strong>, include the:</p>
-<ul>
-<li>Background colour</li>
-<li>Grid lines</li>
-<li>Text size and font</li>
-<li>Legend position</li>
-</ul>
+<p>In <code>ggplot2</code>, we can change the non-data elements of a plot using <strong>themes</strong>. These include the background colour, grid lines, text size and font, and legend position.</p>
 <p><code>ggplot2</code> has several built-in themes, including:</p>
 <ul>
 <li><code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code></li>
 <li><code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code></li>
 <li><code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code></li>
 </ul>
-<p><strong>Themes</strong> are added to a plot like any other layer, using <code>+</code>. For example, we can apply <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> to our time-series plot:</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily_abundance_all_locations</span>,</span>
-<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample_start_date</span>, y <span class="op">=</span> <span class="va">total_abundance</span>, colour <span class="op">=</span> <span class="va">sample_location</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This removes the grey background and uses simple, light grid lines, so the data stands out more clearly.</p>
-<p>We can also use the <code>base_size</code> argument to increase the size of all text on the plot at once:</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span></code></pre></div>
+<p>For example, <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> removes the grey background and uses simple, light grid lines, so the data stands out more clearly.</p>
+<p>Themes are added to a plot in the same ways as layers, using <code>+</code> . We can also use additional arguments within the theme, such as <code>base_size</code> to increase the size of all text on the plot at once, and <code>base_family</code> to apply a consistent font.</p>
 <div class="rmdtip">
-<p><strong>Tip:</strong> Using the same theme across all your visualisations gives your work a consistent, professional appearance.</p>
+<p><strong>Tips:</strong></p>
+<p>These are just a few of the built-in themes. You can see all of them, with example plots, on the <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">ggplot2 website</a>.</p>
+<p>Using the same theme across all your visualisations gives your work a consistent, professional appearance.</p>
 </div>
 </div>
 <div id="labels-that-tell-the-story" class="section level3" number="7.3.2">
 <h3>
-<span class="header-section-number">7.3.2</span> Labels That Tell the Story<a class="anchor" aria-label="anchor" href="#labels-that-tell-the-story"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.2</span> Labels that Tell the Story<a class="anchor" aria-label="anchor" href="#labels-that-tell-the-story"><i class="fas fa-link"></i></a>
 </h3>
+<p>We have already used <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> to add title and axis labels. Clear labels help your audience understand what they are looking at, so make sure that:</p>
+<ul>
+<li>Axis labels describe the data, including units where relevant.</li>
+<li>Legend titles are readable, rather than raw column names such as <code>sample_location</code>.</li>
+<li>The title states the key message, not just what is plotted.</li>
+</ul>
+<p>The last point is easy to overlook. Compare these two titles for the same visualisation:</p>
+<ul>
+<li>“Abundance Over Time”</li>
+<li>“Culex pipiens abundance peaks every summer at all sites”</li>
+</ul>
+<p>The first tells the viewer what they are looking at. The second tells them what to notice. Most audiences, especially busy ones, will likely read the title and scan the visualisation.</p>
+<div class="rmdcaution">
+<p><strong>Frequent mistake:</strong></p>
+<p>A message-led title must be supported by the data. Always check that your title does not claim more than the plot shows.</p>
+</div>
 </div>
 <div id="extra-visual-cues" class="section level3" number="7.3.3">
 <h3>
 <span class="header-section-number">7.3.3</span> Extra Visual Cues<a class="anchor" aria-label="anchor" href="#extra-visual-cues"><i class="fas fa-link"></i></a>
 </h3>
+<p>If colour is the only way to tell groups apart, some viewers will not be able to read your plot. This includes people with colour vision deficiencies, and anyone viewing a printout in black and white.</p>
+<p>We can add a second visual cue so the plot does not rely on colour alone. For line plots, we can map the same variable to both <code>colour</code> and <code>linetype</code>:</p>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample_start_date</span>, y <span class="op">=</span> <span class="va">total_abundance</span>,</span>
+<span>    colour <span class="op">=</span> <span class="va">sample_location</span>, linetype <span class="op">=</span> <span class="va">sample_location</span><span class="op">)</span></span></code></pre></div>
+<p>In doing so, we can differentiate by colour as well as solid or dotted lines.</p>
+<p>For scatter plots, we can map a variable to <code>shape</code> in the same way as <code>linetype</code>. This sets the variable points as different shapes, such as circles, squares, and triangles.</p>
+<p>We can also make important elements stand out by increasing their contracts, for example, by making lines thicker:</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
+<div class="rmdtip">
+<p><strong>Tip:</strong></p>
+<p>As we saw in the visualisations workshop, when there are many groups plotted on a single graph, it can be difficult to tell these apart. This is still the case even if we apply extra visual cues.</p>
+<p>We used <strong>faceting</strong> to distinguish between groups in busy visualisations, which is another option to make your visualisation clearer and more accessible.</p>
+</div>
 </div>
 <div id="accessible-colours" class="section level3" number="7.3.4">
 <h3>
 <span class="header-section-number">7.3.4</span> Accessible Colours<a class="anchor" aria-label="anchor" href="#accessible-colours"><i class="fas fa-link"></i></a>
 </h3>
+<p>When we do use colour, we should choose colour palettes that can be distinguished by as many viewers as possible. Combinations such as red and green are difficult for people with the most common forms of colour vision deficiency to tell apart.</p>
+<p><code>ggplot2</code> includes the viridis colour palettes, which are designed to be readable by people with colour vision deficiencies, and to print well in greyscale.</p>
+<p>To use viridis, add the scale that matches the type of variable you want to map to colour:</p>
+<ul>
+<li>For <strong>categories</strong>, use <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_colour_viridis_d()</a></code>, where <code>d</code> stands for discrete.</li>
+<li>For <strong>numeric values</strong>, use <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_colour_viridis_c()</a></code>, where <code>c</code> stands for continuous.</li>
+<li>For <strong>filled shapes</strong>, such as bars, swap <code>colour</code> for <code>fill</code>, for example, <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_d()</a></code>.</li>
+</ul>
+<div class="rmdtip">
+<p>Viridis comes in eight palettes, which are listed on the <a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">ggplot2 website</a>.</p>
+<p>In general, dark lines or points on a light background are the easiest to read. Avoid using lots of bright or clashing colours.</p>
+</div>
 </div>
 <div id="readable-everywhere" class="section level3" number="7.3.5">
 <h3>
 <span class="header-section-number">7.3.5</span> Readable Everywhere<a class="anchor" aria-label="anchor" href="#readable-everywhere"><i class="fas fa-link"></i></a>
 </h3>
-<div class="rmdnote">
-<p><strong>Example: Applying the CLEAR Checklist</strong></p>
-<p>Let’s apply the checklist to our time-series plot. Here is the original version:</p>
-</div>
-<div class="rmdimportant">
-<p><strong>Task: Accessibility Makeover</strong></p>
-</div>
+<p>Your visualisation may be viewed on a projector, in a printed report, or on a phone screen. Therefore, it is important to make sure it is readable wherever it ends up:</p>
+<ul>
+<li>Make sure the <strong>text is large enough</strong> to read on slides. Increasing <code>base_size</code> in your theme is a quick way to do this.</li>
+<li>
+<strong>Saving plots as PDFs</strong> can be helpful when considering readability, as these can be zoomed in without losing quality.</li>
+<li>You might also consider writing <strong>alternative text (alt text)</strong> when sharing plots digitally, so that people using screen readers can access them. Good alt text describes what the plot shows and its key message, for example, “Line graph of <em>Culex pipiens</em> abundance at eight sites from 2015 to 2022, showing a peak every summer at all sites.”</li>
+</ul>
 </div>
 </div>
 <div id="make-it-meaningful" class="section level2" number="7.4">
 <h2>
 <span class="header-section-number">7.4</span> Make it Meaningful<a class="anchor" aria-label="anchor" href="#make-it-meaningful"><i class="fas fa-link"></i></a>
 </h2>
+<p>A clear, accessible plot is a good starting point, but as soon as we describe a finding in words, we make choices about how certain it sounds. This could be in a title, a summary, or even a conversation.</p>
+<p>This is really important for VBD research, as how we describe our findings can shape:</p>
+<ul>
+<li>Public perception of risk</li>
+<li>Policy decisions</li>
+<li>Funding priorities</li>
+<li>Trust in science</li>
+</ul>
+<p>Even small wording changes can greatly alter how a finding is interpreted. For example, compare these two statements:</p>
+<ul>
+<li>“Environmental suitability for vector establishment may increase under projected climatic conditions.”</li>
+<li>“Climate change will cause mosquito-bore disease to spread.”</li>
+</ul>
+<p>Both statements cover the same topic, but they communicate very different levels of certainty. The first describes what the evidence supports and acknowledges uncertainty, whereas the second implies a guaranteed outcome that the evidence may not support.</p>
+<p>However, being cautious isn’t automatically the right answer either. For example, when communicating with policy makers, they will likely expect specific details and likely outcomes which will help inform decisions.</p>
+<p>Common pitfalls in communication often revolve around poorly explained uncertainty, which can create confusion and leave space for misinformation:</p>
+<ul>
+<li>
+<strong>Overstating certainty</strong> can create unnecessary alarm, or unrealistic expectations.</li>
+<li>
+<strong>Being too vague</strong> can prevent useful action and reduce trust.</li>
+</ul>
+<p>Responsible communication means finding the <strong>balance</strong> between the two.</p>
+<div class="rmdimportant">
+<p><strong>Task: The Certainty Spectrum</strong></p>
+<p>In this task, there is a line with three points marked along it:</p>
+<ul>
+<li>One end is too cautious to be useful</li>
+<li>The middle is just right</li>
+<li>The other end is overconfident</li>
+</ul>
+<p>Each of the following statements describe the same finding: mosquito counts were higher during warmer weeks at most sampling sites.</p>
+<p>Decide where each of these statements sit on the uncertainty spectrum line:</p>
+<ol style="list-style-type: decimal">
+<li>“Mosquito numbers were higher during warmer weeks at most of our sites.”</li>
+<li>“Warmer weather may be linked to increased mosquito activity.”</li>
+<li>“Hot summers are driving a mosquito boom.”</li>
+<li>“Mosquito-borne outbreaks are now inevitable as summers get hotter.”</li>
+<li>“Given the limitations of the surveillance data, no conclusions can be drawn about temperature and mosquito numbers.”</li>
+</ol>
+<p>There is no single correct answer, the aim is to notice how wording shifts certainty, and how different people can interpret the same finding.</p>
+</div>
+<div id="principles-for-communicating-uncertainty" class="section level3" number="7.4.1">
+<h3>
+<span class="header-section-number">7.4.1</span> Principles for Communicating Uncertainty<a class="anchor" aria-label="anchor" href="#principles-for-communicating-uncertainty"><i class="fas fa-link"></i></a>
+</h3>
+<p>Uncertainty is a normal and unavoidable part of VBD research. It does not make findings unusable, but it does shape how they should be communicated. There are some principles we can remember to help.</p>
+<p><strong>1. Say what you know, what you don’t, and what it means</strong></p>
+<p>Uncertainty is best communicated alongside a clear message, rather than instead of one. For example, compare these two statements:</p>
+<ul>
+<li>“Current evidence suggests increased mosquito activity during wetter periods, although surveillance coverage remains limited in some regions.”</li>
+<li>“Due to multiple methodological limitations and uncertainty surrounding surveillance completeness, conclusions should be interpreted with caution.”</li>
+</ul>
+<p>The second statement may be technically correct, but nobody could act on it. The first is honest about its limitations, and still gives the reader something useful. There is an important difference between communicating uncertainty and communicating indecision.</p>
+<p><strong>2. Keep the chain intact</strong></p>
+<p>For a vector-borne disease to pose a risk to people, several things needs to be true:</p>
+<ol style="list-style-type: decimal">
+<li>The environment is suitable for the vector.</li>
+<li>The vector is present.</li>
+<li>The pathogen is present in the vector population.</li>
+<li>Transmission to people or animals is occurring.</li>
+</ol>
+<p>Each step can be considered a separate question requiring separate evidence. Environmental suitability doesn’t mean the vector is present, vector presence doesn’t mean the pathogen is present, and pathogen presence doesn’t mean transmission is occurring.</p>
+<p>As findings move from research into policy and public discussion, these steps are often merged together. For instance, an environmental suitability model can quickly become reported as “outbreaks are coming”, even though the model never tested this.</p>
+<p><strong>3. Absence of evidence is not evidence of absence.</strong></p>
+<p>When a surveillance report states that “no vectors were detected”, there are two possible explanations. Either there really are no vectors in the area, or there are vectors but the surveillance didn’t pick them up. The second can happen if sampling was limited, trapping effort was uneven, or trapping stopped for part of the season.</p>
+<p>Readers often assume the first explanation. Compare these two statements:</p>
+<ul>
+<li>“No vectors were detected in the region.”</li>
+<li>“No vectors were detected at the five sites sampled between June and July. Trapping was paused in August, and the north region was not sampled.”</li>
+</ul>
+<p>The first statement sounds like an all-clear, whereas the second reports the same result but explains what it is based on so the reader can decide how much to rely on the finding.</p>
+<p>This is important because <strong>people act on what they hear</strong>. A member of the public might stop taking precautions, while a policy maker might decide surveillance in the area is no longer needed.</p>
+</div>
 </div>
 <div id="make-it-land" class="section level2" number="7.5">
 <h2>
 <span class="header-section-number">7.5</span> Make it Land<a class="anchor" aria-label="anchor" href="#make-it-land"><i class="fas fa-link"></i></a>
 </h2>
-<div id="academic-audiences" class="section level3" number="7.5.1">
+<p>At the start of this session, we met Dr Wren, Jay, and Robin. We will now look at what each of them needs from a finding, why they need it, and how to write for them.</p>
+<p>The science doesn’t change between them, what changes is the:</p>
+<ul>
+<li>Emphasis</li>
+<li>Level of detail</li>
+<li>Language</li>
+</ul>
+<div id="academic-audiences-dr-wren" class="section level3" number="7.5.1">
 <h3>
-<span class="header-section-number">7.5.1</span> Academic Audiences<a class="anchor" aria-label="anchor" href="#academic-audiences"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.5.1</span> Academic Audiences: Dr Wren<a class="anchor" aria-label="anchor" href="#academic-audiences-dr-wren"><i class="fas fa-link"></i></a>
 </h3>
-</div>
-<div id="policy-audiences" class="section level3" number="7.5.2">
-<h3>
-<span class="header-section-number">7.5.2</span> Policy Audiences<a class="anchor" aria-label="anchor" href="#policy-audiences"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="public-audiences" class="section level3" number="7.5.3">
-<h3>
-<span class="header-section-number">7.5.3</span> Public Audiences<a class="anchor" aria-label="anchor" href="#public-audiences"><i class="fas fa-link"></i></a>
-</h3>
+<p><strong>What she asks:</strong> How strong is the evidence?</p>
+<p><strong>What she needs:</strong> How the data were collected, effect sizes, and the limitations of the study.</p>
+<p><strong>Why:</strong> Researchers build on and critique each other’s findings. Dr Wren needs enough detail to decide whether to trust a result, and whether it could be reproduced.</p>
+<p><strong>Typical formats:</strong> Journal articles, conference talks, and abstracts.</p>
+<p><strong>What to avoid:</strong> Jargon that overshadows the key finding.</p>
 <div class="rmdnote">
-<p><strong>Example: Reframing One Finding for Three Audiences</strong></p>
+<p><strong>Example: Avoiding Jargon</strong></p>
+<p>Academic audiences are generally comfortable with technical terms, complex figures, and uncertainty, but technically correct isn’t always the same as clear.</p>
+<p>For example, instead of saying: “Vector abundance demonstrated statistically significant positive covariance with anomalous precipitation metrics.”, it would be just as accurate and much quicker to understand: “Higher rainfall periods were associated with increased mosquito abundance.”</p>
+<p>This is particularly important in VBD research, where entomologists, epidemiologists, ecologists, and clinicians often work together, but may use different terminology.</p>
 </div>
 </div>
+<div id="policy-audiences-jay" class="section level3" number="7.5.2">
+<h3>
+<span class="header-section-number">7.5.2</span> Policy Audiences: Jay<a class="anchor" aria-label="anchor" href="#policy-audiences-jay"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>What she asks:</strong> What should we do, and where?</p>
+<p><strong>What she needs:</strong> What the finding means for action, how confident to be, and a recommendation.</p>
+<p><strong>Why:</strong> Jay makes decisions with limited time and budget, and needs to justify these decisions to others. A finding she can’t act on is of little use to her, however interesting it might be.</p>
+<p><strong>Typical formats:</strong> Policy briefs, operational summaries, and short briefings.</p>
+<p><strong>What to avoid:</strong> Heavy caveats that limit action.</p>
+<div class="rmdnote">
+<p><strong>Example: Communicating Findings to Inform Decisions</strong></p>
+<p>A useful question to ask when communicating with policy audiences is what decisions could this information help support?</p>
+<p>For example, “Higher rainfall periods were associated with increased mosquito abundance, suggesting wetter seasons may require enhanced surveillance activity.”</p>
+<p>This communicates the finding, why it matters, and a possible action, without overwhelming the reader. Uncertainty and limitations should still be included, but in a form that can be used.</p>
 </div>
-<div id="the-hot-seat" class="section level2" number="7.6">
-<h2>
-<span class="header-section-number">7.6</span> The Hot Seat<a class="anchor" aria-label="anchor" href="#the-hot-seat"><i class="fas fa-link"></i></a>
-</h2>
+</div>
+<div id="public-audiences-robin" class="section level3" number="7.5.3">
+<h3>
+<span class="header-section-number">7.5.3</span> Public Audiences: Robin<a class="anchor" aria-label="anchor" href="#public-audiences-robin"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>What he asks:</strong> Does this affect my family?</p>
+<p><strong>What he needs:</strong> Whether he should be worried, and what, if anything, he can do.</p>
+<p><strong>Why:</strong> Robin makes decisions everyday based on what he hears. Public communication can influence behaviour, how risks people think a situation is, and trust in science.</p>
+<p><strong>Typical formats:</strong> Webpages, health advisories, local news, and social media.</p>
+<p><strong>What to avoid:</strong> Alarm, false reassurance, or patronising tones.</p>
+<div class="rmdtip">
+<p><strong>Tip:</strong></p>
+<p>Overly alarming communication can create unnecessary fear, but overly reassuring communication can damage trust if the evidence changes later.</p>
+<p>Additionally, public audiences may have little technical background, but that doesn’t mean communication should be overly simplistic or patronising.</p>
+</div>
+<div class="rmdnote">
+<p><strong>Example: Balancing Risk</strong></p>
+<p>Members of the public may interpret vector presence, environmental suitability, or increased surveillance as meaning that an outbreak is already happening. Equally, “no vectors detected” may be interpreted as “there is nothing to worry about”.</p>
+<p>For example, compare the following statements:</p>
+<ul>
+<li>“Lyme disease is spreading across the UK.”</li>
+<li>“Tick numbers may be increasing in some areas, but not all ticks carry Lyme disease. Checking yourself, your family and pets for ticks after time outdoors, and removing any you find promptly, helps reduce the risk.”</li>
+</ul>
+<p>The second statement is honest about the finding, reduces alarm, and gives the reader something practical to do.</p>
+</div>
+</div>
+<div id="reframing-findings-for-different-audiences" class="section level3" number="7.5.4">
+<h3>
+<span class="header-section-number">7.5.4</span> Reframing Findings for Different Audiences<a class="anchor" aria-label="anchor" href="#reframing-findings-for-different-audiences"><i class="fas fa-link"></i></a>
+</h3>
 <div class="rmdimportant">
 <p><strong>Task: The Hot Seat</strong></p>
 <p>In this task, you will practise communicating a VBD finding to Dr Wren, Jay, and Robin.</p>
+<p>In groups of four, one person takes the role of the communicator. The other three each take a role card for <strong>Dr Wren</strong> (academic audience), <strong>Jay</strong> (policy audience), or <strong>Robin</strong> (public audience). If you named someone as the hardest to communicate with at the start of the session, now is your chance to try communicating in their shoes.</p>
+<p>Each group will receive a scenario card, and a curveball envelope:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Prepare</strong> - Read your scenario together. Agree on what the evidence does and doesn’t show.</li>
+<li>
+<strong>Hot Seat</strong> - The communicator explains the finding to each character in turn. Each character responds in role, using the prompts on their card. If the explanation doesn’t work for your character, push back.</li>
+<li>
+<strong>Curveball</strong> - Open your curveball envelope. Something has changed and your group needs to respond. Swap communicator for this round.</li>
+<li>
+<strong>Final Message</strong> - As a group, write one sentence about your finding for one of the three characters. Don’t tell the other groups which character it is for. When everyone is ready, each group will share their finding, and the room will guess which audience it is for.</li>
+</ol>
 </div>
 </div>
-<div id="who-is-this-for-now" class="section level2" number="7.7">
+</div>
+<div id="key-takeaways-4" class="section level2" number="7.6">
 <h2>
-<span class="header-section-number">7.7</span> Who Is This For Now?<a class="anchor" aria-label="anchor" href="#who-is-this-for-now"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.6</span> Key Takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways-4"><i class="fas fa-link"></i></a>
 </h2>
-</div>
-<div id="key-takeaways-4" class="section level2" number="7.8">
-<h2>
-<span class="header-section-number">7.8</span> Key Takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways-4"><i class="fas fa-link"></i></a>
-</h2>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Know your audience</strong> - Before you share any finding, ask who it is for and what they need to do with it. Academic, policy, and public audiences ask very different questions of the same evidence.</li>
+<li>
+<strong>Make it readable</strong> - Use the CLEAR checklist when designing visualisations. Remember that accessible visualisations work better for everyone.</li>
+<li>
+<strong>Make it meaningful</strong> - Wording changes how a certain finding is interpreted. Aim to balance caution so that the finding can be used to inform decisions.</li>
+<li>
+<strong>Make it land</strong> - Tailor the emphasis, detail, and language for each audience, without changing the underlying science.</li>
+</ol>
 </div>
 </div>
   <div class="chapter-nav">
@@ -259,30 +442,34 @@
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#effectively-communicating-with-different-audiences"><span class="header-section-number">7</span> Effectively Communicating with Different Audiences</a></li>
+<li><a class="nav-link" href="#overview-4"><span class="header-section-number">7.1</span> Overview</a></li>
 <li>
-<a class="nav-link" href="#overview-4"><span class="header-section-number">7.1</span> Overview</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#learning-objectives-4"><span class="header-section-number">7.1.1</span> Learning Objectives</a></li></ul>
+<a class="nav-link" href="#know-your-audience"><span class="header-section-number">7.2</span> Know Your Audience</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#meet-the-audience"><span class="header-section-number">7.2.1</span> Meet the Audience</a></li>
+<li><a class="nav-link" href="#three-steps-to-reaching-your-audience"><span class="header-section-number">7.2.2</span> Three Steps to Reaching Your Audience</a></li>
+</ul>
 </li>
-<li><a class="nav-link" href="#who-is-this-for"><span class="header-section-number">7.2</span> Who Is This For?</a></li>
 <li>
-<a class="nav-link" href="#make-it-readable"><span class="header-section-number">7.3</span> Make It Readable</a><ul class="nav navbar-nav">
+<a class="nav-link" href="#make-it-readable"><span class="header-section-number">7.3</span> Make it Readable</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#clean-design"><span class="header-section-number">7.3.1</span> Clean Design</a></li>
-<li><a class="nav-link" href="#labels-that-tell-the-story"><span class="header-section-number">7.3.2</span> Labels That Tell the Story</a></li>
+<li><a class="nav-link" href="#labels-that-tell-the-story"><span class="header-section-number">7.3.2</span> Labels that Tell the Story</a></li>
 <li><a class="nav-link" href="#extra-visual-cues"><span class="header-section-number">7.3.3</span> Extra Visual Cues</a></li>
 <li><a class="nav-link" href="#accessible-colours"><span class="header-section-number">7.3.4</span> Accessible Colours</a></li>
 <li><a class="nav-link" href="#readable-everywhere"><span class="header-section-number">7.3.5</span> Readable Everywhere</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#make-it-meaningful"><span class="header-section-number">7.4</span> Make it Meaningful</a></li>
+<li>
+<a class="nav-link" href="#make-it-meaningful"><span class="header-section-number">7.4</span> Make it Meaningful</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#principles-for-communicating-uncertainty"><span class="header-section-number">7.4.1</span> Principles for Communicating Uncertainty</a></li></ul>
+</li>
 <li>
 <a class="nav-link" href="#make-it-land"><span class="header-section-number">7.5</span> Make it Land</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#academic-audiences"><span class="header-section-number">7.5.1</span> Academic Audiences</a></li>
-<li><a class="nav-link" href="#policy-audiences"><span class="header-section-number">7.5.2</span> Policy Audiences</a></li>
-<li><a class="nav-link" href="#public-audiences"><span class="header-section-number">7.5.3</span> Public Audiences</a></li>
+<li><a class="nav-link" href="#academic-audiences-dr-wren"><span class="header-section-number">7.5.1</span> Academic Audiences: Dr Wren</a></li>
+<li><a class="nav-link" href="#policy-audiences-jay"><span class="header-section-number">7.5.2</span> Policy Audiences: Jay</a></li>
+<li><a class="nav-link" href="#public-audiences-robin"><span class="header-section-number">7.5.3</span> Public Audiences: Robin</a></li>
+<li><a class="nav-link" href="#reframing-findings-for-different-audiences"><span class="header-section-number">7.5.4</span> Reframing Findings for Different Audiences</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#the-hot-seat"><span class="header-section-number">7.6</span> The Hot Seat</a></li>
-<li><a class="nav-link" href="#who-is-this-for-now"><span class="header-section-number">7.7</span> Who Is This For Now?</a></li>
-<li><a class="nav-link" href="#key-takeaways-4"><span class="header-section-number">7.8</span> Key Takeaways</a></li>
+<li><a class="nav-link" href="#key-takeaways-4"><span class="header-section-number">7.6</span> Key Takeaways</a></li>
 </ul>
 
       <div class="book-extra">
@@ -300,7 +487,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-10-26.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-11-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
