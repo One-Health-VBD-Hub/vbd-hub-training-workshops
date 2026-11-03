@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 8 Species Distribution Modelling | One Health VBD Hub Training 2026</title>
+<meta name="author" content="Chloë Coxshall">
+<meta name="description" content="8.1 Overview Modelling diseases is tough. You need to understand how they’re transmitted, how they affect hosts, and the rate at which they grow. So understanding vector-borne diseases is arguably...">
+<meta name="generator" content="bookdown 0.48 with bs4_book()">
+<meta property="og:title" content="Chapter 8 Species Distribution Modelling | One Health VBD Hub Training 2026">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/species-distribution-modelling.html">
+<meta property="og:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
+<meta property="og:description" content="8.1 Overview Modelling diseases is tough. You need to understand how they’re transmitted, how they affect hosts, and the rate at which they grow. So understanding vector-borne diseases is arguably...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 8 Species Distribution Modelling | One Health VBD Hub Training 2026">
+<meta name="twitter:description" content="8.1 Overview Modelling diseases is tough. You need to understand how they’re transmitted, how they affect hosts, and the rate at which they grow. So understanding vector-borne diseases is arguably...">
+<meta name="twitter:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/IBM_Plex_Sans-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.12.0/transition.js"></script><script src="libs/bs3compat-0.12.0/tabs.js"></script><script src="libs/bs3compat-0.12.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">One Health VBD Hub Training 2026</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">November 2026 Training at Silwood Park</li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="pre-work.html"><span class="header-section-number">2</span> Pre-Work</a></li>
+<li><a class="" href="hub-tools-what-they-are-and-how-to-use-them.html"><span class="header-section-number">3</span> Hub Tools: What They Are and How to Use Them</a></li>
+<li><a class="" href="understanding-data-curation-and-standards-1.html"><span class="header-section-number">4</span> Understanding Data Curation and Standards</a></li>
+<li><a class="" href="wrangling-vbd-data-in-r.html"><span class="header-section-number">5</span> Wrangling VBD Data in R</a></li>
+<li><a class="" href="visualising-vbd-data-in-r.html"><span class="header-section-number">6</span> Visualising VBD Data in R</a></li>
+<li><a class="" href="effectively-communicating-with-different-audiences.html"><span class="header-section-number">7</span> Effectively Communicating with Different Audiences</a></li>
+<li><a class="active" href="species-distribution-modelling.html"><span class="header-section-number">8</span> Species Distribution Modelling</a></li>
+<li><a class="" href="thermal-performance-curves.html"><span class="header-section-number">9</span> Thermal Performance Curves</a></li>
+<li><a class="" href="challenge-task.html"><span class="header-section-number">10</span> Challenge Task</a></li>
+<li><a class="" href="reading-resources.html"><span class="header-section-number">11</span> Reading &amp; Resources</a></li>
+<li class="book-part">March 2026 Online Training Workshops</li>
+<li><a class="" href="introduction-to-march-2026-training.html"><span class="header-section-number">12</span> Introduction to March 2026 Training</a></li>
+<li><a class="" href="workshop-1-data-visualisations-in-r.html"><span class="header-section-number">13</span> Workshop 1: Data Visualisations in R</a></li>
+<li><a class="" href="workshop-2-data-wrangling-with-hub-search-ohvbd.html"><span class="header-section-number">14</span> Workshop 2: Data Wrangling with Hub Search &amp; ohvbd</a></li>
+<li><a class="" href="reading-resources-1.html"><span class="header-section-number">15</span> Reading &amp; Resources</a></li>
+<li class="book-part">Optional Recap of LMs and Basic Plots</li>
+<li><a class="" href="recap.html"><span class="header-section-number">A</span> Recap of Linear Models &amp; Basic Plots (optional)</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="species-distribution-modelling" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Species Distribution Modelling<a class="anchor" aria-label="anchor" href="#species-distribution-modelling"><i class="fas fa-link"></i></a>
+</h1>
+<div id="overview-5" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-5"><i class="fas fa-link"></i></a>
+</h2>
+<p>Modelling diseases is tough. You need to understand how they’re transmitted, how they affect hosts, and the rate at which they grow. So understanding vector-borne diseases is arguably even worse, because now you <em>also</em> need to understand how the vectors of those diseases move around, are (not) affected by a pathogen they’re transmitting, the rate at which they grow, and how they transmit that pathogen on. What a nightmare!</p>
+<p>Luckily for us, there is a whole field of study - distribution modelling - that focuses on understanding the conditions under which species (including vectors) can move around. It’s a massive field (arguably it’s the whole of ecology!) and so there isn’t really time to do it justice in one session. But even more luckily for us, there is a reasonably well-accepted set of standards you can adhere to when building a distribution model. In this tutorial, we’re going to go through that set of standards - which come from the <a href="docs/Araujo_et_al_2019.pdf">Araujo <em>et al.</em> (2019) paper</a> - and then show you how to apply them to model the distribution of a bat.</p>
+<p>Your task, should you choose to accept it, is to:</p>
+<ol style="list-style-type: decimal">
+<li>Listen to the lecture at the beginning of the session,</li>
+<li>Read through this handout,</li>
+<li>Run the code in this handout, and then</li>
+<li>See if you can improve the exemplar code for building a bat distribution model to make it score higher according to the Araujo <em>et al</em>. criteria.</li>
+</ol>
+</div>
+<div id="what-are-the-araujo-et-al.-criteria" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> What are ‘The Araujo <em>et al</em>. Criteria’<a class="anchor" aria-label="anchor" href="#what-are-the-araujo-et-al.-criteria"><i class="fas fa-link"></i></a>
+</h2>
+<p>In a well-cited (~1000 citations at the time of writing) paper, a consortium of well-respected distribution modellers came up with a set of criteria by which the accuracy of distribution models could be judged. To be perfectly honest with you, I don’t think they’re necessarily the best criteria that we could come up with, but I do think they’re very good and they’re hard to disagree with (if you can’t tell, this is high praise!). This means they’re essentially perfect for use in a disease ecology or health setting: they’re reliable, trustworthy, and trusted. So if you want to publish a report for use by a policy-maker, or that will inform a decision, you really can’t do much better than by using these criteria.</p>
+<p>These criteria are also very straightforward. There are lots of sub-criteria that we’ll go through now, but they boil down to four things:</p>
+<ol style="list-style-type: decimal">
+<li>Make sure the data on where a vector is (not) found are reliable,</li>
+<li>Ensure the data you’ll use to predict where that vector could/will be make biological sense for that vector,</li>
+<li>Fit your statistical or mechanistic model properly, and</li>
+<li>Check that model and its predictions properly.</li>
+</ol>
+<p>There are a lot of devils in the details that we’re leaving out here, but that’s what it boils down to. So let’s get stuck in.</p>
+</div>
+<div id="make-sure-your-observation-data-arent-rubbish" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> Make sure your observation data aren’t rubbish<a class="anchor" aria-label="anchor" href="#make-sure-your-observation-data-arent-rubbish"><i class="fas fa-link"></i></a>
+</h2>
+<p>One of the great things about scientists is we’re all really weird, and we’re all really weird in unique and exciting ways. Ecologists tend to be weird in two particular ways: they’re absolutely obsessed with ‘spatio-temporal scaling’ and taxonomic identification. There are five different criteria by which the Araujo <em>et al.</em> review judges the ‘response variable’ of a distribution model - the data informing whether a species is present or absent in a particular place - but perhaps the most important, and counter-intuitive for a non-ecologist, are these two. So let’s focus on those two.</p>
+<div id="spatio-temporal-scaling" class="section level3" number="8.3.1">
+<h3>
+<span class="header-section-number">8.3.1</span> Spatio-temporal scaling<a class="anchor" aria-label="anchor" href="#spatio-temporal-scaling"><i class="fas fa-link"></i></a>
+</h3>
+<div class="float">
+<img src="images/Cavender-Bares2009-figure.png" style="width:80.0%" alt="Figure 1. Spatio-temporal scaling. Taken from Cavender-Bares et al. (2009). Description in the text."><div class="figcaption">
+<strong>Figure 1. Spatio-temporal scaling</strong>. Taken from Cavender-Bares <em>et al</em>. (2009). Description in the text.</div>
+</div>
+<p>Full paper available <a href="docs/Cavender-Bares-2009.pdf">here</a>.</p>
+<p>The figure above shows what distribution modellers and ecologists mean by spatio-temporal scaling. To an ecologist, when you look across a wider area of space, you are also implicitly taking into account a longer period of time. This means that the kinds of processes, and the kinds of statistical models you need to fit, vary depending on the spatial and temporal <em>scale</em> of interest. For example, if you wanted to predict how many species of plants would be found in a 10cm x 10cm patch of forest over the next five seconds, you wouldn’t really need to account for evolutionary forces. You just need to know the climate conditions <em>right now</em>, the plants found within <em>a few meters</em> of the patch (because they could disperse over), and then you’d be set. Short region, short period of time. But if you wanted to know how many species of plants would be found in a 100km x 100km patch… that would be more complicated. Within that patch there is a huge amount of variation in climate conditions, so you need to understand how species can move across landscapes within that patch, and as species can move over years/decades/centuries within that patch you need to go years/decades/centuries further back in time. That, in turn, means you need to start thinking about evolution - what kinds of species could, and have, evolved in that patch of land? But evolution can take millions of years… and so we need to think much further back in time. What a nightmare! But at least in the larger patch, you no longer care about tiny variations in climate between blades of grass - those kinds of processes are averaged out at the larger scale.</p>
+<p>Believe it or not, that’s what <a href="docs/Cavender-Bares-2009.pdf">Cavender-Bares <em>et al.</em> (2009)</a> were trying to show with this figure. As you widen the spatial scale (horizontal axis) you widen the temporal scale (vertical axis), and so you have to change the kinds of processes you care about. <strong>This matters for modelling the distributions of vectors because you have to make sure the data you’re collecting are at the appropriate spatial and temporal scale for your question and vector species</strong>. There is no point in grouping recordings of mosquito presence/absence in ten-year increments across 10km x 10km grid-cells: individual mosquitoes don’t live that long or range that far. Thus there’s also no point in building your distribution model with data at that scale.</p>
+</div>
+<div id="taxonomic-identification" class="section level3" number="8.3.2">
+<h3>
+<span class="header-section-number">8.3.2</span> Taxonomic identification<a class="anchor" aria-label="anchor" href="#taxonomic-identification"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you’re an epidemiologist, you’re probably already very aware that it’s hard to identify what particular disease someone has. Imagine someone walks into a clinic and they say their head hurts and asks you what’s wrong with them. You would have to ask follow-up questions (where? for how long?), look at them (are they bleeding from somewhere? how are their pupils?), and maybe conduct follow-up tests (give them an X-ray or MRI). Not every test would be informative for every set of symptoms or disease, and someone who isn’t trained in interpreting a test, even if the right one is given, could make the wrong diagnosis.</p>
+<p>Identifying vectors is much the same thing. For example, there are lots of different kinds of bats, and while they may all look the same to the casual observer they still aren’t the same species and they don’t necessarily carry the same diseases. Distribution modellers have access to a huge amount of data on different species through a number of sources, but the most commonly used (and largest) is <a href="https://gbif.org">GBIF</a>. It scoops up data from all kinds of sources - peer-reviewed literature, government schemes, citizen science schemes - everything! And I will put my neck out on the line and say that if you’re not using GBIF you need to have a really good reason not to, because the biases induced by ignoring all that data are often (but not always) bigger than the biases induced by trying to do all the data collection and curation yourself.</p>
+<p>But you do need to be aware of the biases in GBIF. There are different kinds of data you can pull in (‘human observations’ that are taken from direct sighting from anyone, ‘preserved specimens’ that are observations vouchered in a central repository somewhere, ‘machine observations’ that are computer-derived observations from recordings/pictures, and many more). There are also different levels of confidence in the observations (seen, dissected and confirmed, DNA-verified, and many more). What are you working with? <strong>This matters for modelling the distributions of vectors because you have to make sure the data you’re collecting is actually relevant to the species you have carefully defined as your vector</strong>. “Garbage in, garbage out”: if you feed in a load of data about unrelated species then all your model diagnostic checks might pass but you won’t learn anything about the species you actually care about.</p>
+</div>
+<div id="putting-it-into-practice." class="section level3" number="8.3.3">
+<h3>
+<span class="header-section-number">8.3.3</span> Putting it into practice.<a class="anchor" aria-label="anchor" href="#putting-it-into-practice."><i class="fas fa-link"></i></a>
+</h3>
+<p>Below is some code that loads data on the pipistrelle bat from GBIF into R. Run it and make sure you’re comfortable with it.</p>
+<p>We’ll be using the <a href="https://ohvbd.vbdhub.org"><code>ohvbd</code></a> package to help us out. It’s an R interface to the <a href="https://vbdhub.org">One Health VBD Hub</a>, which indexes vector-borne disease data from GBIF, <a href="https://www.vectorbyte.org/">VectorByte</a> (VecTraits and VecDyn), and <a href="https://pearselab.github.io/areadata/">AREAData</a>. Here we use it to pin down exactly which species we’re asking GBIF about, and to find out which datasets our records come from.</p>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load packages</span></span>
+<span><span class="co"># (load ohvbd before terra; terra has its own 'extract' function)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://biomodhub.github.io/biomod2/">biomod2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rnaturalearth/">rnaturalearth</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.github.io/geodata/">geodata</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fwimp/ohvbd">ohvbd</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Get a map of Europe to use as a 'base' for plotting and searching</span></span>
+<span><span class="va">world</span> <span class="op">&lt;-</span> <span class="fu">ne_countries</span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"large"</span>, returnclass <span class="op">=</span> <span class="st">"sv"</span><span class="op">)</span></span>
+<span><span class="va">europe_extent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="op">-</span><span class="fl">20</span>,<span class="fl">50</span>,<span class="fl">35</span>,<span class="fl">70</span><span class="op">)</span> <span class="co">#Rough coordinates for EU</span></span>
+<span><span class="va">europe_shapefile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">world</span>, <span class="va">europe_extent</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Pick a species to work with</span></span>
+<span><span class="va">genus_name</span> <span class="op">&lt;-</span> <span class="st">"Pipistrellus"</span></span>
+<span><span class="va">species_name</span> <span class="op">&lt;-</span> <span class="st">"pipistrellus"</span></span>
+<span><span class="va">full_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">genus_name</span>, <span class="va">species_name</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Match the name to the GBIF 'backbone' taxonomy. This gives us a single,</span></span>
+<span><span class="co"># unambiguous ID for the species (5218465), rather than relying on a</span></span>
+<span><span class="co"># text match of the name. Set returnids = FALSE to see the full match,</span></span>
+<span><span class="co"># including how confident GBIF is in it and the species' higher taxonomy.</span></span>
+<span><span class="va">taxon_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/match_species.html">match_species</a></span><span class="op">(</span><span class="va">full_name</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Download occurrences of that species</span></span>
+<span></span>
+<span><span class="co"># (we're "only" downloading 10,000 of the ~3 million possible records;</span></span>
+<span><span class="co">#  change 'end' if you want to get more)</span></span>
+<span><span class="va">europe_occurrences</span> <span class="op">&lt;-</span> <span class="fu">sp_occurrence</span><span class="op">(</span><span class="va">genus_name</span>, <span class="va">species_name</span>,</span>
+<span>                                    ext <span class="op">=</span> <span class="va">europe_extent</span>, down <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                                    args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"taxonKey="</span>, <span class="va">taxon_key</span><span class="op">)</span>,</span>
+<span>                                    removeZeros <span class="op">=</span> <span class="cn">T</span>, fixnames <span class="op">=</span> <span class="cn">T</span>, end <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span>
+<span><span class="va">long_lats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">europe_occurrences</span><span class="op">$</span><span class="va">lon</span>, <span class="va">europe_occurrences</span><span class="op">$</span><span class="va">lat</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html">names</a></span><span class="op">(</span><span class="va">long_lats</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"long"</span>,<span class="st">"lat"</span><span class="op">)</span></span></code></pre></div>
+<p>GBIF is a collection of thousands of separate datasets, and every record we’ve downloaded belongs to one of them (the <code>datasetKey</code> column). We can use <code>ohvbd</code> to search the VBD Hub for all the GBIF datasets that contain our species in our study area, and then see which of them our records actually came from.</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Search the VBD Hub for GBIF datasets containing our species in Europe</span></span>
+<span><span class="co"># (this can take ~30 seconds - there are thousands of them!)</span></span>
+<span><span class="va">europe_datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span><span class="va">full_name</span>, db <span class="op">=</span> <span class="st">"gbif"</span>,</span>
+<span>                              taxonomy <span class="op">=</span> <span class="va">taxon_key</span>,</span>
+<span>                              locationpoly <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/as.polygons.html">as.polygons</a></span><span class="op">(</span><span class="va">europe_extent</span>, crs <span class="op">=</span> <span class="st">"EPSG:4326"</span><span class="op">)</span>,</span>
+<span>                              simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Count our records per dataset, and add on the dataset names</span></span>
+<span><span class="va">record_sources</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span>datasetKey <span class="op">=</span> <span class="va">europe_occurrences</span><span class="op">$</span><span class="va">datasetKey</span><span class="op">)</span>,</span>
+<span>                                responseName <span class="op">=</span> <span class="st">"n_records"</span><span class="op">)</span></span>
+<span><span class="va">record_sources</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/merge.html">merge</a></span><span class="op">(</span><span class="va">record_sources</span>,</span>
+<span>                        <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>datasetKey <span class="op">=</span> <span class="va">europe_datasets</span><span class="op">$</span><span class="va">id</span>,</span>
+<span>                                   title <span class="op">=</span> <span class="va">europe_datasets</span><span class="op">$</span><span class="va">title</span>,</span>
+<span>                                   doi <span class="op">=</span> <span class="va">europe_datasets</span><span class="op">$</span><span class="va">doi</span><span class="op">)</span>,</span>
+<span>                        all.x <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">record_sources</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">record_sources</span><span class="op">$</span><span class="va">n_records</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
+<p>OK, now it’s time to make it better. Can you:</p>
+<ol style="list-style-type: decimal">
+<li>Figure out what the spatial resolution of the data is. Is it appropriate?</li>
+<li>Figure out where the data is coming from (machine observations, human observations, etc.). Are you happy with the choices? Look at <code>record_sources</code>: how many of your records come from a single dataset? Are any of the datasets dedicated bat surveys? Would you trust some sources more than others? (Hint: you can pass other GBIF filters, such as <code>"basisOfRecord=..."</code> or <code>"datasetKey=..."</code>, through the <code>args</code> argument of <code>sp_occurrence</code>.)</li>
+<li>Can you filter out known mistakes in the spatial location of the observations?</li>
+<li>Go through the <a href="docs/Ranking_Table.pdf">Araujo table</a>. What medal rating would you give your analysis so far under the first group? Why? Ignore ‘1E’ in the table until you get to <a href="species-distribution-modelling.html#sdm-pseudo-absences">Pseudo-absences and model extent</a> below.</li>
+<li>Check the above with a demonstrator (if you haven’t already!)</li>
+</ol>
+</div>
+</div>
+<div id="make-sure-your-environmental-data-arent-rubbish" class="section level2" number="8.4">
+<h2>
+<span class="header-section-number">8.4</span> Make sure your environmental data aren’t rubbish<a class="anchor" aria-label="anchor" href="#make-sure-your-environmental-data-arent-rubbish"><i class="fas fa-link"></i></a>
+</h2>
+<p>Distribution modellers care about the data used to predict species’ distributions just as much as they do the data they have on species’ distributions. Those data are often called ‘explanatory variables’ because they are the data that explain species’ distributions. They commonly include environmental conditions such as temperature or rainfall, but they can also include other factors such as the distributions of other species (<em>e.g.</em>, species that might prey upon, or be food for, the species you care about).</p>
+<div id="geographic-space-vs.-environmental-space" class="section level3" number="8.4.1">
+<h3>
+<span class="header-section-number">8.4.1</span> Geographic space vs. environmental space<a class="anchor" aria-label="anchor" href="#geographic-space-vs.-environmental-space"><i class="fas fa-link"></i></a>
+</h3>
+<p>Space isn’t the final frontier. Distribution modellers often think in terms of two kinds of ‘space’: geographic space and environmental space. Geographic space is the kind of space you’re used to thinking about: the location and time at which an observation was made (<em>e.g.</em>, the latitude, longitude, date, and time). Environmental space is the environmental conditions associated with that observation, such as the temperature, precipitation, or underlying geology.</p>
+<div class="float">
+<img src="images/Soberon-2009-EGspace.png" style="width:80.0%" alt="Figure 2. Environmental space vs. Geographic space. Taken from Soberón et al. (2009). The bottom (B) shows the distributions of points (in blue) in ‘geographic space’ - their physical location. The top (A) shows their location in ‘environmental space’ - axes determined by the climate of the region."><div class="figcaption">
+<strong>Figure 2. Environmental space vs. Geographic space</strong>. Taken from Soberón <em>et al</em>. (2009). The bottom (B) shows the distributions of points (in blue) in ‘geographic space’ - their physical location. The top (A) shows their location in ‘environmental space’ - axes determined by the climate of the region.</div>
+</div>
+<p>Full paper available <a href="docs/Sober%C3%B3n-2009.pdf">here</a>.</p>
+<p>This terminology is important to understand because you will very often hear, or read, distribution modellers talking about “E Space” or “G space” (for environmental and geographic space, respectively), and if you don’t know these terms you’ll think they’ve taken an illicit substance. <strong>This matters for modelling the distributions of vectors because the processes in your model are fit within E space and the biases are often in G space</strong>. If you’re going to fit a model that captures the processes relevant to your vector, you need to think about what, in E space, is important for that species. Take bats as an example. Bats often have temperature tolerances: they can’t survive in temperatures below a certain threshold at certain times of year. So, in order to model them well, you need to have a model that (1) accounts for the minimum temperature at that time of year and (2) you probably need to have a model that can account for a non-linearity in the response to temperature. We’re talking about environmental data right now, so we don’t need to think too much about #2 (but don’t forget about it!) but you definitely need the right geographic data. You might also want to think about how to fit a model that can account for those biases in G space (<em>e.g.</em>, unevenly sampled data through time and across space), but that’s for another section…</p>
+</div>
+<div id="putting-it-into-practice" class="section level3" number="8.4.2">
+<h3>
+<span class="header-section-number">8.4.2</span> Putting it into practice<a class="anchor" aria-label="anchor" href="#putting-it-into-practice"><i class="fas fa-link"></i></a>
+</h3>
+<p>Below is some code that loads some environmental data for use with the pipistrelle data. Run it and make sure you’re comfortable with it.</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get present-day BIOCLIM data (see https://www.worldclim.org/data/bioclim.html)</span></span>
+<span><span class="va">europe_bioclim</span> <span class="op">&lt;-</span> <span class="fu">worldclim_global</span><span class="op">(</span>res <span class="op">=</span> <span class="st">"10"</span>, var <span class="op">=</span> <span class="st">"bio"</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="va">europe_bioclim</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">europe_bioclim</span>, <span class="va">europe_extent</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Get some future predictions</span></span>
+<span><span class="va">europe_bioclim_future</span> <span class="op">&lt;-</span> <span class="fu">cmip6_world</span><span class="op">(</span>model <span class="op">=</span> <span class="st">"ACCESS-CM2"</span>, ssp <span class="op">=</span><span class="st">"585"</span>, time <span class="op">=</span> <span class="st">"2061-2080"</span>, var <span class="op">=</span> <span class="st">"bioc"</span>, res <span class="op">=</span> <span class="st">"10"</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="va">europe_bioclim_future</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">europe_bioclim_future</span>, <span class="va">europe_bioclim</span><span class="op">)</span></span></code></pre></div>
+<p>OK, now it’s time to make it better. Can you:</p>
+<ol style="list-style-type: decimal">
+<li>Figure out what the spatial resolution of the environmental data is. Is it appropriate and does it match to the scale of the bat data?</li>
+<li>Do you have any idea of the uncertainty associated with the data? How accurate is it? Can you find out?</li>
+<li>Go through the <a href="docs/Ranking_Table.pdf">Araujo table</a>. What medal rating would you give your analysis so far under the first and second groups? Why?</li>
+<li>Can you improve your rating by making use of other data? Consider Googling <a href="https://chelsa-climate.org/">CHELSA</a> and <a href="https://pearselab.github.io/areadata/">AREAData</a> (warning: your demonstrators are contractually obliged to like analyses that make use of AREAData). You can load AREAData straight into R using <code>ohvbd</code> (see below).</li>
+<li>Check the above with a demonstrator (if you haven’t already!)</li>
+</ol>
+<p>BIOCLIM gives you long-term averages, but bats (and vectors) experience the weather on the day they were seen. AREAData provides daily climate data (2020 onwards) averaged across countries, provinces, and districts. The code below attaches the daily temperature for the first week of January 2025 to each of our observations, using the country each one falls in:</p>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Download daily temperatures, averaged per country (gid = 0);</span></span>
+<span><span class="co"># gid = 1 gives provinces/states and gid = 2 gives districts/counties</span></span>
+<span><span class="co"># (warning: those are much bigger downloads!)</span></span>
+<span><span class="co"># Other metrics include "relhumid", "precip", "uv", and "popdens"</span></span>
+<span><span class="va">temp_areadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/fetch_ad.html">fetch_ad</a></span><span class="op">(</span>metric <span class="op">=</span> <span class="st">"temp"</span>, gid <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add a column for each day between targetdate and enddate (exclusive)</span></span>
+<span><span class="va">occurrences_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/assoc_ad.html">assoc_ad</a></span><span class="op">(</span><span class="va">europe_occurrences</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span>, <span class="st">"year"</span>, <span class="st">"month"</span>, <span class="st">"day"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                             <span class="va">temp_areadata</span>,</span>
+<span>                             targetdate <span class="op">=</span> <span class="st">"2025-01-01"</span>, enddate <span class="op">=</span> <span class="st">"2025-01-08"</span>,</span>
+<span>                             gid <span class="op">=</span> <span class="fl">0</span>, lonlat_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html">head</a></span><span class="op">(</span><span class="va">occurrences_temp</span><span class="op">)</span></span></code></pre></div>
+<p>Think about the spatial and temporal scale of these data, compared to the BIOCLIM data and to the bat data. Every observation in the same country gets the same temperature: is that a problem? AREAData values are averages across administrative regions (not a regular grid), so they can’t be fed into <code>BIOMOD_Projection</code> the way BIOCLIM rasters can. How <em>could</em> you use them? (Hint: are your observations from places and times that cover the range of conditions bats experience?)</p>
+</div>
+</div>
+<div id="model-building" class="section level2" number="8.5">
+<h2>
+<span class="header-section-number">8.5</span> Model building<a class="anchor" aria-label="anchor" href="#model-building"><i class="fas fa-link"></i></a>
+</h2>
+<p>Model building is, I think, the hardest one to describe because it’s the most contentious. Quite reasonably, researchers often want to know what the best model to use to model a species’ distribution is, but sadly there rarely is a “best” model. I like to think of it as a case of every model being, objectively, the best at fitting the kind of model it is. It’s just that, subjectively, we often want models that emphasise different things. That said, there are a few general helpers we can make use of.</p>
+<div id="sdm-pseudo-absences" class="section level3" number="8.5.1">
+<h3>
+<span class="header-section-number">8.5.1</span> Pseudo-absences and model extent<a class="anchor" aria-label="anchor" href="#sdm-pseudo-absences"><i class="fas fa-link"></i></a>
+</h3>
+<p>I’ve been a very naughty boy: I’ve saved a discussion of pseudo-absences and model extent until this section, even though strictly speaking they’re not in section 3 in their framework. That’s because, while Araujo <em>et al</em>. put pseudo-absences in the first section (and I really can see why), I think it’s hard to talk about them without talking about model-fitting. And I’m writing this tutorial, not them, so I can do whatever I want. Sorry if it’s a bit confusing to talk about criterion 1E in the model-building section.</p>
+<p>When modelling where species are found, it’s very useful to know where they’re not found. This absence information can help us determine what the limits to species’ distributions are, for example. The problem is that we rarely, if ever, have data on where species weren’t found. There are millions of species on Earth and essentially infinite places to look for them, and it’s hard enough to store where species <em>were</em> seen on GBIF let alone where species <em>weren’t</em> seen. Further, when people go out surveying, they are often looking <em>for</em> something and it turns out that humans quite often miss things they’re not looking for, so we don’t have a lot of surveys of absences.</p>
+<p><strong>This matters for modelling the distributions of vectors because, as a result, species distribution models generate ‘pseudo-absences’ - they make up absences - in order to be able to fit statistical models</strong>. With the notable exception of one-class support-vector machines (which are very good methods - come take my class in them or ask me about them if you like) we cannot fit species distribution models with data only on where species are seen. Thus models randomly pick from the ‘background’ of the model a series of random points where species weren’t seen and treat those as if they were real absences and then fit the models.</p>
+<p>If this seems awful to you, then fair enough because it seems awful to me too, but with the exception of one-class support vector machines that’s the only option we have. There are ways of doing pseudo-absences in a sensible way, but the most important rules of thumb are:</p>
+<ol style="list-style-type: decimal">
+<li>Read what the algorithm is doing and make sure its assumptions are
+appropriate for your species,</li>
+<li>Make sure you’ve got data from across a wide enough region (both in G and E space) that you have picked up conditions where the species isn’t found, and</li>
+<li>Do what randomisation you are using for the pseudo-absences lots of times so you can average across the uncertainty it introduces.</li>
+</ol>
+<p>If you are ever reading a distribution modelling paper and it doesn’t mention pseudo-absences somewhere then honestly you can just put it down and read something else. It’s that important: <em>pseudo-absences are a big deal</em>.</p>
+</div>
+<div id="distribution-models-are-like-regular-statistical-models-so-check-them-properly" class="section level3" number="8.5.2">
+<h3>
+<span class="header-section-number">8.5.2</span> Distribution models are like regular statistical models so check them properly<a class="anchor" aria-label="anchor" href="#distribution-models-are-like-regular-statistical-models-so-check-them-properly"><i class="fas fa-link"></i></a>
+</h3>
+<p>Would you ever fit a statistical model without checking whether the explanatory variables were correlated? Don’t answer because I’m sure you would (I know I have!) but we really mustn’t when fitting distribution models. Environmental data are often extremely ‘spatially auto-correlated’, which means that points that are nearby each other tend to be similar. They’re often very correlated in terms of underlying processes: places where it rains a lot tend to have very damp soil, and places where there’s high solar radiation tend to be very hot. These correlated processes and patterns can bias the distribution model you get in lots of very confusing ways. For example, if you have lots of variables that are similar (<em>e.g.</em>, where it’s hot, it’s also very dry, and there’s also not a lot of trees) then those variables will ‘compete’ with one-another for variance, such that the three <em>combined</em> seem important in your model but each separately doesn’t seem very important.</p>
+<p>Would you ever fit a statistical model without making sure that any bias or uncertainty in your underlying data isn’t accounted for? Well, again, let’s be honest you probably have, but the data we use for distribution models (normally taken from GBIF) are <em>extremely biased</em>. There are essentially entire fields of study devoted to understanding what kinds of species people are more likely to spot, and how to account for biases in where people go looking for species. The sampling effort is extremely uneven across the Earth, and if you’re not careful you can end up building a distribution model of where people like to go looking for species (warmer-than-average, drier-than-average, richer-than-average places) and not where your vector actually likes to live.</p>
+<p><strong>This matters for modelling the distributions of vectors because otherwise your results will be completely wrong.</strong> There won’t be an easy way to tell, from inspecting the model or the outputs, whether the model is totally wrong or not. ‘Garbage in, garbage out’ as I keep saying: it is impossible to build a statistical model that can robustly and reliably detect when the data it’s given breaks the fundamental assumptions of the model itself (this is something called “Gödel’s incompleteness theorem”). So please check it yourself.</p>
+</div>
+<div id="bonus-feature-learning-about-a-distribution-model-algorithm" class="section level3" number="8.5.3">
+<h3>
+<span class="header-section-number">8.5.3</span> Bonus feature: learning about a distribution model algorithm<a class="anchor" aria-label="anchor" href="#bonus-feature-learning-about-a-distribution-model-algorithm"><i class="fas fa-link"></i></a>
+</h3>
+<p>The package we’ll be using, ‘biomod2’, is a fantastic package in that it lets you fit lots of different kinds of models. There is absolutely no way to explain all of these in the time we have available, so I’m making you a deal: in the practical, I’ll give you the opportunity to vote on one of a subset of methods. I’ll then explain that method to you. So this is a placeholder to emphasise that, while you may be wondering right now “but what model am I fitting?!” I will explain that to you in the practical. Think of this as a ‘feature’, not a ‘bug’ - you get to choose the one you learn!</p>
+</div>
+<div id="putting-it-into-practice-1" class="section level3" number="8.5.4">
+<h3>
+<span class="header-section-number">8.5.4</span> Putting it into practice<a class="anchor" aria-label="anchor" href="#putting-it-into-practice-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Below is some code that fits a model to your bat data. Run it and make sure you’re comfortable with it.</p>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Pull out a subset of training data</span></span>
+<span><span class="va">train_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>full_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html">nrow</a></span><span class="op">(</span><span class="va">long_lats</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Format the data</span></span>
+<span><span class="va">pipistrellus_data</span> <span class="op">&lt;-</span> <span class="fu">BIOMOD_FormatingData</span><span class="op">(</span>resp.var <span class="op">=</span> <span class="va">train_data</span>,</span>
+<span>                                    expl.var <span class="op">=</span> <span class="va">europe_bioclim</span>,</span>
+<span>                                    resp.xy <span class="op">=</span> <span class="va">long_lats</span>,</span>
+<span>                                    resp.name <span class="op">=</span> <span class="va">full_name</span>,</span>
+<span>                                    PA.nb.rep <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                                    PA.nb.absences <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html">nrow</a></span><span class="op">(</span><span class="va">long_lats</span><span class="op">)</span>,</span>
+<span>                                    PA.strategy <span class="op">=</span> <span class="st">'random'</span>,</span>
+<span>                                    filter.raster <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Train the model</span></span>
+<span><span class="va">pipistrellus_model</span> <span class="op">&lt;-</span> <span class="fu">BIOMOD_Modeling</span><span class="op">(</span>bm.format <span class="op">=</span> <span class="va">pipistrellus_data</span>,</span>
+<span>                                    modeling.id <span class="op">=</span> <span class="st">'GAM'</span>,</span>
+<span>                                    models <span class="op">=</span> <span class="st">"GAM"</span>,</span>
+<span>                                    CV.strategy <span class="op">=</span> <span class="st">'kfold'</span>,</span>
+<span>                                    CV.k <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                                    CV.nb.rep <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                                    <span class="co">#CV.perc = 0.8,</span></span>
+<span>                                    OPT.strategy <span class="op">=</span> <span class="st">'default'</span>,</span>
+<span>                                    var.import <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                                    metric.eval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'TSS'</span>,<span class="st">'ROC'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>In this tutorial, I’m not going through the details of how different kinds of statistical model are fit. I will be available, in the practical, to answer any questions you have. Don’t worry about the fact the code above splits the model into training and validation subsets; I’m about to explain what’s going on there in a few paragraphs’ time.</p>
+<p>OK, now it’s time to make it better. Can you:</p>
+<ol style="list-style-type: decimal">
+<li>Figure out how to check whether or not the explanatory variables are correlated? Hint: None of the code above checks this, you’ll have to do it yourself. You might find the function ‘pairs’ to be useful…</li>
+<li>What is the pseudo-absence strategy being used in this modelling approach? Hint: ‘PA’ stands for ‘pseudo-absence’. Do you agree with it? How could we make it better/worse?</li>
+<li>What are the spatial (‘geographic’) and environmental extents of the model? Are they wide enough? If you want to restrict your analysis to particular countries, <code><a href="https://ohvbd.vbdhub.org/reference/match_countries.html">ohvbd::match_countries()</a></code> will give you their outlines (which you can turn into a <code>terra</code> object with <code>vect(match_countries(...)$location_wkt, crs = "EPSG:4326")</code>; beware of overseas territories!).</li>
+<li>Go through the <a href="docs/Ranking_Table.pdf">Araujo table</a>. What medal rating would you give your analysis so far under the first and second groups? Why?</li>
+<li>Check the above with a demonstrator (if you haven’t already!)</li>
+</ol>
+</div>
+</div>
+<div id="evaluating-your-model" class="section level2" number="8.6">
+<h2>
+<span class="header-section-number">8.6</span> Evaluating your model<a class="anchor" aria-label="anchor" href="#evaluating-your-model"><i class="fas fa-link"></i></a>
+</h2>
+<p>This is the hardest section to fulfill (I think), and it’s the one that receives the least attention in the literature (I think): validation!</p>
+<div id="training-vs.-validation-data" class="section level3" number="8.6.1">
+<h3>
+<span class="header-section-number">8.6.1</span> Training vs. validation data<a class="anchor" aria-label="anchor" href="#training-vs.-validation-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>When fitting a machine learning (‘AI’) model, we typically split our data into training and validation subsets. We train (build) the model on the training subset, and then we test how well the model performs in the validation subset. We don’t want to mix up the two kinds of data so that we’ve got some independent data to test our model with. Quite often we’re working with methods where it’s impossible to get a p-value (or even an <span class="math inline">\(r^2\)</span> value) and so it’s quite hard to tell whether or not we’ve done a good job. That makes it absolutely vital to have a separate set of data to test what we’ve done with - we have no formal, proven statistical or mathematical framework to fall back on to see if we’ve done a good job or not.</p>
+<p><strong>This matters for modelling the distributions of vectors because if you don’t pick a proper set of validation data you’ll get the wrong answer</strong>. Are your validation data from the same region of E or G space? Well then are you absolutely certain that they’re actually independent data, and not just a collection of data taken from the same, unreliable scheme that generated your training data? Because if they are… then that’s not really an independent test of the data.</p>
+</div>
+<div id="receiver-operating-characteristic-curves-roc-curves-and-other-summary-statistics" class="section level3" number="8.6.2">
+<h3>
+<span class="header-section-number">8.6.2</span> Receiver Operating Characteristic curves (ROC curves) and other summary statistics<a class="anchor" aria-label="anchor" href="#receiver-operating-characteristic-curves-roc-curves-and-other-summary-statistics"><i class="fas fa-link"></i></a>
+</h3>
+<p>This isn’t in ‘The Araujo <em>et al.</em> Criteria’ but it’s something I feel strongly about so I’m going to write about it here anyway. My tutorial, my rules!</p>
+<p>When fitting a distribution model, it’s common to fall back on summary statistics that show how the model performed. Metrics such as ‘precision’ (how many of your predicted occurrences were correct) and recall (the fraction of occurrences your model predicted) are really loved by modellers. So too are receiver-operating characteristic curves (ROCs), where the rate of true-positives (correctly identifying occurrences) are plotted against rates of false-positives (incorrectly identifying occurrences) are plotted. Figure 3 shows such a curve: the important thing to notice is that you almost never, ever get a ‘perfect classifier’. If you identify more true positives (vertical axis) then you’re necessarily going to have more false-alarms (the horizontal axis). It’s a bit like fire alarms: we absolutely cannot have a fire alarm that misses a fire, so we have false-alarms where the alarm goes off because we need to set it so sensitive that it detects even very rare events.</p>
+<div class="float">
+<img src="images/Roc_curve.png" style="width:80.0%" alt="Figure 3. Receiver Operating Characteristic Curves (ROC curves). Taken from Wikipedia (look, it’s a good diagram and I can’t do better so why try?!). Description in the text. Image by cmglee and MartinThoma, CC BY-SA 4.0, via Wikimedia Commons."><div class="figcaption">
+<strong>Figure 3. Receiver Operating Characteristic Curves (ROC curves)</strong>. Taken from Wikipedia (look, it’s a good diagram and I can’t do better so why try?!). Description in the text. Image by cmglee and MartinThoma, CC BY-SA 4.0, via Wikimedia Commons.</div>
+</div>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">Wikipedia: Receiver operating characteristic</a>. Image licence: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Roc_curve.svg">Wikimedia Commons</a>.</p>
+<p>The problem, however, is that these curves worked very well in World War II at identifying planes, but for species distribution models the data are auto-correlated and so you can’t just assume that a ROC-type approach will work. That the model tends to do very well in data that may not be perfectly independent is not really of interest (see above), and so we need to use an approach that is robust to those issues. For more on this, read about the criminally under-valued ‘temporal validation plots’ developed by a friend of mine (no conflict there!): <a href="docs/Rapacciuolo-2014.pdf">Rapacciuolo <em>et al</em>. (2014) Methods in Ecology &amp; Evolution 5(5): 407</a>.</p>
+<p><strong>This matters for vector distribution models because any single estimator of whether a model is doing a good job will have similar problems</strong>. Gödel’s incompleteness theorem means that you can never fully understand a system: every statistical test has, itself, a set of assumptions that you need to test. So if you want to see whether your model is doing a good job, tests are good, but at the end of the day you have to check for yourself. So my advice? Plot out your model. See where in geographic and environmental space the model is doing well and make mistakes. Look for patterns: are there particular regions, or periods of time, that tend to do well? And then see if you can find a way to improve your model accordingly.</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Evaluating and plotting models</span></span>
+<span></span>
+<span><span class="va">all_data_models</span> <span class="op">&lt;-</span> <span class="fu">get_built_models</span><span class="op">(</span><span class="va">pipistrellus_model</span>, PA <span class="op">=</span> <span class="st">"allData"</span><span class="op">)</span></span>
+<span><span class="fu">bm_PlotResponseCurves</span><span class="op">(</span><span class="va">pipistrellus_model</span>, models <span class="op">=</span> <span class="va">all_data_models</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html">names</a></span><span class="op">(</span><span class="va">europe_bioclim_future</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html">names</a></span><span class="op">(</span><span class="va">europe_bioclim</span><span class="op">)</span></span>
+<span><span class="va">pipistrellus_current</span> <span class="op">&lt;-</span> <span class="fu">BIOMOD_Projection</span><span class="op">(</span>bm.mod <span class="op">=</span> <span class="va">pipistrellus_model</span>,</span>
+<span>                                  proj.name <span class="op">=</span> <span class="st">'Current'</span>,</span>
+<span>                                  new.env <span class="op">=</span> <span class="va">europe_bioclim</span>,</span>
+<span>                                  models.chosen <span class="op">=</span> <span class="st">'all'</span>,</span>
+<span>                                  metric.binary <span class="op">=</span> <span class="st">'all'</span>,</span>
+<span>                                  metric.filter <span class="op">=</span> <span class="st">'all'</span>,</span>
+<span>                                  build.clamping.mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pipistrellus_future</span> <span class="op">&lt;-</span> <span class="fu">BIOMOD_Projection</span><span class="op">(</span>bm.mod <span class="op">=</span> <span class="va">pipistrellus_model</span>,</span>
+<span>                                            proj.name <span class="op">=</span> <span class="st">'Future'</span>,</span>
+<span>                                            new.env <span class="op">=</span> <span class="va">europe_bioclim_future</span>,</span>
+<span>                                            models.chosen <span class="op">=</span> <span class="st">'all'</span>,</span>
+<span>                                            metric.binary <span class="op">=</span> <span class="st">'TSS'</span>,</span>
+<span>                                            build.clamping.mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">current_projections</span> <span class="op">&lt;-</span> <span class="fu">get_predictions</span><span class="op">(</span><span class="va">pipistrellus_current</span>, metric.binary <span class="op">=</span> <span class="st">"TSS"</span><span class="op">)</span></span>
+<span><span class="va">future_projections</span> <span class="op">&lt;-</span> <span class="fu">get_predictions</span><span class="op">(</span><span class="va">pipistrellus_future</span>, metric.binary <span class="op">=</span> <span class="st">"TSS"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pipistrelle_rangesize_change</span> <span class="op">&lt;-</span> <span class="fu">BIOMOD_RangeSize</span><span class="op">(</span></span>
+<span>proj.current <span class="op">=</span> <span class="va">current_projections</span>, </span>
+<span>proj.future <span class="op">=</span> <span class="va">future_projections</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">current_projections</span><span class="op">$</span><span class="va">Pipistrellus.pipistrellus_allData_allRun_GAM</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">pipistrelle_rangesize_change</span><span class="op">$</span><span class="va">Diff.By.Pixel</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p>OK, now it’s time to make it better. Can you:</p>
+<ol style="list-style-type: decimal">
+<li>Figure out how to plot a ROC curve for your model?</li>
+<li>See where in space you’re under/over predicting occurrences?</li>
+<li>Go through the <a href="docs/Ranking_Table.pdf">Araujo table</a>. What medal rating would you give your analysis so far under all the groups? Why?</li>
+<li>Check the above with a demonstrator (if you haven’t already!)</li>
+</ol>
+</div>
+</div>
+<div id="the-final-test" class="section level2" number="8.7">
+<h2>
+<span class="header-section-number">8.7</span> The Final Test<a class="anchor" aria-label="anchor" href="#the-final-test"><i class="fas fa-link"></i></a>
+</h2>
+<p>You’ve made it this far? Good job! Now what you should do is repeat this process for a vector you are interested in yourself. Or, perhaps… <a href="https://sphere-ppl.org/pages/Forecasting_Contests/">enter our forecasting contest!</a> And win a fabulous prize!…</p>
+<p>If you do pick your own vector, <code>ohvbd</code> can help with more than just GBIF. <code>search_hub("Aedes aegypti")</code> will search the VBD Hub for datasets on your vector across all its databases, including <a href="https://vectorbyte.crc.nd.edu/vectraits-explorer">VecTraits</a> (lab measurements of traits such as thermal tolerances; useful for thinking about E space!) and <a href="https://vectorbyte.crc.nd.edu/vecdyn-datasets">VecDyn</a> (population counts through time; useful for thinking about temporal scale and independent validation data). The <a href="https://ohvbd.vbdhub.org"><code>ohvbd</code> documentation</a> shows how to download these.</p>
+<p>Finally, wherever you get your data from, cite it! Everything you download from GBIF has a DOI (see the <code>doi</code> column in <code>record_sources</code> above), and <code><a href="https://ohvbd.vbdhub.org/reference/fetch_citations.html">ohvbd::fetch_citations()</a></code> will find citations for VecTraits and VecDyn data. Data citation is how the people who collected the data get credit for it.</p>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="effectively-communicating-with-different-audiences.html"><span class="header-section-number">7</span> Effectively Communicating with Different Audiences</a></div>
+<div class="next"><a href="thermal-performance-curves.html"><span class="header-section-number">9</span> Thermal Performance Curves</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#species-distribution-modelling"><span class="header-section-number">8</span> Species Distribution Modelling</a></li>
+<li><a class="nav-link" href="#overview-5"><span class="header-section-number">8.1</span> Overview</a></li>
+<li><a class="nav-link" href="#what-are-the-araujo-et-al.-criteria"><span class="header-section-number">8.2</span> What are ‘The Araujo et al. Criteria’</a></li>
+<li>
+<a class="nav-link" href="#make-sure-your-observation-data-arent-rubbish"><span class="header-section-number">8.3</span> Make sure your observation data aren’t rubbish</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#spatio-temporal-scaling"><span class="header-section-number">8.3.1</span> Spatio-temporal scaling</a></li>
+<li><a class="nav-link" href="#taxonomic-identification"><span class="header-section-number">8.3.2</span> Taxonomic identification</a></li>
+<li><a class="nav-link" href="#putting-it-into-practice."><span class="header-section-number">8.3.3</span> Putting it into practice.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#make-sure-your-environmental-data-arent-rubbish"><span class="header-section-number">8.4</span> Make sure your environmental data aren’t rubbish</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#geographic-space-vs.-environmental-space"><span class="header-section-number">8.4.1</span> Geographic space vs. environmental space</a></li>
+<li><a class="nav-link" href="#putting-it-into-practice"><span class="header-section-number">8.4.2</span> Putting it into practice</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#model-building"><span class="header-section-number">8.5</span> Model building</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sdm-pseudo-absences"><span class="header-section-number">8.5.1</span> Pseudo-absences and model extent</a></li>
+<li><a class="nav-link" href="#distribution-models-are-like-regular-statistical-models-so-check-them-properly"><span class="header-section-number">8.5.2</span> Distribution models are like regular statistical models so check them properly</a></li>
+<li><a class="nav-link" href="#bonus-feature-learning-about-a-distribution-model-algorithm"><span class="header-section-number">8.5.3</span> Bonus feature: learning about a distribution model algorithm</a></li>
+<li><a class="nav-link" href="#putting-it-into-practice-1"><span class="header-section-number">8.5.4</span> Putting it into practice</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#evaluating-your-model"><span class="header-section-number">8.6</span> Evaluating your model</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#training-vs.-validation-data"><span class="header-section-number">8.6.1</span> Training vs. validation data</a></li>
+<li><a class="nav-link" href="#receiver-operating-characteristic-curves-roc-curves-and-other-summary-statistics"><span class="header-section-number">8.6.2</span> Receiver Operating Characteristic curves (ROC curves) and other summary statistics</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#the-final-test"><span class="header-section-number">8.7</span> The Final Test</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/master/01-vbd-hub-training-november-2026.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/edit/master/01-vbd-hub-training-november-2026.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-11-03.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -56,7 +56,7 @@
 <li><a class="" href="wrangling-vbd-data-in-r.html"><span class="header-section-number">5</span> Wrangling VBD Data in R</a></li>
 <li><a class="" href="visualising-vbd-data-in-r.html"><span class="header-section-number">6</span> Visualising VBD Data in R</a></li>
 <li><a class="" href="effectively-communicating-with-different-audiences.html"><span class="header-section-number">7</span> Effectively Communicating with Different Audiences</a></li>
-<li><a class="" href="temporal-spatial-modelling-of-disease-vectors.html"><span class="header-section-number">8</span> Temporal &amp; Spatial Modelling of Disease Vectors</a></li>
+<li><a class="" href="species-distribution-modelling.html"><span class="header-section-number">8</span> Species Distribution Modelling</a></li>
 <li><a class="" href="thermal-performance-curves.html"><span class="header-section-number">9</span> Thermal Performance Curves</a></li>
 <li><a class="" href="challenge-task.html"><span class="header-section-number">10</span> Challenge Task</a></li>
 <li><a class="" href="reading-resources.html"><span class="header-section-number">11</span> Reading &amp; Resources</a></li>
@@ -95,7 +95,7 @@
 y = mx + c
 \]</span></p>
 <p>To code a linear regression model, we can use the following syntax:</p>
-<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">specificModelName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">responseVariable</span> <span class="op">~</span> <span class="va">explanatoryVariable</span>, data <span class="op">=</span> <span class="va">yourDataset</span><span class="op">)</span></span></code></pre></div>
 <div class="rmdtip">
 <p><strong>Tip:</strong> When naming models or other objects in R, try to use specific names so you know what your object is explicitly. Using short names like model1, model2, etc. can get confusing.</p>
@@ -109,8 +109,8 @@ y = mx + c
 <pre><code>#&gt; Error: object ‘specificmodelname’ not found.</code></pre>
 </div>
 <p>To view the output of a linear regression model, we can use the summary() function:</p>
-<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
 <p>This will show a lot of information (which is useful to familiarise yourself with), but for this workshop, we are primarily interested in the Coefficients table.</p>
 <p>This table will have one row for each coefficient in the model - two rows for a simple linear regression model: the Intercept and the Slope.</p>
 <ul>
@@ -137,18 +137,18 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 </h3>
 <p>What happens if your explanatory variable is categorical, rather than continuous? This is where ANOVA models come in, or the <strong>AN</strong>alysis <strong>O</strong>f <strong>VA</strong>riance across the means of different groups or categories. An ANOVA is a useful type of linear model, particularly when the response variable is continuous, and the explanatory variable is categorical.</p>
 <p>Coding an ANOVA is essentially the same as a linear regression model - we still use the lm() function to fit the relationship between a response and explanatory variable. However, now that the explanatory variable is categorical, the slope represents the difference between group (category) means.</p>
-<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">specificModelName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">continuousResponse</span> <span class="op">~</span> <span class="va">categoricalExplanatory</span>, data <span class="op">=</span> <span class="va">yourDataset</span><span class="op">)</span></span></code></pre></div>
-<p>As before, we can use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function to check the model output and view the Coefficients table (which will be laid out in the same way as a linear regression model output).</p>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
+<p>As before, we can use the <code><a href="https://rspatial.github.io/terra/reference/summary.html">summary()</a></code> function to check the model output and view the Coefficients table (which will be laid out in the same way as a linear regression model output).</p>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
 <p>Despite looking the same, there are some differences for an ANOVA output:</p>
 <ul>
 <li>The Intercept is the mean of the first category.</li>
 <li>The Slope is the difference between the mean of the first category and this (named) category.</li>
 </ul>
-<p>While the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function can be used to assess the differences between specific categories, the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function can tell us whether or not the categorical explanatory variable as a whole has a significant effect on the response variable.</p>
-<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<p>While the <code><a href="https://rspatial.github.io/terra/reference/summary.html">summary()</a></code> function can be used to assess the differences between specific categories, the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function can tell us whether or not the categorical explanatory variable as a whole has a significant effect on the response variable.</p>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">specificModelName</span><span class="op">)</span></span></code></pre></div>
 <p>The output of the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function also provides a table, which lists the following statistics:</p>
 <ul>
@@ -164,7 +164,7 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 <div class="rmdtip">
 <p><strong>Tip:</strong></p>
 <ul>
-<li>Use <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> if you are interested in the category means and differences of the explanatory variable.</li>
+<li>Use <code><a href="https://rspatial.github.io/terra/reference/summary.html">summary()</a></code> if you are interested in the category means and differences of the explanatory variable.</li>
 <li>Use <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> if you are interested in the overall significance of the explanatory variable on the response variable.</li>
 </ul>
 </div>
@@ -187,10 +187,10 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 </h3>
 <p>A scatter plot can be used when you want to visualise the relationship between two continuous variables.</p>
 <p>Plotting raw data with a scatter plot allows you to identify trends in the data, including direction and strength of the relationship between the variables. You can also spot outlier observations that deviate from the general pattern, and the shape of the data can help decide whether a linear or non-linear model is appropriate for your dataset.</p>
-<p>To plot a simple scatter plot, we can use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function:</p>
+<p>To plot a simple scatter plot, we can use the <code><a href="https://rspatial.github.io/terra/reference/plot.html">plot()</a></code> function:</p>
 <p><code>plot(myDataframe$variable1, myDataframe$variable2)</code></p>
 <div class="rmdcaution">
-<p><strong>Frequent Mistake:</strong> If you just press <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use <code>$</code> and specify the specific variables you want to compare.</p>
+<p><strong>Frequent Mistake:</strong> If you just press <code><a href="https://rspatial.github.io/terra/reference/plot.html">plot()</a></code> without describing specific variables in your dataset, you will end up with a messy and overwhelming visualisation. Use <code>$</code> and specify the specific variables you want to compare.</p>
 </div>
 </div>
 <div id="histograms" class="section level3" number="16.2.2">
@@ -200,7 +200,7 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 <p>Histograms are used to visualise the distribution on a single continuous variable. This is done by splitting the range of values into intervals, called bins, and calculating the frequency of data points that sit in each interval.</p>
 <p>Histograms can be particularly useful to check whether your data is normally distributed or skewed, to view the variance (or spread) of your data, and to identify gaps in the data which may suggest issues with data collection.</p>
 <p>Histograms do not show us the relationship between variables. However, we can plot two histograms for two variables we want to compare so that we can assess the distributions of the two variables.</p>
-<p>To plot a simple histogram, we can use the <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> function:</p>
+<p>To plot a simple histogram, we can use the <code><a href="https://rspatial.github.io/terra/reference/hist.html">hist()</a></code> function:</p>
 <p><code>hist(myDateframe$variable1)</code></p>
 </div>
 <div id="boxplots" class="section level3" number="16.2.3">
@@ -218,7 +218,7 @@ When we plot a line of best fit, this reflects the mean, variance, and correlati
 </ul>
 <p>The box represents the interquartile range (IQR), which contains the middle 50% of the data. Values that fall outside this range may appear as outliers.</p>
 <p>Boxplots summarise the distribution and variation of the data, but do not show individual observations. Therefore, some detailed variation within the dataset may not be visible.</p>
-<p>To plot a simple boxplot, we can use the <code><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot()</a></code> function:</p>
+<p>To plot a simple boxplot, we can use the <code><a href="https://rspatial.github.io/terra/reference/boxplot.html">boxplot()</a></code> function:</p>
 <p><code>boxplot(myDataframe$continuousVariable ~ myDataframe$categoricalVariable)</code></p>
 </div>
 </div>
