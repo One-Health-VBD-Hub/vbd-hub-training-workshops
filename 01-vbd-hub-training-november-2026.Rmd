@@ -105,6 +105,31 @@ Participation will be limited to early career scientists, primarily postgraduate
 </details>
 
 
+## Meet the Team
+**Chloe Coxshall** is a PDRA on the Hub at Imperial College London where she designs and delivers training events for the VBD community. She also conducts research using host traits to predict mosquito-borne disease transmission in UK bird and mammal species. When she is not working, you can find Chloe starting a new crafting project, or hanging upside down in an aerial hoop.
+
+
+**Will Pearse** develops new statistical and computational tools to answer fundamental questions about the origins and future of biodiversity, and applies those insights to improve human wellbeing at Imperial College London. In this project, Will is focussed on how best to link environmental data with other types of biological data important for understanding VBD transmission.
+
+
+**Samraat Pawar** studies how individual-level metabolism scales up through species (population) interactions to community- and ecosystem-level dynamics at Imperial College London. Samraat is supporting integration of existing repositories with the Hub and the development of software for working with the data
+
+
+**Francis Windram** is a PDRA on the Hub at Imperial College London where he develops tools and visualisations for disease vector trait and population data. During his PhD, he created computational imaging methods to extract traits from the webs of UK orb-weaving spiders. Aside from science, Francis is also an avid musician, climber, and nature enthusiast.
+
+
+**Lauren Cator** researches the role of mosquito behaviour and ecology in disease transmission at Imperial College London. Lauren is leading the Hub and responsible for overall project management and coordination of the team and engagement with the wider UK VBD research community. 
+
+
+**Sarah Kelly** is the data curator for the hub. She predominantly focuses on relationship building with data depositors and data wrangling. For the last 9 years Sarah has worked as part of the VEuPathDB funded by NIAID, curating both entomological and epidemiological data. When she isn’t curating data you will find her running, swimming and cycling around the coastline and camping on hilltops. 
+
+
+**Stanley Modrak** is the software engineer behind the hub platform based at the Imperial College London. He has previously worked on risk analysis and compliance in cryptocurrency markets, digital bureaucracy and e-government platforms. 
+
+
+
+
+
 # Pre-Work
 
 We are excited to welcome you to the **One Health VBD Hub Training Event** on 11th-13th November at Silwood Park. 
