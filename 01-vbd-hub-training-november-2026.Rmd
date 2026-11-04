@@ -106,25 +106,47 @@ Participation will be limited to early career scientists, primarily postgraduate
 
 
 ## Meet the Team
+
+<img src="images/chloe.jpg" alt="Photo of Chloe Coxshall" style="float: right; width: 180px; margin: 0 0 10px 15px; border: none;">
 **Chloe Coxshall** is a PDRA on the Hub at Imperial College London where she designs and delivers training events for the VBD community. She also conducts research using host traits to predict mosquito-borne disease transmission in UK bird and mammal species. When she is not working, you can find Chloe starting a new crafting project, or hanging upside down in an aerial hoop.
 
+<div style="clear: both;"></div>
 
+
+<img src="images/will.jpg" alt="Photo of Will Pearse" style="float: left; width: 180px; margin: 0 15px 10px 0; border: none;">
 **Will Pearse** develops new statistical and computational tools to answer fundamental questions about the origins and future of biodiversity, and applies those insights to improve human wellbeing at Imperial College London. In this project, Will is focussed on how best to link environmental data with other types of biological data important for understanding VBD transmission.
 
+<div style="clear: both;"></div>
 
-**Samraat Pawar** studies how individual-level metabolism scales up through species (population) interactions to community- and ecosystem-level dynamics at Imperial College London. Samraat is supporting integration of existing repositories with the Hub and the development of software for working with the data
+
+<img src="images/samraat.jpg" alt="Photo of Samraat Pawar" style="float: right; width: 180px; margin: 0 0 10px 15px; border: none;">
+**Samraat Pawar** studies how individual-level metabolism scales up through species (population) interactions to community- and ecosystem-level dynamics at Imperial College London. Samraat is supporting integration of existing repositories with the Hub and the development of software for working with the data.
+
+<div style="clear: both;"></div>
 
 
+<img src="images/francis.jpg" alt="Photo of Francis Windram" style="float: left; width: 180px; margin: 0 15px 10px 0; border: none;">
 **Francis Windram** is a PDRA on the Hub at Imperial College London where he develops tools and visualisations for disease vector trait and population data. During his PhD, he created computational imaging methods to extract traits from the webs of UK orb-weaving spiders. Aside from science, Francis is also an avid musician, climber, and nature enthusiast.
 
+<div style="clear: both;"></div>
 
+
+<img src="images/lauren.jpg" alt="Photo of Lauren Cator" style="float: right; width: 180px; margin: 0 0 10px 15px; border: none;">
 **Lauren Cator** researches the role of mosquito behaviour and ecology in disease transmission at Imperial College London. Lauren is leading the Hub and responsible for overall project management and coordination of the team and engagement with the wider UK VBD research community. 
 
+<div style="clear: both;"></div>
 
+
+<img src="images/sarah.jpg" alt="Photo of Sarah Kelly" style="float: left; width: 180px; margin: 0 15px 10px 0; border: none;">
 **Sarah Kelly** is the data curator for the hub. She predominantly focuses on relationship building with data depositors and data wrangling. For the last 9 years Sarah has worked as part of the VEuPathDB funded by NIAID, curating both entomological and epidemiological data. When she isn’t curating data you will find her running, swimming and cycling around the coastline and camping on hilltops. 
 
+<div style="clear: both;"></div>
 
+
+<img src="images/stanley.jpg" alt="Photo of Stanley Modrak" style="float: right; width: 180px; margin: 0 0 10px 15px; border: none;">
 **Stanley Modrak** is the software engineer behind the hub platform based at the Imperial College London. He has previously worked on risk analysis and compliance in cryptocurrency markets, digital bureaucracy and e-government platforms. 
+
+<div style="clear: both;"></div>
 
 
 
