@@ -1,24 +1,29 @@
 # (PART) November 2026 Training at Silwood Park {-}
 
 # Introduction
-The One Health VBD Hub is hosting a training event from **11th - 13th November 2026**, held at Silwood Park, Ascot. 
 
 
-The 3 day training event will include:
+## About the VBD Hub
+The VBD Hub is a non-profit, open-source project funded by UKRI and Defra, with the overarching goal to **enhance links between data collection and analysis to support policy**. We work towards this goal in several ways:
 
-- An introduction to the **Hub Search** and **ohvbd R package** as tools to search and retrieve curated VBD datasets. 
-- Training in data curation for VBD databases
-- Pipelines for wrangling and visualising curated datasets
-- Effectively communicating VBD research to different audiences. 
-
-
-Analysis will be primarily in the **R programming language**. 
+1. **Data curation** – supporting the UK community to share data through global repositories according to FAIR standards and with appropriate access control. 
+2. **Tools** – building infrastructure and packages to support data discovery, exploration and use. 
+3. **Resources** –online/in-person training and networking to build a community of practice.
 
 
-This workshop is appropriate for participants who have working experience with R and beginner to intermediate statistical knowledge (e.g., ANOVA, hypothesis testing, linear regression).
+## About this event
+The VBD Hub November training event will last 2.5 days, and consists of:
+
+- An introduction to the Hub Search and ohvbd R package as tools to search and retrieve curated VBD datasets.
+- Training in data curation for VBD databases.
+- Pipelines for wrangling and visualising curated datasets.
+- How to effectively communicate VBD research to different audiences. 
+- Applied workshops to develop your analytical skills. 
+- A challenge task to practise your skills.
+- An opportunity to present your work to fellow participants.
 
 
-Participation will be limited to early career scientists, primarily postgraduate students and postdoctoral researchers, and practitioners with relevant experience (for example vector control professionals) and interest. 
+**Analysis will be primarily in the R programming language**. This training is appropriate for participants who have working experience with R and beginner to intermediate statistical knowledge (e.g., ANOVA, hypothesis testing, linear regression).
 
 
 ## Schedule

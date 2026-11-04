@@ -1,4 +1,6 @@
 introduction
+about-the-vbd-hub
+about-this-event
 schedule
 meet-the-team
 pre-work
