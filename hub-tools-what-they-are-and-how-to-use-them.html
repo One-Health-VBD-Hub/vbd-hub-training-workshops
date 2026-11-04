@@ -283,7 +283,7 @@
 <p>You can find out more on the <a href="https://ohvbd.vbdhub.org/reference/match_species.html">match_species()</a> and <a href="https://ohvbd.vbdhub.org/reference/match_countries.html">match_countries()</a> reference pages.</p>
 </div>
 <div class="rmdnote">
-<p><strong>Example: Retrieving Culex pipiens Data Using ohvbd</strong></p>
+<p><strong>Example: Retrieving <em>Culex pipiens</em> Data Using ohvbd</strong></p>
 <p>Imagine we want to retrieve population data on <em>Culex pipiens</em> from <strong>VecDyn</strong>.</p>
 <p>We can start by defining our search query and filter by database using <code><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub()</a></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -346,7 +346,7 @@
 </ul>
 <p>This means that a search can return results that are related to your query, but not exactly what you intended.</p>
 <div class="rmdnote">
-<p><strong>Example: Unexpected Results from a Bemisia Search</strong></p>
+<p><strong>Example: Unexpected Results from a <em>Bemisia</em> Search</strong></p>
 <p>Let’s have a look at an example of a search that returns unexpected results.</p>
 <p>Imagine we are searching for trait data on <em>Bemisia</em>, a genus of whitefly, using the <strong>VecTraits</strong> database:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -372,7 +372,7 @@
 <p>One key approach is to use <strong>smart search functions</strong>, written as <code>search_x_smart()</code>, where <code>x</code> can be replaced with the code for the appropriate database, such as <code>vt</code> for VecTraits, or <code>vd</code> for VecDyn.</p>
 <p>Unlike <code><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub()</a></code>, which searches across multiple fields, smart search functions let you choose which field to search, how to match it (e.g. <code>"equals"</code> or <code>"contains"</code>), and the value to look for. This means you can control exactly where your search term is being matched.</p>
 <div class="rmdnote">
-<p><strong>Example: Unexpected Results from a Bemisia Search (cont.)</strong></p>
+<p><strong>Example: Unexpected Results from a <em>Bemisia</em> Search (cont.)</strong></p>
 <p>Instead of searching broadly for <em>Bemisia</em>, we can refine our search using a smart search function.</p>
 <p>Our previous code (see previous Example) returned datasets where <em>Bemisia</em> appeared in multiple columns, including as a secondary interacting species.</p>
 <p>To make the search more specific, we can use <code><a href="https://ohvbd.vbdhub.org/reference/search_vt_smart.html">search_vt_smart()</a></code> to target the column that represents the primary species the traits refer to:</p>

@@ -172,11 +172,17 @@
 <span>    mean_abundance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">sample_value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    se_abundance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">sample_value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sample_value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>Here:
-- <code>group_by(sample_location)</code> groups the rows by location, so calculations are done for each location.
-- <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> reduces each group to a single row.
-- <code>mean(sample_value, na.rm = TRUE)</code> calculates the mean, ignoring any missing values.
-- <code>sd() / sqrt()</code> converts the standard deviation into standard error, which we can later visualise using error bars.</p>
+<p>Here:</p>
+<ul>
+<li>
+<code>group_by(sample_location)</code> groups the rows by location, so calculations are done for each location.</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> reduces each group to a single row.</li>
+<li>
+<code>mean(sample_value, na.rm = TRUE)</code> calculates the mean, ignoring any missing values.</li>
+<li>
+<code>sd() / sqrt()</code> converts the standard deviation into standard error, which we can later visualise using error bars.</li>
+</ul>
 <p>We can use <code>ggplot2</code> to visualise the abundance of mosquitos at multiple sampling locations by using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> to define the data and aesthetics, and adding layers with <code>+</code>. We start by stating our dataset and which variables we want on the x- and y-axes:</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="visualising-vbd-data-in-r.html#cb44-1" tabindex="-1"></a><span class="fu">ggplot</span>(abundance_per_location,</span>
 <span id="cb44-2"><a href="visualising-vbd-data-in-r.html#cb44-2" tabindex="-1"></a><span class="fu">aes</span>(<span class="at">x =</span> sample_location, <span class="at">y =</span> mean_abundance)) <span class="sc">+</span></span></code></pre></div>
@@ -391,7 +397,7 @@
 <span><span class="va">daily_abundance_plot_all</span></span></code></pre></div>
 <div class="inline-figure"><img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-59-1.png" alt="" width="672"></div>
 <div class="rmdtip">
-<p>Tip: When <code>colour</code> is inside <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>, it is mapped to a variable, when it is outside, it is a fixed value.</p>
+<p><strong>Tip:</strong> When <code>colour</code> is inside <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>, it is mapped to a variable, when it is outside, it is a fixed value.</p>
 </div>
 <p>By adding colour, each line now represents a different sampling location more clearly, with a key detailing the line colour for each location. This makes it easier to identify patterns across locations.</p>
 <p>By plotting <strong>both location and time together</strong>, we can identify patterns in the data:</p>

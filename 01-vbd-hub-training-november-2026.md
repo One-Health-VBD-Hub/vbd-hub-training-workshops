@@ -849,7 +849,7 @@ You can find out more on the [match_species()](https://ohvbd.vbdhub.org/referenc
 
 
 ::: {.rmdnote}
-**Example: Retrieving Culex pipiens Data Using ohvbd**
+**Example: Retrieving *Culex pipiens* Data Using ohvbd**
 
 Imagine we want to retrieve population data on *Culex pipiens* from **VecDyn**. 
 
@@ -960,7 +960,7 @@ This means that a search can return results that are related to your query, but 
 
 
 ::: {.rmdnote}
-**Example: Unexpected Results from a Bemisia Search**
+**Example: Unexpected Results from a *Bemisia* Search**
 
 Let’s have a look at an example of a search that returns unexpected results.
 
@@ -1010,7 +1010,7 @@ Unlike `search_hub()`, which searches across multiple fields, smart search funct
 
 
 ::: {.rmdnote}
-**Example: Unexpected Results from a Bemisia Search (cont.)**
+**Example: Unexpected Results from a *Bemisia* Search (cont.)**
 
 Instead of searching broadly for *Bemisia*, we can refine our search using a smart search function.
 
@@ -1349,7 +1349,7 @@ Proper citation:
 
 
 ::: {.rmdtip}
-**Tip:** Remember to cite the tools you use to retrieve data as well. If you used **ohvbd**, run `citation(“ohvbd)` in R to get the recommended citation.
+**Tip:** Remember to cite the tools you use to retrieve data as well. If you used **ohvbd**, run `citation("ohvbd")` in R to get the recommended citation.
 :::
 
 
@@ -1543,6 +1543,7 @@ Mismatched species names are usually caused by:
 
 Although these all represent the same species, R will recognise each name variation as a different value.
 
+
 ### Setting All Text to Lowercase
 
 A good starting point when standardising species names is **setting all text to lowercase**:
@@ -1553,6 +1554,7 @@ A good starting point when standardising species names is **setting all text to 
 clean_data <- clean_data |>
  mutate(species = tolower(species))
 ```
+
 
 Here, `mutate()` modifies the column, and `tolower()` converts all text in the specified column to lowercase, in this case the `species` column. 
 
@@ -1859,6 +1861,7 @@ This approach can help to identify spelling or formatting errors and synonymous 
 
 ::: {.rmdimportant}
 **Collaborative Task: Frequent Data Wrangling Mistakes**
+
 Let’s have a go at applying what we have learnt so far by working together in groups. Each group will be given a short example of data wrangling code, along with a small dataset. The code contains errors or issues, and your job is to identify and fix them together.
 
 
@@ -2124,6 +2127,7 @@ abundance_per_location <- mosquito_data %>%
 
 
 Here:
+
 - `group_by(sample_location)` groups the rows by location, so calculations are done for each location. 
 - `summarise()` reduces each group to a single row.
 - `mean(sample_value, na.rm = TRUE)` calculates the mean, ignoring any missing values. 
@@ -2487,7 +2491,7 @@ daily_abundance_plot_all
 
 
 ::: {.rmdtip}
-Tip: When `colour` is inside `aes()`, it is mapped to a variable, when it is outside, it is a fixed value.
+**Tip:** When `colour` is inside `aes()`, it is mapped to a variable, when it is outside, it is a fixed value.
 :::
 
 
