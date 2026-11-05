@@ -1,0 +1,4 @@
+dataset_id,file,species,trait,unit,expected_rows,expected_temperatures,performance_cap,source_doi,retrieved_on
+474,aedes_fecundity_474.csv,Aedes aegypti,fecundity rate,eggs individual-1 day-1,12,12,Inf,10.1017/S0950268809002040,2026-11-05
+473,aedes_development_473.csv,Aedes aegypti,development rate,days-1,19,19,Inf,10.1017/S0950268809002040,2026-11-05
+56,anopheles_survival_56.csv,Anopheles gambiae,survival,percent,10,10,100,10.1079/BER2003259,2026-11-05
