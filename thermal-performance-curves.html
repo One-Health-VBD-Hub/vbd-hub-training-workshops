@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 9 Thermal Performance Curves | One Health VBD Hub Training 2026</title>
 <meta name="author" content="Chloë Coxshall">
-<meta name="description" content="Content coming soon!">
+<meta name="description" content="9.1 Overview At what temperature does a mosquito produce the most eggs? And how much can we learn about that temperature from a small set of laboratory measurements? In this workshop we will fit a...">
 <meta name="generator" content="bookdown 0.48 with bs4_book()">
 <meta property="og:title" content="Chapter 9 Thermal Performance Curves | One Health VBD Hub Training 2026">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/thermal-performance-curves.html">
 <meta property="og:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
-<meta property="og:description" content="Content coming soon!">
+<meta property="og:description" content="9.1 Overview At what temperature does a mosquito produce the most eggs? And how much can we learn about that temperature from a small set of laboratory measurements? In this workshop we will fit a...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 9 Thermal Performance Curves | One Health VBD Hub Training 2026">
-<meta name="twitter:description" content="Content coming soon!">
+<meta name="twitter:description" content="9.1 Overview At what temperature does a mosquito produce the most eggs? And how much can we learn about that temperature from a small set of laboratory measurements? In this workshop we will fit a...">
 <meta name="twitter:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -78,14 +78,432 @@
 <h1>
 <span class="header-section-number">9</span> Thermal Performance Curves<a class="anchor" aria-label="anchor" href="#thermal-performance-curves"><i class="fas fa-link"></i></a>
 </h1>
-<p>Content coming soon!</p>
+<div id="overview-6" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-6"><i class="fas fa-link"></i></a>
+</h2>
+<p>At what temperature does a mosquito produce the most eggs? And how much can we
+learn about that temperature from a small set of laboratory measurements?</p>
+<p>In this workshop we will fit a <strong>thermal performance curve (TPC)</strong> to mosquito
+fecundity data using the <code>rTPC</code> package. We will concentrate on understanding the data, fitting
+one model and interpreting what it tells us. You can then use the same workflow
+with a different trait in the <a href="challenge-task.html#tpc-challenge">challenge task</a>.</p>
+<div id="learning-objectives-4" class="section level3" number="9.1.1">
+<h3>
+<span class="header-section-number">9.1.1</span> Learning Objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>By the end of the workshop, you should be able to:</p>
+<ul>
+<li>Recognise trait data suitable for fitting a TPC.</li>
+<li>Use <code>rTPC</code> model functions and <code>nls.multstart</code> to fit a nonlinear curve.</li>
+<li>Plot the fit, interpret its parameters and identify important limitations.</li>
+<li>Adapt this workflow to a named Hub dataset in the challenge task.</li>
+</ul>
+<p>We will build on Wednesday’s <a href="hub-tools-what-they-are-and-how-to-use-them.html#searching-and-retrieving-data-with-the-ohvbd-r-package">Hub retrieval</a>,
+wrangling and plotting skills. You will need <code>ggplot2</code>, <code>rTPC</code> and
+<code>nls.multstart</code>; <code>ohvbd</code> is needed to retrieve fresh data.</p>
+<p>Use this page alongside RStudio. If you already have the repository, open
+<code>vbd-hub-training-workshops.Rproj</code>. Otherwise, create an RStudio project for the
+workshop and make folders called <code>data</code> and then <code>tpc</code> inside it. The saved
+example can be downloaded below into <code>data/tpc/</code>; you can also work directly
+with the data retrieved through <code>ohvbd</code>.</p>
+<p><strong>Our goal for the hour:</strong> inspect a trait dataset, obtain one fit, plot it and
+explain its peak and one limitation. The residual checks and reduced-temperature
+exercise are extensions if time allows. You can follow the discussion using
+the figures on this page while a demonstrator helps with any coding problems.</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>Time</th>
+<th>Activity</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>11:30–11:40</td>
+<td>Traits, temperature and nonlinear responses</td>
+</tr>
+<tr class="even">
+<td>11:40–11:50</td>
+<td>Inspect and plot mosquito fecundity</td>
+</tr>
+<tr class="odd">
+<td>11:50–12:05</td>
+<td>Fit a TPC using <code>rTPC</code>
+</td>
+</tr>
+<tr class="even">
+<td>12:05–12:20</td>
+<td>Interpret the curve and compare it with the observations</td>
+</tr>
+<tr class="odd">
+<td>12:20–12:30</td>
+<td>Prepare for the challenge; optional extension if time allows</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="from-traits-to-thermal-performance" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> From Traits to Thermal Performance<a class="anchor" aria-label="anchor" href="#from-traits-to-thermal-performance"><i class="fas fa-link"></i></a>
+</h2>
+<p>A <strong>trait</strong> is a measurable feature of an organism: body size, development rate,
+survival or egg production, for example. Compare today’s data with the abundance
+plots you have already made:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th>Quantity</th>
+<th>What it describes</th>
+<th>An example question</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Abundance</td>
+<td>Mosquitoes counted at a site or time, with a particular sampling method</td>
+<td>When were more mosquitoes captured?</td>
+</tr>
+<tr class="even">
+<td>Fecundity rate</td>
+<td>Eggs produced per female per day under specified conditions</td>
+<td>How does temperature affect individual egg production?</td>
+</tr>
+</tbody>
+</table></div>
+<p>Traits help explain the processes behind population patterns. Egg production
+can contribute to recruitment, development determines how quickly juveniles
+reach later stages, and survival affects how many remain alive. Population
+abundance also depends on resources, density and other conditions. Disease
+transmission additionally depends on traits such as biting and pathogen
+development. Following these connections helps us ask useful questions without
+treating one trait as a complete measure of disease risk.</p>
+<p>Mosquitoes are ectotherms, so temperature affects the biological processes that
+support their performance. Many rates rise as temperature increases, then fall
+as high temperatures impair function. A TPC describes this relationship for a
+<strong>particular trait and experimental context</strong>. Different traits can have different
+temperature responses and different optima.</p>
+<p>Why might a peak occur? At low temperatures, slow biochemical processes can
+limit rates such as development and reproduction. Warming can accelerate these
+processes over part of the temperature range. At high temperatures, heat stress
+can impair physiological function and reduce survival or reproduction. The
+balance of these effects can produce a curved response. Acclimation and other
+experimental conditions can change that response too.</p>
+<p>This biological reasoning motivates fitting a TPC. It does not specify its
+exact shape or optimum: those need to be assessed using the data. Nor should we
+expect the temperature of maximum egg production to maximise every other trait.</p>
+<div class="rmdtip">
+<p><strong>Predict before fitting:</strong> sketch what you expect egg production to look like
+across temperature. Would a straight line capture your prediction? What would
+you need to measure to establish where performance declines?</p>
+</div>
+<p>Trait datasets can be tricky because a row may describe an individual, a group
+mean or a value digitised from a published figure. Studies can also differ in
+life stage, sex, food supply and units. Eggs per female per day and eggs per
+female per reproductive cycle are different measurements. Likewise, assay
+temperature and the temperature at which animals were reared need not be the
+same. Check these details before combining records.</p>
+</div>
+<div id="inspect-the-mosquito-fecundity-data" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> Inspect the Mosquito Fecundity Data<a class="anchor" aria-label="anchor" href="#inspect-the-mosquito-fecundity-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Our example is <strong>VecTraits dataset 474</strong>, containing <em>Aedes aegypti</em> fecundity
+rates from Yang et al. (2009). The records describe adult females from Marilia,
+Brazil, with temperature in Celsius and fecundity in eggs per individual per day.</p>
+<p>This practical adapts the <a href="https://mulquabio.github.io/MQB/notebooks/nlls.html#aedes-aegypti-fecundity">MQB nonlinear least-squares chapter</a>.
+We use the Hub’s single-study Yang dataset. The MQB CSV also includes Beserra
+records, and its Yang values differ slightly from the VecTraits digitisation;
+we are not pooling those sources here.</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/padpadpadpad/rTPC">rTPC</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">nls.multstart</span><span class="op">)</span></span></code></pre></div>
+<div id="retrieve-the-worked-example" class="section level3" number="9.3.1">
+<h3>
+<span class="header-section-number">9.3.1</span> Retrieve the worked example<a class="anchor" aria-label="anchor" href="#retrieve-the-worked-example"><i class="fas fa-link"></i></a>
+</h3>
+<p>You already know how to find data through the Hub. Here the dataset ID is known,
+so we can retrieve just this dataset. Inspect its fields before selecting the
+assay temperature and trait value:</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fecundity_raw</span> <span class="op">&lt;-</span> <span class="fu">ohvbd</span><span class="fu">::</span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/fetch_vt.html">fetch_vt</a></span><span class="op">(</span><span class="fl">474</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ohvbd</span><span class="fu">::</span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Inspect the fields before selecting the assay temperature and response.</span></span>
+<span><span class="va">fecundity_raw</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DatasetID"</span>, <span class="st">"OriginalTraitName"</span>, <span class="st">"Interactor1Temp"</span>,</span>
+<span>                  <span class="st">"Interactor1TempUnit"</span>, <span class="st">"OriginalTraitValue"</span>,</span>
+<span>                  <span class="st">"OriginalTraitUnit"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<p>Check that these are fecundity rates for adult females in the same experimental
+context. Then give the columns convenient names for plotting and fitting.
+This is the same sort of column selection and renaming you practised on Wednesday:</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tpc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  record_id <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">Id</span>,</span>
+<span>  dataset_id <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">DatasetID</span>,</span>
+<span>  species <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">Interactor1</span>,</span>
+<span>  trait <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">OriginalTraitName</span>,</span>
+<span>  temp <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">Interactor1Temp</span>,</span>
+<span>  rate <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">OriginalTraitValue</span>,</span>
+<span>  unit <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">OriginalTraitUnit</span>,</span>
+<span>  source_doi <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">DOI</span>,</span>
+<span>  curation_doi <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">CuratedByDOI</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tpc_data</span> <span class="op">&lt;-</span> <span class="va">tpc_data</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span>, <span class="va">tpc_data</span><span class="op">$</span><span class="va">record_id</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
+</div>
+<div id="saved-example-if-retrieval-is-unavailable" class="section level3" number="9.3.2">
+<h3>
+<span class="header-section-number">9.3.2</span> Saved example if retrieval is unavailable<a class="anchor" aria-label="anchor" href="#saved-example-if-retrieval-is-unavailable"><i class="fas fa-link"></i></a>
+</h3>
+<p>Download the <a href="data/tpc/aedes_fecundity_474.csv">same prepared teaching table</a>
+and save it as <code>data/tpc/aedes_fecundity_474.csv</code> inside your RStudio project.
+Then run the following line <strong>instead of</strong> the retrieval and renaming steps.
+Both routes give you <code>tpc_data</code> with the same assay values and provenance.</p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tpc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/tpc/aedes_fecundity_474.csv"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="check-and-plot-your-table" class="section level3" number="9.3.3">
+<h3>
+<span class="header-section-number">9.3.3</span> Check and plot your table<a class="anchor" aria-label="anchor" href="#check-and-plot-your-table"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html">head</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dataset_id"</span>, <span class="st">"temp"</span>, <span class="st">"rate"</span>, <span class="st">"unit"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">rate</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>There are 12 records over approximately 10.5–33.4 °C. These are study summaries,
+not 12 individual mosquitoes. Keep the genuine zero fecundity values: they are
+biologically informative. We have retained the original units, record IDs and
+citations in the saved files.</p>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fecundity_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">tpc_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">temp</span>, <span class="va">rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Assay temperature (°C)"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Fecundity (eggs per female per day)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="va">fecundity_plot</span></span></code></pre></div>
+<div class="float">
+<img src="images/tpc/fecundity-data.png" alt="Aedes aegypti fecundity in VecTraits dataset 474."><div class="figcaption">Aedes aegypti fecundity in VecTraits dataset 474.</div>
+</div>
+<div class="rmdtip">
+<p><strong>Discuss:</strong> is there a clear decline at the hottest temperatures? Write one
+sentence describing the pattern and one limitation of the temperature coverage.</p>
+</div>
+</div>
+</div>
+<div id="fit-a-nonlinear-curve" class="section level2" number="9.4">
+<h2>
+<span class="header-section-number">9.4</span> Fit a Nonlinear Curve<a class="anchor" aria-label="anchor" href="#fit-a-nonlinear-curve"><i class="fas fa-link"></i></a>
+</h2>
+<p>With nonlinear least squares (NLLS), we propose a curve and adjust its parameters
+to minimise the sum of squared vertical distances between the observations and
+the curve. Those distances are the <strong>residuals</strong>. The fitting algorithm searches
+iteratively, so its starting values and parameter limits matter.</p>
+<p><code>rTPC</code> supplies model functions and helpers for choosing starting values and
+limits. <code>nls.multstart</code> performs the fitting from several sets of starting
+values, reducing the risk of accepting a poor solution. We still have to check
+the result!</p>
+<p>We will start with the <strong>Gaussian model</strong>, which has three interpretable
+parameters. Before running the code, predict how changing each would affect
+the curve:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Parameter in R</th>
+<th>Meaning</th>
+<th>Units in this example</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>rmax</code></td>
+<td>Height of the peak</td>
+<td>Eggs per female per day</td>
+</tr>
+<tr class="even">
+<td><code>topt</code></td>
+<td>Temperature at the peak</td>
+<td>°C</td>
+</tr>
+<tr class="odd">
+<td><code>a</code></td>
+<td>Width of the curve</td>
+<td>°C</td>
+</tr>
+</tbody>
+</table></div>
+<p>This is a <strong>descriptive model</strong>: its fitted shape summarises the observations.
+It does not separately estimate the physiological processes discussed above.
+It is symmetric around its peak, whereas many biological TPCs are asymmetric.
+It also does not estimate finite temperatures at which performance becomes zero.</p>
+<details><summary>
+Optional: the Gaussian equation
+</summary><p><span class="math display">\[
+P(T) = R_{\max}\exp\left[-\frac{1}{2}
+\left(\frac{T-T_{\mathrm{opt}}}{w}\right)^2\right].
+\]</span></p>
+<p>The width parameter <span class="math inline">\(w\)</span> corresponds to <code>a</code> in the R function.</p>
+</details><p>First, ask <code>rTPC</code> for starting values and limits:</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tpc_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://padpadpadpad.github.io/rTPC/reference/get_start_vals.html">get_start_vals</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span>, <span class="va">tpc_data</span><span class="op">$</span><span class="va">rate</span>,</span>
+<span>                            model_name <span class="op">=</span> <span class="st">"gaussian_1987"</span><span class="op">)</span></span>
+<span><span class="va">tpc_lower</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://padpadpadpad.github.io/rTPC/reference/get_lower_lims.html">get_lower_lims</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span>, <span class="va">tpc_data</span><span class="op">$</span><span class="va">rate</span>,</span>
+<span>                            model_name <span class="op">=</span> <span class="st">"gaussian_1987"</span><span class="op">)</span></span>
+<span><span class="va">tpc_upper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://padpadpadpad.github.io/rTPC/reference/get_upper_lims.html">get_upper_lims</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span>, <span class="va">tpc_data</span><span class="op">$</span><span class="va">rate</span>,</span>
+<span>                            model_name <span class="op">=</span> <span class="st">"gaussian_1987"</span><span class="op">)</span></span>
+<span><span class="va">tpc_lower</span><span class="op">[</span><span class="st">"a"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.01</span> <span class="co"># the curve width must be positive</span></span>
+<span><span class="va">tpc_start</span></span></code></pre></div>
+<p>Use these supplied starting values and limits for your first fit. We will
+interpret the resulting curve before exploring the search settings in detail.</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
+<span><span class="va">tpc_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nls.multstart/man/nls_multstart.html">nls_multstart</a></span><span class="op">(</span></span>
+<span>  <span class="va">rate</span> <span class="op">~</span> <span class="fu"><a href="https://padpadpadpad.github.io/rTPC/reference/gaussian_1987.html">gaussian_1987</a></span><span class="op">(</span><span class="va">temp</span>, <span class="va">rmax</span>, <span class="va">topt</span>, <span class="va">a</span><span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">tpc_data</span>,</span>
+<span>  iter <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  start_lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span><span class="op">(</span><span class="va">tpc_lower</span>, <span class="va">tpc_start</span> <span class="op">*</span> <span class="fl">0.1</span><span class="op">)</span>,</span>
+<span>  start_upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmin</a></span><span class="op">(</span><span class="va">tpc_upper</span>, <span class="va">tpc_start</span> <span class="op">*</span> <span class="fl">1.5</span><span class="op">)</span>,</span>
+<span>  lower <span class="op">=</span> <span class="va">tpc_lower</span>,</span>
+<span>  upper <span class="op">=</span> <span class="va">tpc_upper</span>,</span>
+<span>  supp_errors <span class="op">=</span> <span class="st">"Y"</span>,</span>
+<span>  convergence_count <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Optional: how the search is set up
+</summary><p>These helpers constrain <code>topt</code> to the observed temperature range. That is a
+modelling choice, not evidence that we have measured the true optimum. For the
+starting search, we use one-tenth to one-and-a-half times each initial estimate,
+clipped to the parameter limits. This example has positive starting values
+throughout.</p>
+<p><code>iter = 100</code> requests 100 starting combinations. The start ranges control where
+searches begin; <code>lower</code> and <code>upper</code> constrain the fitted parameters themselves.
+Some starting combinations can fail, which is why we suppress their individual
+error messages. A successful search still needs a biologically sensible result.</p>
+</details>
+</div>
+<div id="interpret-and-check-the-fit" class="section level2" number="9.5">
+<h2>
+<span class="header-section-number">9.5</span> Interpret and Check the Fit<a class="anchor" aria-label="anchor" href="#interpret-and-check-the-fit"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/math-generics.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">tpc_fit</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">tpc_fit</span><span class="op">$</span><span class="va">convInfo</span><span class="op">$</span><span class="va">isConv</span></span></code></pre></div>
+<p>You should obtain approximately <strong>9 eggs per female per day</strong> at a fitted peak
+near <strong>31 °C</strong>, with width about <strong>7.1 °C</strong>. These are model estimates, and the
+highest observed point need not lie on the fitted curve. Convergence tells us
+the numerical search stopped successfully; it does not establish that the model
+is appropriate or its parameters precisely known.</p>
+<p>Generate predictions <strong>within the observed temperature range</strong> and compare them
+with the measurements:</p>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tpc_predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  temp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tpc_predictions</span><span class="op">$</span><span class="va">rate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/predict.html">predict</a></span><span class="op">(</span><span class="va">tpc_fit</span>, newdata <span class="op">=</span> <span class="va">tpc_predictions</span><span class="op">)</span></span>
+<span><span class="va">tpc_plot</span> <span class="op">&lt;-</span> <span class="va">fecundity_plot</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tpc_predictions</span>, colour <span class="op">=</span> <span class="st">"#007A78"</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">tpc_plot</span></span></code></pre></div>
+<div class="float">
+<img src="images/tpc/fecundity-fit.png" alt="Observed fecundity and the fitted Gaussian thermal performance curve."><div class="figcaption">Observed fecundity and the fitted Gaussian thermal performance curve.</div>
+</div>
+<div class="rmdtip">
+<p><strong>Pause and interpret:</strong> point to the fitted peak and give its units. Explain
+why it differs from the highest observation. Then identify one part of the
+temperature response for which you would want more measurements.</p>
+</div>
+<p>This unweighted fit gives every summary value equal weight. The limited
+hot-side coverage and the assumed curve shape affect our estimate of the peak.
+Treat it as an exploratory fit. For the challenge, your essential result is a
+labelled plot, an interpretation of the peak and a limitation supported by the
+data. Do not interpret this one-trait optimum as the optimum for population
+growth or disease transmission.</p>
+<div id="optional-look-more-closely-at-the-residuals" class="section level3" number="9.5.1">
+<h3>
+<span class="header-section-number">9.5.1</span> Optional: look more closely at the residuals<a class="anchor" aria-label="anchor" href="#optional-look-more-closely-at-the-residuals"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now inspect the residuals. Are they scattered around zero, or is there a pattern
+suggesting that the curve misses part of the response?</p>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tpc_residuals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>temp <span class="op">=</span> <span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span>,</span>
+<span>                            residual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">tpc_fit</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">tpc_residuals</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">temp</span>, <span class="va">residual</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Assay temperature (°C)"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Observed minus fitted fecundity"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="images/tpc/fecundity-residuals.png" alt="Residuals from the Gaussian fecundity fit."><div class="figcaption">Residuals from the Gaussian fecundity fit.</div>
+</div>
+<p>The usual error assumptions include independent errors with comparable variance;
+the incomplete
+replicate and error metadata do not let us establish these from the table alone.
+Neither the fit nor its convergence measures uncertainty by itself.</p>
+</div>
+<div id="optional-extension-remove-the-hottest-observations" class="section level3" number="9.5.2">
+<h3>
+<span class="header-section-number">9.5.2</span> Optional extension: remove the hottest observations<a class="anchor" aria-label="anchor" href="#optional-extension-remove-the-hottest-observations"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdtip">
+<p><strong>If you are ready for more — five minutes:</strong> predict what will happen if you remove observations
+above 30 °C. Create a copy of <code>tpc_data</code>, filter it, then rerun the starting-value
+and fitting steps. Compare its fitted peak with the original. Remember that the
+helper now also changes the allowed range of <code>topt</code>. Has information about the
+optimum improved, or have you simply forced the model to return a number?</p>
+<p>Restore the original <code>tpc_data</code> from its CSV when you finish.</p>
+</div>
+<p>Bootstrap uncertainty and more complex model comparisons are useful next steps
+for subsequent study. The rest of today’s practice will be in the challenge.</p>
+</div>
+</div>
+<div id="key-takeaways-5" class="section level2" number="9.6">
+<h2>
+<span class="header-section-number">9.6</span> Key Takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways-5"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Check the trait, assay temperature, units and experimental context before fitting.</li>
+<li>
+<code>rTPC</code> helps specify a curve; <code>nls.multstart</code> searches for its fitted parameters.</li>
+<li>Plot observations, predictions and residuals, then ask whether the model makes
+biological sense.</li>
+<li>A numerical optimum can be poorly supported when temperature coverage is limited.</li>
+</ul>
+<p>The explanation and example are adapted from Samraat Pawar’s MQB materials.
+For the data, cite <a href="https://doi.org/10.1017/S0950268809002040">Yang et al. (2009)</a>
+and the <a href="https://doi.org/10.1038/s41559-023-02301-8">Pawar et al. (2024) curation source</a>.
+Use <code>citation("rTPC")</code>, <code>citation("nls.multstart")</code> and <code>citation("ohvbd")</code> to
+obtain software citations.</p>
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="species-distribution-modelling.html"><span class="header-section-number">8</span> Species Distribution Modelling</a></div>
 <div class="next"><a href="challenge-task.html"><span class="header-section-number">10</span> Challenge Task</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#thermal-performance-curves"><span class="header-section-number">9</span> Thermal Performance Curves</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#thermal-performance-curves"><span class="header-section-number">9</span> Thermal Performance Curves</a></li>
+<li>
+<a class="nav-link" href="#overview-6"><span class="header-section-number">9.1</span> Overview</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#learning-objectives-4"><span class="header-section-number">9.1.1</span> Learning Objectives</a></li></ul>
+</li>
+<li><a class="nav-link" href="#from-traits-to-thermal-performance"><span class="header-section-number">9.2</span> From Traits to Thermal Performance</a></li>
+<li>
+<a class="nav-link" href="#inspect-the-mosquito-fecundity-data"><span class="header-section-number">9.3</span> Inspect the Mosquito Fecundity Data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#retrieve-the-worked-example"><span class="header-section-number">9.3.1</span> Retrieve the worked example</a></li>
+<li><a class="nav-link" href="#saved-example-if-retrieval-is-unavailable"><span class="header-section-number">9.3.2</span> Saved example if retrieval is unavailable</a></li>
+<li><a class="nav-link" href="#check-and-plot-your-table"><span class="header-section-number">9.3.3</span> Check and plot your table</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#fit-a-nonlinear-curve"><span class="header-section-number">9.4</span> Fit a Nonlinear Curve</a></li>
+<li>
+<a class="nav-link" href="#interpret-and-check-the-fit"><span class="header-section-number">9.5</span> Interpret and Check the Fit</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#optional-look-more-closely-at-the-residuals"><span class="header-section-number">9.5.1</span> Optional: look more closely at the residuals</a></li>
+<li><a class="nav-link" href="#optional-extension-remove-the-hottest-observations"><span class="header-section-number">9.5.2</span> Optional extension: remove the hottest observations</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#key-takeaways-5"><span class="header-section-number">9.6</span> Key Takeaways</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">

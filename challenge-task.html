@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 10 Challenge Task | One Health VBD Hub Training 2026</title>
 <meta name="author" content="Chloë Coxshall">
-<meta name="description" content="Content coming soon!">
+<meta name="description" content="10.1 Thermal Performance Curves Route Use this route for the analysis part of the event’s challenge task. Your aim is to investigate a trait’s temperature response with a dataset of your choice,...">
 <meta name="generator" content="bookdown 0.48 with bs4_book()">
 <meta property="og:title" content="Chapter 10 Challenge Task | One Health VBD Hub Training 2026">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/challenge-task.html">
 <meta property="og:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
-<meta property="og:description" content="Content coming soon!">
+<meta property="og:description" content="10.1 Thermal Performance Curves Route Use this route for the analysis part of the event’s challenge task. Your aim is to investigate a trait’s temperature response with a dataset of your choice,...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 10 Challenge Task | One Health VBD Hub Training 2026">
-<meta name="twitter:description" content="Content coming soon!">
+<meta name="twitter:description" content="10.1 Thermal Performance Curves Route Use this route for the analysis part of the event’s challenge task. Your aim is to investigate a trait’s temperature response with a dataset of your choice,...">
 <meta name="twitter:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -78,14 +78,84 @@
 <h1>
 <span class="header-section-number">10</span> Challenge Task<a class="anchor" aria-label="anchor" href="#challenge-task"><i class="fas fa-link"></i></a>
 </h1>
-<p>Content coming soon!</p>
+<div id="tpc-challenge" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> Thermal Performance Curves Route<a class="anchor" aria-label="anchor" href="#tpc-challenge"><i class="fas fa-link"></i></a>
+</h2>
+<p>Use this route for the analysis part of the event’s challenge task. Your aim is
+to investigate a trait’s temperature response with a dataset of your choice,
+building on the <a href="thermal-performance-curves.html#thermal-performance-curves">TPC workshop</a>. Follow the event’s
+shared instructions for group work, presentation length and audience.</p>
+<p>Choose one of these candidate datasets. They have been checked for retrieval and
+fitting; the final choices are subject to Chloe/Francis’s review.</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th>Dataset to find through the Hub</th>
+<th>What you will analyse</th>
+<th>Question to explore</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<em>Aedes aegypti</em> development rate — Yang et al. (2009), DOI <code>10.1017/S0950268809002040</code>
+</td>
+<td>Juvenile development rate, excluding the egg stage, in days⁻¹</td>
+<td>Does development rate show a peak across the measured temperatures?</td>
+</tr>
+<tr class="even">
+<td>
+<em>Anopheles gambiae</em> juvenile survival — Bayoh and Lindsay (2003), DOI <code>10.1079/BER2003259</code>
+</td>
+<td>Survival of aquatic juveniles, in percent</td>
+<td>At which temperatures is survival highest, and how well does a symmetric curve describe the response?</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Find and check your data.</strong> Search by species and identify the chosen trait and
+study. Retrieve it using <code>ohvbd</code>; dataset names are supplied here so that you can
+work out the retrieval yourself. Inspect the metadata, explain what each row
+represents and retain the source and curation citations.</p>
+<p><strong>Wrangle, visualise and form a hypothesis.</strong> Select the assay temperature and
+trait value, check units and missing values, and retain genuine zeros. Keep one
+consistent experimental group. Plot the data and write one testable hypothesis
+about the temperature response before fitting.</p>
+<p><strong>Analyse.</strong> Adapt the workshop’s <code>rTPC</code> workflow to fit a Gaussian curve. Use
+starting values and limits appropriate to your data, check convergence, and
+plot predictions within the observed range. Inspect the residuals and consider
+whether the symmetric shape is appropriate.</p>
+<div class="rmdtip">
+<p><strong>Survival option:</strong> the generic column name <code>rate</code> will contain a percentage in
+this dataset. Label your axis accordingly and constrain <code>rmax</code> to at most 100:
+set <code>tpc_upper["rmax"] &lt;- 100</code> before fitting. A least-squares curve fitted to
+percentages does not model the underlying numbers surviving and exposed. Discuss
+that limitation; we do not have those counts in the teaching table.</p>
+</div>
+<p><strong>Interpret and communicate.</strong> Explain what your analysis says about your
+hypothesis. Prepare a clearly labelled data-and-fit plot, give the fitted peak
+with units, and identify at least one source of uncertainty. Distinguish an
+observed pattern from a causal conclusion, and tailor the explanation to your
+chosen academic, policy or public audience. Include the dataset and software
+citations.</p>
+<p>If time allows, investigate how the fitted peak changes when you omit the
+hottest observations. Explain both the lost information and any change in the
+parameter limits. Ask a demonstrator for the saved dataset if retrieval fails;
+you can continue the analysis while the connection is resolved.</p>
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="thermal-performance-curves.html"><span class="header-section-number">9</span> Thermal Performance Curves</a></div>
 <div class="next"><a href="reading-resources.html"><span class="header-section-number">11</span> Reading &amp; Resources</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#challenge-task"><span class="header-section-number">10</span> Challenge Task</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#challenge-task"><span class="header-section-number">10</span> Challenge Task</a></li>
+<li><a class="nav-link" href="#tpc-challenge"><span class="header-section-number">10.1</span> Thermal Performance Curves Route</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
