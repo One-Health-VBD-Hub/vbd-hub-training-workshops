@@ -897,7 +897,7 @@ query = "Culex pipiens",
 db = "vd", 
 fromdate = "2010-01-01",
 exact = TRUE,
-withoutpublished = FALSE
+withoutpublished = FALSE)
 ```
 
 
