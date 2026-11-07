@@ -105,7 +105,6 @@ putting-it-into-practice-1
 evaluating-your-model
 training-vs.-validation-data
 receiver-operating-characteristic-curves-roc-curves-and-other-summary-statistics
-the-final-test
 thermal-performance-curves
 overview-6
 learning-objectives-4
@@ -120,6 +119,8 @@ optional-look-more-closely-at-the-residuals
 optional-extension-remove-the-hottest-observations
 key-takeaways-5
 challenge-task
+challenge-overview
+sdm-challenge
 tpc-challenge
 reading-resources
 thermal-performance-curves-resources

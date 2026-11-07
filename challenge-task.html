@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 10 Challenge Task | One Health VBD Hub Training 2026</title>
 <meta name="author" content="Chloë Coxshall">
-<meta name="description" content="10.1 Thermal Performance Curves Route Use this route for the analysis part of the event’s challenge task. Your aim is to investigate a trait’s temperature response with a dataset of your choice,...">
+<meta name="description" content="This Challenge Task is your opportunity to put the skills you have learnt into practice, from searching for and retrieving data all the way to communicating your findings to a specific audience....">
 <meta name="generator" content="bookdown 0.48 with bs4_book()">
 <meta property="og:title" content="Chapter 10 Challenge Task | One Health VBD Hub Training 2026">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/challenge-task.html">
 <meta property="og:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
-<meta property="og:description" content="10.1 Thermal Performance Curves Route Use this route for the analysis part of the event’s challenge task. Your aim is to investigate a trait’s temperature response with a dataset of your choice,...">
+<meta property="og:description" content="This Challenge Task is your opportunity to put the skills you have learnt into practice, from searching for and retrieving data all the way to communicating your findings to a specific audience....">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 10 Challenge Task | One Health VBD Hub Training 2026">
-<meta name="twitter:description" content="10.1 Thermal Performance Curves Route Use this route for the analysis part of the event’s challenge task. Your aim is to investigate a trait’s temperature response with a dataset of your choice,...">
+<meta name="twitter:description" content="This Challenge Task is your opportunity to put the skills you have learnt into practice, from searching for and retrieving data all the way to communicating your findings to a specific audience....">
 <meta name="twitter:image" content="https://One-Health-VBD-Hub.github.io/vbd-hub-training-workshops/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -78,16 +78,88 @@
 <h1>
 <span class="header-section-number">10</span> Challenge Task<a class="anchor" aria-label="anchor" href="#challenge-task"><i class="fas fa-link"></i></a>
 </h1>
-<div id="tpc-challenge" class="section level2" number="10.1">
+<p>This <strong>Challenge Task</strong> is your opportunity to put the skills you have learnt into practice, from searching for and retrieving data all the way to communicating your findings to a specific audience. There is <strong>no single correct answer</strong>, we are most interested in the decisions you make and why you made them.</p>
+<div id="challenge-overview" class="section level2" number="10.1">
 <h2>
-<span class="header-section-number">10.1</span> Thermal Performance Curves Route<a class="anchor" aria-label="anchor" href="#tpc-challenge"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.1</span> Challenge Overview<a class="anchor" aria-label="anchor" href="#challenge-overview"><i class="fas fa-link"></i></a>
 </h2>
-<p>Use this route for the analysis part of the event’s challenge task. Your aim is
-to investigate a trait’s temperature response with a dataset of your choice,
-building on the <a href="thermal-performance-curves.html#thermal-performance-curves">TPC workshop</a>. Follow the event’s
-shared instructions for group work, presentation length and audience.</p>
-<p>Choose one of these candidate datasets. They have been checked for retrieval and
-fitting; the final choices are subject to Chloe/Francis’s review.</p>
+<p>You may work independently or in small groups. There are <strong>two key choices</strong> to make:</p>
+<p><strong>1. Choose your route:</strong></p>
+<ul>
+<li>
+<strong>Route A: Species distribution modelling</strong> - Your aim is to model where a vector could be found across Europe, now and under future climate, using occurrence and climate data.</li>
+<li>
+<strong>Route B: Thermal performance curves</strong> - Your aim is to investigate a trait’s temperature response.</li>
+</ul>
+<p>The instructions for each route are detailed below.</p>
+<p><strong>2. Choose your audience</strong>
+On Friday, you will have the chance to share your work in a brief presentation aimed at your choice of an <strong>academic, policy or public audience</strong>.</p>
+<p>In your presentation, you might choose to include:</p>
+<ul>
+<li>Your question, route and audience.</li>
+<li>Your dataset, and the main decisions you made when checking and wrangling it.</li>
+<li>Your hypothesis, finding, and any relevant uncertainty.</li>
+<li>At least one key visualisation. Apply the CLEAR checklist so it is ready to present.</li>
+<li>What your audience should do with this finding.</li>
+<li>The dataset and software citations.</li>
+</ul>
+<p>Before you plan your presentation, remember to consider who it is for and what information they need.</p>
+<div class="rmdtip">
+<p><strong>Feeling stuck?</strong></p>
+<p>If you are stuck at any point, there are several ways to find help:</p>
+<ul>
+<li>Refer back to the content from the previous workshops.</li>
+<li>Discuss it with your group or other participants. Other people might have the same questions as you!</li>
+<li>Ask the demonstrators. They are there to help you.</li>
+</ul>
+<p>If you cannot retrieve your data, ask a demonstrator for a saved copy of your dataset. You can continue with your analysis while the connection is resolved.</p>
+</div>
+</div>
+<div id="sdm-challenge" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">10.2</span> Route A: Species Distribution Modelling<a class="anchor" aria-label="anchor" href="#sdm-challenge"><i class="fas fa-link"></i></a>
+</h2>
+<p>Your aim is to model where a vector could be found across Europe, now and under future climate, using occurrence and climate data.</p>
+<p>Choose one of these vectors:</p>
+<ul>
+<li><em>Ixodes ricinus</em></li>
+<li><em>Aedes albopictus</em></li>
+<li><em>Culicoides obsoletus</em></li>
+</ul>
+<p>As in the earlier workshop, rate your analysis against the <strong>Araujo <em>et al</em>. criteria</strong> as you go, and aim to improve its rating.</p>
+<p><strong>Find and check your observation data:</strong> Retrieve occurrence records for your chosen vector across Europe, limited to 10,000 records. Remember:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>ohvbd</code> identifies your vector.</li>
+<li>
+<code>geodata</code> downloads only your vector’s records.</li>
+<li>
+<code>ohvbd</code> lists which GBIF datasets your records came from.</li>
+</ol>
+<p>Check the records you retrieve, including their resolution, sources, and any location errors.</p>
+<p><strong>Find and check your environmental data:</strong> Retrieve current climate data for Europe. Check that its spatial resolution matches the scale of your occurrence data, and consider how accurate it is.</p>
+<div class="rmdtip">
+<p><strong>Tip:</strong></p>
+<p>Work in the same R project folder you used for the Species Distribution Modelling workshop to access your climate data from earlier.</p>
+</div>
+<p><strong>Wrangle and form a hypothesis:</strong> Select the longitude and latitude of your records, and check for missing values. Before you build your model, write one testable hypothesis about which climate conditions shape where your vector is found, based on what you know about its biology.</p>
+<p><strong>Build your model:</strong> Fit a distribution model for your vector:</p>
+<ul>
+<li>Check whether your climate variables are correlated.</li>
+<li>What pseudo-absence strategy are you using, and do you agree with it?</li>
+<li>Are the geographic and environmental extents of your model wide enough?</li>
+</ul>
+<p><strong>Evaluate your model:</strong> Plot the response curves and the predicted current distribution:
+- Where in space is your model under- or over-predicting occurrences?
+- Can you plot a ROC curve for your model?</p>
+<p><strong>Interpret and communicate:</strong> Explain what your model says about your hypothesis, and identify at least one source of uncertainty. Distinguish an observed pattern from a causal conclusion, and tailor the explanation to your chosen academic, policy or public audience. Include the dataset and software citations.</p>
+<p><strong>If time allows:</strong> Project your model under a future climate scenario, and map where your vector’s range is predicted to be gained or lost.</p>
+</div>
+<div id="tpc-challenge" class="section level2" number="10.3">
+<h2>
+<span class="header-section-number">10.3</span> Route B: Thermal Performance Curves<a class="anchor" aria-label="anchor" href="#tpc-challenge"><i class="fas fa-link"></i></a>
+</h2>
+<p>Your aim is to investigate a trait’s temperature response with a dataset of your choice from:</p>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
 <col width="33%">
@@ -141,10 +213,9 @@ with units, and identify at least one source of uncertainty. Distinguish an
 observed pattern from a causal conclusion, and tailor the explanation to your
 chosen academic, policy or public audience. Include the dataset and software
 citations.</p>
-<p>If time allows, investigate how the fitted peak changes when you omit the
+<p><strong>If time allows:</strong> investigate how the fitted peak changes when you omit the
 hottest observations. Explain both the lost information and any change in the
-parameter limits. Ask a demonstrator for the saved dataset if retrieval fails;
-you can continue the analysis while the connection is resolved.</p>
+parameter limits.</p>
 </div>
 </div>
   <div class="chapter-nav">
@@ -154,7 +225,9 @@ you can continue the analysis while the connection is resolved.</p>
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#challenge-task"><span class="header-section-number">10</span> Challenge Task</a></li>
-<li><a class="nav-link" href="#tpc-challenge"><span class="header-section-number">10.1</span> Thermal Performance Curves Route</a></li>
+<li><a class="nav-link" href="#challenge-overview"><span class="header-section-number">10.1</span> Challenge Overview</a></li>
+<li><a class="nav-link" href="#sdm-challenge"><span class="header-section-number">10.2</span> Route A: Species Distribution Modelling</a></li>
+<li><a class="nav-link" href="#tpc-challenge"><span class="header-section-number">10.3</span> Route B: Thermal Performance Curves</a></li>
 </ul>
 
       <div class="book-extra">
@@ -172,7 +245,7 @@ you can continue the analysis while the connection is resolved.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-11-06.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-11-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
