@@ -185,8 +185,15 @@ The packages you will need for the workshops are:
 - `tidyverse`
 - `dplyr`
 - `ggplot2`
+- `biomod2`
+- `geodata`
+- `terra`
+- `rnaturalearth`
+- `rnaturalearthhires`
+- `rgbif`
 - `rTPC`
 - `nls.multstart`
+
 
 For the thermal performance curves workshop, also run
 `install.packages(c("rTPC", "nls.multstart"))` before the event. You can follow
@@ -3115,7 +3122,7 @@ This is really important for VBD research, as how we describe our findings can s
 Even small wording changes can greatly alter how a finding is interpreted. For example, compare these two statements:
 
 - "Environmental suitability for vector establishment may increase under projected climatic conditions."
-- "Climate change will cause mosquito-bore disease to spread."
+- "Climate change will cause mosquito-borne disease to spread."
 
 
 Both statements cover the same topic, but they communicate very different levels of certainty. The first describes what the evidence supports and acknowledges uncertainty, whereas the second implies a guaranteed outcome that the evidence may not support. 
@@ -3707,13 +3714,6 @@ OK, now it's time to make it better. Can you:
 4. Check the above with a demonstrator (if you haven't already!)
 
 
-## The Final Test
-You've made it this far? Good job! Now what you should do is repeat this process for a vector you are interested in yourself. Or, perhaps... [enter our forecasting contest!](https://sphere-ppl.org/pages/Forecasting_Contests/) And win a fabulous prize!...
-
-
-If you do pick your own vector, `ohvbd` can help with more than just GBIF. `search_hub("Aedes aegypti")` will search the VBD Hub for datasets on your vector across all its databases, including [VecTraits](https://vectorbyte.crc.nd.edu/vectraits-explorer) (lab measurements of traits such as thermal tolerances; useful for thinking about E space!) and [VecDyn](https://vectorbyte.crc.nd.edu/vecdyn-datasets) (population counts through time; useful for thinking about temporal scale and independent validation data). The [`ohvbd` documentation](https://ohvbd.vbdhub.org) shows how to download these.
-
-
 Finally, wherever you get your data from, cite it! Everything you download from GBIF has a DOI (see the `doi` column in `record_sources` above), and `ohvbd::fetch_citations()` will find citations for VecTraits and VecDyn data. Data citation is how the people who collected the data get credit for it.
 
 
@@ -4087,36 +4087,136 @@ obtain software citations.
 
 
 # Challenge Task
+This **Challenge Task** is your opportunity to put the skills you have learnt into practice, from searching for and retrieving data all the way to communicating your findings to a specific audience. There is **no single correct answer**, we are most interested in the decisions you make and why you made them.
 
-## Thermal Performance Curves Route {#tpc-challenge}
 
-Use this route for the analysis part of the event's challenge task. Your aim is
-to investigate a trait's temperature response with a dataset of your choice,
-building on the [TPC workshop](#thermal-performance-curves). Follow the event's
-shared instructions for group work, presentation length and audience.
+## Challenge Overview
+You may work independently or in small groups. There are **two key choices** to make:
 
-Choose one of these candidate datasets. They have been checked for retrieval and
-fitting; the final choices are subject to Chloe/Francis's review.
+
+**1. Choose your route:**
+
+- **Route A: Species distribution modelling** - Your aim is to model where a vector could be found across Europe, now and under future climate, using occurrence and climate data.
+- **Route B: Thermal performance curves** - Your aim is to investigate a trait’s temperature response.
+
+
+The instructions for each route are detailed below. 
+
+
+**2. Choose your audience**
+On Friday, you will have the chance to share your work in a brief presentation aimed at your choice of an **academic, policy or public audience**.
+
+
+In your presentation, you might choose to include:
+
+- Your question, route and audience.
+- Your dataset, and the main decisions you made when checking and wrangling it.
+- Your hypothesis, finding, and any relevant uncertainty.
+- At least one key visualisation. Apply the CLEAR checklist so it is ready to present.
+- What your audience should do with this finding.
+- The dataset and software citations.
+
+
+Before you plan your presentation, remember to consider who it is for and what information they need.
+
+
+::: {.rmdtip}
+**Feeling stuck?**
+
+If you are stuck at any point, there are several ways to find help:
+
+- Refer back to the content from the previous workshops.
+- Discuss it with your group or other participants. Other people might have the same questions as you!
+- Ask the demonstrators. They are there to help you.
+
+
+If you cannot retrieve your data, ask a demonstrator for a saved copy of your dataset. You can continue with your analysis while the connection is resolved.
+:::
+
+
+## Route A: Species Distribution Modelling {#sdm-challenge}
+Your aim is to model where a vector could be found across Europe, now and under future climate, using occurrence and climate data. 
+
+
+Choose one of these vectors:
+
+- *Ixodes ricinus* 
+- *Aedes albopictus*
+- *Culicoides obsoletus* 
+
+
+As in the earlier workshop, rate your analysis against the **Araujo *et al*. criteria** as you go, and aim to improve its rating.
+
+
+**Find and check your observation data:** Retrieve occurrence records for your chosen vector across Europe, limited to 10,000 records. Remember:
+
+1. `ohvbd` identifies your vector.
+2. `geodata` downloads only your vector's records.
+3. `ohvbd` lists which GBIF datasets your records came from.
+
+
+Check the records you retrieve, including their resolution, sources, and any location errors.
+
+
+**Find and check your environmental data:** Retrieve current climate data for Europe. Check that its spatial resolution matches the scale of your occurrence data, and consider how accurate it is.
+
+
+::: {.rmdtip}
+**Tip:**
+
+Work in the same R project folder you used for the Species Distribution Modelling workshop to access your climate data from earlier.
+:::
+
+
+**Wrangle and form a hypothesis:** Select the longitude and latitude of your records, and check for missing values. Before you build your model, write one testable hypothesis about which climate conditions shape where your vector is found, based on what you know about its biology.
+
+
+**Build your model:** Fit a distribution model for your vector:
+
+- Check whether your climate variables are correlated. 
+- What pseudo-absence strategy are you using, and do you agree with it? 
+- Are the geographic and environmental extents of your model wide enough?
+
+
+**Evaluate your model:** Plot the response curves and the predicted current distribution:
+- Where in space is your model under- or over-predicting occurrences?
+- Can you plot a ROC curve for your model?
+
+
+**Interpret and communicate:** Explain what your model says about your hypothesis, and identify at least one source of uncertainty. Distinguish an observed pattern from a causal conclusion, and tailor the explanation to your chosen academic, policy or public audience. Include the dataset and software citations. 
+
+
+**If time allows:** Project your model under a future climate scenario, and map where your vector's range is predicted to be gained or lost.
+
+
+## Route B: Thermal Performance Curves {#tpc-challenge}
+
+Your aim is to investigate a trait's temperature response with a dataset of your choice from: 
+
 
 | Dataset to find through the Hub | What you will analyse | Question to explore |
 |---|---|---|
 | *Aedes aegypti* development rate — Yang et al. (2009), DOI `10.1017/S0950268809002040` | Juvenile development rate, excluding the egg stage, in days⁻¹ | Does development rate show a peak across the measured temperatures? |
 | *Anopheles gambiae* juvenile survival — Bayoh and Lindsay (2003), DOI `10.1079/BER2003259` | Survival of aquatic juveniles, in percent | At which temperatures is survival highest, and how well does a symmetric curve describe the response? |
 
+
 **Find and check your data.** Search by species and identify the chosen trait and
 study. Retrieve it using `ohvbd`; dataset names are supplied here so that you can
 work out the retrieval yourself. Inspect the metadata, explain what each row
 represents and retain the source and curation citations.
+
 
 **Wrangle, visualise and form a hypothesis.** Select the assay temperature and
 trait value, check units and missing values, and retain genuine zeros. Keep one
 consistent experimental group. Plot the data and write one testable hypothesis
 about the temperature response before fitting.
 
+
 **Analyse.** Adapt the workshop's `rTPC` workflow to fit a Gaussian curve. Use
 starting values and limits appropriate to your data, check convergence, and
 plot predictions within the observed range. Inspect the residuals and consider
 whether the symmetric shape is appropriate.
+
 
 ::: {.rmdtip}
 **Survival option:** the generic column name `rate` will contain a percentage in
@@ -4126,6 +4226,7 @@ percentages does not model the underlying numbers surviving and exposed. Discuss
 that limitation; we do not have those counts in the teaching table.
 :::
 
+
 **Interpret and communicate.** Explain what your analysis says about your
 hypothesis. Prepare a clearly labelled data-and-fit plot, give the fitted peak
 with units, and identify at least one source of uncertainty. Distinguish an
@@ -4133,10 +4234,11 @@ observed pattern from a causal conclusion, and tailor the explanation to your
 chosen academic, policy or public audience. Include the dataset and software
 citations.
 
-If time allows, investigate how the fitted peak changes when you omit the
+
+**If time allows:** investigate how the fitted peak changes when you omit the
 hottest observations. Explain both the lost information and any change in the
-parameter limits. Ask a demonstrator for the saved dataset if retrieval fails;
-you can continue the analysis while the connection is resolved.
+parameter limits.
+
 
 
 
