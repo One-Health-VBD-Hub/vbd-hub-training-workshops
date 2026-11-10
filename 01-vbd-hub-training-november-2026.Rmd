@@ -1508,7 +1508,7 @@ Sometimes, a single column is not enough to uniquely identify matches.  For inst
 
 
 ``` {r, eval=FALSE}
-merged_data <- left_join(dataset_a, dataset_b, by = c("species", "location")
+merged_data <- left_join(dataset_a, dataset_b, by = c("species", "location"))
 ```
 
 
@@ -2104,8 +2104,8 @@ As our data involves multiple samples at the same site, we next want to summaris
 
 
 ``` {r}
-abundance_per_location <- mosquito_data %>%
-  group_by(sample_location) %>%
+abundance_per_location <- mosquito_data |>
+  group_by(sample_location) |>
   summarise(
     mean_abundance = mean(sample_value, na.rm = TRUE),
     se_abundance = sd(sample_value, na.rm = TRUE) / sqrt(sum(!is.na(sample_value)))
@@ -2253,12 +2253,12 @@ Later in this session, we will consider abundance over multiple locations, but f
 
 
 ``` {r}
-mosquito_data_goro <- mosquito_data %>%
+mosquito_data_goro <- mosquito_data |>
 filter(sample_location == "Goro")
 ```
 
 
-The pipe operator `%>%` passes the dataset from one step to the next, making the code easier to read as a sequence of actions.
+The pipe operator `|>` passes the dataset from one step to the next, making the code easier to read as a sequence of actions.
 
 
 To convert our date column from characters to date objects, we can use the `as.Date()` function:
@@ -2331,8 +2331,8 @@ To create a more effective time-series visualisation, we need to **summarise** t
 
 
 ``` {r}
-daily_abundance_goro <- mosquito_data_goro %>%
-group_by(sample_start_date) %>%
+daily_abundance_goro <- mosquito_data_goro |>
+group_by(sample_start_date) |>
 summarise(total_abundance = sum(sample_value, na.rm = TRUE))
 ```
 
@@ -2388,8 +2388,8 @@ Before, we grouped the data by the date alone, but this time, we want to group t
 
 
 ``` {r}
-daily_abundance_all_locations <- mosquito_data %>%
-group_by(sample_location, sample_start_date) %>%
+daily_abundance_all_locations <- mosquito_data |>
+group_by(sample_location, sample_start_date) |>
 summarise(total_abundance = sum(sample_value, na.rm = TRUE),
 .groups = "keep")
 ```
@@ -2769,8 +2769,8 @@ group1_data <- read.csv("group1&2_data.csv")
 
 group1_data$sample_start_date <- as.Date(group1_data$sample_start_date)
 
-daily_abundance_all <- group1_data %>%
-  group_by(sample_location, sample_start_date) %>%
+daily_abundance_all <- group1_data |>
+  group_by(sample_location, sample_start_date) |>
   summarise(total_abundance = sum(sample_value, na.rm = TRUE),
             .groups = "keep")
 
@@ -2802,7 +2802,7 @@ library("lubridate")
 
 group2_data <- read.csv("group1&2_data.csv")
 
-group2_data_cadeo <- group2_data %>%
+group2_data_cadeo <- group2_data |>
   filter(sample_location == "Cadeo")
 
 group2_data_cadeo$sample_start_date <- as.Date(group2_data_cadeo$sample_start_date)
@@ -2837,8 +2837,8 @@ group3_data <- read.csv("group3&4_data.csv")
 
 group3_data$sample_start_date <- as.Date(group3_data$sample_start_date)
 
-daily_abundance <- group3_data %>%
-  group_by(sample_location, sample_start_date) %>%
+daily_abundance <- group3_data |>
+  group_by(sample_location, sample_start_date) |>
   summarise(total_abundance = sum(sample_value, na.rm = TRUE),
             .groups = "keep")
 
@@ -2867,8 +2867,8 @@ group4_data <- read.csv("group3&4_data.csv")
 
 group4_data$sample_start_date <- as.Date(group4_data$sample_start_date)
 
-daily_abundance_all <- group4_data %>%
-  group_by(sample_start_date) %>%
+daily_abundance_all <- group4_data |>
+  group_by(sample_start_date) |>
   summarise(total_abundance = sum(sample_value, na.rm = TRUE))
 
 group4_plot <- ggplot(daily_abundance_all,
