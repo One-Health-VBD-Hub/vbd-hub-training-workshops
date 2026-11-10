@@ -1001,6 +1001,12 @@ unique(df$Interactor1Genus)
 ```
 
 
+``` {r, eval=FALSE}
+> unique(df$Interactor1Genus)
+[1] "Bemisia"      "Axinoscymnus"
+```
+
+
 Alongside *Bemisia*, another genus appears: *Axinoscymnus*, which is a ladybird. This can seem confusing, we searched for whiteflies, not ladybirds. 
 
 
@@ -1048,6 +1054,12 @@ unique(df_smart$Interactor1Genus)
 
 
 Here we have also used `cols` in `glean()` to keep only the columns we need, and `returnunique = TRUE` to remove any duplicate rows.
+
+
+``` {r, eval=FALSE}
+> unique(df_smart$Interactor1Genus)
+[1] "Bemisia"
+```
 
 
 We can see that only *Bemisia* appears in the primary species column. This mitigates the unintended results, such as *Axinoscymnus*, that appeared in our earlier search.
@@ -2742,7 +2754,7 @@ If your group finishes early, swap datasets with another group and see whether y
 
 **Graph 1**
 
-Dataset: `group1&2_data.csv`
+Dataset: [group1&2_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/group1_and_2_data.csv)
 
 
 Flawed code:
@@ -2777,7 +2789,7 @@ group1_plot
 
 **Graph 2**
 
-Dataset: `group1&2_data.csv`
+Dataset: [group1&2_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/group3_and_4_data.csv)
 
 
 Flawed code:
