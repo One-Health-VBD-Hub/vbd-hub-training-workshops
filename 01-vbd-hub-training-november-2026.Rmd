@@ -1862,7 +1862,7 @@ The aim of this activity is not to produce perfect code, but to **apply what you
 There are 4 sets of flawed code you can work through. We recommend each group tries at least 2 sets of code. 
 
 
-```{r include=FALSE}
+```{r}
 # Dataset A
 data_a <- data.frame(
   species = c("aedes aegypti", "culex pipiens", "anopheles gambiae"),
