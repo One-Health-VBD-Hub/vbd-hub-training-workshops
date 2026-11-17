@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 9 Thermal Performance Curves | One Health VBD Hub Training 2026</title>
 <meta name="author" content="Chloë Coxshall">
@@ -221,7 +220,7 @@ Brazil, with temperature in Celsius and fecundity in eggs per individual per day
 We use the Hub’s single-study Yang dataset. The MQB CSV also includes Beserra
 records, and its Yang values differ slightly from the VecTraits digitisation;
 we are not pooling those sources here.</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/padpadpadpad/rTPC">rTPC</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">nls.multstart</span><span class="op">)</span></span></code></pre></div>
@@ -232,7 +231,7 @@ we are not pooling those sources here.</p>
 <p>You already know how to find data through the Hub. Here the dataset ID is known,
 so we can retrieve just this dataset. Inspect its fields before selecting the
 assay temperature and trait value:</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fecundity_raw</span> <span class="op">&lt;-</span> <span class="fu">ohvbd</span><span class="fu">::</span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/fetch_vt.html">fetch_vt</a></span><span class="op">(</span><span class="fl">474</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ohvbd</span><span class="fu">::</span><span class="fu"><a href="https://ohvbd.vbdhub.org/reference/glean.html">glean</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Inspect the fields before selecting the assay temperature and response.</span></span>
@@ -242,7 +241,7 @@ assay temperature and trait value:</p>
 <p>Check that these are fecundity rates for adult females in the same experimental
 context. Then give the columns convenient names for plotting and fitting.
 This is the same sort of column selection and renaming you practised on Wednesday:</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tpc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  record_id <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">Id</span>,</span>
 <span>  dataset_id <span class="op">=</span> <span class="va">fecundity_raw</span><span class="op">$</span><span class="va">DatasetID</span>,</span>
@@ -264,14 +263,14 @@ This is the same sort of column selection and renaming you practised on Wednesda
 and save it as <code>data/tpc/aedes_fecundity_474.csv</code> inside your RStudio project.
 Then run the following line <strong>instead of</strong> the retrieval and renaming steps.
 Both routes give you <code>tpc_data</code> with the same assay values and provenance.</p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tpc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/tpc/aedes_fecundity_474.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="check-and-plot-your-table" class="section level3" number="9.3.3">
 <h3>
 <span class="header-section-number">9.3.3</span> Check and plot your table<a class="anchor" aria-label="anchor" href="#check-and-plot-your-table"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html">head</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dataset_id"</span>, <span class="st">"temp"</span>, <span class="st">"rate"</span>, <span class="st">"unit"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">rate</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -279,7 +278,7 @@ Both routes give you <code>tpc_data</code> with the same assay values and proven
 not 12 individual mosquitoes. Keep the genuine zero fecundity values: they are
 biologically informative. We have retained the original units, record IDs and
 citations in the saved files.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fecundity_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">tpc_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">temp</span>, <span class="va">rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Assay temperature (°C)"</span>,</span>
@@ -346,7 +345,7 @@ P(T) = R_{\max}\exp\left[-\frac{1}{2}
 \]</span></p>
 <p>The width parameter <span class="math inline">\(w\)</span> corresponds to <code>a</code> in the R function.</p>
 </details><p>First, ask <code>rTPC</code> for starting values and limits:</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tpc_start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://padpadpadpad.github.io/rTPC/reference/get_start_vals.html">get_start_vals</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span>, <span class="va">tpc_data</span><span class="op">$</span><span class="va">rate</span>,</span>
 <span>                            model_name <span class="op">=</span> <span class="st">"gaussian_1987"</span><span class="op">)</span></span>
 <span><span class="va">tpc_lower</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://padpadpadpad.github.io/rTPC/reference/get_lower_lims.html">get_lower_lims</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span>, <span class="va">tpc_data</span><span class="op">$</span><span class="va">rate</span>,</span>
@@ -357,7 +356,7 @@ P(T) = R_{\max}\exp\left[-\frac{1}{2}
 <span><span class="va">tpc_start</span></span></code></pre></div>
 <p>Use these supplied starting values and limits for your first fit. We will
 interpret the resulting curve before exploring the search settings in detail.</p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
 <span><span class="va">tpc_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nls.multstart/man/nls_multstart.html">nls_multstart</a></span><span class="op">(</span></span>
 <span>  <span class="va">rate</span> <span class="op">~</span> <span class="fu"><a href="https://padpadpadpad.github.io/rTPC/reference/gaussian_1987.html">gaussian_1987</a></span><span class="op">(</span><span class="va">temp</span>, <span class="va">rmax</span>, <span class="va">topt</span>, <span class="va">a</span><span class="op">)</span>,</span>
@@ -387,7 +386,7 @@ error messages. A successful search still needs a biologically sensible result.<
 <h2>
 <span class="header-section-number">9.5</span> Interpret and Check the Fit<a class="anchor" aria-label="anchor" href="#interpret-and-check-the-fit"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/math-generics.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">tpc_fit</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">tpc_fit</span><span class="op">$</span><span class="va">convInfo</span><span class="op">$</span><span class="va">isConv</span></span></code></pre></div>
 <p>You should obtain approximately <strong>9 eggs per female per day</strong> at a fitted peak
@@ -397,7 +396,7 @@ the numerical search stopped successfully; it does not establish that the model
 is appropriate or its parameters precisely known.</p>
 <p>Generate predictions <strong>within the observed temperature range</strong> and compare them
 with the measurements:</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tpc_predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  temp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -425,7 +424,7 @@ growth or disease transmission.</p>
 </h3>
 <p>Now inspect the residuals. Are they scattered around zero, or is there a pattern
 suggesting that the curve misses part of the response?</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tpc_residuals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>temp <span class="op">=</span> <span class="va">tpc_data</span><span class="op">$</span><span class="va">temp</span>,</span>
 <span>                            residual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">tpc_fit</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">tpc_residuals</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">temp</span>, <span class="va">residual</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -520,7 +519,7 @@ obtain software citations.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-11-07.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-11-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

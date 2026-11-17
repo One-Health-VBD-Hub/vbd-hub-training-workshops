@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 8 Species Distribution Modelling | One Health VBD Hub Training 2026</title>
 <meta name="author" content="Chloë Coxshall">
@@ -137,7 +136,7 @@
 </h3>
 <p>Below is some code that loads data on the pipistrelle bat from GBIF into R. Run it and make sure you’re comfortable with it.</p>
 <p>We’ll be using the <a href="https://ohvbd.vbdhub.org"><code>ohvbd</code></a> package to help us out. It’s an R interface to the <a href="https://vbdhub.org">One Health VBD Hub</a>, which indexes vector-borne disease data from GBIF, <a href="https://www.vectorbyte.org/">VectorByte</a> (VecTraits and VecDyn), and <a href="https://pearselab.github.io/areadata/">AREAData</a>. Here we use it to pin down exactly which species we’re asking GBIF about, and to find out which datasets our records come from.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load packages</span></span>
 <span><span class="co"># (load ohvbd before terra; terra has its own 'extract' function)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://biomodhub.github.io/biomod2/">biomod2</a></span><span class="op">)</span></span>
@@ -173,7 +172,7 @@
 <span><span class="va">long_lats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">europe_occurrences</span><span class="op">$</span><span class="va">lon</span>, <span class="va">europe_occurrences</span><span class="op">$</span><span class="va">lat</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html">names</a></span><span class="op">(</span><span class="va">long_lats</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"long"</span>,<span class="st">"lat"</span><span class="op">)</span></span></code></pre></div>
 <p>GBIF is a collection of thousands of separate datasets, and every record we’ve downloaded belongs to one of them (the <code>datasetKey</code> column). We can use <code>ohvbd</code> to search the VBD Hub for all the GBIF datasets that contain our species in our study area, and then see which of them our records actually came from.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Search the VBD Hub for GBIF datasets containing our species in Europe</span></span>
 <span><span class="co"># (this can take ~30 seconds - there are thousands of them!)</span></span>
 <span><span class="va">europe_datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohvbd.vbdhub.org/reference/search_hub.html">search_hub</a></span><span class="op">(</span><span class="va">full_name</span>, db <span class="op">=</span> <span class="st">"gbif"</span>,</span>
@@ -222,7 +221,7 @@
 <span class="header-section-number">8.4.2</span> Putting it into practice<a class="anchor" aria-label="anchor" href="#putting-it-into-practice"><i class="fas fa-link"></i></a>
 </h3>
 <p>Below is some code that loads some environmental data for use with the pipistrelle data. Run it and make sure you’re comfortable with it.</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get present-day BIOCLIM data (see https://www.worldclim.org/data/bioclim.html)</span></span>
 <span><span class="va">europe_bioclim</span> <span class="op">&lt;-</span> <span class="fu">worldclim_global</span><span class="op">(</span>res <span class="op">=</span> <span class="st">"10"</span>, var <span class="op">=</span> <span class="st">"bio"</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
 <span><span class="va">europe_bioclim</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">europe_bioclim</span>, <span class="va">europe_extent</span><span class="op">)</span></span>
@@ -239,7 +238,7 @@
 <li>Check the above with a demonstrator (if you haven’t already!)</li>
 </ol>
 <p>BIOCLIM gives you long-term averages, but bats (and vectors) experience the weather on the day they were seen. AREAData provides daily climate data (2020 onwards) averaged across countries, provinces, and districts. The code below attaches the daily temperature for the first week of January 2025 to each of our observations, using the country each one falls in:</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Download daily temperatures, averaged per country (gid = 0);</span></span>
 <span><span class="co"># gid = 1 gives provinces/states and gid = 2 gives districts/counties</span></span>
 <span><span class="co"># (warning: those are much bigger downloads!)</span></span>
@@ -295,7 +294,7 @@ appropriate for your species,</li>
 <span class="header-section-number">8.5.4</span> Putting it into practice<a class="anchor" aria-label="anchor" href="#putting-it-into-practice-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Below is some code that fits a model to your bat data. Run it and make sure you’re comfortable with it.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Pull out a subset of training data</span></span>
 <span><span class="va">train_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>full_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html">nrow</a></span><span class="op">(</span><span class="va">long_lats</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -356,7 +355,7 @@ appropriate for your species,</li>
 <p>Source: <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">Wikipedia: Receiver operating characteristic</a>. Image licence: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Roc_curve.svg">Wikimedia Commons</a>.</p>
 <p>The problem, however, is that these curves worked very well in World War II at identifying planes, but for species distribution models the data are auto-correlated and so you can’t just assume that a ROC-type approach will work. That the model tends to do very well in data that may not be perfectly independent is not really of interest (see above), and so we need to use an approach that is robust to those issues. For more on this, read about the criminally under-valued ‘temporal validation plots’ developed by a friend of mine (no conflict there!): <a href="docs/Rapacciuolo-2014.pdf">Rapacciuolo <em>et al</em>. (2014) Methods in Ecology &amp; Evolution 5(5): 407</a>.</p>
 <p><strong>This matters for vector distribution models because any single estimator of whether a model is doing a good job will have similar problems</strong>. Gödel’s incompleteness theorem means that you can never fully understand a system: every statistical test has, itself, a set of assumptions that you need to test. So if you want to see whether your model is doing a good job, tests are good, but at the end of the day you have to check for yourself. So my advice? Plot out your model. See where in geographic and environmental space the model is doing well and make mistakes. Look for patterns: are there particular regions, or periods of time, that tend to do well? And then see if you can find a way to improve your model accordingly.</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Evaluating and plotting models</span></span>
 <span></span>
 <span><span class="va">all_data_models</span> <span class="op">&lt;-</span> <span class="fu">get_built_models</span><span class="op">(</span><span class="va">pipistrellus_model</span>, PA <span class="op">=</span> <span class="st">"allData"</span><span class="op">)</span></span>
@@ -452,7 +451,7 @@ appropriate for your species,</li>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-11-07.</p>
+    <p>"<strong>One Health VBD Hub Training 2026</strong>" was written by Chloë Coxshall. It was last built on 2026-11-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

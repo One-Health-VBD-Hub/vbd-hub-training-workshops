@@ -1006,6 +1006,13 @@ unique(df$Interactor1Genus)
 ```
 
 
+
+``` r
+> unique(df$Interactor1Genus)
+[1] "Bemisia"      "Axinoscymnus"
+```
+
+
 Alongside *Bemisia*, another genus appears: *Axinoscymnus*, which is a ladybird. This can seem confusing, we searched for whiteflies, not ladybirds. 
 
 
@@ -1054,6 +1061,13 @@ unique(df_smart$Interactor1Genus)
 
 
 Here we have also used `cols` in `glean()` to keep only the columns we need, and `returnunique = TRUE` to remove any duplicate rows.
+
+
+
+``` r
+> unique(df_smart$Interactor1Genus)
+[1] "Bemisia"
+```
 
 
 We can see that only *Bemisia* appears in the primary species column. This mitigates the unintended results, such as *Axinoscymnus*, that appeared in our earlier search.
@@ -1504,7 +1518,7 @@ Sometimes, a single column is not enough to uniquely identify matches.  For inst
 
 
 ``` r
-merged_data <- left_join(dataset_a, dataset_b, by = c("species", "location")
+merged_data <- left_join(dataset_a, dataset_b, by = c("species", "location"))
 ```
 
 
@@ -1901,6 +1915,45 @@ There are 4 sets of flawed code you can work through. We recommend each group tr
 
 
 
+``` r
+# Dataset A
+data_a <- data.frame(
+  species = c("aedes aegypti", "culex pipiens", "anopheles gambiae"),
+  abundance = c(10, 25, 5)
+)
+
+# Dataset B
+data_b <- data.frame(
+  Species = c("aedes aegypti", "culex pipiens", "anopheles gambiae"),
+  trait = c("urban", "rural", "rural")
+)
+
+# Dataset C
+data_c <- data.frame(
+  species = c("Aedes aegypti", "aedes_aegypti", "Aedes aegypti spp."),
+  abundance = c(10, 12, 8)
+)
+
+# Dataset D
+data_d <- data.frame(
+  species = c("aedes aegypti", "culex pipiens"),
+  trait = c("urban", "rural")
+)
+
+# Dataset E
+data_e <- data.frame(
+  species = c("aedes aegypti", "aedes aegypti", "culex pipiens"),
+  location = c("site1", "site2", "site1"),
+  abundance = c(10, 15, 20)
+)
+
+# Dataset F
+data_f <- data.frame(
+  species = c("aedes aegypti", "culex pipiens"),
+  location = c("site1", "site1"),
+  temperature = c(25, 22)
+)
+```
 
 
 **Code 1**
@@ -2136,8 +2189,8 @@ As our data involves multiple samples at the same site, we next want to summaris
 
 
 ``` r
-abundance_per_location <- mosquito_data %>%
-  group_by(sample_location) %>%
+abundance_per_location <- mosquito_data |>
+  group_by(sample_location) |>
   summarise(
     mean_abundance = mean(sample_value, na.rm = TRUE),
     se_abundance = sd(sample_value, na.rm = TRUE) / sqrt(sum(!is.na(sample_value)))
@@ -2231,7 +2284,7 @@ y = "Mean Abundance"
 abundance_plot_across_locations
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-48-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-50-1.png" alt="" width="672" />
 
 
 We can now use this visualisation to compare abundance patterns across sampling sites:
@@ -2293,12 +2346,12 @@ Later in this session, we will consider abundance over multiple locations, but f
 
 
 ``` r
-mosquito_data_goro <- mosquito_data %>%
+mosquito_data_goro <- mosquito_data |>
 filter(sample_location == "Goro")
 ```
 
 
-The pipe operator `%>%` passes the dataset from one step to the next, making the code easier to read as a sequence of actions.
+The pipe operator `|>` passes the dataset from one step to the next, making the code easier to read as a sequence of actions.
 
 
 To convert our date column from characters to date objects, we can use the `as.Date()` function:
@@ -2367,7 +2420,7 @@ time_series_plot_goro <- ggplot(mosquito_data_goro, aes(x = sample_start_date, y
 time_series_plot_goro
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-54-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-56-1.png" alt="" width="672" />
 
 
 Oh dear, this graphic looks rather messy! Although we have used the correct code and ensured our date column is in the correct format, our visualisation is still difficult to read and interpret. This is because real-world VBD data often includes multiple samples collected on the same date. 
@@ -2378,8 +2431,8 @@ To create a more effective time-series visualisation, we need to **summarise** t
 
 
 ``` r
-daily_abundance_goro <- mosquito_data_goro %>%
-group_by(sample_start_date) %>%
+daily_abundance_goro <- mosquito_data_goro |>
+group_by(sample_start_date) |>
 summarise(total_abundance = sum(sample_value, na.rm = TRUE))
 ```
 
@@ -2403,7 +2456,7 @@ daily_abundance_plot_goro <- ggplot(daily_abundance_goro, aes(x = sample_start_d
 daily_abundance_plot_goro
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-56-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-58-1.png" alt="" width="672" />
 
 
 This is much better! Our visualisation effectively shows the trend of mosquito abundance over time at our selected location.
@@ -2439,8 +2492,8 @@ Before, we grouped the data by the date alone, but this time, we want to group t
 
 
 ``` r
-daily_abundance_all_locations <- mosquito_data %>%
-group_by(sample_location, sample_start_date) %>%
+daily_abundance_all_locations <- mosquito_data |>
+group_by(sample_location, sample_start_date) |>
 summarise(total_abundance = sum(sample_value, na.rm = TRUE),
 .groups = "keep")
 ```
@@ -2475,7 +2528,7 @@ y = "Abundance"
 daily_abundance_plot_all
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-58-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-60-1.png" alt="" width="672" />
 
 
 This is the visualisation we wanted, but it looks a bit messy. All the lines are displayed in the same colour, which makes the plot difficult to read. We can see patterns of abundance change over time, but it is difficult to distinguish between different locations. 
@@ -2506,7 +2559,7 @@ colour = "Sampling Location"
 daily_abundance_plot_all
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-59-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-61-1.png" alt="" width="672" />
 
 
 ::: {.rmdtip}
@@ -2574,7 +2627,7 @@ daily_abundance_plot_faceted <- ggplot(
 daily_abundance_plot_faceted
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-61-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-63-1.png" alt="" width="672" />
 
 
 #### Adjusting y-axis Scales 
@@ -2611,7 +2664,7 @@ daily_abundance_plot_faceted_Y <- ggplot(
 daily_abundance_plot_faceted_Y
 ```
 
-<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-63-1.png" alt="" width="672" />
+<img src="01-vbd-hub-training-november-2026_files/figure-html/unnamed-chunk-65-1.png" alt="" width="672" />
 
 
 By separating each sampling location into its own panel, the patterns in the data become much clearer:
@@ -2819,7 +2872,7 @@ If your group finishes early, swap datasets with another group and see whether y
 
 **Graph 1**
 
-Dataset: `group1&2_data.csv`
+Dataset: [group1&2_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/group1_and_2_data.csv)
 
 
 Flawed code:
@@ -2835,8 +2888,8 @@ group1_data <- read.csv("group1&2_data.csv")
 
 group1_data$sample_start_date <- as.Date(group1_data$sample_start_date)
 
-daily_abundance_all <- group1_data %>%
-  group_by(sample_location, sample_start_date) %>%
+daily_abundance_all <- group1_data |>
+  group_by(sample_location, sample_start_date) |>
   summarise(total_abundance = sum(sample_value, na.rm = TRUE),
             .groups = "keep")
 
@@ -2855,7 +2908,7 @@ group1_plot
 
 **Graph 2**
 
-Dataset: `group1&2_data.csv`
+Dataset: [group1&2_data.csv](https://github.com/One-Health-VBD-Hub/vbd-hub-training-workshops/blob/main/data/group3_and_4_data.csv)
 
 
 Flawed code:
@@ -2869,7 +2922,7 @@ library("lubridate")
 
 group2_data <- read.csv("group1&2_data.csv")
 
-group2_data_cadeo <- group2_data %>%
+group2_data_cadeo <- group2_data |>
   filter(sample_location == "Cadeo")
 
 group2_data_cadeo$sample_start_date <- as.Date(group2_data_cadeo$sample_start_date)
@@ -2905,8 +2958,8 @@ group3_data <- read.csv("group3&4_data.csv")
 
 group3_data$sample_start_date <- as.Date(group3_data$sample_start_date)
 
-daily_abundance <- group3_data %>%
-  group_by(sample_location, sample_start_date) %>%
+daily_abundance <- group3_data |>
+  group_by(sample_location, sample_start_date) |>
   summarise(total_abundance = sum(sample_value, na.rm = TRUE),
             .groups = "keep")
 
@@ -2936,8 +2989,8 @@ group4_data <- read.csv("group3&4_data.csv")
 
 group4_data$sample_start_date <- as.Date(group4_data$sample_start_date)
 
-daily_abundance_all <- group4_data %>%
-  group_by(sample_start_date) %>%
+daily_abundance_all <- group4_data |>
+  group_by(sample_start_date) |>
   summarise(total_abundance = sum(sample_value, na.rm = TRUE))
 
 group4_plot <- ggplot(daily_abundance_all,
